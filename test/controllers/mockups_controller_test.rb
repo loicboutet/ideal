@@ -37,6 +37,6 @@ class MockupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "root should route to mockups index" do
-    assert_routing '/', controller: 'mockups', action: 'index'
+    assert_routing "/", controller: "mockups", action: "index"
   end
 end
