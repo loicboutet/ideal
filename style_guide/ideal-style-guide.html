@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide de Style - IDEAL Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Couleurs principales */
+            --ideal-primary: #4A90E2;
+            --ideal-secondary: #D4D4D4;
+            --ideal-accent: #FFD700;
+            --ideal-success: #7FBF5F;
+            --ideal-danger: #E74C3C;
+            --ideal-warning: #F39C12;
+            
+            /* Couleurs de texte */
+            --ideal-text-dark: #2C3E50;
+            --ideal-text-medium: #7F8C8D;
+            --ideal-text-light: #BDC3C7;
+            
+            /* Couleurs de fond */
+            --ideal-bg-light: #F8F9FA;
+            --ideal-bg-white: #FFFFFF;
+            --ideal-bg-overlay: rgba(0, 0, 0, 0.5);
+            
+            /* Bordures */
+            --ideal-border-light: #E0E0E0;
+            --ideal-border-medium: #CCCCCC;
+            
+            /* Ombres */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+            
+            /* Espacements */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-full: 9999px;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--ideal-text-dark);
+            background-color: var(--ideal-bg-light);
+        }
+        
+        /* Typographie */
+        .heading-1 { font-size: 32px; font-weight: 700; line-height: 1.2; }
+        .heading-2 { font-size: 24px; font-weight: 700; line-height: 1.3; }
+        .heading-3 { font-size: 20px; font-weight: 600; line-height: 1.4; }
+        .heading-4 { font-size: 18px; font-weight: 600; line-height: 1.4; }
+        .body-large { font-size: 16px; font-weight: 400; line-height: 1.5; }
+        .body-regular { font-size: 14px; font-weight: 400; line-height: 1.5; }
+        .body-small { font-size: 12px; font-weight: 400; line-height: 1.5; }
+        .label { font-size: 14px; font-weight: 500; line-height: 1.4; }
+        
+        /* Composants */
+        .card {
+            background: var(--ideal-bg-white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            padding: var(--spacing-lg);
+        }
+        
+        .btn {
+            padding: 10px 24px;
+            border-radius: var(--radius-full);
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--ideal-primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3A7BC8;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-secondary {
+            background-color: var(--ideal-secondary);
+            color: var(--ideal-text-dark);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--ideal-primary);
+            color: var(--ideal-primary);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-ideal {
+            background-color: var(--ideal-accent);
+            color: var(--ideal-text-dark);
+        }
+        
+        .badge-reserved {
+            background-color: #FFE5E5;
+            color: var(--ideal-danger);
+        }
+        
+        .search-bar {
+            border: 2px solid var(--ideal-border-medium);
+            border-radius: var(--radius-full);
+            padding: 12px 24px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            border-radius: var(--radius-full);
+            background-color: var(--ideal-secondary);
+            color: var(--ideal-text-dark);
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        .tab-button.active {
+            background-color: var(--ideal-text-dark);
+            color: white;
+        }
+        
+        .rating-stars {
+            color: var(--ideal-warning);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: var(--ideal-secondary);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--ideal-success);
+            transition: width 0.3s ease;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .sidebar-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-item.active {
+            background-color: rgba(74, 144, 226, 0.1);
+            color: var(--ideal-primary);
+        }
+        
+        .deal-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            padding: var(--spacing-md);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .deal-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .modal-overlay {
+            background-color: var(--ideal-bg-overlay);
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .favorite-icon {
+            color: var(--ideal-danger);
+        }
+        
+        .completion-badge {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* Grille de mise en page */
+        .container-main {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            min-height: 100vh;
+        }
+        
+        @media (min-width: 1024px) {
+            .container-main {
+                grid-template-columns: 240px 1fr;
+            }
+        }
+        
+        /* Placeholder image styles */
+        .placeholder-img {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .company-logo {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-md);
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="p-8">
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-12">
+            <h1 class="heading-1 mb-4">Guide de Style IDEAL</h1>
+            <p class="body-large text-gray-600">Système de design complet pour la plateforme IDEAL</p>
+        </header>
+
+        <!-- Couleurs -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Palette de Couleurs</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                    <div style="background-color: var(--ideal-primary); height: 80px;" class="rounded-lg mb-2"></div>
+                    <p class="body-small font-semibold">Primary</p>
+                    <p class="body-small text-gray-500">#4A90E2</p>
+                </div>
+                <div>
+                    <div style="background-color: var(--ideal-secondary); height: 80px;" class="rounded-lg mb-2"></div>
+                    <p class="body-small font-semibold">Secondary</p>
+                    <p class="body-small text-gray-500">#D4D4D4</p>
+                </div>
+                <div>
+                    <div style="background-color: var(--ideal-accent); height: 80px;" class="rounded-lg mb-2"></div>
+                    <p class="body-small font-semibold">Accent (Badge)</p>
+                    <p class="body-small text-gray-500">#FFD700</p>
+                </div>
+                <div>
+                    <div style="background-color: var(--ideal-success); height: 80px;" class="rounded-lg mb-2"></div>
+                    <p class="body-small font-semibold">Success</p>
+                    <p class="body-small text-gray-500">#7FBF5F</p>
+                </div>
+                <div>
+                    <div style="background-color: var(--ideal-danger); height: 80px;" class="rounded-lg mb-2"></div>
+                    <p class="body-small font-semibold">Danger</p>
+                    <p class="body-small text-gray-500">#E74C3C</p>
+                </div>
+                <div>
+                    <div style="background-color: var(--ideal-text-dark); height: 80px;" class="rounded-lg mb-2"></div>
+                    <p class="body-small font-semibold">Text Dark</p>
+                    <p class="body-small text-gray-500">#2C3E50</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typographie -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Typographie</h2>
+            <div class="mb-4">
+                <p class="body-small text-gray-600 mb-2">Font Family: Inter (Google Fonts)</p>
+                <p class="body-small text-gray-600">Fallback: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <p class="heading-1">Heading 1 - 32px Bold</p>
+                    <p class="body-small text-gray-500">Titres principaux</p>
+                </div>
+                <div>
+                    <p class="heading-2">Heading 2 - 24px Bold</p>
+                    <p class="body-small text-gray-500">Sous-titres de section</p>
+                </div>
+                <div>
+                    <p class="heading-3">Heading 3 - 20px Semibold</p>
+                    <p class="body-small text-gray-500">Titres de cartes</p>
+                </div>
+                <div>
+                    <p class="body-large">Body Large - 16px Regular</p>
+                    <p class="body-small text-gray-500">Descriptions importantes</p>
+                </div>
+                <div>
+                    <p class="body-regular">Body Regular - 14px Regular</p>
+                    <p class="body-small text-gray-500">Texte standard</p>
+                </div>
+                <div>
+                    <p class="body-small">Body Small - 12px Regular</p>
+                    <p class="body-small text-gray-500">Métadonnées, labels</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Boutons -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Boutons</h2>
+            <div class="flex flex-wrap gap-4">
+                <button class="btn btn-primary">Connexion</button>
+                <button class="btn btn-secondary">En savoir plus</button>
+                <button class="btn btn-outline">voir l'annonce</button>
+                <button class="btn btn-primary" style="background-color: var(--ideal-danger); border-color: var(--ideal-danger);">Réserver cette fiche</button>
+            </div>
+            <div class="mt-6">
+                <p class="body-small text-gray-600"><strong>Caractéristiques :</strong></p>
+                <ul class="body-small text-gray-600 list-disc ml-6 mt-2">
+                    <li>Border-radius: 9999px (entièrement arrondi)</li>
+                    <li>Padding: 10px 24px</li>
+                    <li>Transition hover avec légère élévation</li>
+                    <li>Font-weight: 500</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Badges -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Badges & Labels</h2>
+            <div class="flex flex-wrap gap-3 mb-4">
+                <span class="badge badge-ideal">🏆 Deal sous mandat IDEAL</span>
+                <span class="badge badge-reserved">Réservé</span>
+                <span class="badge" style="background-color: rgba(74, 144, 226, 0.1); color: var(--ideal-primary);">A contacter</span>
+                <span class="badge" style="background-color: rgba(127, 191, 95, 0.1); color: var(--ideal-success);">complété à 90%</span>
+            </div>
+        </section>
+
+        <!-- Cartes -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Cartes de Deal</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Carte exemple 1 -->
+                <div class="deal-card">
+                    <div class="flex gap-4">
+                        <div class="company-logo placeholder-img flex-shrink-0">
+                            <span class="text-sm">LOGO</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="heading-4">société transport</h3>
+                                <button class="favorite-icon text-2xl">♥</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 mb-3 body-small">
+                                <div><strong>CA:</strong> 856000€</div>
+                                <div><strong>Effectif:</strong> 12 Salariés</div>
+                                <div><strong>Bénéfices:</strong> 145000€</div>
+                                <div><strong>Localité:</strong> 87</div>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="rating-stars">★★★★☆</span>
+                            </div>
+                            <div class="progress-bar mb-2">
+                                <div class="progress-fill" style="width: 70%"></div>
+                            </div>
+                            <p class="body-small text-gray-600">complété à <strong>70%</strong></p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="body-small text-gray-600 mb-2">Prix estimé HT</p>
+                        <p class="body-regular font-semibold mb-3">Entre 130 000 € et 150 000 €</p>
+                        <button class="btn btn-outline w-full">voir l'annonce</button>
+                    </div>
+                </div>
+
+                <!-- Carte exemple 2 avec badge -->
+                <div class="deal-card relative">
+                    <div class="absolute top-4 right-4">
+                        <span class="badge badge-ideal">🏆</span>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="company-logo placeholder-img flex-shrink-0">
+                            <span class="text-sm">LOGO</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="heading-4 mb-3">société BTP</h3>
+                            <div class="grid grid-cols-2 gap-2 mb-3 body-small">
+                                <div><strong>CA:</strong> 856000€</div>
+                                <div><strong>Effectif:</strong> 12 Salariés</div>
+                                <div><strong>Bénéfices:</strong> 145000€</div>
+                                <div><strong>Localité:</strong> 87</div>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="rating-stars">★★★★☆</span>
+                            </div>
+                            <div class="progress-bar mb-2">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <p class="body-small text-gray-600">complété à <strong>90%</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Onglets -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Onglets de Filtrage</h2>
+            <div class="flex flex-wrap gap-3">
+                <button class="tab-button active">A contacter</button>
+                <button class="tab-button">En relation</button>
+                <button class="tab-button">Etude en cours</button>
+                <button class="tab-button">Négociation</button>
+            </div>
+        </section>
+
+        <!-- Barre de recherche -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Barre de Recherche</h2>
+            <div class="flex gap-4 items-center">
+                <input type="text" class="search-bar" placeholder="Rechercher...">
+                <button class="p-3 rounded-full bg-gray-100 hover:bg-gray-200">🎤</button>
+            </div>
+        </section>
+
+        <!-- Icônes & Indicateurs -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Icônes & Indicateurs</h2>
+            <div class="space-y-4">
+                <div class="flex items-center gap-4">
+                    <span class="rating-stars text-2xl">★★★★☆</span>
+                    <p class="body-regular">Système d'étoiles (4 sur 5)</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="favorite-icon text-3xl">♥</button>
+                    <p class="body-regular">Icône favori (rouge #E74C3C)</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-32">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <p class="body-regular">Barre de progression (70%)</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-2xl">📄</span>
+                    <p class="body-regular">Indicateur PDF disponible</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Espacements -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Espacements</h2>
+            <div class="space-y-3 body-small">
+                <div class="flex items-center gap-4">
+                    <div style="width: 4px; height: 40px; background: var(--ideal-primary);"></div>
+                    <p><strong>XS:</strong> 4px - Espacements minimaux</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="width: 8px; height: 40px; background: var(--ideal-primary);"></div>
+                    <p><strong>SM:</strong> 8px - Entre éléments proches</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="width: 16px; height: 40px; background: var(--ideal-primary);"></div>
+                    <p><strong>MD:</strong> 16px - Standard entre composants</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="width: 24px; height: 40px; background: var(--ideal-primary);"></div>
+                    <p><strong>LG:</strong> 24px - Entre sections</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div style="width: 32px; height: 40px; background: var(--ideal-primary);"></div>
+                    <p><strong>XL:</strong> 32px - Grandes séparations</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Border Radius -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Border Radius</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div>
+                    <div class="h-20 bg-blue-200" style="border-radius: 4px;"></div>
+                    <p class="body-small mt-2"><strong>SM:</strong> 4px</p>
+                </div>
+                <div>
+                    <div class="h-20 bg-blue-200" style="border-radius: 8px;"></div>
+                    <p class="body-small mt-2"><strong>MD:</strong> 8px</p>
+                </div>
+                <div>
+                    <div class="h-20 bg-blue-200" style="border-radius: 12px;"></div>
+                    <p class="body-small mt-2"><strong>LG:</strong> 12px - Cartes</p>
+                </div>
+                <div>
+                    <div class="h-20 bg-blue-200" style="border-radius: 9999px;"></div>
+                    <p class="body-small mt-2"><strong>FULL:</strong> Boutons, badges</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ombres -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Ombres</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <div class="h-32 bg-white rounded-lg" style="box-shadow: var(--shadow-sm);"></div>
+                    <p class="body-small mt-2"><strong>SM:</strong> Subtle</p>
+                </div>
+                <div>
+                    <div class="h-32 bg-white rounded-lg" style="box-shadow: var(--shadow-card);"></div>
+                    <p class="body-small mt-2"><strong>Card:</strong> Cartes standard</p>
+                </div>
+                <div>
+                    <div class="h-32 bg-white rounded-lg" style="box-shadow: var(--shadow-lg);"></div>
+                    <p class="body-small mt-2"><strong>LG:</strong> Modal, hover</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Principes de Design -->
+        <section class="card mb-8">
+            <h2 class="heading-2 mb-6">Principes de Design Clés</h2>
+            <div class="space-y-4 body-regular">
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <h4 class="font-semibold mb-2">🎯 Hiérarchie Claire</h4>
+                    <p class="text-gray-700">Les deals sont organisés en cartes avec données structurées. Barre de progression et étoiles pour évaluation rapide.</p>
+                </div>
+                <div class="p-4 bg-green-50 rounded-lg">
+                    <h4 class="font-semibold mb-2">✨ Design Épuré</h4>
+                    <p class="text-gray-700">Beaucoup d'espace blanc, coins arrondis, ombres subtiles. Interface moderne et professionnelle.</p>
+                </div>
+                <div class="p-4 bg-purple-50 rounded-lg">
+                    <h4 class="font-semibold mb-2">🔄 Interactions Fluides</h4>
+                    <p class="text-gray-700">Hover states, transitions douces, drag & drop suggéré. Pop-ups modales pour détails.</p>
+                </div>
+                <div class="p-4 bg-yellow-50 rounded-lg">
+                    <h4 class="font-semibold mb-2">🏷️ Badges Informatifs</h4>
+                    <p class="text-gray-700">Badge doré pour deals IDEAL, badges de statut (réservé, complétude). Information visuelle immédiate.</p>
+                </div>
+                <div class="p-4 bg-red-50 rounded-lg">
+                    <h4 class="font-semibold mb-2">📊 Data-Driven</h4>
+                    <p class="text-gray-700">Métriques clés (CA, effectif, bénéfices) toujours visibles. Score de complétude et notes qualitatives.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notes importantes -->
+        <section class="card bg-yellow-50 border-2 border-yellow-300">
+            <h2 class="heading-2 mb-4">📝 Notes Importantes</h2>
+            <ul class="body-regular space-y-2 list-disc ml-6">
+                <li><strong>Images placeholder :</strong> Utilisez des logos/photos d'entreprise réelles. Les placeholders ici sont à remplacer.</li>
+                <li><strong>Font :</strong> Inter de Google Fonts (inclure: 400, 500, 600, 700)</li>
+                <li><strong>Icônes :</strong> Système simple avec emojis/unicode pour prototypage rapide</li>
+                <li><strong>Responsive :</strong> Sidebar se réduit sur mobile, cartes s'empilent en colonne unique</li>
+                <li><strong>Accessibilité :</strong> Contraste suffisant, états focus visibles, labels explicites</li>
+            </ul>
+        </section>
+
+    </div>
+</body>
+</html>
