@@ -34,6 +34,25 @@ Rails.application.routes.draw do
   get "mockups/admin/users/:id/edit", to: "mockups/admin/users#edit", as: :edit_mockups_admin_user
   get "mockups/admin/users/:id/suspend", to: "mockups/admin/users#suspend_confirm", as: :suspend_mockups_admin_user
 
+  # Mockups routes - Admin Listings
+  get "mockups/admin/listings", to: "mockups/admin/listings#index", as: :mockups_admin_listings
+  get "mockups/admin/listings/pending", to: "mockups/admin/listings#pending", as: :mockups_admin_listings_pending
+  get "mockups/admin/listings/:id", to: "mockups/admin/listings#show", as: :mockups_admin_listing
+  get "mockups/admin/listings/:id/validate", to: "mockups/admin/listings#validate_form", as: :validate_mockups_admin_listing
+  get "mockups/admin/listings/:id/reject", to: "mockups/admin/listings#reject_form", as: :reject_mockups_admin_listing
+
+  # Mockups routes - Admin Partners
+  get "mockups/admin/partners", to: "mockups/admin/partners#index", as: :mockups_admin_partners
+  get "mockups/admin/partners/pending", to: "mockups/admin/partners#pending", as: :mockups_admin_partners_pending
+  get "mockups/admin/partners/:id", to: "mockups/admin/partners#show", as: :mockups_admin_partner
+  get "mockups/admin/partners/:id/approve", to: "mockups/admin/partners#approve_form", as: :approve_mockups_admin_partner
+  get "mockups/admin/partners/:id/reject", to: "mockups/admin/partners#reject_form", as: :reject_mockups_admin_partner
+
+  # Mockups routes - Admin Deals
+  get "mockups/admin/deals", to: "mockups/admin/deals#index", as: :mockups_admin_deals
+  get "mockups/admin/deals/:id", to: "mockups/admin/deals#show", as: :mockups_admin_deal
+  get "mockups/admin/deals/:id/assign", to: "mockups/admin/deals#assign_form", as: :assign_mockups_admin_deal
+
   # Mockups routes - User Journey
   get "mockups/user_dashboard"
   get "mockups/user_profile"
