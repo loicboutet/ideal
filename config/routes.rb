@@ -23,15 +23,21 @@ Rails.application.routes.draw do
   get "mockups/listings/search", to: "mockups/listings#search", as: :mockups_listings_search
   get "mockups/listings/:id", to: "mockups/listings#show", as: :mockups_listing
 
+  # Mockups routes - Admin
+  get "mockups/admin", to: "mockups/admin#dashboard", as: :mockups_admin
+  get "mockups/admin/analytics", to: "mockups/admin#analytics", as: :mockups_admin_analytics
+  
+  # Mockups routes - Admin Users
+  get "mockups/admin/users", to: "mockups/admin/users#index", as: :mockups_admin_users
+  get "mockups/admin/users/new", to: "mockups/admin/users#new", as: :new_mockups_admin_user
+  get "mockups/admin/users/:id", to: "mockups/admin/users#show", as: :mockups_admin_user
+  get "mockups/admin/users/:id/edit", to: "mockups/admin/users#edit", as: :edit_mockups_admin_user
+  get "mockups/admin/users/:id/suspend", to: "mockups/admin/users#suspend_confirm", as: :suspend_mockups_admin_user
+
   # Mockups routes - User Journey
   get "mockups/user_dashboard"
   get "mockups/user_profile"
   get "mockups/user_settings"
-
-  # Mockups routes - Admin Journey
-  get "mockups/admin_dashboard"
-  get "mockups/admin_users"
-  get "mockups/admin_analytics"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
