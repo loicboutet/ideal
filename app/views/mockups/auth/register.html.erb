@@ -1,0 +1,212 @@
+<% content_for :title, "Créer un compte - Idéal Reprise" %>
+
+<!-- Registration Choice Page -->
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <%= link_to mockups_path do %>
+        <%= image_tag "IDAL.jpg", class: "mx-auto h-16 w-auto mb-6", alt: "Idéal Reprise" %>
+      <% end %>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Créer votre compte</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Choisissez votre profil pour commencer votre parcours sur Idéal Reprise
+      </p>
+    </div>
+
+    <!-- User Type Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-8">
+      <!-- Seller Card -->
+      <%= link_to mockups_register_seller_path, class: "group" do %>
+        <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 h-full border-2 border-transparent hover:border-blue-500 transform hover:-translate-y-1">
+          <!-- Icon -->
+          <div class="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors">
+            <svg class="w-8 h-8 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+
+          <!-- Content -->
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">Cédant</h2>
+          <p class="text-gray-600 mb-6 min-h-[60px]">
+            Vous souhaitez céder votre entreprise et trouver le repreneur idéal pour assurer sa continuité.
+          </p>
+
+          <!-- Features List -->
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Publiez votre annonce gratuitement</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Gérez les candidatures</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Accès à des repreneurs qualifiés</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Protection des données sensibles</span>
+            </li>
+          </ul>
+
+          <!-- CTA -->
+          <div class="flex items-center justify-between text-blue-600 group-hover:text-blue-700 font-semibold">
+            <span>Je crée mon compte cédant</span>
+            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Buyer Card -->
+      <%= link_to mockups_register_buyer_path, class: "group" do %>
+        <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 h-full border-2 border-transparent hover:border-green-500 transform hover:-translate-y-1">
+          <!-- Icon -->
+          <div class="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-600 transition-colors">
+            <svg class="w-8 h-8 text-green-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+
+          <!-- Content -->
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">Repreneur</h2>
+          <p class="text-gray-600 mb-6 min-h-[60px]">
+            Vous recherchez une entreprise à reprendre et souhaitez accéder à des opportunités exclusives.
+          </p>
+
+          <!-- Features List -->
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Accès aux annonces premium</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>CRM intégré pour gérer vos projets</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Alertes personnalisées</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Système de réservation exclusif</span>
+            </li>
+          </ul>
+
+          <!-- CTA -->
+          <div class="flex items-center justify-between text-green-600 group-hover:text-green-700 font-semibold">
+            <span>Je crée mon compte repreneur</span>
+            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Partner Card -->
+      <%= link_to mockups_register_partner_path, class: "group" do %>
+        <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 p-8 h-full border-2 border-transparent hover:border-purple-500 transform hover:-translate-y-1">
+          <!-- Icon -->
+          <div class="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-colors">
+            <svg class="w-8 h-8 text-purple-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+
+          <!-- Content -->
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">Partenaire</h2>
+          <p class="text-gray-600 mb-6 min-h-[60px]">
+            Vous êtes professionnel et souhaitez figurer dans notre annuaire pour accompagner les transactions.
+          </p>
+
+          <!-- Features List -->
+          <ul class="space-y-3 mb-6">
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Profil dans l'annuaire</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Visibilité auprès des utilisateurs</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Génération de leads qualifiés</span>
+            </li>
+            <li class="flex items-start gap-2 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Mise en avant de votre expertise</span>
+            </li>
+          </ul>
+
+          <!-- CTA -->
+          <div class="flex items-center justify-between text-purple-600 group-hover:text-purple-700 font-semibold">
+            <span>Je crée mon compte partenaire</span>
+            <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Already have account -->
+    <div class="text-center">
+      <p class="text-gray-600">
+        Vous avez déjà un compte ?
+        <%= link_to "Se connecter", mockups_login_path, class: "font-medium text-blue-600 hover:text-blue-700 transition" %>
+      </p>
+    </div>
+
+    <!-- Help Section -->
+    <div class="mt-12 bg-white rounded-2xl shadow-lg p-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-start gap-4">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-1">Besoin d'aide pour choisir ?</h3>
+            <p class="text-gray-600">Notre équipe est là pour vous guider dans votre choix de profil.</p>
+          </div>
+        </div>
+        <%= link_to mockups_contact_path, class: "flex-shrink-0 px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition" do %>
+          Nous contacter
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

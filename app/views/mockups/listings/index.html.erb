@@ -1,0 +1,430 @@
+<% content_for :title, "Parcourir les annonces - Idéal Reprise" %>
+
+<!-- Listings Index Page -->
+<div class="min-h-screen bg-gray-50">
+  <!-- Header Section -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">Parcourir les annonces</h1>
+          <p class="text-gray-600">Découvrez les entreprises disponibles à la reprise</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <%= link_to mockups_listings_search_path, class: "inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span>Recherche avancée</span>
+          <% end %>
+          <%= link_to mockups_register_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <span class="hidden sm:inline">Accès Premium</span>
+            <span class="sm:hidden">Premium</span>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-blue-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-blue-900">127</div>
+          <div class="text-sm text-blue-700">Annonces actives</div>
+        </div>
+        <div class="bg-green-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-green-900">45</div>
+          <div class="text-sm text-green-700">Nouvelles ce mois</div>
+        </div>
+        <div class="bg-purple-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-purple-900">€2.5M</div>
+          <div class="text-sm text-purple-700">Prix moyen</div>
+        </div>
+        <div class="bg-orange-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-orange-900">18</div>
+          <div class="text-sm text-orange-700">Secteurs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+      <!-- Filters Sidebar -->
+      <aside class="lg:col-span-1 mb-8 lg:mb-0">
+        <div class="bg-white rounded-xl shadow-sm p-6 sticky top-4">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">Filtres</h2>
+            <button class="text-sm text-blue-600 hover:text-blue-700">Réinitialiser</button>
+          </div>
+
+          <!-- Price Range -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Prix</label>
+            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option>Tous les prix</option>
+              <option>0 - 100k €</option>
+              <option>100k - 500k €</option>
+              <option>500k - 1M €</option>
+              <option>1M - 2M €</option>
+              <option>2M+ €</option>
+            </select>
+          </div>
+
+          <!-- Sector -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Secteur</label>
+            <div class="space-y-2 max-h-48 overflow-y-auto">
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Commerce (23)</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Restauration (18)</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Services (31)</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Industrie (15)</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Digital (12)</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Artisanat (9)</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Bâtiment (11)</span>
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <span>Santé (8)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Location -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Localisation</label>
+            <input type="text" placeholder="Ville, département, région..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+
+          <!-- Revenue -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Chiffre d'affaires</label>
+            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option>Tous</option>
+              <option>0 - 200k €</option>
+              <option>200k - 500k €</option>
+              <option>500k - 1M €</option>
+              <option>1M - 2M €</option>
+              <option>2M+ €</option>
+            </select>
+          </div>
+
+          <!-- Apply Button -->
+          <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition font-medium">
+            Appliquer les filtres
+          </button>
+        </div>
+      </aside>
+
+      <!-- Listings Grid -->
+      <div class="lg:col-span-3">
+        <!-- Sort Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <p class="text-gray-600"><span class="font-semibold text-gray-900">127</span> annonces trouvées</p>
+          <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+            <option>Plus récentes</option>
+            <option>Prix croissant</option>
+            <option>Prix décroissant</option>
+            <option>CA croissant</option>
+            <option>CA décroissant</option>
+          </select>
+        </div>
+
+        <!-- Listings Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- Listing Card 1 -->
+          <%= link_to mockups_listing_path(1), class: "bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+            <div class="relative h-48 bg-gradient-to-br from-blue-500 to-blue-600">
+              <div class="absolute top-4 left-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white text-blue-600">
+                  Commerce
+                </span>
+              </div>
+              <div class="absolute top-4 right-4">
+                <button class="p-2 bg-white/90 rounded-full hover:bg-white transition">
+                  <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
+                <span class="inline-flex items-center text-white text-sm">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Paris (75)
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                Boutique de prêt-à-porter
+              </h3>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                Boutique bien établie dans un quartier commerçant dynamique. Clientèle fidèle et emplacement premium.
+              </p>
+              <div class="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-gray-200">
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">Prix</div>
+                  <div class="text-lg font-bold text-gray-900">450k €</div>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">CA annuel</div>
+                  <div class="text-lg font-bold text-gray-900">680k €</div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center text-sm text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Publié il y a 3 jours
+                </span>
+                <span class="text-blue-600 font-medium group-hover:underline">
+                  Voir plus →
+                </span>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Listing Card 2 -->
+          <%= link_to mockups_listing_path(2), class: "bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+            <div class="relative h-48 bg-gradient-to-br from-green-500 to-green-600">
+              <div class="absolute top-4 left-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white text-green-600">
+                  Restauration
+                </span>
+              </div>
+              <div class="absolute top-4 right-4">
+                <button class="p-2 bg-white/90 rounded-full hover:bg-white transition">
+                  <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
+                <span class="inline-flex items-center text-white text-sm">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Lyon (69)
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                Restaurant italien traditionnel
+              </h3>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                Restaurant familial avec terrasse, cuisine authentique et excellente réputation locale depuis 15 ans.
+              </p>
+              <div class="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-gray-200">
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">Prix</div>
+                  <div class="text-lg font-bold text-gray-900">320k €</div>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">CA annuel</div>
+                  <div class="text-lg font-bold text-gray-900">520k €</div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center text-sm text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Publié il y a 1 semaine
+                </span>
+                <span class="text-blue-600 font-medium group-hover:underline">
+                  Voir plus →
+                </span>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Listing Card 3 -->
+          <%= link_to mockups_listing_path(3), class: "bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+            <div class="relative h-48 bg-gradient-to-br from-purple-500 to-purple-600">
+              <div class="absolute top-4 left-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white text-purple-600">
+                  Services
+                </span>
+              </div>
+              <div class="absolute top-4 right-4">
+                <button class="p-2 bg-white/90 rounded-full hover:bg-white transition">
+                  <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
+                <span class="inline-flex items-center text-white text-sm">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Bordeaux (33)
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                Agence de communication digitale
+              </h3>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                Agence spécialisée en stratégie digitale avec portefeuille clients diversifié et équipe qualifiée.
+              </p>
+              <div class="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-gray-200">
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">Prix</div>
+                  <div class="text-lg font-bold text-gray-900">180k €</div>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">CA annuel</div>
+                  <div class="text-lg font-bold text-gray-900">380k €</div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center text-sm text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Publié il y a 2 semaines
+                </span>
+                <span class="text-blue-600 font-medium group-hover:underline">
+                  Voir plus →
+                </span>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Listing Card 4 -->
+          <%= link_to mockups_listing_path(4), class: "bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+            <div class="relative h-48 bg-gradient-to-br from-orange-500 to-orange-600">
+              <div class="absolute top-4 left-4">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white text-orange-600">
+                  Industrie
+                </span>
+              </div>
+              <div class="absolute top-4 right-4">
+                <button class="p-2 bg-white/90 rounded-full hover:bg-white transition">
+                  <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+              </div>
+              <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
+                <span class="inline-flex items-center text-white text-sm">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  Toulouse (31)
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+                Atelier de menuiserie
+              </h3>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                Atelier équipé avec carnet de commandes complet, clients professionnels et particuliers fidèles.
+              </p>
+              <div class="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-gray-200">
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">Prix</div>
+                  <div class="text-lg font-bold text-gray-900">220k €</div>
+                </div>
+                <div>
+                  <div class="text-xs text-gray-500 mb-1">CA annuel</div>
+                  <div class="text-lg font-bold text-gray-900">420k €</div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="inline-flex items-center text-sm text-gray-500">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Publié il y a 5 jours
+                </span>
+                <span class="text-blue-600 font-medium group-hover:underline">
+                  Voir plus →
+                </span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-t border-gray-200">
+          <p class="text-sm text-gray-600">
+            Affichage de <span class="font-semibold">1</span> à <span class="font-semibold">12</span> sur <span class="font-semibold">127</span> résultats
+          </p>
+          <nav class="flex items-center gap-2">
+            <button disabled class="px-3 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">
+              Précédent
+            </button>
+            <button class="px-3 py-2 bg-blue-600 text-white rounded-lg font-medium">1</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">2</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">3</button>
+            <span class="px-2 text-gray-500">...</span>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">11</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+              Suivant
+            </button>
+          </nav>
+        </div>
+
+        <!-- Premium CTA -->
+        <div class="mt-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white text-center">
+          <div class="max-w-2xl mx-auto">
+            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Accédez à toutes les informations</h3>
+            <p class="text-blue-100 mb-6">
+              Créez un compte Premium pour voir les coordonnées complètes, les documents financiers et contacter directement les vendeurs.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <%= link_to mockups_register_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition" do %>
+                Créer un compte
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              <% end %>
+              <%= link_to mockups_pricing_path, class: "inline-flex items-center gap-2 px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition" do %>
+                Voir les tarifs
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

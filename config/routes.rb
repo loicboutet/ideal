@@ -9,6 +9,20 @@ Rails.application.routes.draw do
   get "mockups/pricing", to: "mockups#pricing", as: :mockups_pricing
   get "mockups/contact", to: "mockups#contact", as: :mockups_contact
 
+  # Mockups routes - Authentication
+  get "mockups/login", to: "mockups/auth#login", as: :mockups_login
+  get "mockups/register", to: "mockups/auth#register", as: :mockups_register
+  get "mockups/register/seller", to: "mockups/auth#register_seller", as: :mockups_register_seller
+  get "mockups/register/buyer", to: "mockups/auth#register_buyer", as: :mockups_register_buyer
+  get "mockups/register/partner", to: "mockups/auth#register_partner", as: :mockups_register_partner
+  get "mockups/forgot_password", to: "mockups/auth#forgot_password", as: :mockups_forgot_password
+  get "mockups/reset_password", to: "mockups/auth#reset_password", as: :mockups_reset_password
+
+  # Mockups routes - Browse Listings (Freemium Access)
+  get "mockups/listings", to: "mockups/listings#index", as: :mockups_listings
+  get "mockups/listings/search", to: "mockups/listings#search", as: :mockups_listings_search
+  get "mockups/listings/:id", to: "mockups/listings#show", as: :mockups_listing
+
   # Mockups routes - User Journey
   get "mockups/user_dashboard"
   get "mockups/user_profile"
