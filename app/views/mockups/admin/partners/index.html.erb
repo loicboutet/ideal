@@ -1,0 +1,180 @@
+<% content_for :title, "Partenaires - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Partenaires</h1>
+      <p class="text-gray-600 mt-1">Gérer tous les partenaires de la plateforme</p>
+    </div>
+    <%= link_to mockups_admin_partners_pending_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span>En attente (<span class="font-bold">5</span>)</span>
+    <% end %>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-600">Total</p>
+          <p class="text-2xl font-bold text-gray-900 mt-1">155</p>
+        </div>
+        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-600">Actifs</p>
+          <p class="text-2xl font-bold text-green-600 mt-1">142</p>
+        </div>
+        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-600">En attente</p>
+          <p class="text-2xl font-bold text-orange-600 mt-1">5</p>
+        </div>
+        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-600">Rejetés</p>
+          <p class="text-2xl font-bold text-red-600 mt-1">8</p>
+        </div>
+        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white rounded-xl shadow-sm p-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <input type="text" placeholder="Rechercher..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <option>Tous les statuts</option>
+        <option>Actif</option>
+        <option>En attente</option>
+        <option>Rejeté</option>
+        <option>Suspendu</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <option>Tous les types</option>
+        <option>Expert-comptable</option>
+        <option>Avocat</option>
+        <option>Notaire</option>
+        <option>Banque</option>
+        <option>Conseil</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+        <option>Tri: Plus récent</option>
+        <option>Plus ancien</option>
+        <option>Nom A-Z</option>
+        <option>Nom Z-A</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b border-gray-200">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Partenaire</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Localisation</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% [
+            { id: 1, name: "Cabinet Dupont & Associés", type: "Expert-comptable", location: "Paris", date: "15/06/2025", status: "actif", status_color: "green" },
+            { id: 2, name: "SCP Martin-Leroy", type: "Notaire", location: "Lyon", date: "14/06/2025", status: "en attente", status_color: "orange" },
+            { id: 3, name: "Avocats & Conseils", type: "Avocat", location: "Marseille", date: "13/06/2025", status: "actif", status_color: "green" },
+            { id: 4, name: "Banque Régionale", type: "Banque", location: "Bordeaux", date: "12/06/2025", status: "actif", status_color: "green" },
+            { id: 5, name: "Conseil Finance Pro", type: "Conseil", location: "Toulouse", date: "11/06/2025", status: "en attente", status_color: "orange" },
+            { id: 6, name: "Expertise Compta+", type: "Expert-comptable", location: "Nantes", date: "10/06/2025", status: "rejeté", status_color: "red" },
+          ].each do |partner| %>
+            <tr class="hover:bg-gray-50">
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    <%= partner[:name].split(' ').map(&:first).join[0..1] %>
+                  </div>
+                  <div class="text-sm font-medium text-gray-900"><%= partner[:name] %></div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-900"><%= partner[:type] %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500"><%= partner[:location] %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-sm text-gray-500"><%= partner[:date] %></div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-<%= partner[:status_color] %>-100 text-<%= partner[:status_color] %>-800 capitalize">
+                  <%= partner[:status] %>
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <%= link_to mockups_admin_partner_path(partner[:id]), class: "text-purple-600 hover:text-purple-900" do %>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex items-center justify-between">
+    <div class="text-sm text-gray-700">
+      Affichage de <span class="font-medium">1</span> à <span class="font-medium">6</span> sur <span class="font-medium">155</span> résultats
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50" disabled>
+        Précédent
+      </button>
+      <button class="px-3 py-2 bg-purple-600 text-white rounded-lg">1</button>
+      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
+      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
+      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+        Suivant
+      </button>
+    </div>
+  </div>
+</div>

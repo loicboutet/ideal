@@ -1,0 +1,102 @@
+<% content_for :title, "Partenaires en attente - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <div class="flex items-center gap-3 mb-2">
+        <%= link_to mockups_admin_partners_path, class: "text-gray-400 hover:text-gray-600" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        <% end %>
+        <h1 class="text-3xl font-bold text-gray-900">Partenaires en attente</h1>
+      </div>
+      <p class="text-gray-600">Candidatures en attente de validation</p>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-orange-100 text-orange-800 rounded-lg">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span class="font-bold">5 candidatures</span>
+    </div>
+  </div>
+
+  <!-- Pending Partners -->
+  <div class="space-y-4">
+    <% [
+      { id: 2, name: "SCP Martin-Leroy", type: "Notaire", contact: "Pierre Martin", email: "contact@martin-leroy.fr", phone: "+33 4 12 34 56 78", location: "Lyon", date: "Il y a 1 jour", siret: "123 456 789 00012" },
+      { id: 5, name: "Conseil Finance Pro", type: "Conseil", contact: "Sophie Conseil", email: "s.conseil@financepro.fr", phone: "+33 5 98 76 54 32", location: "Toulouse", date: "Il y a 2 jours", siret: "987 654 321 00045" },
+      { id: 7, name: "Cabinet Juridique Expert", type: "Avocat", contact: "Marc Dupuis", email: "m.dupuis@juridique.fr", phone: "+33 2 11 22 33 44", location: "Nantes", date: "Il y a 3 jours", siret: "456 789 123 00078" },
+    ].each do |partner| %>
+      <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition">
+        <div class="flex flex-col lg:flex-row gap-6">
+          <!-- Partner Info -->
+          <div class="flex-1">
+            <div class="flex items-start gap-4 mb-4">
+              <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+                <%= partner[:name].split(' ').map(&:first).join[0..1] %>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-gray-900 mb-1"><%= partner[:name] %></h3>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                  <%= partner[:type] %>
+                </span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Contact principal</div>
+                <div class="font-medium text-gray-900"><%= partner[:contact] %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Email</div>
+                <div class="font-medium text-gray-900"><%= partner[:email] %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Téléphone</div>
+                <div class="font-medium text-gray-900"><%= partner[:phone] %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Localisation</div>
+                <div class="font-medium text-gray-900"><%= partner[:location] %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">SIRET</div>
+                <div class="font-medium text-gray-900"><%= partner[:siret] %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Candidature</div>
+                <div class="font-medium text-gray-900"><%= partner[:date] %></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex lg:flex-col items-center gap-3 lg:min-w-[160px]">
+            <%= link_to mockups_admin_partner_path(partner[:id]), class: "w-full inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" do %>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Examiner
+            <% end %>
+            <%= link_to approve_mockups_admin_partner_path(partner[:id]), class: "w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition" do %>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Approuver
+            <% end %>
+            <%= link_to reject_mockups_admin_partner_path(partner[:id]), class: "w-full inline-flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition" do %>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Rejeter
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,210 @@
+<% content_for :title, "Approuver l'enrichissement - Administration - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <!-- Header -->
+  <div>
+    <%= link_to mockups_admin_enrichment_path(@enrichment_id), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-2" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Retour au détail
+    <% end %>
+    <h1 class="text-3xl font-bold text-gray-900">Approuver l'enrichissement</h1>
+    <p class="text-gray-600 mt-1">Attribuer des crédits à Sophie Martin pour sa contribution</p>
+  </div>
+
+  <form class="space-y-6">
+    <!-- Enrichment Summary -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Résumé de la contribution</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-600">Utilisateur</div>
+            <div class="text-sm font-medium text-gray-900">Sophie Martin</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+          <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-600">Type</div>
+            <div class="text-sm font-medium text-gray-900">Photos (3 fichiers)</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+          <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-600">Entreprise</div>
+            <div class="text-sm font-medium text-gray-900">Boulangerie Martin</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+          <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <div class="text-xs text-gray-600">Date</div>
+            <div class="text-sm font-medium text-gray-900">15/06/2025 14:30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credit Award -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Attribution des crédits</h2>
+      
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Nombre de crédits à attribuer
+        </label>
+        <div class="flex items-center gap-4">
+          <input type="number" value="5" min="1" max="20" class="w-32 px-4 py-2 border border-gray-300 rounded-lg text-lg font-bold text-blue-600">
+          <div class="flex-1 bg-blue-50 border border-blue-200 rounded-lg p-3">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="text-sm text-blue-700">Recommandation : 5 crédits pour 3 photos de qualité</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-gray-600 mt-2">Barème : Photos (3-7), Documents (5-10), Informations légales (8-15)</p>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4">
+        <button type="button" class="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 transition text-center">
+          <div class="text-2xl font-bold text-gray-900">3</div>
+          <div class="text-xs text-gray-600 mt-1">Qualité moyenne</div>
+        </button>
+        <button type="button" class="p-4 border-2 border-blue-500 bg-blue-50 rounded-lg text-center">
+          <div class="text-2xl font-bold text-blue-600">5</div>
+          <div class="text-xs text-blue-700 mt-1">Bonne qualité</div>
+        </button>
+        <button type="button" class="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 transition text-center">
+          <div class="text-2xl font-bold text-gray-900">7</div>
+          <div class="text-xs text-gray-600 mt-1">Excellente qualité</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quality Rating -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Évaluation de la qualité</h2>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Qualité globale
+          </label>
+          <div class="flex gap-2">
+            <% 5.times do |i| %>
+              <button type="button" class="w-10 h-10 <%= i < 4 ? 'text-yellow-400' : 'text-gray-300' %> hover:text-yellow-400 transition">
+                <svg class="w-full h-full fill-current" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </button>
+            <% end %>
+          </div>
+          <p class="text-sm text-gray-600 mt-1">4 sur 5 étoiles</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Utilité de la contribution
+          </label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-lg">
+            <option>Très utile</option>
+            <option>Utile</option>
+            <option>Moyennement utile</option>
+            <option>Peu utile</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback Message -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Message à l'utilisateur (optionnel)</h2>
+      <textarea rows="4" placeholder="Ex: Merci pour ces belles photos ! Elles aident vraiment à valoriser l'établissement." class="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none"></textarea>
+      <p class="text-xs text-gray-600 mt-2">Ce message sera envoyé par email avec la notification d'approbation.</p>
+    </div>
+
+    <!-- Notification Options -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Options de notification</h2>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+          <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
+          <div>
+            <div class="text-sm font-medium text-gray-900">Envoyer email de confirmation</div>
+            <div class="text-xs text-gray-600">L'utilisateur recevra un email avec les détails de l'approbation</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+          <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
+          <div>
+            <div class="text-sm font-medium text-gray-900">Notification push</div>
+            <div class="text-xs text-gray-600">Envoyer une notification dans l'application</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+          <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
+          <div>
+            <div class="text-sm font-medium text-gray-900">Badge de contributeur</div>
+            <div class="text-xs text-gray-600">Attribuer un badge "Contributeur actif" si ≥ 10 contributions approuvées</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div>
+          <p class="text-sm font-medium text-green-900">Récapitulatif de l'approbation</p>
+          <p class="text-sm text-green-700 mt-1">
+            Sophie Martin recevra <strong>5 crédits</strong> pour cette contribution. 
+            Son solde passera de 78 à 83 crédits. Une notification sera envoyée.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+      <%= link_to mockups_admin_enrichment_path(@enrichment_id), class: "px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" do %>
+        Annuler
+      <% end %>
+      <div class="flex gap-3">
+        <button type="button" class="px-4 py-2 border border-red-300 text-red-700 rounded-lg hover:bg-red-50 transition">
+          Rejeter plutôt
+        </button>
+        <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
+          Approuver et attribuer les crédits
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

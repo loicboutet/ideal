@@ -1,0 +1,486 @@
+<% content_for :title, "Recherche avancée - Idéal Reprise" %>
+
+<!-- Advanced Search Page -->
+<div class="min-h-screen bg-gray-50">
+  <!-- Header Section -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex items-center justify-between mb-6">
+        <%= link_to mockups_listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>Retour aux annonces</span>
+        <% end %>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Recherche avancée</h1>
+      <p class="text-gray-600">Trouvez l'entreprise idéale selon vos critères</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <!-- Search Form -->
+      <div class="lg:col-span-1 mb-8 lg:mb-0">
+        <div class="bg-white rounded-xl shadow-sm p-6 sticky top-4">
+          <h2 class="text-lg font-semibold text-gray-900 mb-6">Critères de recherche</h2>
+
+          <form class="space-y-6">
+            <!-- Keywords -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Mots-clés
+              </label>
+              <input 
+                type="text" 
+                placeholder="Ex: boulangerie, e-commerce..." 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+            </div>
+
+            <!-- Price Range -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Fourchette de prix
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <input 
+                  type="number" 
+                  placeholder="Min (€)" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                <input 
+                  type="number" 
+                  placeholder="Max (€)" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+              </div>
+            </div>
+
+            <!-- Sector -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Secteur d'activité
+              </label>
+              <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Tous les secteurs</option>
+                <option>Commerce</option>
+                <option>Restauration</option>
+                <option>Services</option>
+                <option>Industrie</option>
+                <option>Artisanat</option>
+                <option>Bâtiment</option>
+                <option>Santé</option>
+                <option>Digital</option>
+                <option>Transport</option>
+                <option>Hôtellerie</option>
+                <option>Agriculture</option>
+                <option>Immobilier</option>
+              </select>
+            </div>
+
+            <!-- Location -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Localisation
+              </label>
+              <input 
+                type="text" 
+                placeholder="Ville, département, région..." 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3"
+              >
+              <div class="flex items-center gap-2">
+                <input type="checkbox" id="radius" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                <label for="radius" class="text-sm text-gray-700">
+                  Inclure les environs (50 km)
+                </label>
+              </div>
+            </div>
+
+            <!-- Revenue -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Chiffre d'affaires annuel
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <input 
+                  type="number" 
+                  placeholder="Min (€)" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                <input 
+                  type="number" 
+                  placeholder="Max (€)" 
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+              </div>
+            </div>
+
+            <!-- Company Age -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Ancienneté de l'entreprise
+              </label>
+              <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Toutes</option>
+                <option>Moins de 2 ans</option>
+                <option>2 à 5 ans</option>
+                <option>5 à 10 ans</option>
+                <option>10 à 20 ans</option>
+                <option>Plus de 20 ans</option>
+              </select>
+            </div>
+
+            <!-- Number of Employees -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Nombre d'employés
+              </label>
+              <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Tous</option>
+                <option>0 (auto-entrepreneur)</option>
+                <option>1 à 5</option>
+                <option>6 à 10</option>
+                <option>11 à 20</option>
+                <option>21 à 50</option>
+                <option>Plus de 50</option>
+              </select>
+            </div>
+
+            <!-- Legal Form -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Forme juridique
+              </label>
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                  <span>SARL</span>
+                </label>
+                <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                  <span>SAS</span>
+                </label>
+                <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                  <span>SASU</span>
+                </label>
+                <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                  <span>EURL</span>
+                </label>
+                <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                  <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                  <span>SA</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Availability -->
+            <div>
+              <label class="block text-sm font-medium text-gray-900 mb-2">
+                Disponibilité
+              </label>
+              <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Toutes</option>
+                <option>Immédiate</option>
+                <option>Dans les 3 mois</option>
+                <option>Dans les 6 mois</option>
+                <option>Plus de 6 mois</option>
+              </select>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex gap-3 pt-4 border-t border-gray-200">
+              <button type="button" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium">
+                Réinitialiser
+              </button>
+              <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                Rechercher
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div class="lg:col-span-2">
+        <!-- Results Header -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 mb-1">Résultats de recherche</h2>
+              <p class="text-gray-600"><span class="font-semibold">42</span> annonces correspondent à vos critères</p>
+            </div>
+            <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+              <option>Pertinence</option>
+              <option>Plus récentes</option>
+              <option>Prix croissant</option>
+              <option>Prix décroissant</option>
+              <option>CA croissant</option>
+              <option>CA décroissant</option>
+            </select>
+          </div>
+
+          <!-- Active Filters -->
+          <div class="mt-4 pt-4 border-t border-gray-200">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm text-gray-600">Filtres actifs:</span>
+              <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                Commerce
+                <button class="hover:bg-blue-200 rounded-full p-0.5">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+              <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                Paris
+                <button class="hover:bg-blue-200 rounded-full p-0.5">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+              <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                100k - 500k €
+                <button class="hover:bg-blue-200 rounded-full p-0.5">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+              <button class="text-sm text-gray-600 hover:text-gray-900 underline">
+                Tout effacer
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results List -->
+        <div class="space-y-6">
+          <!-- Result Card 1 -->
+          <%= link_to mockups_listing_path(1), class: "block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+            <div class="sm:flex">
+              <div class="relative h-48 sm:h-auto sm:w-48 flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-600">
+                <div class="absolute top-4 left-4">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white text-blue-600">
+                    Commerce
+                  </span>
+                </div>
+              </div>
+              <div class="flex-1 p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition mb-2">
+                      Boutique de prêt-à-porter
+                    </h3>
+                    <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                      <span class="inline-flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Paris (75)
+                      </span>
+                      <span>•</span>
+                      <span>5 employés</span>
+                      <span>•</span>
+                      <span>Depuis 2010</span>
+                    </div>
+                  </div>
+                  <button class="p-2 hover:bg-gray-100 rounded-full transition">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                </div>
+                <p class="text-gray-600 mb-4 line-clamp-2">
+                  Boutique bien établie dans un quartier commerçant dynamique. Clientèle fidèle et emplacement premium.
+                </p>
+                <div class="flex flex-wrap items-center gap-6">
+                  <div>
+                    <div class="text-xs text-gray-500">Prix</div>
+                    <div class="text-lg font-bold text-gray-900">450k €</div>
+                  </div>
+                  <div>
+                    <div class="text-xs text-gray-500">CA annuel</div>
+                    <div class="text-lg font-bold text-gray-900">680k €</div>
+                  </div>
+                  <div class="ml-auto">
+                    <span class="inline-flex items-center text-sm text-gray-500">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Il y a 3 jours
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Result Card 2 -->
+          <%= link_to mockups_listing_path(5), class: "block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+            <div class="sm:flex">
+              <div class="relative h-48 sm:h-auto sm:w-48 flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-600">
+                <div class="absolute top-4 left-4">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white text-blue-600">
+                    Commerce
+                  </span>
+                </div>
+              </div>
+              <div class="flex-1 p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition mb-2">
+                      Épicerie fine et caviste
+                    </h3>
+                    <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                      <span class="inline-flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Paris (75017)
+                      </span>
+                      <span>•</span>
+                      <span>3 employés</span>
+                      <span>•</span>
+                      <span>Depuis 2015</span>
+                    </div>
+                  </div>
+                  <button class="p-2 hover:bg-gray-100 rounded-full transition">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                </div>
+                <p class="text-gray-600 mb-4 line-clamp-2">
+                  Commerce spécialisé avec sélection de produits haut de gamme. Excellente marge et clientèle fidèle.
+                </p>
+                <div class="flex flex-wrap items-center gap-6">
+                  <div>
+                    <div class="text-xs text-gray-500">Prix</div>
+                    <div class="text-lg font-bold text-gray-900">280k €</div>
+                  </div>
+                  <div>
+                    <div class="text-xs text-gray-500">CA annuel</div>
+                    <div class="text-lg font-bold text-gray-900">450k €</div>
+                  </div>
+                  <div class="ml-auto">
+                    <span class="inline-flex items-center text-sm text-gray-500">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Il y a 1 semaine
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Result Card 3 -->
+          <%= link_to mockups_listing_path(6), class: "block bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+            <div class="sm:flex">
+              <div class="relative h-48 sm:h-auto sm:w-48 flex-shrink-0 bg-gradient-to-br from-blue-400 to-blue-500">
+                <div class="absolute top-4 left-4">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white text-blue-600">
+                    Commerce
+                  </span>
+                </div>
+              </div>
+              <div class="flex-1 p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition mb-2">
+                      Magasin de décoration
+                    </h3>
+                    <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                      <span class="inline-flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Paris (75011)
+                      </span>
+                      <span>•</span>
+                      <span>2 employés</span>
+                      <span>•</span>
+                      <span>Depuis 2018</span>
+                    </div>
+                  </div>
+                  <button class="p-2 hover:bg-gray-100 rounded-full transition">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                  </button>
+                </div>
+                <p class="text-gray-600 mb-4 line-clamp-2">
+                  Boutique tendance avec mix physique + e-commerce. Forte croissance et présence sur les réseaux sociaux.
+                </p>
+                <div class="flex flex-wrap items-center gap-6">
+                  <div>
+                    <div class="text-xs text-gray-500">Prix</div>
+                    <div class="text-lg font-bold text-gray-900">195k €</div>
+                  </div>
+                  <div>
+                    <div class="text-xs text-gray-500">CA annuel</div>
+                    <div class="text-lg font-bold text-gray-900">320k €</div>
+                  </div>
+                  <div class="ml-auto">
+                    <span class="inline-flex items-center text-sm text-gray-500">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Il y a 4 jours
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-8">
+          <p class="text-sm text-gray-600">
+            Affichage de <span class="font-semibold">1</span> à <span class="font-semibold">10</span> sur <span class="font-semibold">42</span> résultats
+          </p>
+          <nav class="flex items-center gap-2">
+            <button disabled class="px-3 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">
+              Précédent
+            </button>
+            <button class="px-3 py-2 bg-blue-600 text-white rounded-lg font-medium">1</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">2</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">3</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">4</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">5</button>
+            <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+              Suivant
+            </button>
+          </nav>
+        </div>
+
+        <!-- No Results Message (hidden by default, shown when no results) -->
+        <div class="hidden bg-white rounded-xl shadow-sm p-12 text-center">
+          <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <h3 class="text-xl font-bold text-gray-900 mb-2">Aucun résultat trouvé</h3>
+          <p class="text-gray-600 mb-6">
+            Essayez d'élargir vos critères de recherche ou parcourez toutes les annonces disponibles.
+          </p>
+          <%= link_to mockups_listings_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition" do %>
+            Voir toutes les annonces
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

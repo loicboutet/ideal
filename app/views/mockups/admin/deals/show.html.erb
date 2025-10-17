@@ -1,0 +1,260 @@
+<% content_for :title, "Détail transaction - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Breadcrumb -->
+  <nav class="flex items-center gap-2 text-sm">
+    <%= link_to "Transactions", mockups_admin_deals_path, class: "text-gray-500 hover:text-gray-700" %>
+    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+    <span class="text-gray-900 font-medium">Transaction #00001</span>
+  </nav>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <h1 class="text-3xl font-bold text-gray-900">Boutique prêt-à-porter</h1>
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-800">
+            En cours
+          </span>
+        </div>
+        <p class="text-gray-600">Transaction #00001 - Créée le 15/06/2025</p>
+      </div>
+      <%= link_to assign_mockups_admin_deal_path(@deal_id), class: "inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        Gérer l'attribution
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Progress Timeline -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Progression de la transaction</h2>
+    <div class="relative">
+      <div class="absolute top-0 left-4 h-full w-0.5 bg-gray-200"></div>
+      <div class="space-y-6">
+        <% [
+          { title: "NDA signé", date: "15/06/2025 14:30", status: "completed", icon: "check" },
+          { title: "Due diligence en cours", date: "16/06/2025 09:00", status: "active", icon: "clock" },
+          { title: "Offre d'achat", date: "En attente", status: "pending", icon: "document" },
+          { title: "Négociation finale", date: "En attente", status: "pending", icon: "chat" },
+          { title: "Signature de l'acte", date: "En attente", status: "pending", icon: "signature" },
+        ].each do |step| %>
+          <div class="relative flex items-start gap-4">
+            <div class="relative z-10 w-8 h-8 rounded-full flex items-center justify-center <%= step[:status] == 'completed' ? 'bg-green-100' : step[:status] == 'active' ? 'bg-blue-100' : 'bg-gray-100' %>">
+              <% if step[:status] == 'completed' %>
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              <% elsif step[:status] == 'active' %>
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              <% else %>
+                <div class="w-2 h-2 bg-gray-400 rounded-full"></div>
+              <% end %>
+            </div>
+            <div class="flex-1 <%= step[:status] == 'pending' ? 'opacity-50' : '' %>">
+              <div class="font-medium text-gray-900"><%= step[:title] %></div>
+              <div class="text-sm text-gray-500"><%= step[:date] %></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Deal Details -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Détails de la transaction</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Annonce</div>
+            <div class="font-medium text-gray-900">Boutique prêt-à-porter</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Montant</div>
+            <div class="font-medium text-gray-900">450 000 €</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Localisation</div>
+            <div class="font-medium text-gray-900">Paris (75)</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Secteur</div>
+            <div class="font-medium text-gray-900">Commerce</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Date de début</div>
+            <div class="font-medium text-gray-900">15/06/2025</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Durée estimée</div>
+            <div class="font-medium text-gray-900">2-3 mois</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parties -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Parties impliquées</h2>
+        <div class="space-y-4">
+          <!-- Seller -->
+          <div class="p-4 bg-blue-50 rounded-lg">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                JD
+              </div>
+              <div>
+                <div class="font-medium text-gray-900">Jean Dupont</div>
+                <div class="text-sm text-gray-600">Vendeur (Cédant)</div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div class="text-gray-600">Email:</div>
+              <div class="text-gray-900">jean.dupont@email.fr</div>
+              <div class="text-gray-600">Téléphone:</div>
+              <div class="text-gray-900">+33 6 12 34 56 78</div>
+            </div>
+          </div>
+
+          <!-- Buyer -->
+          <div class="p-4 bg-green-50 rounded-lg">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
+                MM
+              </div>
+              <div>
+                <div class="font-medium text-gray-900">Marie Martin</div>
+                <div class="text-sm text-gray-600">Acheteur (Repreneur)</div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div class="text-gray-600">Email:</div>
+              <div class="text-gray-900">marie.m@email.fr</div>
+              <div class="text-gray-600">Téléphone:</div>
+              <div class="text-gray-900">+33 6 98 76 54 32</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Documents -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Documents de transaction</h2>
+        <div class="space-y-2">
+          <% [
+            { name: "NDA_signe.pdf", date: "15/06/2025", size: "245 KB" },
+            { name: "Lettre_intention.pdf", date: "16/06/2025", size: "180 KB" },
+            { name: "Bilan_financier.pdf", date: "16/06/2025", size: "890 KB" },
+          ].each do |doc| %>
+            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <div>
+                  <div class="text-sm font-medium text-gray-900"><%= doc[:name] %></div>
+                  <div class="text-xs text-gray-500"><%= doc[:date] %> • <%= doc[:size] %></div>
+                </div>
+              </div>
+              <button class="text-blue-600 hover:text-blue-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lg:col-span-1 space-y-6">
+      <!-- Quick Actions -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
+        <div class="space-y-2">
+          <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Envoyer un message
+          </button>
+          <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            Ajouter un document
+          </button>
+          <button class="w-full inline-flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Planifier un rendez-vous
+          </button>
+        </div>
+      </div>
+
+      <!-- Partners -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Partenaires assignés</h3>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3 p-2 bg-purple-50 rounded-lg">
+            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              CD
+            </div>
+            <div class="flex-1">
+              <div class="text-sm font-medium text-gray-900">Cabinet Dupont</div>
+              <div class="text-xs text-gray-600">Expert-comptable</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-2 bg-purple-50 rounded-lg">
+            <div class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              SM
+            </div>
+            <div class="flex-1">
+              <div class="text-sm font-medium text-gray-900">SCP Martin-Leroy</div>
+              <div class="text-xs text-gray-600">Notaire</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Log -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Activité récente</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-2">
+            <div class="w-2 h-2 bg-blue-600 rounded-full mt-1.5"></div>
+            <div>
+              <div class="text-gray-900">Document téléchargé</div>
+              <div class="text-gray-500">Il y a 2 heures</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <div class="w-2 h-2 bg-green-600 rounded-full mt-1.5"></div>
+            <div>
+              <div class="text-gray-900">NDA signé</div>
+              <div class="text-gray-500">Il y a 1 jour</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <div class="w-2 h-2 bg-gray-400 rounded-full mt-1.5"></div>
+            <div>
+              <div class="text-gray-900">Transaction créée</div>
+              <div class="text-gray-500">Il y a 1 jour</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
