@@ -53,6 +53,16 @@ Rails.application.routes.draw do
   get "mockups/admin/deals/:id", to: "mockups/admin/deals#show", as: :mockups_admin_deal
   get "mockups/admin/deals/:id/assign", to: "mockups/admin/deals#assign_form", as: :assign_mockups_admin_deal
 
+  # Mockups routes - Admin Imports
+  get "mockups/admin/imports", to: "mockups/admin/imports#index", as: :mockups_admin_imports
+  get "mockups/admin/imports/new", to: "mockups/admin/imports#new", as: :new_mockups_admin_import
+  get "mockups/admin/imports/:id", to: "mockups/admin/imports#show", as: :mockups_admin_import
+
+  # Mockups routes - Admin Enrichments
+  get "mockups/admin/enrichments", to: "mockups/admin/enrichments#index", as: :mockups_admin_enrichments
+  get "mockups/admin/enrichments/:id", to: "mockups/admin/enrichments#show", as: :mockups_admin_enrichment
+  get "mockups/admin/enrichments/:id/approve", to: "mockups/admin/enrichments#approve_form", as: :approve_mockups_admin_enrichment
+
   # Mockups routes - User Journey
   get "mockups/user_dashboard"
   get "mockups/user_profile"
