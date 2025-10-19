@@ -1,0 +1,141 @@
+<% content_for :title, "Analytique - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <div>
+    <h1 class="text-3xl font-bold text-gray-900">Analytique</h1>
+    <p class="text-gray-600 mt-1">Rapports détaillés et statistiques</p>
+  </div>
+
+  <!-- Period Selector -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Période</label>
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>30 derniers jours</option>
+          <option>7 derniers jours</option>
+          <option>Ce mois</option>
+          <option>3 mois</option>
+          <option>6 mois</option>
+          <option>1 an</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>Tous</option>
+          <option>Utilisateurs</option>
+          <option>Annonces</option>
+          <option>Transactions</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Région</label>
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <option>Toutes</option>
+          <option>Île-de-France</option>
+          <option>Auvergne-Rhône-Alpes</option>
+          <option>Nouvelle-Aquitaine</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Générer rapport
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="text-sm text-gray-600 mb-2">Taux de conversion</div>
+      <div class="text-3xl font-bold text-gray-900">12.4%</div>
+      <div class="text-sm text-green-600 mt-2">↑ +2.3%</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="text-sm text-gray-600 mb-2">Temps moyen</div>
+      <div class="text-3xl font-bold text-gray-900">4.2j</div>
+      <div class="text-sm text-red-600 mt-2">↓ -0.8j</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="text-sm text-gray-600 mb-2">Satisfaction</div>
+      <div class="text-3xl font-bold text-gray-900">4.8/5</div>
+      <div class="text-sm text-green-600 mt-2">↑ +0.2</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="text-sm text-gray-600 mb-2">ROI moyen</div>
+      <div class="text-3xl font-bold text-gray-900">285%</div>
+      <div class="text-sm text-green-600 mt-2">↑ +15%</div>
+    </div>
+  </div>
+
+  <!-- Charts -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-6">Inscriptions par type</h3>
+      <div class="h-64 flex items-end justify-around gap-4">
+        <div class="flex flex-col items-center gap-2 flex-1">
+          <div class="w-full bg-blue-500 rounded-t-lg" style="height: 70%"></div>
+          <span class="text-xs text-gray-600">Vendeurs</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 flex-1">
+          <div class="w-full bg-green-500 rounded-t-lg" style="height: 85%"></div>
+          <span class="text-xs text-gray-600">Acheteurs</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 flex-1">
+          <div class="w-full bg-purple-500 rounded-t-lg" style="height: 25%"></div>
+          <span class="text-xs text-gray-600">Partenaires</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-6">Transactions mensuelles</h3>
+      <div class="h-64 flex items-end justify-between gap-1">
+        <% [45, 52, 48, 65, 58, 72, 68, 75, 82, 78, 85, 92].each do |height| %>
+          <div class="flex-1 bg-blue-500 rounded-t hover:bg-blue-600 transition cursor-pointer" style="height: <%= height %>%"></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tables -->
+  <div class="bg-white rounded-xl shadow-sm">
+    <div class="p-6 border-b border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900">Top secteurs</h3>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Secteur</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Annonces</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Transactions</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Évolution</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Commerce</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">127</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">45</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+12%</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Restauration</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">98</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">38</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+8%</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Services</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">84</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">32</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+15%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
