@@ -1,4 +1,7 @@
 class MockupsController < ApplicationController
+  # Skip authentication for mockups as per routes.md specification
+  skip_before_action :authenticate_user!, raise: false
+  
   # Set the layout based on the action
   layout :resolve_layout
 
@@ -22,32 +25,6 @@ class MockupsController < ApplicationController
     # Contact form
   end
 
-  # User journey pages
-  def user_dashboard
-    # User dashboard mockup
-  end
-
-  def user_profile
-    # User profile mockup
-  end
-
-  def user_settings
-    # User settings mockup
-  end
-
-  # Admin journey pages
-  def admin_dashboard
-    # Admin dashboard mockup
-  end
-
-  def admin_users
-    # Admin users management mockup
-  end
-
-  def admin_analytics
-    # Admin analytics mockup
-  end
-
   private
 
   # Determine which layout to use based on the action name
@@ -56,8 +33,6 @@ class MockupsController < ApplicationController
 
     if public_pages.include?(action_name)
       "mockup"
-    elsif action_name.start_with?("user_")
-      "mockup_user"
     elsif action_name.start_with?("admin_")
       "mockup_admin"
     else

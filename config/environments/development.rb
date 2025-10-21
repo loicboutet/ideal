@@ -10,7 +10,11 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
+  # Set to false to test custom error pages in development
   config.consider_all_requests_local = true
+  
+  # To test error pages in development, temporarily set this to false:
+  # config.consider_all_requests_local = false
 
   # Enable server timing.
   config.server_timing = true

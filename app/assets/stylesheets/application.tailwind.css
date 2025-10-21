@@ -5,21 +5,287 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Apply Inter font globally */
+/* IDEAL Design System - CSS Custom Properties */
 @layer base {
+  :root {
+    /* Couleurs principales */
+    --ideal-primary: #4A90E2;
+    --ideal-secondary: #D4D4D4;
+    --ideal-accent: #FFD700;
+    --ideal-success: #7FBF5F;
+    --ideal-danger: #E74C3C;
+    --ideal-warning: #F39C12;
+    
+    /* Couleurs de texte */
+    --ideal-text-dark: #2C3E50;
+    --ideal-text-medium: #7F8C8D;
+    --ideal-text-light: #BDC3C7;
+    
+    /* Couleurs de fond */
+    --ideal-bg-light: #F8F9FA;
+    --ideal-bg-white: #FFFFFF;
+    --ideal-bg-overlay: rgba(0, 0, 0, 0.5);
+    
+    /* Bordures */
+    --ideal-border-light: #E0E0E0;
+    --ideal-border-medium: #CCCCCC;
+    
+    /* Ombres */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+    
+    /* Espacements */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    
+    /* Border radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-full: 9999px;
+  }
+
   body {
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: var(--ideal-text-dark);
+    background-color: var(--ideal-bg-light);
   }
 }
 
-/*
-
+/* IDEAL Design System - Typography Classes */
 @layer components {
+  .heading-1 { 
+    @apply text-[32px] font-bold leading-tight;
+  }
+  
+  .heading-2 { 
+    @apply text-2xl font-bold leading-snug;
+  }
+  
+  .heading-3 { 
+    @apply text-xl font-semibold leading-normal;
+  }
+  
+  .heading-4 { 
+    @apply text-lg font-semibold leading-normal;
+  }
+  
+  .body-large { 
+    @apply text-base font-normal leading-relaxed;
+  }
+  
+  .body-regular { 
+    @apply text-sm font-normal leading-relaxed;
+  }
+  
+  .body-small { 
+    @apply text-xs font-normal leading-relaxed;
+  }
+  
+  .label { 
+    @apply text-sm font-medium leading-normal;
+  }
+
+  /* Component Classes - Cards */
+  .card {
+    background: var(--ideal-bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-lg);
+  }
+
+  /* Component Classes - Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center;
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+  }
+  
   .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+    background-color: var(--ideal-primary);
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #3A7BC8;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-secondary {
+    background-color: var(--ideal-secondary);
+    color: var(--ideal-text-dark);
+  }
+
+  .btn-secondary:hover {
+    background-color: #C0C0C0;
+  }
+  
+  .btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--ideal-primary);
+    color: var(--ideal-primary);
+  }
+
+  .btn-outline:hover {
+    background-color: var(--ideal-primary);
+    color: white;
+  }
+
+  .btn-danger {
+    background-color: var(--ideal-danger);
+    color: white;
+  }
+
+  .btn-danger:hover {
+    background-color: #C0392B;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Component Classes - Badges */
+  .badge {
+    @apply inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .badge-ideal {
+    background-color: var(--ideal-accent);
+    color: var(--ideal-text-dark);
+  }
+  
+  .badge-reserved {
+    background-color: #FFE5E5;
+    color: var(--ideal-danger);
+  }
+
+  .badge-success {
+    background-color: rgba(127, 191, 95, 0.1);
+    color: var(--ideal-success);
+  }
+
+  .badge-info {
+    background-color: rgba(74, 144, 226, 0.1);
+    color: var(--ideal-primary);
+  }
+
+  /* Component Classes - Deal Cards */
+  .deal-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .deal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Component Classes - Search Bar */
+  .search-bar {
+    border: 2px solid var(--ideal-border-medium);
+    border-radius: var(--radius-full);
+    padding: 12px 24px;
+    width: 100%;
+  }
+
+  .search-bar:focus {
+    outline: none;
+    border-color: var(--ideal-primary);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  }
+
+  /* Component Classes - Tabs */
+  .tab-button {
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    background-color: var(--ideal-secondary);
+    color: var(--ideal-text-dark);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .tab-button:hover {
+    background-color: #C0C0C0;
+  }
+  
+  .tab-button.active {
+    background-color: var(--ideal-text-dark);
+    color: white;
+  }
+
+  /* Component Classes - Sidebar */
+  .sidebar-item {
+    @apply flex items-center;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .sidebar-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .sidebar-item.active {
+    background-color: rgba(74, 144, 226, 0.1);
+    color: var(--ideal-primary);
+  }
+
+  /* Component Classes - Progress Bar */
+  .progress-bar {
+    height: 8px;
+    background-color: var(--ideal-secondary);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background-color: var(--ideal-success);
+    transition: width 0.3s ease;
+  }
+
+  /* Component Classes - Modal */
+  .modal-overlay {
+    background-color: var(--ideal-bg-overlay);
+    backdrop-filter: blur(4px);
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* Component Classes - Icons */
+  .rating-stars {
+    color: var(--ideal-warning);
+  }
+
+  .favorite-icon {
+    color: var(--ideal-danger);
   }
 }
-
-*/

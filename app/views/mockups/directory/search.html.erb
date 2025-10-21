@@ -1,0 +1,515 @@
+<% content_for :title, "Résultats de recherche - Annuaire des Partenaires - IDEAL" %>
+
+<div class="min-h-screen bg-gray-50">
+  <!-- Search Header -->
+  <div class="bg-white border-b border-gray-200 shadow-sm">
+    <div class="container mx-auto px-4 py-6">
+      <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+        <a href="<%= mockups_directory_path %>" class="inline-flex items-center text-teal-600 hover:text-teal-700 font-medium">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Retour à l'annuaire
+        </a>
+
+        <!-- Search Bar -->
+        <form action="<%= search_mockups_directory_path %>" method="get" class="flex-1 max-w-2xl">
+          <div class="flex gap-3">
+            <div class="flex-1 relative">
+              <input 
+                type="text" 
+                name="q" 
+                value="avocat paris transmission"
+                placeholder="Rechercher par nom, spécialité, ville..." 
+                class="w-full px-6 py-3 border-2 border-gray-300 rounded-full text-gray-900 focus:outline-none focus:border-teal-500"
+              />
+              <svg class="w-5 h-5 text-gray-400 absolute right-5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <button type="submit" class="bg-teal-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors">
+              Rechercher
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Criteria Display -->
+  <div class="bg-gradient-to-r from-teal-50 to-cyan-50 border-b border-teal-100">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="text-sm font-medium text-gray-700">Filtres actifs :</span>
+        <div class="flex flex-wrap gap-2">
+          <span class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-teal-300 text-teal-700 text-sm font-medium rounded-full">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            avocat paris transmission
+            <button class="hover:text-teal-900">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </span>
+          <span class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-teal-300 text-teal-700 text-sm font-medium rounded-full">
+            Type: Avocats
+            <button class="hover:text-teal-900">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </span>
+          <span class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-teal-300 text-teal-700 text-sm font-medium rounded-full">
+            Localisation: Île-de-France
+            <button class="hover:text-teal-900">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </span>
+          <button class="text-sm text-teal-600 hover:text-teal-700 font-medium underline">
+            Réinitialiser tous les filtres
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Refined Filters Sidebar -->
+      <aside class="lg:w-80 flex-shrink-0">
+        <div class="bg-white rounded-lg shadow-sm p-6 sticky top-8">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Affiner la recherche</h2>
+          
+          <!-- Category Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Type de partenaire</h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input type="checkbox" checked class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700 font-medium">Avocats (12)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Experts-comptables (4)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Notaires (3)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Consultants (2)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Location Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Localisation</h3>
+            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+              <option selected>Île-de-France</option>
+              <option>Paris (75)</option>
+              <option>Hauts-de-Seine (92)</option>
+              <option>Seine-Saint-Denis (93)</option>
+              <option>Val-de-Marne (94)</option>
+              <option>Autre région</option>
+            </select>
+          </div>
+
+          <!-- Specialization Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Spécialisation</h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input type="checkbox" checked class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700 font-medium">Transmission (10)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Fusion-Acquisition (8)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Fiscalité (5)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Due diligence (6)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Rating Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Note minimum</h3>
+            <div class="space-y-2">
+              <label class="flex items-center cursor-pointer">
+                <input type="radio" name="rating" class="w-4 h-4 text-teal-600 focus:ring-teal-500">
+                <span class="ml-3 flex items-center text-gray-700">
+                  <span class="text-yellow-500">★★★★★</span>
+                  <span class="ml-2">(5 étoiles) - 3 résultats</span>
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input type="radio" name="rating" checked class="w-4 h-4 text-teal-600 focus:ring-teal-500">
+                <span class="ml-3 flex items-center text-gray-700">
+                  <span class="text-yellow-500">★★★★</span>
+                  <span class="ml-2">(4+ étoiles) - 12 résultats</span>
+                </span>
+              </label>
+              <label class="flex items-center cursor-pointer">
+                <input type="radio" name="rating" class="w-4 h-4 text-teal-600 focus:ring-teal-500">
+                <span class="ml-3 flex items-center text-gray-700">
+                  <span class="text-yellow-500">★★★</span>
+                  <span class="ml-2">(3+ étoiles) - 21 résultats</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Price Range Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Tarif consultation</h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Moins de 150€ (4)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">150€ - 250€ (10)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+                <span class="ml-3 text-gray-700">Plus de 250€ (7)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Premium Badge Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Badge</h3>
+            <label class="flex items-center">
+              <input type="checkbox" class="w-4 h-4 text-teal-600 rounded focus:ring-teal-500">
+              <span class="ml-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+                Premium (8)
+              </span>
+            </label>
+          </div>
+
+          <!-- Apply Button -->
+          <button class="w-full bg-teal-600 text-white py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors">
+            Appliquer les filtres
+          </button>
+        </div>
+      </aside>
+
+      <!-- Search Results -->
+      <main class="flex-1">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900">21 partenaires trouvés</h1>
+            <p class="text-gray-600 mt-1">pour "avocat paris transmission" en Île-de-France</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-sm text-gray-600">Trier par :</span>
+            <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500">
+              <option>Pertinence</option>
+              <option>Note (décroissante)</option>
+              <option>Prix (croissant)</option>
+              <option>Prix (décroissant)</option>
+              <option>Récent</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Results Grid -->
+        <div class="space-y-6">
+          <!-- Result Card 1 - Premium -->
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border-2 border-purple-200">
+            <div class="p-6">
+              <div class="flex flex-col md:flex-row gap-6">
+                <div class="w-24 h-24 rounded-lg bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+                  SC
+                </div>
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+                    <div>
+                      <h3 class="text-xl font-bold text-gray-900 mb-1">Sophie Conseil</h3>
+                      <p class="text-gray-600">Avocat d'affaires</p>
+                    </div>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+                      Premium
+                    </span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4 mb-4">
+                    <div class="flex items-center gap-2">
+                      <span class="text-yellow-500">★★★★★</span>
+                      <span class="text-sm font-semibold text-gray-900">4.8/5</span>
+                      <span class="text-sm text-gray-600">(8 avis)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      <span>Paris (75002)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <span class="text-sm text-gray-600">15 ans d'expérience</span>
+                  </div>
+
+                  <p class="text-gray-700 mb-4">
+                    Spécialisée en droit des sociétés et <mark class="bg-yellow-200 font-semibold">fusions-acquisitions</mark>. Plus de 15 ans d'expérience dans l'accompagnement des <mark class="bg-yellow-200 font-semibold">transmissions</mark> d'entreprise. Expert en due diligence et optimisation fiscale.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Fusion-Acquisition</span>
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Transmission</span>
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Droit des sociétés</span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-sm text-gray-600">À partir de</span>
+                      <span class="text-2xl font-bold text-teal-600">150€ HT</span>
+                    </div>
+                    <div class="flex-1"></div>
+                    <a href="<%= mockups_directory_partner_path(id: 1) %>" class="bg-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors">
+                      Voir le profil complet
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Card 2 - Premium -->
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden border-2 border-purple-200">
+            <div class="p-6">
+              <div class="flex flex-col md:flex-row gap-6">
+                <div class="w-24 h-24 rounded-lg bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+                  PR
+                </div>
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+                    <div>
+                      <h3 class="text-xl font-bold text-gray-900 mb-1">Pierre Rousseau</h3>
+                      <p class="text-gray-600">Avocat fiscaliste</p>
+                    </div>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+                      Premium
+                    </span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4 mb-4">
+                    <div class="flex items-center gap-2">
+                      <span class="text-yellow-500">★★★★★</span>
+                      <span class="text-sm font-semibold text-gray-900">4.9/5</span>
+                      <span class="text-sm text-gray-600">(14 avis)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      <span>Marseille (13008)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <span class="text-sm text-gray-600">20 ans d'expérience</span>
+                  </div>
+
+                  <p class="text-gray-700 mb-4">
+                    Expert en fiscalité des <mark class="bg-yellow-200 font-semibold">transmissions</mark> d'entreprise. Optimisation des schémas de cession et accompagnement sur les aspects fiscaux complexes. Spécialiste des restructurations et holdings.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Fiscalité</span>
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Optimisation</span>
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Restructuration</span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-sm text-gray-600">À partir de</span>
+                      <span class="text-2xl font-bold text-teal-600">300€ HT</span>
+                    </div>
+                    <div class="flex-1"></div>
+                    <a href="<%= mockups_directory_partner_path(id: 5) %>" class="bg-teal-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors">
+                      Voir le profil complet
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Card 3 - Standard -->
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+            <div class="p-6">
+              <div class="flex flex-col md:flex-row gap-6">
+                <div class="w-24 h-24 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+                  JB
+                </div>
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+                    <div>
+                      <h3 class="text-xl font-bold text-gray-900 mb-1">Jacques Bernard</h3>
+                      <p class="text-gray-600">Avocat droit des affaires</p>
+                    </div>
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                      <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      Vérifié
+                    </span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4 mb-4">
+                    <div class="flex items-center gap-2">
+                      <span class="text-yellow-500">★★★★☆</span>
+                      <span class="text-sm font-semibold text-gray-900">4.2/5</span>
+                      <span class="text-sm text-gray-600">(6 avis)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      <span>Paris (75001)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <span class="text-sm text-gray-600">12 ans d'expérience</span>
+                  </div>
+
+                  <p class="text-gray-700 mb-4">
+                    Accompagnement juridique des <mark class="bg-yellow-200 font-semibold">transmissions</mark> PME. Rédaction d'actes, négociation, due diligence. Intervient sur Paris et région parisienne.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Transmission PME</span>
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Contrats</span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-sm text-gray-600">À partir de</span>
+                      <span class="text-2xl font-bold text-teal-600">180€ HT</span>
+                    </div>
+                    <div class="flex-1"></div>
+                    <a href="<%= mockups_directory_partner_path(id: 7) %>" class="border-2 border-teal-600 text-teal-600 px-6 py-3 rounded-full font-semibold hover:bg-teal-50 transition-colors">
+                      Voir le profil
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Card 4 - Standard -->
+          <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+            <div class="p-6">
+              <div class="flex flex-col md:flex-row gap-6">
+                <div class="w-24 h-24 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+                  EM
+                </div>
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-start justify-between gap-4 mb-3">
+                    <div>
+                      <h3 class="text-xl font-bold text-gray-900 mb-1">Élise Martin</h3>
+                      <p class="text-gray-600">Avocate en droit fiscal</p>
+                    </div>
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700">
+                      <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      Vérifié
+                    </span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4 mb-4">
+                    <div class="flex items-center gap-2">
+                      <span class="text-yellow-500">★★★★☆</span>
+                      <span class="text-sm font-semibold text-gray-900">4.6/5</span>
+                      <span class="text-sm text-gray-600">(10 avis)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      </svg>
+                      <span>Paris (75008)</span>
+                    </div>
+                    <span class="text-gray-400">•</span>
+                    <span class="text-sm text-gray-600">10 ans d'expérience</span>
+                  </div>
+
+                  <p class="text-gray-700 mb-4">
+                    Spécialiste en fiscalité des <mark class="bg-yellow-200 font-semibold">transmissions</mark> familiales et optimisation fiscale. Conseil en stratégie patrimoniale pour dirigeants.
+                  </p>
+
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Fiscalité</span>
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Patrimoine</span>
+                    <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Transmission familiale</span>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-4">
+                    <div class="flex items-baseline gap-2">
+                      <span class="text-sm text-gray-600">À partir de</span>
+                      <span class="text-2xl font-bold text-teal-600">220€ HT</span>
+                    </div>
+                    <div class="flex-1"></div>
+                    <a href="<%= mockups_directory_partner_path(id: 8) %>" class="border-2 border-teal-600 text-teal-600 px-6 py-3 rounded-full font-semibold hover:bg-teal-50 transition-colors">
+                      Voir le profil
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-8 flex justify-center">
+          <nav class="flex items-center gap-2">
+            <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+              Précédent
+            </button>
+            <button class="px-4 py-2 bg-teal-600 text-white rounded-lg font-medium">1</button>
+            <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">2</button>
+            <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">3</button>
+            <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
+              Suivant
+            </button>
+          </nav>
+        </div>
+
+        <!-- Search Tips -->
+        <div class="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+          <h3 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+            </svg>
+            Affinez votre recherche
+          </h3>
+          <ul class="text-sm text-gray-700 space-y-2">
+            <li>• Utilisez des mots-clés spécifiques comme "M&A", "due diligence", "optimisation fiscale"</li>
+            <li>• Filtrez par type de partenaire pour des résultats plus ciblés</li>
+            <li>• Consultez les profils Premium pour des informations détaillées et témoignages</li>
+            <li>• Contactez directement les partenaires pour obtenir un devis personnalisé</li>
+          </ul>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>

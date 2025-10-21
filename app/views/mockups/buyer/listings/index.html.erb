@@ -1,0 +1,144 @@
+<% content_for :title, "Parcourir les annonces - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Parcourir les annonces" %>
+
+<div class="max-w-7xl mx-auto space-y-6">
+  <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900">Toutes les annonces</h2>
+      <p class="text-gray-600 mt-1">156 entreprises disponibles</p>
+    </div>
+    <%= link_to mockups_buyer_listings_search_path, class: "px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium" do %>
+      🔍 Recherche avancée
+    <% end %>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <option>Tous les secteurs</option>
+        <option>Commerce</option>
+        <option>Restauration</option>
+        <option>Services</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <option>Toutes les régions</option>
+        <option>Île-de-France</option>
+        <option>Auvergne-Rhône-Alpes</option>
+        <option>Nouvelle-Aquitaine</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <option>Toutes les fourchettes CA</option>
+        <option>< 200k€</option>
+        <option>200k€ - 500k€</option>
+        <option>> 500k€</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <option>Trier par: Plus récent</option>
+        <option>Trier par: CA croissant</option>
+        <option>Trier par: CA décroissant</option>
+        <option>Trier par: Prix</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Listings Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% [
+      { id: 1, name: 'Boulangerie artisanale', location: 'Paris 15ème', sector: 'Commerce', ca: '450k€', price: '350k€', employees: 5, rating: 4, completion: 90, badge: 'ideal', reserved: false },
+      { id: 2, name: 'Restaurant Italien', location: 'Lyon 6ème', sector: 'Restauration', ca: '420k€', price: '320k€', employees: 8, rating: 5, completion: 95, badge: 'ideal', reserved: true },
+      { id: 3, name: 'Garage Automobile', location: 'Toulouse', sector: 'Services', ca: '280k€', price: '180k€', employees: 3, rating: 3, completion: 75, badge: nil, reserved: false },
+      { id: 4, name: 'Salon de coiffure', location: 'Bordeaux', sector: 'Services', ca: '180k€', price: '120k€', employees: 4, rating: 4, completion: 85, badge: nil, reserved: false },
+      { id: 5, name: 'Épicerie fine', location: 'Nice', sector: 'Commerce', ca: '220k€', price: '160k€', employees: 2, rating: 5, completion: 92, badge: 'ideal', reserved: false },
+      { id: 6, name: 'Café-Restaurant', location: 'Marseille', sector: 'Restauration', ca: '380k€', price: '290k€', employees: 6, rating: 4, completion: 88, badge: nil, reserved: false }
+    ].each do |listing| %>
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
+        <div class="relative">
+          <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold text-2xl">
+            <%= listing[:name].split(' ').map(&:first).join[0..1] %>
+          </div>
+          <button class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition">
+            <svg class="w-6 h-6 text-gray-600 hover:text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <% if listing[:badge] == 'ideal' %>
+            <div class="absolute top-3 left-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900">
+                🏆 Deal IDEAL
+              </span>
+            </div>
+          <% end %>
+          <% if listing[:reserved] %>
+            <div class="absolute bottom-3 left-3 right-3">
+              <span class="block text-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                Réservé
+              </span>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="p-4">
+          <h3 class="font-bold text-gray-900 mb-2"><%= listing[:name] %></h3>
+          <p class="text-sm text-gray-600 mb-3"><%= listing[:location] %> • <%= listing[:sector] %></p>
+
+          <div class="grid grid-cols-2 gap-2 mb-3 text-sm">
+            <div>
+              <span class="text-gray-600">CA:</span>
+              <span class="font-semibold text-gray-900 ml-1"><%= listing[:ca] %></span>
+            </div>
+            <div>
+              <span class="text-gray-600">Effectif:</span>
+              <span class="font-semibold text-gray-900 ml-1"><%= listing[:employees] %></span>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-1 mb-3">
+            <% listing[:rating].times do %>
+              <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            <% end %>
+            <% (5 - listing[:rating]).times do %>
+              <svg class="w-4 h-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            <% end %>
+          </div>
+
+          <div class="mb-3">
+            <div class="flex justify-between text-xs text-gray-600 mb-1">
+              <span>Complétude</span>
+              <span><%= listing[:completion] %>%</span>
+            </div>
+            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <% if listing[:completion] >= 85 %>
+                <div class="h-full bg-green-500" style="width: <%= listing[:completion] %>%"></div>
+              <% else %>
+                <div class="h-full bg-orange-500" style="width: <%= listing[:completion] %>%"></div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <p class="text-sm text-gray-600">Prix estimé</p>
+            <p class="text-lg font-bold text-blue-600"><%= listing[:price] %></p>
+          </div>
+
+          <%= link_to mockups_buyer_listing_path(listing[:id]), class: "block w-full px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium text-center text-sm" do %>
+            Voir l'annonce
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Pagination -->
+  <div class="flex justify-center items-center gap-2">
+    <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">Précédent</button>
+    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">1</button>
+    <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
+    <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
+    <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">Suivant</button>
+  </div>
+</div>
