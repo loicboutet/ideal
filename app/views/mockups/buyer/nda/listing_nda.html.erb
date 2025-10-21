@@ -1,0 +1,71 @@
+<% content_for :title, "NDA Annonce - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "NDA Spécifique à l'annonce" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <%= link_to mockups_buyer_listing_path(@listing_id || 1), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour à l'annonce
+  <% end %>
+
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900">Accord de confidentialité spécifique</h2>
+    <p class="text-gray-600 mt-1">Boulangerie artisanale Paris 15ème</p>
+  </div>
+
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <h3 class="font-semibold text-blue-900 mb-2">📄 Pourquoi un NDA spécifique ?</h3>
+    <ul class="text-sm text-blue-800 space-y-1">
+      <li>• Protection renforcée des données sensibles du vendeur</li>
+      <li>• Accès aux documents financiers détaillés</li>
+      <li>• Informations de contact du vendeur</li>
+      <li>• Données confidentielles sur l'entreprise</li>
+    </ul>
+  </div>
+
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="prose max-w-none">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Accord de Non-Divulgation Spécifique</h3>
+      <div class="space-y-4 text-sm text-gray-700">
+        <p>Cet accord concerne spécifiquement l'annonce : <strong>Boulangerie artisanale Paris 15ème</strong></p>
+        
+        <h4 class="font-semibold text-gray-900 mt-4">1. Informations protégées</h4>
+        <p>En signant cet accord, vous aurez accès à :</p>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>Bilans comptables des 3 dernières années</li>
+          <li>Comptes de résultat détaillés</li>
+          <li>Contrats commerciaux et baux</li>
+          <li>Liste des clients et fournisseurs</li>
+          <li>Informations de contact du cédant</li>
+        </ul>
+        
+        <h4 class="font-semibold text-gray-900 mt-4">2. Engagements</h4>
+        <p>Vous vous engagez à :</p>
+        <ul class="list-disc ml-6 space-y-1">
+          <li>Ne pas divulguer ces informations à des tiers</li>
+          <li>Ne pas utiliser ces informations à des fins autres que l'évaluation de l'opportunité d'acquisition</li>
+          <li>Ne pas contacter directement les clients, fournisseurs ou employés sans autorisation</li>
+          <li>Détruire toutes les informations en cas de non-aboutissement du projet</li>
+        </ul>
+        
+        <h4 class="font-semibold text-gray-900 mt-4">3. Validité</h4>
+        <p>Cet accord est valable pendant toute la durée du processus d'acquisition et 2 ans après sa conclusion ou son abandon.</p>
+      </div>
+    </div>
+
+    <div class="mt-6 pt-6 border-t border-gray-200">
+      <label class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 mb-6">
+        <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-1">
+        <div class="text-sm">
+          <p class="font-medium text-gray-900">J'ai lu et j'accepte les termes de cet accord de confidentialité</p>
+          <p class="text-gray-600 mt-1">En cochant cette case, vous vous engagez légalement à respecter les conditions énoncées ci-dessus.</p>
+        </div>
+      </label>
+
+      <button class="w-full px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium">
+        Signer électroniquement et accéder aux documents
+      </button>
+    </div>
+  </div>
+</div>

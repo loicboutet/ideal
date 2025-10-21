@@ -1,0 +1,177 @@
+<% content_for :title, "403 - Accès interdit - IDEAL" %>
+
+<div class="min-h-screen bg-gradient-to-br from-red-50 to-orange-100 flex items-center justify-center py-12 px-4">
+  <div class="max-w-2xl w-full text-center">
+    <!-- Error Illustration -->
+    <div class="mb-8">
+      <div class="mx-auto w-64 h-64 relative">
+        <!-- 403 Number -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <h1 class="text-9xl font-bold text-red-200 select-none">403</h1>
+        </div>
+        <!-- Lock Icon -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="w-32 h-32 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="bg-white rounded-lg shadow-xl p-8 mb-6">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Accès interdit</h2>
+      <p class="text-lg text-gray-600 mb-6">
+        Désolé, vous n'avez pas l'autorisation d'accéder à cette page.
+      </p>
+
+      <!-- Reasons Box -->
+      <div class="bg-red-50 rounded-lg p-6 mb-8 text-left border-l-4 border-red-600">
+        <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Pourquoi ce message ?
+        </h3>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Vous devez être connecté pour accéder à cette page</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Votre compte n'a pas les permissions nécessaires</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Cette fonctionnalité nécessite un abonnement Premium</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <span>Votre compte a été suspendu ou désactivé</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Solutions -->
+      <div class="mb-8">
+        <h3 class="font-bold text-gray-900 mb-4">Que faire maintenant ?</h3>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-blue-50 rounded-lg p-4 border border-blue-200 text-left">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-sm text-gray-900 mb-1">Pas encore inscrit ?</p>
+                <p class="text-xs text-gray-600 mb-2">Créez un compte gratuit pour accéder à la plateforme</p>
+                <a href="<%= mockups_register_path %>" class="text-blue-600 hover:text-blue-700 text-xs font-medium">
+                  Créer un compte →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-green-50 rounded-lg p-4 border border-green-200 text-left">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-sm text-gray-900 mb-1">Besoin de Premium ?</p>
+                <p class="text-xs text-gray-600 mb-2">Accédez à toutes les fonctionnalités avec Premium</p>
+                <a href="<%= mockups_checkout_select_plan_path %>" class="text-green-600 hover:text-green-700 text-xs font-medium">
+                  Voir les formules →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-purple-50 rounded-lg p-4 border border-purple-200 text-left">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-sm text-gray-900 mb-1">Déjà inscrit ?</p>
+                <p class="text-xs text-gray-600 mb-2">Connectez-vous à votre compte</p>
+                <a href="<%= mockups_login_path %>" class="text-purple-600 hover:text-purple-700 text-xs font-medium">
+                  Se connecter →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-yellow-50 rounded-lg p-4 border border-yellow-200 text-left">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-sm text-gray-900 mb-1">Problème technique ?</p>
+                <p class="text-xs text-gray-600 mb-2">Notre équipe support peut vous aider</p>
+                <a href="<%= mockups_contact_path %>" class="text-yellow-700 hover:text-yellow-800 text-xs font-medium">
+                  Contacter le support →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="<%= mockups_path %>" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors shadow-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Retour à l'accueil
+        </a>
+        <a href="<%= mockups_login_path %>" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-full font-medium hover:bg-gray-50 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+          </svg>
+          Se connecter
+        </a>
+      </div>
+    </div>
+
+    <!-- Help Note -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div class="text-left flex-1">
+          <h3 class="font-bold text-gray-900 mb-2">Note importante</h3>
+          <p class="text-sm text-gray-600">
+            Si vous pensez que ce message d'erreur est affiché par erreur, veuillez contacter notre équipe support avec le code d'erreur ci-dessous.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Code -->
+    <p class="mt-6 text-xs text-gray-500">
+      Code d'erreur : 403 FORBIDDEN
+    </p>
+  </div>
+</div>

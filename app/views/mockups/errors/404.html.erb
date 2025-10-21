@@ -1,0 +1,115 @@
+<% content_for :title, "404 - Page non trouvée - IDEAL" %>
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4">
+  <div class="max-w-2xl w-full text-center">
+    <!-- Error Illustration -->
+    <div class="mb-8">
+      <div class="mx-auto w-64 h-64 relative">
+        <!-- 404 Number -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <h1 class="text-9xl font-bold text-blue-200 select-none">404</h1>
+        </div>
+        <!-- Magnifying Glass Icon -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="w-32 h-32 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="bg-white rounded-lg shadow-xl p-8 mb-6">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Page non trouvée</h2>
+      <p class="text-lg text-gray-600 mb-6">
+        Oups ! La page que vous recherchez semble avoir disparu.
+      </p>
+      <p class="text-gray-500 mb-8">
+        Il se peut que le lien soit incorrect ou que la page ait été déplacée ou supprimée.
+      </p>
+
+      <!-- Search Box -->
+      <div class="mb-8">
+        <label class="block text-sm font-medium text-gray-700 mb-3 text-left">
+          Peut-être cherchez-vous une annonce ?
+        </label>
+        <div class="flex gap-2">
+          <div class="flex-1 relative">
+            <input type="text" placeholder="Rechercher une entreprise, un secteur..." class="w-full px-4 py-3 pr-12 border-2 border-gray-300 rounded-full focus:ring-2 focus:ring-blue-600 focus:border-transparent" />
+            <button class="absolute right-2 top-1/2 transform -translate-y-1/2 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <a href="<%= mockups_path %>" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors shadow-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Retour à l'accueil
+        </a>
+        <a href="<%= mockups_listings_path %>" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-full font-medium hover:bg-gray-50 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+          Explorer les annonces
+        </a>
+      </div>
+
+      <!-- Helpful Links -->
+      <div class="pt-6 border-t border-gray-200">
+        <p class="text-sm text-gray-600 mb-4 font-medium">Pages populaires</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+          <a href="<%= mockups_about_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            À propos
+          </a>
+          <a href="<%= mockups_how_it_works_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            Comment ça marche
+          </a>
+          <a href="<%= mockups_pricing_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            Tarifs
+          </a>
+          <a href="<%= mockups_contact_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            Contact
+          </a>
+          <a href="<%= mockups_directory_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            Annuaire partenaires
+          </a>
+          <a href="<%= mockups_terms_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            CGU
+          </a>
+          <a href="<%= mockups_privacy_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            Confidentialité
+          </a>
+          <a href="<%= mockups_login_path %>" class="text-blue-600 hover:text-blue-700 hover:underline">
+            Connexion
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Support Card -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="font-bold text-gray-900 mb-2">Besoin d'aide ?</h3>
+      <p class="text-sm text-gray-600 mb-4">
+        Notre équipe est là pour vous aider à trouver ce que vous cherchez
+      </p>
+      <a href="<%= mockups_contact_path %>" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+        </svg>
+        Contactez-nous
+      </a>
+    </div>
+
+    <!-- Error Code -->
+    <p class="mt-6 text-xs text-gray-500">
+      Code d'erreur : 404 NOT_FOUND
+    </p>
+  </div>
+</div>

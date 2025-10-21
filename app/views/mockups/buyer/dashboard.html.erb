@@ -1,0 +1,187 @@
+<% content_for :title, "Dashboard - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Dashboard" %>
+
+<div class="max-w-7xl mx-auto space-y-6">
+  <!-- Welcome Banner -->
+  <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
+    <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-bold mb-2">Bonjour Pierre 👋</h2>
+        <p class="text-blue-100">Vous avez 2 réservations actives et 5 nouveaux deals correspondant à vos critères</p>
+      </div>
+      <%= link_to mockups_buyer_listings_path, class: "px-6 py-3 bg-white text-blue-600 rounded-full hover:bg-blue-50 transition font-medium shadow-lg" do %>
+        Parcourir les annonces
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-2">
+        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+      </div>
+      <div class="text-2xl font-bold text-gray-900">12</div>
+      <div class="text-sm text-gray-600 mt-1">Dossiers actifs</div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-2">
+        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="text-2xl font-bold text-gray-900">2</div>
+      <div class="text-sm text-gray-600 mt-1">Réservations actives</div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-2">
+        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="text-2xl font-bold text-gray-900">8</div>
+      <div class="text-sm text-gray-600 mt-1">Favoris</div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-2">
+        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="text-2xl font-bold text-gray-900">45</div>
+      <div class="text-sm text-gray-600 mt-1">Crédits restants</div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Pipeline Overview -->
+    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-lg font-bold text-gray-900">Mon pipeline</h3>
+        <%= link_to mockups_buyer_pipeline_path, class: "text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+          Voir tout →
+        <% end %>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="p-4 bg-blue-50 rounded-lg">
+          <div class="text-2xl font-bold text-blue-600">5</div>
+          <div class="text-sm text-gray-600 mt-1">À contacter</div>
+        </div>
+        <div class="p-4 bg-yellow-50 rounded-lg">
+          <div class="text-2xl font-bold text-yellow-600">3</div>
+          <div class="text-sm text-gray-600 mt-1">En relation</div>
+        </div>
+        <div class="p-4 bg-purple-50 rounded-lg">
+          <div class="text-2xl font-bold text-purple-600">2</div>
+          <div class="text-sm text-gray-600 mt-1">Étude en cours</div>
+        </div>
+        <div class="p-4 bg-green-50 rounded-lg">
+          <div class="text-2xl font-bold text-green-600">2</div>
+          <div class="text-sm text-gray-600 mt-1">Négociation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white rounded-xl shadow-sm p-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
+      <div class="space-y-3">
+        <%= link_to mockups_buyer_listings_search_path, class: "block px-4 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium text-center" do %>
+          🔍 Rechercher des deals
+        <% end %>
+        <%= link_to new_mockups_buyer_enrichment_path, class: "block px-4 py-3 bg-orange-100 text-orange-900 rounded-full hover:bg-orange-200 transition font-medium text-center" do %>
+          📄 Enrichissement
+        <% end %>
+        <%= link_to upgrade_mockups_buyer_subscription_path, class: "block px-4 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full hover:from-yellow-500 hover:to-orange-600 transition font-medium text-center shadow-md" do %>
+          ⭐ Passer Premium
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Reservations -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-lg font-bold text-gray-900">Réservations actives</h3>
+      <%= link_to mockups_buyer_reservations_path, class: "text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+        Voir tout →
+      <% end %>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% [
+        { name: 'Restaurant Italien Lyon', ca: '420k€', location: 'Lyon 6ème', time_left: '23h 45m' },
+        { name: 'Garage Automobile Toulouse', ca: '280k€', location: 'Toulouse', time_left: '47h 12m' }
+      ].each do |reservation| %>
+        <div class="border border-orange-200 bg-orange-50 rounded-lg p-4">
+          <div class="flex items-start justify-between mb-3">
+            <div>
+              <h4 class="font-semibold text-gray-900"><%= reservation[:name] %></h4>
+              <p class="text-sm text-gray-600"><%= reservation[:location] %> • CA <%= reservation[:ca] %></p>
+            </div>
+            <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2 py-1 rounded-full">
+              ⏱ <%= reservation[:time_left] %>
+            </span>
+          </div>
+          <div class="flex gap-2">
+            <%= link_to mockups_buyer_reservation_path(1), class: "flex-1 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium text-sm text-center" do %>
+              Voir
+            <% end %>
+            <%= link_to release_mockups_buyer_reservation_path(1), class: "px-4 py-2 bg-white border border-red-300 text-red-700 rounded-full hover:bg-red-50 transition font-medium text-sm" do %>
+              Libérer
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Activité récente</h3>
+    <div class="space-y-4">
+      <% [
+        { action: 'Nouveau deal ajouté', item: 'Boulangerie Paris 15ème', time: 'Il y a 2 heures', color: 'blue' },
+        { action: 'Réservation confirmée', item: 'Restaurant Italien Lyon', time: 'Il y a 5 heures', color: 'orange' },
+        { action: 'Enrichissement reçu', item: 'Salon de coiffure Bordeaux', time: 'Il y a 1 jour', color: 'green' },
+        { action: 'Deal ajouté aux favoris', item: 'Garage Toulouse', time: 'Il y a 2 jours', color: 'purple' }
+      ].each do |activity| %>
+        <div class="flex items-start gap-3">
+          <% case activity[:color] %>
+          <% when 'blue' %>
+            <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+          <% when 'orange' %>
+            <div class="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
+          <% when 'green' %>
+            <div class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
+          <% when 'purple' %>
+            <div class="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
+          <% end %>
+          <div class="flex-1">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-sm font-medium text-gray-900"><%= activity[:action] %></p>
+                <p class="text-sm text-gray-600"><%= activity[:item] %></p>
+              </div>
+              <span class="text-xs text-gray-500"><%= activity[:time] %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

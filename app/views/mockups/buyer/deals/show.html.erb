@@ -1,0 +1,115 @@
+<% content_for :title, "Détail du dossier - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Détail du dossier" %>
+
+<div class="max-w-7xl mx-auto space-y-6">
+  <%= link_to mockups_buyer_deals_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour aux dossiers
+  <% end %>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Deal Header -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-2">Boulangerie Paris 15ème</h2>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+              À contacter
+            </span>
+          </div>
+          <%= link_to edit_mockups_buyer_deal_path(@deal_id || 1), class: "px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium" do %>
+            Modifier
+          <% end %>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+          <div>
+            <div class="text-sm text-gray-600">CA</div>
+            <div class="text-lg font-bold text-gray-900">450k€</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-600">Prix</div>
+            <div class="text-lg font-bold text-blue-600">350k€</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-600">Localisation</div>
+            <div class="text-lg font-bold text-gray-900">Paris 15ème</div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-600">Ajouté le</div>
+            <div class="text-lg font-bold text-gray-900">15/10/25</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notes Section -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Mes notes</h3>
+        
+        <div class="space-y-4 mb-6">
+          <% [
+            { date: '15/10/2025 14:30', note: 'Premier contact établi. Visite prévue la semaine prochaine.' },
+            { date: '14/10/2025 09:15', note: 'Bonne localisation, clientèle fidèle. À approfondir.' },
+            { date: '13/10/2025 16:45', note: 'Dossier ajouté suite à recommandation d\'un confrère.' }
+          ].each do |item| %>
+            <div class="p-4 bg-gray-50 rounded-lg">
+              <div class="flex items-start justify-between mb-2">
+                <span class="text-xs text-gray-500"><%= item[:date] %></span>
+                <button class="text-gray-400 hover:text-red-600">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+              <p class="text-sm text-gray-700"><%= item[:note] %></p>
+            </div>
+          <% end %>
+        </div>
+
+        <form class="space-y-3">
+          <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg" rows="3" placeholder="Ajouter une nouvelle note..."></textarea>
+          <button class="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium">
+            Ajouter une note
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="space-y-6">
+      <!-- Change Status -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Changer le statut</h3>
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg mb-3">
+          <option selected>À contacter</option>
+          <option>En relation</option>
+          <option>Étude en cours</option>
+          <option>Négociation</option>
+          <option>Abandonné</option>
+        </select>
+        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium">
+          Mettre à jour
+        </button>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
+        <div class="space-y-2">
+          <%= link_to mockups_buyer_listing_path(1), class: "block w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium text-center text-sm" do %>
+            Voir l'annonce
+          <% end %>
+          <button class="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium text-sm">
+            Partager
+          </button>
+          <button class="w-full px-4 py-2 border border-red-300 text-red-700 rounded-full hover:bg-red-50 transition font-medium text-sm">
+            Supprimer du pipeline
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

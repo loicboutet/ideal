@@ -1,0 +1,80 @@
+<% content_for :title, "Pipeline CRM - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Mon Pipeline CRM" %>
+
+<div class="max-w-7xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <p class="text-gray-600">12 dossiers actifs dans votre pipeline</p>
+    <%= link_to mockups_buyer_deals_path, class: "text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+      Vue liste →
+    <% end %>
+  </div>
+
+  <!-- Pipeline Columns -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <% [
+      { title: 'À contacter', color: 'blue', count: 5, deals: [{name: 'Boulangerie Paris', ca: '450k€'}, {name: 'Café Lyon', ca: '420k€'}] },
+      { title: 'En relation', color: 'yellow', count: 3, deals: [{name: 'Garage Toulouse', ca: '280k€'}] },
+      { title: 'Étude en cours', color: 'purple', count: 2, deals: [{name: 'Salon Bordeaux', ca: '180k€'}] },
+      { title: 'Négociation', color: 'green', count: 2, deals: [{name: 'Épicerie Nice', ca: '220k€'}] }
+    ].each do |column| %>
+      <div class="bg-gray-50 rounded-xl p-4 min-h-[500px]">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-bold text-gray-900"><%= column[:title] %></h3>
+          <% case column[:color] %>
+          <% when 'blue' %>
+            <span class="w-6 h-6 bg-blue-100 text-blue-600 text-xs font-bold rounded-full flex items-center justify-center">
+              <%= column[:count] %>
+            </span>
+          <% when 'yellow' %>
+            <span class="w-6 h-6 bg-yellow-100 text-yellow-600 text-xs font-bold rounded-full flex items-center justify-center">
+              <%= column[:count] %>
+            </span>
+          <% when 'purple' %>
+            <span class="w-6 h-6 bg-purple-100 text-purple-600 text-xs font-bold rounded-full flex items-center justify-center">
+              <%= column[:count] %>
+            </span>
+          <% when 'green' %>
+            <span class="w-6 h-6 bg-green-100 text-green-600 text-xs font-bold rounded-full flex items-center justify-center">
+              <%= column[:count] %>
+            </span>
+          <% end %>
+        </div>
+
+        <div class="space-y-3">
+          <% column[:deals].each do |deal| %>
+            <div class="bg-white rounded-lg shadow-sm p-4 cursor-move hover:shadow-md transition">
+              <h4 class="font-semibold text-gray-900 mb-2"><%= deal[:name] %></h4>
+              <p class="text-sm text-gray-600">CA: <%= deal[:ca] %></p>
+              <%= link_to mockups_buyer_deal_path(1), class: "block mt-3 text-sm text-blue-600 hover:text-blue-700" do %>
+                Voir le dossier →
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <% case column[:color] %>
+        <% when 'blue' %>
+          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-blue-300 hover:text-blue-600 transition text-sm font-medium">
+            + Ajouter un deal
+          </button>
+        <% when 'yellow' %>
+          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-yellow-300 hover:text-yellow-600 transition text-sm font-medium">
+            + Ajouter un deal
+          </button>
+        <% when 'purple' %>
+          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-purple-300 hover:text-purple-600 transition text-sm font-medium">
+            + Ajouter un deal
+          </button>
+        <% when 'green' %>
+          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-green-300 hover:text-green-600 transition text-sm font-medium">
+            + Ajouter un deal
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <p class="text-sm text-blue-900">💡 Glissez-déposez les cartes pour déplacer les dossiers entre les colonnes</p>
+  </div>
+</div>
