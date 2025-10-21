@@ -27,17 +27,17 @@
 
           <!-- Desktop Navigation -->
           <div class="hidden md:flex md:items-center md:space-x-8">
-            <%= link_to "Accueil", mockups_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "Comment ça marche", mockups_how_it_works_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "Tarifs", mockups_pricing_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "À propos", mockups_about_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "Contact", mockups_contact_path, class: "text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Accueil", mockups_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Comment ça marche", mockups_how_it_works_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Tarifs", mockups_pricing_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "À propos", mockups_about_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Contact", mockups_contact_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
           </div>
 
           <!-- Desktop CTA Buttons -->
           <div class="hidden md:flex md:items-center md:space-x-4">
-            <%= link_to "Se connecter", "#", class: "text-gray-700 hover:text-blue-600 px-4 py-2 text-sm font-medium transition" %>
-            <%= link_to "S'inscrire", "#", class: "bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition" %>
+            <%= link_to "Se connecter", mockups_login_path, class: "text-gray-700 hover:text-[#4A90E2] px-4 py-2 text-sm font-medium transition" %>
+            <%= link_to "S'inscrire", mockups_register_path, class: "bg-[#4A90E2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#3A7BC8] transition" %>
           </div>
 
           <!-- Mobile menu button -->
@@ -45,7 +45,7 @@
             <button type="button" 
                     data-mobile-menu-target="openButton"
                     data-action="click->mobile-menu#open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#4A90E2] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#4A90E2]">
               <span class="sr-only">Ouvrir le menu</span>
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -54,7 +54,7 @@
             <button type="button" 
                     data-mobile-menu-target="closeButton"
                     data-action="click->mobile-menu#close"
-                    class="hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+                    class="hidden inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#4A90E2] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#4A90E2]">
               <span class="sr-only">Fermer le menu</span>
               <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -75,7 +75,7 @@
               <% end %>
               <button type="button" 
                       data-action="click->mobile-menu#close"
-                      class="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                      class="p-2 rounded-md text-gray-700 hover:text-[#4A90E2] hover:bg-gray-100">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -84,17 +84,17 @@
 
             <!-- Mobile menu links -->
             <div class="flex-1 overflow-y-auto px-4 py-6 space-y-4">
-              <%= link_to "Accueil", mockups_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-blue-600 text-base font-medium py-2 transition" %>
-              <%= link_to "Comment ça marche", mockups_how_it_works_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-blue-600 text-base font-medium py-2 transition" %>
-              <%= link_to "Tarifs", mockups_pricing_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-blue-600 text-base font-medium py-2 transition" %>
-              <%= link_to "À propos", mockups_about_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-blue-600 text-base font-medium py-2 transition" %>
-              <%= link_to "Contact", mockups_contact_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-blue-600 text-base font-medium py-2 transition" %>
+              <%= link_to "Accueil", mockups_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "Comment ça marche", mockups_how_it_works_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "Tarifs", mockups_pricing_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "À propos", mockups_about_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "Contact", mockups_contact_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
             </div>
 
             <!-- Mobile menu CTA buttons -->
             <div class="border-t px-4 py-6 space-y-3">
-              <%= link_to "Se connecter", "#", data: { action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-blue-600 px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>
-              <%= link_to "S'inscrire", "#", data: { action: "click->mobile-menu#close" }, class: "block w-full text-center bg-blue-600 text-white px-4 py-3 rounded-lg text-base font-medium hover:bg-blue-700 transition" %>
+              <%= link_to "Se connecter", mockups_login_path, data: { action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-[#4A90E2] px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>
+              <%= link_to "S'inscrire", mockups_register_path, data: { action: "click->mobile-menu#close" }, class: "block w-full text-center bg-[#4A90E2] text-white px-4 py-3 rounded-lg text-base font-medium hover:bg-[#3A7BC8] transition" %>
             </div>
           </div>
         </div>
@@ -165,9 +165,9 @@
           <div>
             <h3 class="font-semibold text-lg mb-4">Légal</h3>
             <ul class="space-y-2">
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Mentions légales</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">CGU</a></li>
-              <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Politique de confidentialité</a></li>
+              <li><%= link_to "Mentions légales", mockups_about_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "CGU", mockups_terms_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "Politique de confidentialité", mockups_privacy_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
               <li><%= link_to "Contact", mockups_contact_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
             </ul>
           </div>

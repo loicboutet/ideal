@@ -1,0 +1,109 @@
+<% content_for :title, "Passer Premium - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Passer Premium" %>
+
+<div class="max-w-6xl mx-auto space-y-6">
+  <%= link_to mockups_buyer_subscription_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour à mon abonnement
+  <% end %>
+
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Passez à Premium</h2>
+    <p class="text-gray-600">Débloquez toutes les fonctionnalités pour maximiser vos chances de trouver l'entreprise idéale</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Free Plan -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200">
+      <div class="mb-4">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Gratuit</h3>
+        <div class="text-3xl font-bold text-gray-900 mb-1">0€<span class="text-lg text-gray-600 font-normal">/mois</span></div>
+      </div>
+      <ul class="space-y-3 mb-6">
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">20 dossiers CRM max</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">10 favoris max</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">2 réservations/mois</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span class="text-sm text-gray-400">Support prioritaire</span>
+        </li>
+      </ul>
+      <button class="w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium">
+        Plan actuel
+      </button>
+    </div>
+
+    <!-- Premium Plan -->
+    <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg p-6 text-white relative overflow-hidden">
+      <div class="absolute top-4 right-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900">
+          ⭐ Recommandé
+        </span>
+      </div>
+      <div class="mb-4">
+        <h3 class="text-xl font-bold mb-2">Premium</h3>
+        <div class="text-3xl font-bold mb-1">29€<span class="text-lg font-normal opacity-90">/mois</span></div>
+      </div>
+      <ul class="space-y-3 mb-6">
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Dossiers CRM illimités</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Favoris illimités</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Réservations illimitées</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Support prioritaire 24/7</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Statistiques avancées</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Alertes personnalisées</span>
+        </li>
+      </ul>
+      <button class="w-full px-6 py-3 bg-white text-blue-600 rounded-full font-medium hover:bg-blue-50 transition shadow-lg">
+        Passer à Premium
+      </button>
+    </div>
+  </div>
+</div>

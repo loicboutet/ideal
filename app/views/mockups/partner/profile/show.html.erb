@@ -1,0 +1,188 @@
+<% content_for :title, "Ma fiche annuaire - Partenaire - Idéal Reprise" %>
+<% content_for :page_title, "Ma fiche annuaire" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold text-gray-900">Ma fiche annuaire</h2>
+    <div class="flex gap-3">
+      <%= link_to preview_mockups_partner_profile_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium" do %>
+        👁️ Aperçu
+      <% end %>
+      <%= link_to edit_mockups_partner_profile_path, class: "px-6 py-3 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition font-medium" do %>
+        Modifier
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Profile Header -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <div class="flex flex-col md:flex-row gap-6">
+      <div class="w-32 h-32 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center text-white font-semibold text-4xl flex-shrink-0">
+        SC
+      </div>
+      <div class="flex-1">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Sophie Conseil</h3>
+        <p class="text-lg text-teal-600 font-medium mb-3">Avocat d'affaires - Droit des sociétés</p>
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+            ✓ Profil vérifié
+          </span>
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+            ⭐ Premium
+          </span>
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            15 ans d'expérience
+          </span>
+        </div>
+        <div class="flex items-center gap-4 text-sm text-gray-600">
+          <div class="flex items-center gap-1">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <span class="font-semibold">4.8/5</span>
+            <span>(8 avis)</span>
+          </div>
+          <span>•</span>
+          <span>127 vues ce mois</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <h4 class="font-bold text-gray-900 mb-3">À propos</h4>
+    <p class="text-gray-700 leading-relaxed">
+      Avocate spécialisée en droit des affaires depuis plus de 15 ans, j'accompagne les entrepreneurs dans toutes les étapes de la vie de leur entreprise : création, développement, cession et transmission. Mon expertise couvre notamment les opérations de fusion-acquisition, la rédaction d'actes juridiques et l'audit juridique.
+    </p>
+  </div>
+
+  <!-- Services & Expertise -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <h4 class="font-bold text-gray-900 mb-4">Services & Expertise</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="p-4 bg-teal-50 rounded-lg">
+        <h5 class="font-semibold text-teal-900 mb-2">Fusion-Acquisition</h5>
+        <p class="text-sm text-teal-800">Due diligence, négociation, rédaction des actes</p>
+      </div>
+      <div class="p-4 bg-teal-50 rounded-lg">
+        <h5 class="font-semibold text-teal-900 mb-2">Droit des sociétés</h5>
+        <p class="text-sm text-teal-800">Constitution, modification statutaire, gouvernance</p>
+      </div>
+      <div class="p-4 bg-teal-50 rounded-lg">
+        <h5 class="font-semibold text-teal-900 mb-2">Transmission d'entreprise</h5>
+        <p class="text-sm text-teal-800">Optimisation fiscale, pactes d'associés, donation</p>
+      </div>
+      <div class="p-4 bg-teal-50 rounded-lg">
+        <h5 class="font-semibold text-teal-900 mb-2">Contentieux commercial</h5>
+        <p class="text-sm text-teal-800">Litiges contractuels, recouvrement, médiation</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <h4 class="font-bold text-gray-900 mb-4">Tarification</h4>
+    <div class="space-y-3">
+      <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+        <span class="text-gray-700">Consultation initiale (1h)</span>
+        <span class="font-semibold text-gray-900">150€ HT</span>
+      </div>
+      <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+        <span class="text-gray-700">Taux horaire</span>
+        <span class="font-semibold text-gray-900">250€ HT</span>
+      </div>
+      <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+        <span class="text-gray-700">Forfait audit juridique</span>
+        <span class="font-semibold text-gray-900">À partir de 2 500€ HT</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <h4 class="font-bold text-gray-900 mb-4">Coordonnées</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <div>
+          <p class="text-sm text-gray-600">Adresse</p>
+          <p class="font-medium text-gray-900">45 Avenue de l'Opéra<br>75002 Paris</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+        <div>
+          <p class="text-sm text-gray-600">Téléphone</p>
+          <p class="font-medium text-gray-900">01 42 86 82 00</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        <div>
+          <p class="text-sm text-gray-600">Email</p>
+          <p class="font-medium text-gray-900">sophie.conseil@cabinet-sc.fr</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+        <div>
+          <p class="text-sm text-gray-600">Site web</p>
+          <p class="font-medium text-teal-600">www.cabinet-sc.fr</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-6 pt-6 border-t border-gray-200">
+      <p class="text-sm text-gray-600 mb-2">Horaires d'ouverture</p>
+      <div class="grid grid-cols-2 gap-2 text-sm">
+        <div class="flex justify-between">
+          <span class="text-gray-600">Lundi - Vendredi</span>
+          <span class="font-medium text-gray-900">9h00 - 19h00</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Samedi</span>
+          <span class="font-medium text-gray-900">Sur rendez-vous</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Testimonials -->
+  <div class="bg-white rounded-lg shadow-sm p-6">
+    <h4 class="font-bold text-gray-900 mb-4">Avis clients (8)</h4>
+    <div class="space-y-4">
+      <% [
+        { name: 'Jean Martin', rating: 5, date: '12/10/2025', text: 'Excellente avocate, très professionnelle et à l\'écoute. M\'a accompagné efficacement dans la cession de mon entreprise.' },
+        { name: 'Marie Durand', rating: 5, date: '28/09/2025', text: 'Je recommande vivement ! Sophie a su nous guider tout au long de notre projet de transmission familiale avec clarté et expertise.' },
+        { name: 'Pierre Lefèvre', rating: 4, date: '15/09/2025', text: 'Très bon conseil juridique, réactif et disponible. Un vrai partenaire de confiance.' }
+      ].each do |testimonial| %>
+        <div class="p-4 bg-gray-50 rounded-lg">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <p class="font-semibold text-gray-900"><%= testimonial[:name] %></p>
+              <div class="flex items-center gap-1 mt-1">
+                <% testimonial[:rating].times do %>
+                  <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                <% end %>
+              </div>
+            </div>
+            <span class="text-xs text-gray-500"><%= testimonial[:date] %></span>
+          </div>
+          <p class="text-sm text-gray-700"><%= testimonial[:text] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

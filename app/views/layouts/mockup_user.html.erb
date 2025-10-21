@@ -20,17 +20,14 @@
   </head>
 
   <body>
-    <header class="bg-blue-600 text-white p-4">
+    <header class="bg-[#4A90E2] text-white p-4">
       <div class="container mx-auto flex justify-between items-center">
         <div class="flex items-center">
           <h1 class="text-xl font-bold">User Portal</h1>
         </div>
         <nav>
           <ul class="flex space-x-4">
-            <li><%= link_to "Dashboard", { controller: "mockups", action: "user_dashboard" }, class: "hover:underline" %></li>
-            <li><%= link_to "Profile", { controller: "mockups", action: "user_profile" }, class: "hover:underline" %></li>
-            <li><%= link_to "Settings", { controller: "mockups", action: "user_settings" }, class: "hover:underline" %></li>
-            <li><%= link_to "Back to Index", { controller: "mockups", action: "index" }, class: "hover:underline" %></li>
+            <li><%= link_to "Back to Index", mockups_path, class: "hover:underline" %></li>
           </ul>
         </nav>
       </div>
@@ -41,8 +38,17 @@
     </main>
 
     <footer class="bg-gray-100 p-4 mt-8">
-      <div class="container mx-auto text-center text-gray-600">
-        <p>User Mockup Layout - Base Rails App &copy; <%= Time.now.year %></p>
+      <div class="container mx-auto text-center text-gray-600 text-sm">
+        <div class="flex flex-wrap justify-center gap-4 mb-2">
+          <%= link_to "À propos", mockups_about_path, class: "hover:text-[#4A90E2]" %>
+          <span>•</span>
+          <%= link_to "CGU", mockups_terms_path, class: "hover:text-[#4A90E2]" %>
+          <span>•</span>
+          <%= link_to "Confidentialité", mockups_privacy_path, class: "hover:text-[#4A90E2]" %>
+          <span>•</span>
+          <%= link_to "Contact", mockups_contact_path, class: "hover:text-[#4A90E2]" %>
+        </div>
+        <p>&copy; <%= Time.current.year %> Idéal Reprise. Tous droits réservés.</p>
       </div>
     </footer>
   </body>

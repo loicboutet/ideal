@@ -1,0 +1,60 @@
+<% content_for :title, "Mes favoris - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Mes favoris" %>
+
+<div class="max-w-7xl mx-auto space-y-6">
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900">Mes annonces favorites</h2>
+    <p class="text-gray-600 mt-1">8 annonces sauvegardées</p>
+  </div>
+
+  <!-- Favorites Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% [
+      { id: 1, name: 'Boulangerie Paris', ca: '450k€', location: 'Paris 15ème', price: '350k€', badge: 'ideal' },
+      { id: 2, name: 'Restaurant Italien', ca: '420k€', location: 'Lyon 6ème', price: '320k€', badge: 'ideal' },
+      { id: 3, name: 'Salon Bordeaux', ca: '180k€', location: 'Bordeaux', price: '120k€', badge: nil }
+    ].each do |fav| %>
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
+        <div class="relative">
+          <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white font-bold text-2xl">
+            <%= fav[:name].split(' ').map(&:first).join[0..1] %>
+          </div>
+          <button class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition">
+            <svg class="w-6 h-6 text-red-500 fill-current" viewBox="0 0 24 24">
+              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+          </button>
+          <% if fav[:badge] == 'ideal' %>
+            <div class="absolute top-3 left-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900">
+                🏆 Deal IDEAL
+              </span>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="p-4">
+          <h3 class="font-bold text-gray-900 mb-2"><%= fav[:name] %></h3>
+          <p class="text-sm text-gray-600 mb-3"><%= fav[:location] %></p>
+          <div class="text-sm mb-4">
+            <span class="text-gray-600">CA:</span>
+            <span class="font-semibold text-gray-900 ml-1"><%= fav[:ca] %></span>
+          </div>
+          <div class="mb-4">
+            <p class="text-sm text-gray-600">Prix estimé</p>
+            <p class="text-lg font-bold text-blue-600"><%= fav[:price] %></p>
+          </div>
+
+          <div class="flex gap-2">
+            <%= link_to mockups_buyer_listing_path(fav[:id]), class: "flex-1 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium text-center text-sm" do %>
+              Voir
+            <% end %>
+            <%= link_to new_mockups_buyer_deal_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium text-sm" do %>
+              + CRM
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
