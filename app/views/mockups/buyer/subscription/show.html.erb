@@ -1,0 +1,78 @@
+<% content_for :title, "Mon abonnement - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Mon abonnement" %>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <!-- Current Plan -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Plan Gratuit</h2>
+        <p class="text-gray-600">Membre depuis septembre 2025</p>
+      </div>
+      <%= link_to upgrade_mockups_buyer_subscription_path, class: "px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-white rounded-full hover:from-yellow-500 hover:to-orange-600 transition font-medium shadow-md" do %>
+        ⭐ Passer Premium
+      <% end %>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="p-4 bg-gray-50 rounded-lg">
+        <div class="text-sm text-gray-600 mb-1">Dossiers CRM</div>
+        <div class="text-xl font-bold text-gray-900">12 / 20</div>
+      </div>
+      <div class="p-4 bg-gray-50 rounded-lg">
+        <div class="text-sm text-gray-600 mb-1">Favoris</div>
+        <div class="text-xl font-bold text-gray-900">8 / 10</div>
+      </div>
+      <div class="p-4 bg-gray-50 rounded-lg">
+        <div class="text-sm text-gray-600 mb-1">Réservations / mois</div>
+        <div class="text-xl font-bold text-gray-900">2 / 2</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Comparison -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <h3 class="text-lg font-bold text-gray-900 mb-6">Fonctionnalités incluses</h3>
+    <div class="space-y-3">
+      <% [
+        { feature: 'Accès aux annonces publiques', free: true, premium: true },
+        { feature: 'Pipeline CRM (20 dossiers)', free: true, premium: false },
+        { feature: 'Pipeline CRM illimité', free: false, premium: true },
+        { feature: 'Favoris (10 max)', free: true, premium: false },
+        { feature: 'Favoris illimités', free: false, premium: true },
+        { feature: 'Réservations (2/mois)', free: true, premium: false },
+        { feature: 'Réservations illimitées', free: false, premium: true },
+        { feature: 'Support prioritaire', free: false, premium: true },
+        { feature: 'Statistiques avancées', free: false, premium: true }
+      ].each do |item| %>
+        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+          <span class="text-sm text-gray-900"><%= item[:feature] %></span>
+          <div class="flex gap-8">
+            <div class="text-center w-20">
+              <% if item[:free] %>
+                <svg class="w-5 h-5 text-green-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              <% else %>
+                <svg class="w-5 h-5 text-gray-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              <% end %>
+            </div>
+            <div class="text-center w-20">
+              <% if item[:premium] %>
+                <svg class="w-5 h-5 text-green-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              <% else %>
+                <svg class="w-5 h-5 text-gray-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

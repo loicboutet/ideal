@@ -1,0 +1,207 @@
+<% content_for :title, "500 - Erreur serveur - IDEAL" %>
+
+<div class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 flex items-center justify-center py-12 px-4">
+  <div class="max-w-2xl w-full text-center">
+    <!-- Error Illustration -->
+    <div class="mb-8">
+      <div class="mx-auto w-64 h-64 relative">
+        <!-- 500 Number -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <h1 class="text-9xl font-bold text-purple-200 select-none">500</h1>
+        </div>
+        <!-- Alert Icon -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <svg class="w-32 h-32 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="bg-white rounded-lg shadow-xl p-8 mb-6">
+      <h2 class="text-3xl font-bold text-gray-900 mb-4">Erreur serveur</h2>
+      <p class="text-lg text-gray-600 mb-6">
+        Une erreur inattendue s'est produite sur nos serveurs.
+      </p>
+      <p class="text-gray-500 mb-8">
+        Nous sommes désolés pour ce désagrément. Notre équipe technique a été automatiquement notifiée et travaille à résoudre le problème.
+      </p>
+
+      <!-- Status Box -->
+      <div class="bg-purple-50 rounded-lg p-6 mb-8 text-left border-l-4 border-purple-600">
+        <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Ce que nous faisons
+        </h3>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span>Notre équipe technique a été alertée automatiquement</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span>Les logs d'erreur sont en cours d'analyse</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span>Une correction sera déployée dès que possible</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- What to Do -->
+      <div class="mb-8">
+        <h3 class="font-bold text-gray-900 mb-4">Que faire en attendant ?</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </div>
+            <h4 class="font-semibold text-gray-900 mb-2 text-sm">Réessayez</h4>
+            <p class="text-xs text-gray-600">
+              Actualisez la page ou réessayez dans quelques minutes
+            </p>
+          </div>
+
+          <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h4 class="font-semibold text-gray-900 mb-2 text-sm">Vérifiez le statut</h4>
+            <p class="text-xs text-gray-600">
+              Consultez notre page de statut des services
+            </p>
+          </div>
+
+          <div class="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+              </svg>
+            </div>
+            <h4 class="font-semibold text-gray-900 mb-2 text-sm">Contactez-nous</h4>
+            <p class="text-xs text-gray-600">
+              Si le problème persiste, contactez notre support
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+        <button onclick="location.reload()" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 transition-colors shadow-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+          Rafraîchir la page
+        </button>
+        <a href="<%= mockups_path %>" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-full font-medium hover:bg-gray-50 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Retour à l'accueil
+        </a>
+      </div>
+
+      <!-- Alternative Pages -->
+      <div class="pt-6 border-t border-gray-200">
+        <p class="text-sm text-gray-600 mb-3">Pages qui fonctionnent actuellement :</p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="<%= mockups_path %>" class="text-blue-600 hover:text-blue-700 text-sm hover:underline">
+            Accueil
+          </a>
+          <span class="text-gray-400">•</span>
+          <a href="<%= mockups_listings_path %>" class="text-blue-600 hover:text-blue-700 text-sm hover:underline">
+            Annonces
+          </a>
+          <span class="text-gray-400">•</span>
+          <a href="<%= mockups_about_path %>" class="text-blue-600 hover:text-blue-700 text-sm hover:underline">
+            À propos
+          </a>
+          <span class="text-gray-400">•</span>
+          <a href="<%= mockups_contact_path %>" class="text-blue-600 hover:text-blue-700 text-sm hover:underline">
+            Contact
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Details (Collapsible) -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6 text-left">
+      <button class="w-full flex items-center justify-between" onclick="this.nextElementSibling.classList.toggle('hidden')">
+        <h3 class="font-bold text-gray-900 flex items-center gap-2">
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+          </svg>
+          Détails techniques
+        </h3>
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      <div class="hidden mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div class="space-y-2 text-sm font-mono text-gray-600">
+          <div class="flex justify-between">
+            <span class="text-gray-500">Erreur:</span>
+            <span class="font-semibold">Internal Server Error</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Code:</span>
+            <span class="font-semibold">500</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">Date:</span>
+            <span class="font-semibold">17/10/2025 14:32:15 UTC</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-500">ID Incident:</span>
+            <span class="font-semibold">INC-2025-10-17-14321</span>
+          </div>
+        </div>
+        <p class="mt-4 text-xs text-gray-500">
+          Communiquez cet ID d'incident au support pour un suivi rapide de votre demande.
+        </p>
+      </div>
+    </div>
+
+    <!-- Support Contact -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+      <h3 class="font-bold text-gray-900 mb-3">Besoin d'aide immédiate ?</h3>
+      <p class="text-sm text-gray-600 mb-4">
+        Notre équipe support est disponible 24/7 pour vous assister
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center text-sm">
+        <a href="mailto:support@ideal-platform.fr" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          support@ideal-platform.fr
+        </a>
+        <a href="tel:+33123456789" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+          </svg>
+          01 23 45 67 89
+        </a>
+        <a href="<%= mockups_contact_path %>" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          Chat en direct
+        </a>
+      </div>
+    </div>
+
+    <!-- Error Code -->
+    <p class="mt-6 text-xs text-gray-500">
+      Code d'erreur : 500 INTERNAL_SERVER_ERROR
+    </p>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<% content_for :title, "Acheteurs intéressés - Cédant - Idéal Reprise" %>
+<% content_for :page_title, "Acheteurs intéressés" %>
+
+<div class="max-w-7xl mx-auto space-y-6">
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900">Acheteurs intéressés</h2>
+    <p class="text-gray-600 mt-1">23 acheteurs ont manifesté leur intérêt pour vos annonces</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+    <div class="bg-white rounded-lg p-4">
+      <div class="text-2xl font-bold text-blue-600">23</div>
+      <div class="text-sm text-gray-600">Total</div>
+    </div>
+    <div class="bg-white rounded-lg p-4">
+      <div class="text-2xl font-bold text-green-600">12</div>
+      <div class="text-sm text-gray-600">NDA signés</div>
+    </div>
+    <div class="bg-white rounded-lg p-4">
+      <div class="text-2xl font-bold text-orange-600">8</div>
+      <div class="text-sm text-gray-600">En attente</div>
+    </div>
+    <div class="bg-white rounded-lg p-4">
+      <div class="text-2xl font-bold text-gray-600">3</div>
+      <div class="text-sm text-gray-600">Cette semaine</div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <option>Toutes les annonces</option>
+        <option>Boulangerie Paris</option>
+        <option>Café Lyon</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <option>Tous les statuts</option>
+        <option>NDA signés</option>
+        <option>En attente NDA</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg">
+        <option>Plus récents</option>
+        <option>Plus anciens</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Interests List -->
+  <div class="grid grid-cols-1 gap-4">
+    <% [
+      { id: 1, buyer: 'Marie Laurent', email: 'marie.l@email.fr', listing: 'Boulangerie Paris 15ème', date: '15/10/2025', status: 'signed', message: 'Très intéressé par cette opportunité' },
+      { id: 2, buyer: 'Thomas Dubois', email: 'thomas.d@email.fr', listing: 'Café Lyon', date: '14/10/2025', status: 'pending', message: 'Souhaitez avoir plus d\'informations' },
+      { id: 3, buyer: 'Sophie Martin', email: 'sophie.m@email.fr', listing: 'Boulangerie Paris 15ème', date: '12/10/2025', status: 'signed', message: 'Profil correspondant parfaitement' }
+    ].each do |interest| %>
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition p-6">
+        <div class="flex items-start justify-between mb-4">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+              <%= interest[:buyer].split(' ').map(&:first).join %>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900"><%= interest[:buyer] %></h3>
+              <p class="text-sm text-gray-600"><%= interest[:email] %></p>
+            </div>
+          </div>
+          <% if interest[:status] == 'signed' %>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              NDA signé
+            </span>
+          <% else %>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+              En attente NDA
+            </span>
+          <% end %>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-4 text-sm">
+          <div>
+            <span class="text-gray-600">Annonce:</span>
+            <span class="font-medium text-gray-900 ml-1"><%= interest[:listing] %></span>
+          </div>
+          <div>
+            <span class="text-gray-600">Date:</span>
+            <span class="font-medium text-gray-900 ml-1"><%= interest[:date] %></span>
+          </div>
+        </div>
+
+        <p class="text-sm text-gray-700 mb-4 p-3 bg-gray-50 rounded-lg">
+          "<%= interest[:message] %>"
+        </p>
+
+        <div class="flex gap-2">
+          <%= link_to mockups_seller_interest_path(interest[:id]), class: "px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium text-sm" do %>
+            Voir le profil
+          <% end %>
+          <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium text-sm">
+            Envoyer un message
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

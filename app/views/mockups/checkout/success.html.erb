@@ -1,0 +1,168 @@
+<% content_for :title, "Paiement réussi - IDEAL" %>
+
+<div class="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
+  <div class="max-w-2xl w-full">
+    <!-- Success Card -->
+    <div class="bg-white rounded-lg shadow-xl p-8 text-center">
+      <!-- Success Icon -->
+      <div class="mx-auto w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+        <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">Paiement réussi !</h1>
+      <p class="text-lg text-gray-600 mb-8">
+        Merci pour votre confiance. Votre abonnement Premium est maintenant actif.
+      </p>
+
+      <!-- Order Details -->
+      <div class="bg-gray-50 rounded-lg p-6 mb-8 text-left">
+        <h2 class="font-bold text-gray-900 mb-4">Détails de votre commande</h2>
+        <div class="space-y-3">
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Numéro de commande</span>
+            <span class="font-medium text-gray-900">#IDEAL-2025-10-17-001</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Date</span>
+            <span class="font-medium text-gray-900">17 octobre 2025</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Formule</span>
+            <span class="font-medium text-gray-900">Acheteur Premium</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-600">Période</span>
+            <span class="font-medium text-gray-900">Mensuel</span>
+          </div>
+          <div class="flex justify-between text-sm pt-3 border-t border-gray-200">
+            <span class="text-gray-900 font-bold">Montant payé</span>
+            <span class="text-blue-600 font-bold text-lg">58,80€ TTC</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- What's Next -->
+      <div class="bg-blue-50 rounded-lg p-6 mb-8 text-left border-l-4 border-blue-600">
+        <h3 class="font-bold text-gray-900 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Et maintenant ?
+        </h3>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <span>Un email de confirmation vous a été envoyé à <strong>jean.dupont@example.com</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <span>Votre facture est disponible dans votre espace personnel</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+            </svg>
+            <span>Toutes les fonctionnalités Premium sont maintenant débloquées</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Votre abonnement se renouvellera automatiquement le <strong>17 novembre 2025</strong></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Premium Features Unlocked -->
+      <div class="mb-8">
+        <h3 class="font-bold text-gray-900 mb-4">Fonctionnalités débloquées</h3>
+        <div class="grid md:grid-cols-2 gap-3 text-left">
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm text-gray-900">Accès complet</p>
+              <p class="text-xs text-gray-600">Toutes les annonces</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm text-gray-900">Contact direct</p>
+              <p class="text-xs text-gray-600">Messagerie vendeurs</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm text-gray-900">Favoris illimités</p>
+              <p class="text-xs text-gray-600">Suivez vos pépites</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-medium text-sm text-gray-900">Alertes email</p>
+              <p class="text-xs text-gray-600">Nouvelles opportunités</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="<%= mockups_buyer_path %>" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors shadow-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          </svg>
+          Accéder à mon espace
+        </a>
+        <a href="<%= mockups_listings_path %>" class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-full font-medium hover:bg-gray-50 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          Explorer les annonces
+        </a>
+      </div>
+
+      <!-- Support -->
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <p class="text-sm text-gray-600 mb-2">Besoin d'aide ?</p>
+        <a href="<%= mockups_contact_path %>" class="text-blue-600 hover:text-blue-700 font-medium text-sm">
+          Contactez notre équipe support →
+        </a>
+      </div>
+    </div>
+
+    <!-- Security Badge -->
+    <div class="mt-6 text-center">
+      <div class="inline-flex items-center gap-2 text-sm text-gray-600">
+        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+        </svg>
+        <span>Paiement sécurisé par Stripe</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,178 @@
+<% content_for :title, "Notification - IDEAL" %>
+
+<div class="min-h-screen bg-gray-50">
+  <!-- Back Navigation -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="container mx-auto px-4 py-4">
+      <a href="<%= mockups_notifications_path %>" class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Retour aux notifications
+      </a>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Notification Detail Card -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+        <!-- Header -->
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-start justify-between gap-4 mb-2">
+                <h1 class="text-2xl font-bold text-gray-900">Nouveau message de Pierre Martin</h1>
+                <button class="text-gray-400 hover:text-gray-600">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  Reçu le 17/10/2025 à 14:35
+                </span>
+                <span class="text-gray-400">•</span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+                  Messages
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+          <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Message</h2>
+            <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+              <div class="flex items-start gap-4 mb-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-lg font-bold flex-shrink-0">
+                  PM
+                </div>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h3 class="font-semibold text-gray-900">Pierre Martin</h3>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                      Acheteur vérifié
+                    </span>
+                  </div>
+                  <p class="text-sm text-gray-600">Entrepreneur • Basé à Paris</p>
+                </div>
+              </div>
+              <div class="prose max-w-none">
+                <p class="text-gray-700 mb-4">
+                  Bonjour,
+                </p>
+                <p class="text-gray-700 mb-4">
+                  Je suis très intéressé par votre société de transport située en Haute-Vienne. J'ai parcouru l'annonce et les informations me semblent correspondre à mon projet d'acquisition.
+                </p>
+                <p class="text-gray-700 mb-4">
+                  Pourriez-vous me transmettre les documents suivants :
+                </p>
+                <ul class="list-disc list-inside text-gray-700 mb-4 space-y-1">
+                  <li>Le business plan complet</li>
+                  <li>Les bilans des 3 dernières années</li>
+                  <li>La composition du parc de véhicules</li>
+                  <li>La liste des principaux clients</li>
+                </ul>
+                <p class="text-gray-700 mb-4">
+                  Je suis disponible pour un échange téléphonique cette semaine si vous souhaitez discuter plus en détail du projet.
+                </p>
+                <p class="text-gray-700">
+                  Cordialement,<br>
+                  Pierre Martin
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Related Listing -->
+          <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Annonce concernée</h2>
+            <div class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+              <div class="flex gap-4">
+                <div class="w-20 h-20 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                  LOGO
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-gray-900 mb-2">Société Transport Messagerie Express</h3>
+                  <div class="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-3">
+                    <div><strong>CA:</strong> 856 000€</div>
+                    <div><strong>Localité:</strong> Haute-Vienne (87)</div>
+                    <div><strong>Bénéfices:</strong> 145 000€</div>
+                    <div><strong>Effectif:</strong> 12 salariés</div>
+                  </div>
+                  <a href="#" class="inline-flex items-center text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Voir l'annonce complète
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="flex flex-wrap gap-3">
+            <button class="flex-1 sm:flex-initial bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+              Répondre au message
+            </button>
+            <button class="flex-1 sm:flex-initial border-2 border-gray-300 text-gray-700 px-6 py-3 rounded-full font-semibold hover:bg-gray-50 transition-colors">
+              Voir le profil de Pierre
+            </button>
+            <button class="sm:ml-auto border-2 border-red-300 text-red-600 px-6 py-3 rounded-full font-semibold hover:bg-red-50 transition-colors">
+              Archiver
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Notifications -->
+      <div class="bg-white rounded-lg shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Conversations liées à cette annonce</h2>
+        <div class="space-y-3">
+          <a href="#" class="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center text-white text-sm font-bold">
+                ML
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900">Marie Laurent</h3>
+                <p class="text-sm text-gray-600">Message reçu il y a 2 jours</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-700 line-clamp-2">
+              "Bonjour, je souhaiterais obtenir plus d'informations sur les conditions de reprise du personnel..."
+            </p>
+          </a>
+
+          <a href="#" class="block p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white text-sm font-bold">
+                JD
+              </div>
+              <div class="flex-1">
+                <h3 class="font-semibold text-gray-900">Jacques Dupont</h3>
+                <p class="text-sm text-gray-600">Message reçu il y a 5 jours</p>
+              </div>
+            </div>
+            <p class="text-sm text-gray-700 line-clamp-2">
+              "Intéressé par votre société. Possibilité de visiter les locaux prochainement ?"
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
