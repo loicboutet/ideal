@@ -1,0 +1,426 @@
+<div class="min-h-screen bg-gray-50">
+  <!-- Header -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <h1 class="text-3xl font-bold text-gray-900">
+        📚 Idéal Reprise - Mockups Overview
+      </h1>
+      <p class="mt-2 text-sm text-gray-600">
+        Tous les mockups organisés par parcours utilisateur
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    
+    <!-- Admin Section -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-4 border-b border-gray-200 bg-purple-50">
+        <h2 class="text-xl font-semibold text-purple-900 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Administrateur
+        </h2>
+        <p class="text-sm text-purple-700 mt-1">Gestion de la plateforme et validation des contenus</p>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Dashboard & Analytics -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📊 Dashboard & Analytics</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Dashboard principal", mockups_admin_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Analytics détaillées", mockups_admin_analytics_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- User Management -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">👥 Gestion des utilisateurs</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Liste des utilisateurs", mockups_admin_users_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail utilisateur", mockups_admin_user_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Nouveau utilisateur", new_mockups_admin_user_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Éditer utilisateur", edit_mockups_admin_user_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Suspendre utilisateur", suspend_mockups_admin_user_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Listing Management -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📝 Gestion des annonces</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Toutes les annonces", mockups_admin_listings_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Annonces en attente", mockups_admin_listings_pending_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail annonce", mockups_admin_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Valider annonce", validate_mockups_admin_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Rejeter annonce", reject_mockups_admin_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Partner Management -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">🤝 Gestion des partenaires</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Tous les partenaires", mockups_admin_partners_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Partenaires en attente", mockups_admin_partners_pending_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail partenaire", mockups_admin_partner_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Approuver partenaire", approve_mockups_admin_partner_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Rejeter partenaire", reject_mockups_admin_partner_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Deal Management -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">💼 Gestion des deals</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Tous les deals", mockups_admin_deals_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail deal", mockups_admin_deal_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Assigner deal", assign_mockups_admin_deal_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Import Management -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📥 Gestion des imports</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Historique imports", mockups_admin_imports_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Nouvel import", new_mockups_admin_import_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Résultats import", mockups_admin_import_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Enrichment Validation -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">✨ Validation enrichissements</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Enrichissements en attente", mockups_admin_enrichments_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail enrichissement", mockups_admin_enrichment_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Approuver enrichissement", approve_mockups_admin_enrichment_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seller Section -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-4 border-b border-gray-200 bg-green-50">
+        <h2 class="text-xl font-semibold text-green-900 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          Cédant (Seller)
+        </h2>
+        <p class="text-sm text-green-700 mt-1">Parcours du vendeur - gestion des annonces et intérêts</p>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Dashboard -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📊 Dashboard</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Dashboard cédant", mockups_seller_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- My Listings -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📝 Mes annonces</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Liste de mes annonces", mockups_seller_listings_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Nouvelle annonce", new_mockups_seller_listing_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail annonce", mockups_seller_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Éditer annonce", edit_mockups_seller_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Documents annonce", mockups_seller_listing_documents_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Nouveau document", new_mockups_seller_listing_document_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Interests & Contacts -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">💬 Intérêts & Contacts</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Acheteurs intéressés", mockups_seller_interests_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail intérêt", mockups_seller_interest_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Profile & Settings -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">👤 Profil & Paramètres</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mon profil", mockups_seller_profile_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Éditer profil", edit_mockups_seller_profile_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Paramètres", mockups_seller_settings_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Abonnement", mockups_seller_subscription_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- NDA -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📄 NDA</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "NDA plateforme", mockups_seller_nda_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buyer Section -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-4 border-b border-gray-200 bg-blue-50">
+        <h2 class="text-xl font-semibold text-blue-900 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Repreneur (Buyer)
+        </h2>
+        <p class="text-sm text-blue-700 mt-1">Parcours de l'acheteur - recherche, CRM et gestion de deals</p>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Dashboard -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📊 Dashboard</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Dashboard repreneur", mockups_buyer_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Browse & Search -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">🔍 Parcourir & Rechercher</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Toutes les annonces", mockups_buyer_listings_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Recherche avancée", mockups_buyer_listings_search_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail annonce", mockups_buyer_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- CRM / Pipeline -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">💼 CRM / Pipeline</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Pipeline drag & drop", mockups_buyer_pipeline_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Liste des deals", mockups_buyer_deals_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Nouveau deal", new_mockups_buyer_deal_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail deal", mockups_buyer_deal_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Éditer deal", edit_mockups_buyer_deal_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Favorites -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">⭐ Favoris</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mes favoris", mockups_buyer_favorites_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Reservations -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">🔒 Réservations</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mes réservations", mockups_buyer_reservations_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail réservation", mockups_buyer_reservation_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Libérer réservation", release_mockups_buyer_reservation_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Enrichments -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">✨ Enrichissements</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mes enrichissements", mockups_buyer_enrichments_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Soumettre enrichissement", new_mockups_buyer_enrichment_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail enrichissement", mockups_buyer_enrichment_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Credits & Subscription -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">💳 Crédits & Abonnement</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mes crédits", mockups_buyer_credits_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Mon abonnement", mockups_buyer_subscription_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Upgrade abonnement", upgrade_mockups_buyer_subscription_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Annuler abonnement", cancel_mockups_buyer_subscription_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Profile & Settings -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">👤 Profil & Paramètres</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mon profil", mockups_buyer_profile_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Éditer profil", edit_mockups_buyer_profile_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Paramètres", mockups_buyer_settings_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- NDA -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📄 NDA</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "NDA plateforme", mockups_buyer_nda_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "NDA annonce spécifique", mockups_buyer_listing_nda_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partner Section -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-4 border-b border-gray-200 bg-orange-50">
+        <h2 class="text-xl font-semibold text-orange-900 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          Partenaire (Partner)
+        </h2>
+        <p class="text-sm text-orange-700 mt-1">Parcours du partenaire - annuaire et profil</p>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Dashboard -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📊 Dashboard</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Dashboard partenaire", mockups_partner_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Profile & Directory -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📇 Profil & Annuaire</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mon profil annuaire", mockups_partner_profile_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Éditer profil", edit_mockups_partner_profile_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Prévisualiser profil", preview_mockups_partner_profile_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Subscription -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">💳 Abonnement</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Mon abonnement", mockups_partner_subscription_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Renouveler abonnement", renew_mockups_partner_subscription_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Settings -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">⚙️ Paramètres</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Paramètres compte", mockups_partner_settings_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shared/Common Routes Section -->
+    <section class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+        <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Routes Communes
+        </h2>
+        <p class="text-sm text-gray-700 mt-1">Sections partagées par plusieurs types d'utilisateurs</p>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Authentication -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">🔐 Authentification</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Login", mockups_login_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Choix inscription", mockups_register_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Inscription cédant", mockups_register_seller_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Inscription repreneur", mockups_register_buyer_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Inscription partenaire", mockups_register_partner_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Mot de passe oublié", mockups_forgot_password_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Réinitialiser mot de passe", mockups_reset_password_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Notifications -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">🔔 Notifications</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Toutes les notifications", mockups_notifications_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Détail notification", mockups_notification_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Legal Pages -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">⚖️ Pages légales</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Conditions d'utilisation", mockups_terms_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Politique de confidentialité", mockups_privacy_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Modèle NDA", mockups_nda_template_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Partner Directory (Public) -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">📇 Annuaire des partenaires</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Annuaire partenaires", mockups_directory_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Rechercher partenaires", search_mockups_directory_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Profil partenaire public", mockups_directory_partner_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Payment/Checkout -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">💳 Paiement</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "Choisir un plan", mockups_checkout_select_plan_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Formulaire paiement", mockups_checkout_payment_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Paiement réussi", mockups_checkout_success_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "Paiement annulé", mockups_checkout_cancel_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+
+        <!-- Error Pages -->
+        <div>
+          <h3 class="font-medium text-gray-900 mb-2">⚠️ Pages d'erreur</h3>
+          <ul class="space-y-1 text-sm">
+            <li><%= link_to "404 - Page non trouvée", mockups_error_404_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "403 - Accès refusé", mockups_error_403_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+            <li><%= link_to "500 - Erreur serveur", mockups_error_500_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-8 text-center">
+        <h2 class="text-2xl font-semibold text-gray-900 mb-4">
+          📊 Statistiques des Mockups
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div>
+            <div class="text-3xl font-bold text-purple-600">30+</div>
+            <div class="text-sm text-gray-600 mt-1">Routes Admin</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-green-600">15+</div>
+            <div class="text-sm text-gray-600 mt-1">Routes Cédant</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-blue-600">30+</div>
+            <div class="text-sm text-gray-600 mt-1">Routes Repreneur</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-orange-600">10+</div>
+            <div class="text-sm text-gray-600 mt-1">Routes Partenaire</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

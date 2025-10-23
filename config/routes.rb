@@ -180,8 +180,11 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  # Mockups overview - root route
+  get "mockups/overview", to: "mockups#overview", as: :mockups_overview
+
   # Defines the root path route ("/")
-  root "mockups#index"
+  root "mockups#overview"
 
   # Catch-all route for 404 errors - MUST BE LAST
   # This will match any unmatched routes and show the 404 page

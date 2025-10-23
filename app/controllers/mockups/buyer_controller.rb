@@ -2,7 +2,7 @@
 
 module Mockups
   class BuyerController < MockupsController
-    layout 'mockup_user'
+    layout 'mockup_buyer'
 
     def dashboard
       # Buyer dashboard / CRM overview

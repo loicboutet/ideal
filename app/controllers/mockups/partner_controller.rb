@@ -2,7 +2,7 @@
 
 module Mockups
   class PartnerController < MockupsController
-    layout 'mockup_user'
+    layout 'mockup_partner'
 
     def dashboard
       # Partner dashboard overview

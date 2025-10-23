@@ -2,7 +2,7 @@
 
 module Mockups
   class SellerController < MockupsController
-    layout 'mockup_user'
+    layout 'mockup_seller'
 
     def dashboard
       # Seller dashboard overview
