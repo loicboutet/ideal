@@ -25,11 +25,15 @@ class MockupsController < ApplicationController
     # Contact form
   end
 
+  def overview
+    # Overview of all mockups by user journey
+  end
+
   private
 
   # Determine which layout to use based on the action name
   def resolve_layout
-    public_pages = %w[index about how_it_works pricing contact]
+    public_pages = %w[index about how_it_works pricing contact overview]
 
     if public_pages.include?(action_name)
       "mockup"
