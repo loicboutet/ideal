@@ -1,131 +1,160 @@
 <% content_for :title, "Modifier ma fiche - Partenaire - Idéal Reprise" %>
-<% content_for :page_title, "Modifier ma fiche annuaire" %>
+<% content_for :page_title, "Modifier ma fiche" %>
 
 <div class="max-w-4xl mx-auto space-y-6">
   <%= link_to mockups_partner_profile_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>
-    Retour à ma fiche
+    Retour
   <% end %>
 
-  <h2 class="text-2xl font-bold text-gray-900">Modifier ma fiche annuaire</h2>
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Modifier ma fiche annuaire</h1>
+  </div>
 
   <form class="space-y-6">
-    <!-- Basic Information -->
-    <div class="bg-white rounded-lg shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Informations de base</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
-          <input type="text" value="Sophie Conseil" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
-        </div>
-        <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Titre professionnel</label>
-          <input type="text" value="Avocat d'affaires - Droit des sociétés" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
-        </div>
-        <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Présentation</label>
-          <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">Avocate spécialisée en droit des affaires depuis plus de 15 ans, j'accompagne les entrepreneurs dans toutes les étapes de la vie de leur entreprise : création, développement, cession et transmission. Mon expertise couvre notamment les opérations de fusion-acquisition, la rédaction d'actes juridiques et l'audit juridique.</textarea>
-        </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Informations générales</h3>
+      <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Années d'expérience</label>
-          <input type="number" value="15" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Nom du cabinet *</label>
+          <input type="text" value="Sophie Conseil SARL" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
         </div>
+        
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
-          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent">
-            <option selected>Avocat</option>
-            <option>Expert-comptable</option>
-            <option>Notaire</option>
-            <option>Conseiller en gestion</option>
-            <option>Courtier</option>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type de partenaire *</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+            <option selected>Avocat d'affaires</option>
+            <option>Comptable</option>
+            <option>Consultant</option>
+            <option>Banquier M&A</option>
+            <option>Broker</option>
+            <option>Autre</option>
           </select>
         </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Description *</label>
+          <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">Cabinet spécialisé en droit des affaires et transmission d'entreprises. 15 ans d'expérience.</textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Services proposés</label>
+          <textarea rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">Accompagnement juridique, rédaction protocoles, due diligence juridique</textarea>
+        </div>
       </div>
     </div>
 
-    <!-- Services -->
-    <div class="bg-white rounded-lg shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Services proposés</h3>
+    <!-- Nouveaux champs -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Zone d'intervention</h3>
       <div class="space-y-4">
-        <div class="flex items-start gap-3">
-          <input type="text" value="Fusion-Acquisition" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
-          <button type="button" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </button>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Secteur couvert *</label>
+          <div class="space-y-2">
+            <label class="flex items-center gap-2">
+              <input type="radio" name="coverage" value="city" class="text-purple-600">
+              <span class="text-sm">Ville spécifique</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="coverage" value="department" class="text-purple-600">
+              <span class="text-sm">Département(s)</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="coverage" value="region" class="text-purple-600" checked>
+              <span class="text-sm">Région(s)</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="coverage" value="national" class="text-purple-600">
+              <span class="text-sm">France entière</span>
+            </label>
+            <label class="flex items-center gap-2">
+              <input type="radio" name="coverage" value="international" class="text-purple-600">
+              <span class="text-sm">International</span>
+            </label>
+          </div>
+          <input type="text" placeholder="Précisez (ex: Île-de-France, Lyon, etc.)" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mt-2">
         </div>
-        <div class="flex items-start gap-3">
-          <input type="text" value="Droit des sociétés" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
-          <button type="button" class="p-2 text-red-600 hover:bg-red-50 rounded-lg">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </button>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Stades d'intervention (dans le pipeline CRM) *</label>
+          <p class="text-xs text-gray-500 mb-2">Sélectionnez les étapes où vous intervenez</p>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" class="rounded text-purple-600">
+              <span class="text-sm">Échange d'infos</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" class="rounded text-purple-600">
+              <span class="text-sm">Analyse</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" class="rounded text-purple-600">
+              <span class="text-sm">Alignement projets</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" class="rounded text-purple-600">
+              <span class="text-sm">Négociation</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" checked class="rounded text-purple-600">
+              <span class="text-sm">LOI</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" checked class="rounded text-purple-600">
+              <span class="text-sm">Audits</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" checked class="rounded text-purple-600">
+              <span class="text-sm">Financement</span>
+            </label>
+            <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+              <input type="checkbox" class="rounded text-purple-600">
+              <span class="text-sm">Deal signé</span>
+            </label>
+          </div>
         </div>
-        <button type="button" class="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-teal-500 hover:text-teal-600 transition">
-          + Ajouter un service
-        </button>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Secteurs d'activité visés (si spécialisation)</label>
+          <select multiple size="5" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+            <option>Industrie</option>
+            <option>BTP</option>
+            <option selected>Commerce & Distribution</option>
+            <option selected>Services</option>
+            <option>Transport & logistique</option>
+            <option>Hôtellerie / Restauration</option>
+            <option>Agroalimentaire & Agriculture</option>
+            <option>Santé</option>
+            <option selected>Digital</option>
+            <option>Immobilier</option>
+            <option>Autre</option>
+          </select>
+          <p class="text-xs text-gray-500 mt-1">Laissez vide si vous intervenez dans tous les secteurs</p>
+        </div>
       </div>
     </div>
 
-    <!-- Pricing -->
-    <div class="bg-white rounded-lg shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Tarification</h3>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Contact</h3>
       <div class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
-          <input type="text" value="Consultation initiale (1h)" placeholder="Description" class="px-4 py-2 border border-gray-300 rounded-lg">
-          <input type="text" value="150€ HT" placeholder="Prix" class="px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <input type="text" value="Taux horaire" placeholder="Description" class="px-4 py-2 border border-gray-300 rounded-lg">
-          <input type="text" value="250€ HT" placeholder="Prix" class="px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <button type="button" class="w-full px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-teal-500 hover:text-teal-600 transition">
-          + Ajouter une ligne tarifaire
-        </button>
-      </div>
-    </div>
-
-    <!-- Contact Information -->
-    <div class="bg-white rounded-lg shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Coordonnées</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Adresse</label>
-          <input type="text" value="45 Avenue de l'Opéra" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Code postal</label>
-          <input type="text" value="75002" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
-          <input type="text" value="Paris" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
-          <input type="tel" value="01 42 86 82 00" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-          <input type="email" value="sophie.conseil@cabinet-sc.fr" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div class="md:col-span-2">
           <label class="block text-sm font-medium text-gray-700 mb-2">Site web</label>
-          <input type="url" value="https://www.cabinet-sc.fr" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+          <input type="url" value="https://www.sophie-conseil.fr" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Lien Google Agenda (prise de RDV)</label>
+          <input type="url" value="https://calendar.google.com/..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
         </div>
       </div>
     </div>
 
-    <!-- Actions -->
-    <div class="flex justify-between">
-      <%= link_to mockups_partner_profile_path, class: "px-6 py-3 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition font-medium" do %>
+    <div class="flex gap-3">
+      <%= link_to mockups_partner_profile_path, class: "px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
         Annuler
       <% end %>
-      <button type="submit" class="px-6 py-3 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition font-medium">
+      <button type="submit" class="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
         Enregistrer les modifications
       </button>
     </div>

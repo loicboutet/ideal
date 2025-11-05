@@ -1,333 +1,71 @@
 <% content_for :title, "Inscription Repreneur - Idéal Reprise" %>
 
-<!-- Buyer Registration Page -->
-<div class="min-h-screen bg-gradient-to-br from-green-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-  <div class="max-w-3xl mx-auto">
-    <!-- Header -->
+<div class="min-h-screen bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center p-4">
+  <div class="max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-8">
+    <%= link_to mockups_register_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Retour
+    <% end %>
+
     <div class="text-center mb-8">
-      <%= link_to mockups_path do %>
-        <%= image_tag "IDAL.jpg", class: "mx-auto h-14 w-auto mb-4", alt: "Idéal Reprise" %>
-      <% end %>
       <h1 class="text-3xl font-bold text-gray-900 mb-2">Inscription Repreneur</h1>
       <p class="text-gray-600">Créez votre compte pour accéder aux opportunités</p>
     </div>
 
-    <!-- Progress Steps -->
-    <div class="mb-8">
-      <div class="flex items-center justify-center">
-        <div class="flex items-center">
-          <div class="flex items-center justify-center w-10 h-10 bg-green-600 text-white rounded-full font-semibold">1</div>
-          <div class="w-20 md:w-32 h-1 bg-green-600"></div>
-          <div class="flex items-center justify-center w-10 h-10 bg-gray-300 text-gray-600 rounded-full font-semibold">2</div>
+    <form class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Prénom *</label>
+          <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="Marie">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Nom *</label>
+          <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="Martin">
         </div>
       </div>
-      <div class="flex items-center justify-center mt-2 text-sm">
-        <span class="text-green-600 font-medium mr-16 md:mr-28">Informations</span>
-        <span class="text-gray-500">Vérification</span>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+        <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="marie@example.fr">
       </div>
-    </div>
 
-    <!-- Registration Form Card -->
-    <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-      <form class="space-y-6" action="#" method="POST">
-        <!-- Personal Information Section -->
-        <div>
-          <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            Informations personnelles
-          </h2>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+        <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="06 12 34 56 78">
+      </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- First Name -->
-            <div>
-              <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">
-                Prénom <span class="text-red-500">*</span>
-              </label>
-              <input 
-                id="first_name" 
-                name="first_name" 
-                type="text" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                placeholder="Marie"
-              >
-            </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Mot de passe *</label>
+        <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="••••••••">
+      </div>
 
-            <!-- Last Name -->
-            <div>
-              <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">
-                Nom <span class="text-red-500">*</span>
-              </label>
-              <input 
-                id="last_name" 
-                name="last_name" 
-                type="text" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                placeholder="Martin"
-              >
-            </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Confirmer mot de passe *</label>
+        <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" placeholder="••••••••">
+      </div>
 
-            <!-- Email -->
-            <div class="md:col-span-2">
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                Adresse email <span class="text-red-500">*</span>
-              </label>
-              <input 
-                id="email" 
-                name="email" 
-                type="email" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                placeholder="marie.martin@example.com"
-              >
-            </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <p class="text-sm text-blue-800">
+          <strong>Note:</strong> Vous pourrez compléter votre profil repreneur après inscription pour être visible des cédants.
+        </p>
+      </div>
 
-            <!-- Phone -->
-            <div class="md:col-span-2">
-              <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
-                Téléphone <span class="text-red-500">*</span>
-              </label>
-              <input 
-                id="phone" 
-                name="phone" 
-                type="tel" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                placeholder="+33 6 12 34 56 78"
-              >
-            </div>
+      <div class="flex items-start gap-2">
+        <input type="checkbox" class="rounded border-gray-300 text-green-600 focus:ring-green-500 mt-1">
+        <label class="text-sm text-gray-700">
+          J'accepte les <%= link_to "CGU", mockups_terms_path, class: "text-green-600 hover:underline" %> et la <%= link_to "Politique de confidentialité", mockups_privacy_path, class: "text-green-600 hover:underline" %>
+        </label>
+      </div>
 
-            <!-- Password -->
-            <div>
-              <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
-                Mot de passe <span class="text-red-500">*</span>
-              </label>
-              <input 
-                id="password" 
-                name="password" 
-                type="password" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                placeholder="••••••••"
-              >
-              <p class="mt-1 text-xs text-gray-500">Minimum 8 caractères</p>
-            </div>
+      <button type="submit" class="w-full px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
+        Créer mon compte repreneur
+      </button>
 
-            <!-- Confirm Password -->
-            <div>
-              <label for="password_confirm" class="block text-sm font-medium text-gray-700 mb-1">
-                Confirmer le mot de passe <span class="text-red-500">*</span>
-              </label>
-              <input 
-                id="password_confirm" 
-                name="password_confirm" 
-                type="password" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                placeholder="••••••••"
-              >
-            </div>
-          </div>
-        </div>
-
-        <div class="border-t pt-6"></div>
-
-        <!-- Project Information Section -->
-        <div>
-          <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            Votre projet de reprise
-          </h2>
-
-          <div class="space-y-4">
-            <!-- Buyer Type -->
-            <div>
-              <label for="buyer_type" class="block text-sm font-medium text-gray-700 mb-1">
-                Type de repreneur <span class="text-red-500">*</span>
-              </label>
-              <select 
-                id="buyer_type" 
-                name="buyer_type" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-              >
-                <option value="">Sélectionnez votre profil</option>
-                <option value="personne_physique">Personne physique</option>
-                <option value="holding">Holding / Société</option>
-                <option value="investisseur">Investisseur</option>
-                <option value="fond">Fonds d'investissement</option>
-              </select>
-            </div>
-
-            <!-- Investment Capacity -->
-            <div>
-              <label for="investment_capacity" class="block text-sm font-medium text-gray-700 mb-1">
-                Capacité d'investissement <span class="text-red-500">*</span>
-              </label>
-              <select 
-                id="investment_capacity" 
-                name="investment_capacity" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-              >
-                <option value="">Sélectionnez une fourchette</option>
-                <option value="0-100k">0 - 100 000 €</option>
-                <option value="100k-250k">100 000 - 250 000 €</option>
-                <option value="250k-500k">250 000 - 500 000 €</option>
-                <option value="500k-1m">500 000 - 1 000 000 €</option>
-                <option value="1m-2m">1 000 000 - 2 000 000 €</option>
-                <option value="2m+">Plus de 2 000 000 €</option>
-              </select>
-            </div>
-
-            <!-- Sectors of Interest -->
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Secteurs d'intérêt <span class="text-red-500">*</span>
-              </label>
-              <div class="grid grid-cols-2 gap-3">
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="commerce" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Commerce</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="restauration" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Restauration</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="services" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Services</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="industrie" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Industrie</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="artisanat" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Artisanat</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="batiment" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Bâtiment</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="sante" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Santé</span>
-                </label>
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" name="sectors[]" value="digital" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
-                  <span class="text-sm text-gray-700">Digital</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Preferred Locations -->
-            <div>
-              <label for="locations" class="block text-sm font-medium text-gray-700 mb-1">
-                Zones géographiques recherchées <span class="text-red-500">*</span>
-              </label>
-              <textarea 
-                id="locations" 
-                name="locations" 
-                rows="3" 
-                required 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-                placeholder="Ex: Île-de-France, Provence-Alpes-Côte d'Azur, toute la France..."
-              ></textarea>
-            </div>
-
-            <!-- Timeline -->
-            <div>
-              <label for="timeline" class="block text-sm font-medium text-gray-700 mb-1">
-                Horizon de reprise
-              </label>
-              <select 
-                id="timeline" 
-                name="timeline" 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-              >
-                <option value="">Sélectionnez une période</option>
-                <option value="immediate">Immédiat (0-3 mois)</option>
-                <option value="court">Court terme (3-6 mois)</option>
-                <option value="moyen">Moyen terme (6-12 mois)</option>
-                <option value="long">Long terme (12+ mois)</option>
-              </select>
-            </div>
-
-            <!-- Experience -->
-            <div>
-              <label for="experience" class="block text-sm font-medium text-gray-700 mb-1">
-                Expérience entrepreneuriale
-              </label>
-              <select 
-                id="experience" 
-                name="experience" 
-                class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
-              >
-                <option value="">Sélectionnez votre expérience</option>
-                <option value="premiere">Première reprise</option>
-                <option value="experimente">Déjà repreneur</option>
-                <option value="dirigeant">Ancien dirigeant</option>
-                <option value="cadre">Cadre d'entreprise</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-t pt-6"></div>
-
-        <!-- Terms and Conditions -->
-        <div class="space-y-4">
-          <div class="flex items-start gap-3">
-            <input 
-              id="terms" 
-              name="terms" 
-              type="checkbox" 
-              required 
-              class="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded cursor-pointer"
-            >
-            <label for="terms" class="text-sm text-gray-700 cursor-pointer">
-              J'accepte les <a href="#" class="text-green-600 hover:text-green-700 underline">conditions générales d'utilisation</a> et la <a href="#" class="text-green-600 hover:text-green-700 underline">politique de confidentialité</a> <span class="text-red-500">*</span>
-            </label>
-          </div>
-
-          <div class="flex items-start gap-3">
-            <input 
-              id="newsletter" 
-              name="newsletter" 
-              type="checkbox" 
-              class="mt-1 h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded cursor-pointer"
-            >
-            <label for="newsletter" class="text-sm text-gray-700 cursor-pointer">
-              Je souhaite recevoir des alertes personnalisées selon mes critères
-            </label>
-          </div>
-        </div>
-
-        <!-- Submit Button -->
-        <div class="flex flex-col sm:flex-row gap-4 pt-4">
-          <%= link_to mockups_register_path, class: "flex-1 flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50 transition" do %>
-            Retour
-          <% end %>
-          <button 
-            type="submit" 
-            class="flex-1 flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition"
-          >
-            Créer mon compte
-          </button>
-        </div>
-      </form>
-    </div>
-
-    <!-- Login Link -->
-    <p class="mt-6 text-center text-sm text-gray-600">
-      Vous avez déjà un compte ?
-      <%= link_to "Se connecter", mockups_login_path, class: "font-medium text-green-600 hover:text-green-700 transition" %>
-    </p>
+      <p class="text-center text-sm text-gray-600">
+        Vous avez déjà un compte ? <%= link_to "Se connecter", mockups_login_path, class: "text-green-600 hover:underline font-medium" %>
+      </p>
+    </form>
   </div>
 </div>
