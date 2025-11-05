@@ -1,0 +1,15 @@
+DERNIÈRES 24 MODIFICATIONS:
+
+À FAIRE:
+1. seller/profile pages (2) - Inchangés
+2. admin/users pages (5) - Inchangés  
+3. admin/deals pages (3) - Inchangés
+4. admin/imports pages (3) - Inchangés
+5. admin/enrichments pages (3) - Inchangés
+6. buyer/upgrade subscription - Packs crédits
+7. Autres pages mineures
+
+SUPPRESSION PAGES (discussion needed):
+- À discuter avec client
+
+DOING LAST 10 CRITICAL ONES NOW...
