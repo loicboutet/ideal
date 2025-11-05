@@ -1,0 +1,107 @@
+<% content_for :title, "Profil Repreneur - Cédant - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <!-- Back Link -->
+  <%= link_to "#", class: "inline-flex items-center text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Retour à l'annuaire
+  <% end %>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-start justify-between mb-6">
+      <div class="flex items-center gap-4">
+        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+          MR
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900">Marie R.</h1>
+          <p class="text-gray-600">Repreneur individuel</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-800 font-medium">Premium</span>
+            <span class="px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-800">✓ Vérifié</span>
+          </div>
+        </div>
+      </div>
+      <!-- Completeness -->
+      <div class="text-right">
+        <div class="text-sm text-gray-600 mb-1">Complétude</div>
+        <div class="text-2xl font-bold text-green-600">85%</div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-gray-200">
+      <div class="text-center">
+        <div class="text-lg font-bold text-gray-900">Services, Digital</div>
+        <div class="text-sm text-gray-600">Secteurs ciblés</div>
+      </div>
+      <div class="text-center">
+        <div class="text-lg font-bold text-gray-900">500k-2M €</div>
+        <div class="text-sm text-gray-600">CA recherché</div>
+      </div>
+      <div class="text-center">
+        <div class="text-lg font-bold text-gray-900">Île-de-France</div>
+        <div class="text-sm text-gray-600">Localisation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thèse de reprise -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Thèse de reprise</h2>
+    <p class="text-gray-700 leading-relaxed">
+      Passionnée par le digital et le service client, je cherche une entreprise avec une forte culture d'équipe. Mon objectif est d'assurer la continuité tout en modernisant les process et en développant le CA via le digital marketing.
+    </p>
+  </div>
+
+  <!-- Expérience -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Expérience</h2>
+    <p class="text-gray-700">15 ans d'expérience en direction commerciale, dont 8 ans comme Directrice Marketing Digital.</p>
+  </div>
+
+  <!-- Compétences -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Compétences</h2>
+    <div class="flex flex-wrap gap-2">
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Management</span>
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Marketing Digital</span>
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Commercial</span>
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Finance</span>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Proposer une annonce</h2>
+    
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Sélectionnez l'annonce à proposer</label>
+        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          <option>Boulangerie Paris 11e - 450k €</option>
+          <option>Restaurant Lyon 2e - 320k €</option>
+          <option>Agence digitale Bordeaux - 180k €</option>
+        </select>
+      </div>
+      
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <p class="text-sm text-blue-800">
+          <strong>Message:</strong> "De [Votre prénom], votre profil pourrait correspondre pour cette entreprise."
+        </p>
+      </div>
+      
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-gray-600">
+          Crédits disponibles: <strong class="text-gray-900">12</strong>
+        </div>
+        <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Envoyer (1 crédit)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

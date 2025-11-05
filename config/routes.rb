@@ -26,6 +26,9 @@ Rails.application.routes.draw do
   # Mockups routes - Admin
   get "mockups/admin", to: "mockups/admin#dashboard", as: :mockups_admin
   get "mockups/admin/analytics", to: "mockups/admin#analytics", as: :mockups_admin_analytics
+  get "mockups/admin/operations", to: "mockups/admin#operations", as: :mockups_admin_operations
+  get "mockups/admin/settings", to: "mockups/admin#settings", as: :mockups_admin_settings
+  get "mockups/admin/messages", to: "mockups/admin#messages", as: :mockups_admin_messages
   
   # Mockups routes - Admin Users
   get "mockups/admin/users", to: "mockups/admin/users#index", as: :mockups_admin_users
@@ -73,10 +76,24 @@ Rails.application.routes.draw do
   get "mockups/seller/listings/:id/edit", to: "mockups/seller/listings#edit", as: :edit_mockups_seller_listing
   get "mockups/seller/listings/:id/documents", to: "mockups/seller/listings#documents", as: :mockups_seller_listing_documents
   get "mockups/seller/listings/:id/documents/new", to: "mockups/seller/listings#new_document", as: :new_mockups_seller_listing_document
+  get "mockups/seller/listings/new/confidential", to: "mockups/seller/listings#new_confidential", as: :new_confidential_mockups_seller_listing
 
   # Mockups routes - Seller Interests
   get "mockups/seller/interests", to: "mockups/seller/interests#index", as: :mockups_seller_interests
   get "mockups/seller/interests/:id", to: "mockups/seller/interests#show", as: :mockups_seller_interest
+
+  # Mockups routes - Seller Buyers (NEW)
+  get "mockups/seller/buyers", to: "mockups/seller/buyers#index", as: :mockups_seller_buyers
+  get "mockups/seller/buyers/search", to: "mockups/seller/buyers#search", as: :search_mockups_seller_buyers
+  get "mockups/seller/buyers/:id", to: "mockups/seller/buyers#show", as: :mockups_seller_buyer
+  
+  # Mockups routes - Seller Push Listing (NEW)
+  get "mockups/seller/push_listing", to: "mockups/seller#push_listing", as: :mockups_seller_push_listing
+  
+  # Mockups routes - Seller Assistance (NEW)
+  get "mockups/seller/assistance/support", to: "mockups/seller/assistance#support", as: :mockups_seller_assistance_support
+  get "mockups/seller/assistance/partners", to: "mockups/seller/assistance#partners", as: :mockups_seller_assistance_partners
+  get "mockups/seller/assistance/tools", to: "mockups/seller/assistance#tools", as: :mockups_seller_assistance_tools
 
   # Mockups routes - Seller Profile & Settings
   get "mockups/seller/profile", to: "mockups/seller/profile#show", as: :mockups_seller_profile
@@ -124,7 +141,13 @@ Rails.application.routes.draw do
   # Mockups routes - Buyer Profile & Settings
   get "mockups/buyer/profile", to: "mockups/buyer/profile#show", as: :mockups_buyer_profile
   get "mockups/buyer/profile/edit", to: "mockups/buyer/profile#edit", as: :edit_mockups_buyer_profile
+  get "mockups/buyer/profile/create", to: "mockups/buyer/profile#create", as: :create_mockups_buyer_profile
   get "mockups/buyer/settings", to: "mockups/buyer/settings#show", as: :mockups_buyer_settings
+
+  # Mockups routes - Buyer Services (NEW)
+  get "mockups/buyer/services/sourcing", to: "mockups/buyer/services#sourcing", as: :mockups_buyer_services_sourcing
+  get "mockups/buyer/services/partners", to: "mockups/buyer/services#partners", as: :mockups_buyer_services_partners
+  get "mockups/buyer/services/tools", to: "mockups/buyer/services#tools", as: :mockups_buyer_services_tools
 
   # Mockups routes - Buyer NDA
   get "mockups/buyer/nda", to: "mockups/buyer/nda#show", as: :mockups_buyer_nda
@@ -154,6 +177,11 @@ Rails.application.routes.draw do
   get "mockups/notifications", to: "mockups/notifications#index", as: :mockups_notifications
   get "mockups/notifications/:id", to: "mockups/notifications#show", as: :mockups_notification
 
+  # Mockups routes - Messages (NEW)
+  get "mockups/messages", to: "mockups/messages#index", as: :mockups_messages
+  get "mockups/messages/new", to: "mockups/messages#new", as: :new_mockups_message
+  get "mockups/messages/:id", to: "mockups/messages#show", as: :mockups_message
+
   # Mockups routes - Shared/Common (Legal Pages)
   get "mockups/terms", to: "mockups/legal#terms", as: :mockups_terms
   get "mockups/privacy", to: "mockups/legal#privacy", as: :mockups_privacy
@@ -170,26 +198,17 @@ Rails.application.routes.draw do
   get "mockups/403", to: "mockups/errors#forbidden", as: :mockups_error_403
   get "mockups/500", to: "mockups/errors#server_error", as: :mockups_error_500
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Mockups overview - root route
   get "mockups/overview", to: "mockups#overview", as: :mockups_overview
 
-  # Defines the root path route ("/")
+  # Root
   root "mockups#overview"
 
   # Catch-all route for 404 errors - MUST BE LAST
-  # This will match any unmatched routes and show the 404 page
   match '*unmatched', to: 'application#render_404', via: :all, constraints: lambda { |req|
-    # Don't catch requests for assets, rails internal routes, etc.
     !req.path.starts_with?('/rails/') && 
     !req.path.starts_with?('/assets/') &&
     !req.path.ends_with?('.ico')

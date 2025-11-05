@@ -1,0 +1,133 @@
+<% content_for :title, "Paramètres plateforme - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div>
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Paramètres de la plateforme</h1>
+    <p class="text-gray-600 mt-1">Configuration des tarifs, timers et textes</p>
+  </div>
+
+  <!-- Tarifs & Offres -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Tarifs & Textes des offres</h2>
+    
+    <div class="space-y-6">
+      <!-- Repreneur -->
+      <div>
+        <h3 class="text-md font-semibold text-gray-900 mb-4">Repreneurs</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Starter (mensuel)</label>
+            <input type="text" value="89" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Standard (mensuel)</label>
+            <input type="text" value="199" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Premium (mensuel)</label>
+            <input type="text" value="249" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Club (annuel)</label>
+            <input type="text" value="1200" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+      </div>
+
+      <!-- Packs crédits -->
+      <div>
+        <h3 class="text-md font-semibold text-gray-900 mb-4">Packs de crédits</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Pack Small (10 crédits)</label>
+            <input type="text" value="50" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Pack Medium (25 crédits)</label>
+            <input type="text" value="100" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Pack Large (50 crédits)</label>
+            <input type="text" value="180" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timers Pipeline -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Ajustement des timers par étape pipeline</h2>
+    <p class="text-sm text-gray-600 mb-6">Minimum 1 semaine (7 jours), maximum 2 mois (60 jours)</p>
+    
+    <div class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">À contacter</label>
+          <div class="flex items-center gap-2">
+            <input type="number" value="7" min="7" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <span class="text-sm text-gray-600">jours</span>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Échange infos + Analyse + Alignement projets (total)</label>
+          <div class="flex items-center gap-2">
+            <input type="number" value="33" min="7" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <span class="text-sm text-gray-600">jours</span>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Négociation</label>
+          <div class="flex items-center gap-2">
+            <input type="number" value="20" min="7" max="60" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <span class="text-sm text-gray-600">jours</span>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">LOI</label>
+          <div class="flex items-center gap-2">
+            <input type="text" value="Validation cédant" disabled class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50">
+            <span class="text-sm text-gray-600">(pause timer)</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <p class="text-sm text-blue-800">
+          <strong>Note:</strong> Les étapes Audits, Financement et Deal signé n'ont pas de timer.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Textes & Messages -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Textes personnalisables</h2>
+    
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Message de bienvenue (nouveaux utilisateurs)</label>
+        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">Bienvenue sur Idéal Reprise ! Nous sommes ravis de vous accompagner dans votre projet.</textarea>
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Message validation annonce</label>
+        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">Votre annonce a été validée et est maintenant visible par les repreneurs.</textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="flex justify-end gap-3">
+    <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+      Annuler
+    </button>
+    <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+      Enregistrer les modifications
+    </button>
+  </div>
+</div>

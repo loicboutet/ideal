@@ -11,5 +11,17 @@ module Mockups
     def analytics
       # Detailed analytics and reports
     end
+
+    def operations
+      # Operations center - daily monitoring
+    end
+
+    def settings
+      # Platform settings - pricing, timers
+    end
+
+    def messages
+      # Send messages and questionnaires
+    end
   end
 end

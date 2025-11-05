@@ -7,5 +7,9 @@ module Mockups
     def dashboard
       # Seller dashboard overview
     end
+
+    def push_listing
+      # Push listing to buyers
+    end
   end
 end

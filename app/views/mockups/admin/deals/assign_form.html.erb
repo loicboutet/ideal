@@ -36,7 +36,7 @@
 
           <!-- Buyer -->
           <div class="p-4 bg-white rounded-lg">
-            <div class="text-sm text-gray-500 mb-2">Acheteur</div>
+            <div class="text-sm text-gray-500 mb-2">Repreneur</div>
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">
                 MM
@@ -52,17 +52,17 @@
 
       <!-- Assign to Another Buyer -->
       <div>
-        <h2 class="text-lg font-bold text-gray-900 mb-4">Attribuer à un autre acheteur</h2>
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Attribuer à un autre repreneur</h2>
         
         <!-- Search Buyers -->
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Rechercher un acheteur</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Rechercher un repreneur</label>
           <input type="text" placeholder="Nom, email ou ID..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
         </div>
 
         <!-- Available Buyers -->
         <div class="space-y-2">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Acheteurs intéressés par ce secteur</label>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Repreneurs intéressés par ce secteur</label>
           <% [
             { name: "Sophie Bernard", email: "s.bernard@email.fr", initials: "SB", interests: "Commerce, Mode", experience: "5 ans" },
             { name: "Thomas Dubois", email: "t.dubois@email.fr", initials: "TD", interests: "Commerce, Retail", experience: "3 ans" },
@@ -100,14 +100,14 @@
             <input type="radio" name="assignment_type" value="exclusive" checked class="text-blue-600 focus:ring-blue-500 mt-0.5">
             <div>
               <div class="text-sm font-medium text-gray-900">Attribution exclusive</div>
-              <div class="text-xs text-gray-600">L'acheteur a l'exclusivité pour 30 jours</div>
+              <div class="text-xs text-gray-600">L'repreneur a l'exclusivité pour 30 jours</div>
             </div>
           </label>
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
             <input type="radio" name="assignment_type" value="non_exclusive" class="text-blue-600 focus:ring-blue-500 mt-0.5">
             <div>
               <div class="text-sm font-medium text-gray-900">Attribution non-exclusive</div>
-              <div class="text-xs text-gray-600">Plusieurs acheteurs peuvent être intéressés</div>
+              <div class="text-xs text-gray-600">Plusieurs repreneurs peuvent être intéressés</div>
             </div>
           </label>
         </div>
@@ -132,7 +132,7 @@
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
             <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
             <div>
-              <div class="text-sm font-medium text-gray-900">Notifier le nouvel acheteur</div>
+              <div class="text-sm font-medium text-gray-900">Notifier le nouvel repreneur</div>
               <div class="text-xs text-gray-600">Envoyer un email d'attribution</div>
             </div>
           </label>
@@ -146,7 +146,7 @@
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
             <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
             <div>
-              <div class="text-sm font-medium text-gray-900">Notifier l'ancien acheteur</div>
+              <div class="text-sm font-medium text-gray-900">Notifier l'ancien repreneur</div>
               <div class="text-xs text-gray-600">Informer du changement d'attribution</div>
             </div>
           </label>
@@ -168,7 +168,7 @@
           <div class="text-sm text-blue-800">
             <p class="font-medium mb-1">Important :</p>
             <ul class="list-disc list-inside space-y-0.5">
-              <li>Cette action modifiera l'acheteur attribué à cette transaction</li>
+              <li>Cette action modifiera l'repreneur attribué à cette transaction</li>
               <li>L'historique complet sera conservé</li>
               <li>Les parties concernées seront notifiées selon vos choix</li>
             </ul>
