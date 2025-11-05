@@ -1,179 +1,144 @@
 <% content_for :title, "Annonces - Administration - Idéal Reprise" %>
 
 <div class="space-y-6">
-  <!-- Header -->
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+  <div class="flex items-center justify-between">
     <div>
       <h1 class="text-3xl font-bold text-gray-900">Annonces</h1>
-      <p class="text-gray-600 mt-1">Gérer toutes les annonces de la plateforme</p>
+      <p class="text-gray-600 mt-1">Gestion de toutes les annonces</p>
     </div>
-    <%= link_to mockups_admin_listings_pending_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition" do %>
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <%= link_to mockups_admin_listings_pending_path, class: "px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition" do %>
+      <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
       </svg>
-      <span>En attente (<span class="font-bold">12</span>)</span>
+      En attente (18)
     <% end %>
   </div>
 
-  <!-- Stats -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-sm text-gray-600">Total</p>
-          <p class="text-2xl font-bold text-gray-900 mt-1">327</p>
-        </div>
-        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-sm text-gray-600">Validées</p>
-          <p class="text-2xl font-bold text-green-600 mt-1">285</p>
-        </div>
-        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-sm text-gray-600">En attente</p>
-          <p class="text-2xl font-bold text-orange-600 mt-1">12</p>
-        </div>
-        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-sm text-gray-600">Rejetées</p>
-          <p class="text-2xl font-bold text-red-600 mt-1">30</p>
-        </div>
-        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Filters -->
-  <div class="bg-white rounded-xl shadow-sm p-4">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <input type="text" placeholder="Rechercher..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+  <!-- Filters & Sort -->
+  <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
+    <div class="grid grid-cols-1 sm:grid-cols-5 gap-4">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
         <option>Tous les statuts</option>
-        <option>Validée</option>
-        <option>En attente</option>
-        <option>Rejetée</option>
         <option>Brouillon</option>
+        <option>En attente</option>
+        <option>Validée</option>
+        <option>Rejetée</option>
+        <option>Retirée</option>
       </select>
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <option>Tous les secteurs</option>
-        <option>Commerce</option>
-        <option>Restauration</option>
-        <option>Services</option>
-        <option>Industrie</option>
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option>Tous les types de deal</option>
+        <option>Deal Direct</option>
+        <option>Mandat Idéal Reprise</option>
+        <option>Mandat Partenaire</option>
       </select>
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option>Période: 30 derniers jours</option>
+        <option>7 derniers jours</option>
+        <option>Ce mois</option>
+        <option>3 mois</option>
+        <option>6 mois</option>
+        <option>Tout</option>
+      </select>
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
         <option>Tri: Plus récent</option>
         <option>Plus ancien</option>
-        <option>Prix croissant</option>
-        <option>Prix décroissant</option>
+        <option>Plus de vues</option>
+        <option>Plus de favoris</option>
+        <option>CA croissant</option>
+        <option>CA décroissant</option>
       </select>
+      <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+        Réinitialiser
+      </button>
     </div>
   </div>
 
-  <!-- Table -->
-  <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-5 gap-4">
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600">Total</div>
+      <div class="text-2xl font-bold text-gray-900">327</div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600">Vues</div>
+      <div class="text-2xl font-bold text-gray-900">12,847</div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600">Favoris</div>
+      <div class="text-2xl font-bold text-gray-900">1,234</div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600">Réservations</div>
+      <div class="text-2xl font-bold text-gray-900">142</div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600">Abandons</div>
+      <div class="text-2xl font-bold text-red-600">87</div>
+    </div>
+  </div>
+
+  <!-- Listings Table -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200">
     <div class="overflow-x-auto">
-      <table class="w-full">
-        <thead class="bg-gray-50 border-b border-gray-200">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
           <tr>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Annonce</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vendeur</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type Deal</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Secteur</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vues</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Favoris</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Résa</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Abandons</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
-            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
           <% [
-            { id: 1, title: "Boutique prêt-à-porter", sector: "Commerce", seller: "Jean Dupont", price: "450 000 €", date: "15/06/2025", status: "validée", status_color: "green" },
-            { id: 2, title: "Restaurant gastronomique", sector: "Restauration", seller: "Marie Martin", price: "680 000 €", date: "14/06/2025", status: "en attente", status_color: "orange" },
-            { id: 3, title: "Agence immobilière", sector: "Services", seller: "Pierre Leroy", price: "1 200 000 €", date: "13/06/2025", status: "validée", status_color: "green" },
-            { id: 4, title: "Atelier métallurgie", sector: "Industrie", seller: "Sophie Bernard", price: "890 000 €", date: "12/06/2025", status: "en attente", status_color: "orange" },
-            { id: 5, title: "Salon de coiffure", sector: "Services", seller: "Luc Moreau", price: "125 000 €", date: "11/06/2025", status: "rejetée", status_color: "red" },
-            { id: 6, title: "Boulangerie artisanale", sector: "Commerce", seller: "Emma Petit", price: "380 000 €", date: "10/06/2025", status: "validée", status_color: "green" },
+            {id: 1, name: 'Boulangerie artisanale', type: 'Direct', sector: 'Commerce', views: 342, favorites: 12, reservations: 3, abandons: 1, status: 'active'},
+            {id: 2, name: 'Restaurant italien', type: 'Mandat Idéal', sector: 'Restauration', views: 289, favorites: 8, reservations: 2, abandons: 0, status: 'active'},
+            {id: 3, name: 'Garage automobile', type: 'Mandat Partenaire', sector: 'Services', views: 156, favorites: 5, reservations: 1, abandons: 2, status: 'reserved'},
+            {id: 4, name: 'Salon de coiffure', type: 'Direct', sector: 'Services', views: 234, favorites: 15, reservations: 4, abandons: 3, status: 'active'}
           ].each do |listing| %>
             <tr class="hover:bg-gray-50">
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div>
-                  <div class="text-sm font-medium text-gray-900"><%= listing[:title] %></div>
-                  <div class="text-sm text-gray-500"><%= listing[:sector] %></div>
-                </div>
+              <td class="px-6 py-4">
+                <div class="font-medium text-gray-900"><%= listing[:name] %></div>
+                <div class="text-xs text-gray-500">ID: #<%= listing[:id] %></div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900"><%= listing[:seller] %></div>
+                <% case listing[:type] %>
+                <% when 'Direct' %>
+                  <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700">Direct</span>
+                <% when 'Mandat Idéal' %>
+                  <span class="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-700">Mandat Idéal</span>
+                <% when 'Mandat Partenaire' %>
+                  <span class="px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-700">Mandat Partenaire</span>
+                <% end %>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= listing[:sector] %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= listing[:views] %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= listing[:favorites] %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= listing[:reservations] %></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm <%= listing[:abandons] > 0 ? 'text-red-600 font-medium' : 'text-gray-500' %>">
+                <%= listing[:abandons] %>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900"><%= listing[:price] %></div>
+                <% if listing[:status] == 'active' %>
+                  <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Active</span>
+                <% else %>
+                  <span class="px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-800">Réservée</span>
+                <% end %>
               </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-500"><%= listing[:date] %></div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-<%= listing[:status_color] %>-100 text-<%= listing[:status_color] %>-800 capitalize">
-                  <%= listing[:status] %>
-                </span>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <div class="flex items-center justify-end gap-2">
-                  <%= link_to mockups_admin_listing_path(listing[:id]), class: "text-blue-600 hover:text-blue-900" do %>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                  <% end %>
-                </div>
+              <td class="px-6 py-4 whitespace-nowrap text-sm">
+                <%= link_to mockups_admin_listing_path(listing[:id]), class: "text-blue-600 hover:text-blue-800" do %>
+                  Voir →
+                <% end %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
-    </div>
-  </div>
-
-  <!-- Pagination -->
-  <div class="flex items-center justify-between">
-    <div class="text-sm text-gray-700">
-      Affichage de <span class="font-medium">1</span> à <span class="font-medium">6</span> sur <span class="font-medium">327</span> résultats
-    </div>
-    <div class="flex items-center gap-2">
-      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50" disabled>
-        Précédent
-      </button>
-      <button class="px-3 py-2 bg-blue-600 text-white rounded-lg">1</button>
-      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
-      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
-      <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">
-        Suivant
-      </button>
     </div>
   </div>
 </div>

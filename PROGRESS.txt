@@ -1,0 +1,10 @@
+SESSION 2 PROGRESS:
+
+COMPLETED:
+✅ admin/analytics.html.erb - Temps par statut + détails multi-axes + export
+✅ admin/listings/index.html.erb - Tri, période, type deal, abandons, vues, favoris, résa
+✅ buyer/deals/index.html.erb - Encart 24h, tri temps, nom+desc, timer+jauge, format vignette
+
+IN PROGRESS:
+Now updating remaining critical pages...
+

@@ -7,78 +7,81 @@
     <div class="flex items-center justify-between">
       <div>
         <p class="text-blue-100 mb-2">Solde actuel</p>
-        <div class="text-5xl font-bold">45</div>
+        <div class="text-5xl font-bold">24</div>
         <p class="text-blue-100 mt-2">crédits disponibles</p>
       </div>
-      <%= link_to upgrade_mockups_buyer_subscription_path, class: "px-6 py-3 bg-white text-blue-600 rounded-full hover:bg-blue-50 transition font-medium shadow-lg" do %>
-        Acheter des crédits
-      <% end %>
+    </div>
+  </div>
+
+  <!-- Pricing Info AVANT historique -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-6">Tarification des crédits</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="border-2 border-gray-200 rounded-lg p-6 hover:border-blue-500 transition cursor-pointer text-center">
+        <div class="text-2xl font-bold text-gray-900 mb-2">10 crédits</div>
+        <div class="text-3xl font-bold text-blue-600 mb-3">50 €</div>
+        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Acheter
+        </button>
+      </div>
+      <div class="border-2 border-blue-500 rounded-lg p-6 relative text-center">
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+          <span class="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded-full">Populaire</span>
+        </div>
+        <div class="text-2xl font-bold text-gray-900 mb-2">25 crédits</div>
+        <div class="text-3xl font-bold text-blue-600 mb-3">100 €</div>
+        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Acheter
+        </button>
+      </div>
+      <div class="border-2 border-gray-200 rounded-lg p-6 hover:border-blue-500 transition cursor-pointer text-center">
+        <div class="text-2xl font-bold text-gray-900 mb-2">50 crédits</div>
+        <div class="text-3xl font-bold text-blue-600 mb-3">180 €</div>
+        <div class="text-xs text-green-600 mb-3">Meilleure valeur</div>
+        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+          Acheter
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Stats -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="text-sm text-gray-600 mb-2">Crédits utilisés ce mois</div>
-      <div class="text-2xl font-bold text-gray-900">15</div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-2">Utilisés ce mois</div>
+      <div class="text-2xl font-bold text-gray-900">8</div>
     </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="text-sm text-gray-600 mb-2">Économies potentielles</div>
-      <div class="text-2xl font-bold text-green-600">30€</div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-2">Gagnés (enrichissement)</div>
+      <div class="text-2xl font-bold text-green-600">12</div>
     </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="text-sm text-gray-600 mb-2">Crédits totaux achetés</div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-2">Total achetés</div>
       <div class="text-2xl font-bold text-gray-900">100</div>
     </div>
   </div>
 
-  <!-- Transaction History -->
-  <div class="bg-white rounded-xl shadow-sm p-6">
-    <h3 class="text-lg font-bold text-gray-900 mb-4">Historique des transactions</h3>
-    <div class="space-y-4">
+  <!-- Transaction History APRÈS tarification -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Historique</h3>
+    <div class="space-y-3">
       <% [
-        { date: '14/10/2025', type: 'Dépense', description: 'Enrichissement - Restaurant Lyon', amount: -10, color: 'red' },
-        { date: '12/10/2025', type: 'Dépense', description: 'Enrichissement - Boulangerie Paris', amount: -10, color: 'red' },
-        { date: '10/10/2025', type: 'Achat', description: 'Pack 50 crédits', amount: +50, color: 'green' },
-        { date: '05/10/2025', type: 'Dépense', description: 'Enrichissement - Garage Toulouse', amount: -10, color: 'red' },
-        { date: '01/10/2025', type: 'Bonus', description: 'Inscription - Crédits offerts', amount: +25, color: 'blue' }
-      ].each do |transaction| %>
-        <div class="flex items-center justify-between p-4 border-b border-gray-100">
-          <div class="flex-1">
-            <div class="font-semibold text-gray-900"><%= transaction[:description] %></div>
-            <div class="flex items-center gap-3 mt-1 text-sm text-gray-600">
-              <span><%= transaction[:date] %></span>
-              <span>• <%= transaction[:type] %></span>
-            </div>
+        {date: '20/01/2025', desc: 'Libération annonce + docs', amount: 3, color: 'green'},
+        {date: '18/01/2025', desc: 'Contact partenaire', amount: -1, color: 'red'},
+        {date: '15/01/2025', desc: 'Enrichissement validé', amount: 2, color: 'green'},
+        {date: '10/01/2025', desc: 'Achat pack 25', amount: 25, color: 'blue'},
+        {date: '05/01/2025', desc: 'Pousser annonce', amount: -1, color: 'red'}
+      ].each do |tx| %>
+        <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+          <div>
+            <div class="font-medium text-gray-900 text-sm"><%= tx[:desc] %></div>
+            <div class="text-xs text-gray-500"><%= tx[:date] %></div>
           </div>
-          <div class="text-right">
-            <% case transaction[:color] %>
-            <% when 'red' %>
-              <div class="text-lg font-bold text-red-600">
-                <%= transaction[:amount] > 0 ? '+' : '' %><%= transaction[:amount] %> crédits
-              </div>
-            <% when 'green' %>
-              <div class="text-lg font-bold text-green-600">
-                <%= transaction[:amount] > 0 ? '+' : '' %><%= transaction[:amount] %> crédits
-              </div>
-            <% when 'blue' %>
-              <div class="text-lg font-bold text-blue-600">
-                <%= transaction[:amount] > 0 ? '+' : '' %><%= transaction[:amount] %> crédits
-              </div>
-            <% end %>
+          <div class="font-bold text-<%= tx[:color] %>-600">
+            <%= tx[:amount] > 0 ? '+' : '' %><%= tx[:amount] %>
           </div>
         </div>
       <% end %>
-    </div>
-  </div>
-
-  <!-- Pricing Info -->
-  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-    <h3 class="font-semibold text-blue-900 mb-2">💰 Tarification des crédits</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-blue-800">
-      <div>• 10 crédits = 10€</div>
-      <div>• 50 crédits = 45€ (10% de réduction)</div>
-      <div>• 100 crédits = 80€ (20% de réduction)</div>
     </div>
   </div>
 </div>
