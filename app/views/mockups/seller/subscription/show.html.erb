@@ -1,90 +1,107 @@
 <% content_for :title, "Abonnement Premium - Cédant - Idéal Reprise" %>
 <% content_for :page_title, "Abonnement Premium" %>
 
-<div class="max-w-6xl mx-auto space-y-6">
-  <div class="text-center mb-8">
-    <h2 class="text-3xl font-bold text-gray-900 mb-2">Passez à Premium</h2>
-    <p class="text-gray-600">Débloquez toutes les fonctionnalités pour maximiser vos chances de vendre</p>
+<div class="max-w-5xl mx-auto space-y-6">
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Abonnement Premium Cédant</h1>
+    <p class="text-gray-600 mt-1">Réservé aux partenaires et brokers (profil cédant multi-annonces)</p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Free Plan -->
-    <div class="bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200">
-      <div class="mb-4">
-        <h3 class="text-xl font-bold text-gray-900 mb-2">Gratuit</h3>
-        <div class="text-3xl font-bold text-gray-900 mb-1">0€<span class="text-lg text-gray-600 font-normal">/mois</span></div>
+  <!-- Current Status -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-sm text-gray-600 mb-1">Statut actuel</div>
+        <div class="text-2xl font-bold text-gray-900">Gratuit</div>
       </div>
-      <ul class="space-y-3 mb-6">
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span class="text-sm text-gray-700">1 annonce active</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span class="text-sm text-gray-700">Visibilité standard</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-          <span class="text-sm text-gray-400">Support prioritaire</span>
-        </li>
-      </ul>
-      <button class="w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-full font-medium">
-        Plan actuel
-      </button>
+      <span class="px-4 py-2 bg-gray-100 text-gray-700 rounded-full font-medium">
+        Version gratuite
+      </span>
+    </div>
+  </div>
+
+  <!-- Premium Package pour Brokers -->
+  <div class="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl shadow-lg p-8 text-white">
+    <div class="flex items-start justify-between mb-6">
+      <div>
+        <div class="inline-flex items-center px-3 py-1 bg-white/30 rounded-full text-sm font-medium mb-3">
+          🏆 Pack Premium Broker
+        </div>
+        <h2 class="text-3xl font-bold mb-2">Offre Partenaires & Brokers</h2>
+        <p class="text-yellow-100">Pour les professionnels qui publient des mandats</p>
+      </div>
+      <div class="text-right">
+        <div class="text-4xl font-bold">TBD</div>
+        <div class="text-sm text-yellow-100">Nous contacter</div>
+      </div>
     </div>
 
-    <!-- Premium Plan -->
-    <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg p-6 text-white relative overflow-hidden">
-      <div class="absolute top-4 right-4">
-        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900">
-          ⭐ Recommandé
-        </span>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Annonces illimitées</span>
       </div>
-      <div class="mb-4">
-        <h3 class="text-xl font-bold mb-2">Premium</h3>
-        <div class="text-3xl font-bold mb-1">49€<span class="text-lg font-normal opacity-90">/mois</span></div>
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Support prioritaire 24/7</span>
       </div>
-      <ul class="space-y-3 mb-6">
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span class="text-sm">Annonces illimitées</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span class="text-sm">Visibilité maximale</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span class="text-sm">Badge "Deal IDEAL"</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span class="text-sm">Support prioritaire 24/7</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span class="text-sm">Statistiques avancées</span>
-        </li>
-      </ul>
-      <button class="w-full px-6 py-3 bg-white text-blue-600 rounded-full font-medium hover:bg-blue-50 transition shadow-lg">
-        Passer à Premium
-      </button>
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Accès annuaire partenaires</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Pousser 5 annonces/mois vers repreneurs</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Badge "Mandat Partenaire" sur annonces</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span>Contrat de rétrocommission</span>
+      </div>
+    </div>
+
+    <button class="px-8 py-3 bg-white text-orange-600 rounded-lg hover:bg-orange-50 transition font-semibold text-lg">
+      Nous contacter pour un devis
+    </button>
+  </div>
+
+  <!-- Standard Features -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Fonctionnalités actuelles (Gratuit)</h3>
+    <div class="space-y-2">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span class="text-gray-700">3 annonces maximum</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span class="text-gray-700">4 premiers contacts gratuits</span>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <span class="text-gray-700">Accès annuaire repreneurs</span>
+      </div>
     </div>
   </div>
 </div>
