@@ -1,141 +1,141 @@
 <% content_for :title, "Analytique - Administration - Idéal Reprise" %>
 
 <div class="space-y-6">
-  <div>
-    <h1 class="text-3xl font-bold text-gray-900">Analytique</h1>
-    <p class="text-gray-600 mt-1">Rapports détaillés et statistiques</p>
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Analytique - Insights</h1>
+      <p class="text-gray-600 mt-1">Analyses détaillées pour le développement</p>
+    </div>
+    <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+      <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>
+      Exporter vers Excel
+    </button>
   </div>
 
   <!-- Period Selector -->
-  <div class="bg-white rounded-xl shadow-sm p-6">
-    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Période</label>
-        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option>30 derniers jours</option>
-          <option>7 derniers jours</option>
-          <option>Ce mois</option>
-          <option>3 mois</option>
-          <option>6 mois</option>
-          <option>1 an</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
-        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option>Tous</option>
-          <option>Utilisateurs</option>
-          <option>Annonces</option>
-          <option>Transactions</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Région</label>
-        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option>Toutes</option>
-          <option>Île-de-France</option>
-          <option>Auvergne-Rhône-Alpes</option>
-          <option>Nouvelle-Aquitaine</option>
-        </select>
-      </div>
-      <div class="flex items-end">
-        <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-          Générer rapport
-        </button>
-      </div>
+  <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option>30 derniers jours</option>
+        <option>3 mois</option>
+        <option>6 mois</option>
+        <option>1 an</option>
+        <option>Personnalisé...</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option>Tous les secteurs</option>
+        <option>Industrie</option>
+        <option>BTP</option>
+        <option>Commerce & Distribution</option>
+        <option>Services</option>
+      </select>
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option>Toutes les régions</option>
+        <option>Île-de-France</option>
+        <option>Auvergne-Rhône-Alpes</option>
+        <option>Nouvelle-Aquitaine</option>
+      </select>
     </div>
   </div>
 
-  <!-- KPIs Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="text-sm text-gray-600 mb-2">Taux de conversion</div>
-      <div class="text-3xl font-bold text-gray-900">12.4%</div>
-      <div class="text-sm text-green-600 mt-2">↑ +2.3%</div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="text-sm text-gray-600 mb-2">Temps moyen</div>
-      <div class="text-3xl font-bold text-gray-900">4.2j</div>
-      <div class="text-sm text-red-600 mt-2">↓ -0.8j</div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="text-sm text-gray-600 mb-2">Satisfaction</div>
-      <div class="text-3xl font-bold text-gray-900">4.8/5</div>
-      <div class="text-sm text-green-600 mt-2">↑ +0.2</div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="text-sm text-gray-600 mb-2">ROI moyen</div>
-      <div class="text-3xl font-bold text-gray-900">285%</div>
-      <div class="text-sm text-green-600 mt-2">↑ +15%</div>
+  <!-- Temps moyen par statut CRM -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Temps moyen par statut CRM</h2>
+    <p class="text-sm text-gray-600 mb-4">Avec marquage du temps maximum permis</p>
+    
+    <div class="space-y-3">
+      <% [
+        {name: 'À contacter', avg: 4.2, max: 7, unit: 'jours'},
+        {name: 'Échange d\'infos', avg: 18.5, max: 33, unit: 'jours'},
+        {name: 'Analyse', avg: 8.3, max: 33, unit: 'jours'},
+        {name: 'Alignement projets', avg: 6.8, max: 33, unit: 'jours'},
+        {name: 'Négociation', avg: 12.4, max: 20, unit: 'jours'},
+        {name: 'LOI', avg: 15.2, max: nil, unit: 'jours'},
+        {name: 'Audits', avg: 21.3, max: nil, unit: 'jours'},
+        {name: 'Financement', avg: 18.7, max: nil, unit: 'jours'}
+      ].each do |stat| %>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium text-gray-700"><%= stat[:name] %></span>
+            <div class="text-sm text-gray-900">
+              Moyenne: <strong><%= stat[:avg] %> <%= stat[:unit] %></strong>
+              <% if stat[:max] %>
+                / Max: <strong class="text-red-600"><%= stat[:max] %>j</strong>
+              <% end %>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <% if stat[:max] %>
+                <div class="bg-<%= stat[:avg] > stat[:max] * 0.8 ? 'red' : 'green' %>-500 h-3 rounded-full" style="width: <%= [stat[:avg] / stat[:max] * 100, 100].min %>%"></div>
+                <div class="absolute top-0 h-3 w-0.5 bg-red-600" style="left: 100%"></div>
+              <% else %>
+                <div class="bg-blue-500 h-3 rounded-full" style="width: 60%"></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 
-  <!-- Charts -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-6">Inscriptions par type</h3>
-      <div class="h-64 flex items-end justify-around gap-4">
-        <div class="flex flex-col items-center gap-2 flex-1">
-          <div class="w-full bg-blue-500 rounded-t-lg" style="height: 70%"></div>
-          <span class="text-xs text-gray-600">Vendeurs</span>
-        </div>
-        <div class="flex flex-col items-center gap-2 flex-1">
-          <div class="w-full bg-green-500 rounded-t-lg" style="height: 85%"></div>
-          <span class="text-xs text-gray-600">Repreneurs</span>
-        </div>
-        <div class="flex flex-col items-center gap-2 flex-1">
-          <div class="w-full bg-purple-500 rounded-t-lg" style="height: 25%"></div>
-          <span class="text-xs text-gray-600">Partenaires</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-6">Transactions mensuelles</h3>
-      <div class="h-64 flex items-end justify-between gap-1">
-        <% [45, 52, 48, 65, 58, 72, 68, 75, 82, 78, 85, 92].each do |height| %>
-          <div class="flex-1 bg-blue-500 rounded-t hover:bg-blue-600 transition cursor-pointer" style="height: <%= height %>%"></div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tables -->
-  <div class="bg-white rounded-xl shadow-sm">
+  <!-- Détails multi-axes -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200">
     <div class="p-6 border-b border-gray-200">
-      <h3 class="text-lg font-bold text-gray-900">Top secteurs</h3>
+      <h2 class="text-lg font-bold text-gray-900">Analyses détaillées</h2>
     </div>
-    <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Secteur</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Annonces</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Transactions</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Évolution</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Commerce</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">127</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">45</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+12%</td>
-          </tr>
-          <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Restauration</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">98</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">38</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+8%</td>
-          </tr>
-          <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Services</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">84</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">32</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+15%</td>
-          </tr>
-        </tbody>
-      </table>
+    
+    <!-- Tabs -->
+    <div class="border-b border-gray-200">
+      <nav class="flex px-6">
+        <button class="px-4 py-3 border-b-2 border-blue-500 text-blue-600 font-medium text-sm">Par Secteur</button>
+        <button class="px-4 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">Par CA</button>
+        <button class="px-4 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">Par Géographie</button>
+        <button class="px-4 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">Par Effectif</button>
+      </nav>
+    </div>
+
+    <div class="p-6">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Secteur</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Annonces</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Réservations</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Transactions</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Évolution</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% [
+              {sector: 'Commerce & Distribution', listings: 127, reservations: 89, transactions: 45, evolution: '+12%'},
+              {sector: 'Hôtellerie / Restauration', listings: 98, reservations: 72, transactions: 38, evolution: '+8%'},
+              {sector: 'Services', listings: 84, reservations: 65, transactions: 32, evolution: '+15%'},
+              {sector: 'Digital', listings: 72, reservations: 58, transactions: 28, evolution: '+22%'},
+              {sector: 'BTP', listings: 65, reservations: 42, transactions: 24, evolution: '+5%'},
+              {sector: 'Industrie', listings: 52, reservations: 35, transactions: 18, evolution: '+3%'},
+              {sector: 'Transport & logistique', listings: 48, reservations: 32, transactions: 15, evolution: '+7%'},
+              {sector: 'Santé', listings: 38, reservations: 28, transactions: 12, evolution: '+18%'},
+              {sector: 'Agroalimentaire & Agriculture', listings: 32, reservations: 22, transactions: 10, evolution: '+6%'},
+              {sector: 'Immobilier', listings: 28, reservations: 18, transactions: 8, evolution: '+4%'},
+              {sector: 'Autre', listings: 24, reservations: 15, transactions: 6, evolution: '+2%'}
+            ].each do |row| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= row[:sector] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= row[:listings] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= row[:reservations] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><%= row[:transactions] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm <%= row[:evolution].starts_with?('+') ? 'text-green-600' : 'text-red-600' %>">
+                  <%= row[:evolution] %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
