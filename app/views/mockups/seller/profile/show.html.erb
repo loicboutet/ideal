@@ -3,62 +3,53 @@
 
 <div class="max-w-4xl mx-auto space-y-6">
   <div class="flex items-center justify-between">
-    <h2 class="text-2xl font-bold text-gray-900">Mon profil</h2>
-    <%= link_to edit_mockups_seller_profile_path, class: "px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium" do %>
-      Modifier le profil
+    <h1 class="text-2xl font-bold text-gray-900">Mon profil</h1>
+    <%= link_to edit_mockups_seller_profile_path, class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" do %>
+      Modifier
     <% end %>
   </div>
 
-  <div class="bg-white rounded-xl shadow-sm p-6">
-    <div class="flex items-center gap-6 mb-6">
-      <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-3xl">
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-center gap-4 mb-6">
+      <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
         JD
       </div>
       <div>
-        <h3 class="text-2xl font-bold text-gray-900">Jean Dupont</h3>
-        <p class="text-gray-600">jean.dupont@email.fr</p>
-        <span class="inline-flex items-center mt-2 px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-          Cédant vérifié
-        </span>
+        <h2 class="text-2xl font-bold text-gray-900">Jean Dupont</h2>
+        <p class="text-gray-600">Cédant</p>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="space-y-4">
       <div>
-        <h4 class="font-semibold text-gray-900 mb-3">Informations personnelles</h4>
-        <div class="space-y-3 text-sm">
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Téléphone</span>
-            <span class="font-medium text-gray-900">06 12 34 56 78</span>
-          </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Ville</span>
-            <span class="font-medium text-gray-900">Paris</span>
-          </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Membre depuis</span>
-            <span class="font-medium text-gray-900">Septembre 2025</span>
-          </div>
-        </div>
+        <div class="text-sm text-gray-600">Email</div>
+        <div class="font-medium text-gray-900">jean.dupont@example.fr</div>
       </div>
+      <div>
+        <div class="text-sm text-gray-600">Téléphone</div>
+        <div class="font-medium text-gray-900">06 12 34 56 78</div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-600">Entreprise</div>
+        <div class="font-medium text-gray-900">Boulangerie L'Amie Dorée</div>
+      </div>
+    </div>
+  </div>
 
-      <div>
-        <h4 class="font-semibold text-gray-900 mb-3">Statistiques</h4>
-        <div class="space-y-3 text-sm">
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Annonces publiées</span>
-            <span class="font-medium text-gray-900">5</span>
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Mes annonces</h3>
+    <div class="space-y-3">
+      <% 3.times do |i| %>
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          <div>
+            <div class="font-medium text-gray-900">Annonce <%= i + 1 %></div>
+            <div class="text-sm text-gray-600">Active • <%= 300 + (i * 50) %> vues</div>
           </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Contacts reçus</span>
-            <span class="font-medium text-gray-900">23</span>
-          </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Abonnement</span>
-            <span class="font-medium text-blue-600">Gratuit</span>
-          </div>
+          <%= link_to mockups_seller_listing_path(i + 1), class: "text-blue-600 hover:text-blue-800 text-sm font-medium" do %>
+            Voir →
+          <% end %>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>

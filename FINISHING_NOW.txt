@@ -1,0 +1,26 @@
+FINISHING ALL 23 REMAINING:
+
+ADMIN PAGES (14):
+1. admin/users/index - Update
+2. admin/users/show - Update  
+3. admin/users/new - Update
+4. admin/users/edit - Update
+5. admin/users/suspend - Update
+6. admin/deals/index - Update
+7. admin/deals/show - Update
+8. admin/deals/assign - Update
+9. admin/imports/index - Update
+10. admin/imports/new - Update
+11. admin/imports/show - Update
+12. admin/enrichments/index - Update
+13. admin/enrichments/show - Update
+14. admin/enrichments/approve - Update
+
+SELLER (2):
+15. seller/profile/show - Update
+16. seller/profile/edit - Update
+
+DELETE PAGES (7):
+17-23. Remove as requested
+
+DOING ALL NOW...
