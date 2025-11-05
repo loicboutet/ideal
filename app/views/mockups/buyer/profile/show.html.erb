@@ -3,62 +3,92 @@
 
 <div class="max-w-4xl mx-auto space-y-6">
   <div class="flex items-center justify-between">
-    <h2 class="text-2xl font-bold text-gray-900">Mon profil</h2>
-    <%= link_to edit_mockups_buyer_profile_path, class: "px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium" do %>
-      Modifier le profil
+    <h1 class="text-2xl font-bold text-gray-900">Mon profil repreneur</h1>
+    <%= link_to edit_mockups_buyer_profile_path, class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" do %>
+      Modifier mon profil
     <% end %>
   </div>
 
-  <div class="bg-white rounded-xl shadow-sm p-6">
-    <div class="flex items-center gap-6 mb-6">
-      <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-teal-600 rounded-full flex items-center justify-center text-white font-semibold text-3xl">
-        PM
+  <!-- Header Card with Badge -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-start justify-between mb-4">
+      <div class="flex items-center gap-4">
+        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+          PM
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900">Pierre Martin</h2>
+          <p class="text-gray-600">Repreneur individuel</p>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-800 font-medium">Premium</span>
+            <span class="px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-800 font-medium">✓ Repreneur vérifié</span>
+          </div>
+        </div>
       </div>
-      <div>
-        <h3 class="text-2xl font-bold text-gray-900">Pierre Martin</h3>
-        <p class="text-gray-600">pierre.martin@email.fr</p>
-        <span class="inline-flex items-center mt-2 px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-          Repreneur vérifié
-        </span>
+      <div class="text-right">
+        <div class="text-sm text-gray-600 mb-1">Complétude</div>
+        <div class="text-3xl font-bold text-green-600">85%</div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <h4 class="font-semibold text-gray-900 mb-3">Informations personnelles</h4>
-        <div class="space-y-3 text-sm">
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Téléphone</span>
-            <span class="font-medium text-gray-900">06 12 34 56 78</span>
-          </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Ville</span>
-            <span class="font-medium text-gray-900">Lyon</span>
-          </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Membre depuis</span>
-            <span class="font-medium text-gray-900">Septembre 2025</span>
-          </div>
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div class="flex gap-3">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <div class="text-sm text-blue-800">
+          <p><strong>Badge "Repreneur vérifié"</strong> obtenu après audit 30 min (offre Premium)</p>
+          <p class="mt-1">Ce badge atteste de votre sérieux auprès des cédants et augmente vos chances de 3x.</p>
         </div>
       </div>
+    </div>
+  </div>
 
+  <!-- Thèse de reprise -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Thèse de reprise</h3>
+    <p class="text-gray-700 leading-relaxed">
+      Passionné par le digital et le service client, je cherche une entreprise avec une forte culture d'équipe. Mon objectif est d'assurer la continuité tout en modernisant les process et en développant le CA via le digital marketing.
+    </p>
+  </div>
+
+  <!-- Critères recherche -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Entreprise recherchée</h3>
+    <div class="grid grid-cols-2 gap-4 text-sm">
       <div>
-        <h4 class="font-semibold text-gray-900 mb-3">Statistiques</h4>
-        <div class="space-y-3 text-sm">
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Dossiers actifs</span>
-            <span class="font-medium text-gray-900">12</span>
-          </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Favoris</span>
-            <span class="font-medium text-gray-900">8</span>
-          </div>
-          <div class="flex justify-between py-2 border-b border-gray-100">
-            <span class="text-gray-600">Abonnement</span>
-            <span class="font-medium text-gray-600">Gratuit</span>
-          </div>
-        </div>
+        <div class="text-gray-600 mb-1">Secteurs</div>
+        <div class="font-medium text-gray-900">Services, Digital</div>
       </div>
+      <div>
+        <div class="text-gray-600 mb-1">Localisation</div>
+        <div class="font-medium text-gray-900">Île-de-France, Lyon</div>
+      </div>
+      <div>
+        <div class="text-gray-600 mb-1">CA recherché</div>
+        <div class="font-medium text-gray-900">500k - 2M €</div>
+      </div>
+      <div>
+        <div class="text-gray-600 mb-1">Effectif</div>
+        <div class="font-medium text-gray-900">5 - 50</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expérience -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Expérience</h3>
+    <p class="text-gray-700">15 ans en direction commerciale, dont 8 ans comme Directrice Marketing Digital.</p>
+  </div>
+
+  <!-- Compétences -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Compétences</h3>
+    <div class="flex flex-wrap gap-2">
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Management</span>
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Marketing Digital</span>
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Commercial</span>
+      <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">Finance</span>
     </div>
   </div>
 </div>

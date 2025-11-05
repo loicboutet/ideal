@@ -1,72 +1,66 @@
-<% content_for :title, "Aperçu public - Partenaire - Idéal Reprise" %>
-<% content_for :page_title, "Aperçu de ma fiche publique" %>
+<% content_for :title, "Aperçu fiche publique - Partenaire - Idéal Reprise" %>
+<% content_for :page_title, "Aperçu fiche publique" %>
 
 <div class="max-w-4xl mx-auto space-y-6">
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-    <div class="flex gap-3">
-      <svg class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-      </svg>
-      <div>
-        <p class="text-sm font-medium text-yellow-900">Aperçu de votre profil public</p>
-        <p class="text-sm text-yellow-800 mt-1">Voici comment les utilisateurs voient votre fiche dans l'annuaire partenaires.</p>
-      </div>
-    </div>
-  </div>
+  <%= link_to mockups_partner_profile_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour à ma fiche
+  <% end %>
 
-  <!-- Public Profile View (Same as show page but with preview context) -->
-  <div class="bg-white rounded-lg shadow-sm p-6">
-    <div class="flex flex-col md:flex-row gap-6">
-      <div class="w-32 h-32 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center text-white font-semibold text-4xl flex-shrink-0">
-        SC
-      </div>
-      <div class="flex-1">
-        <h3 class="text-2xl font-bold text-gray-900 mb-2">Sophie Conseil</h3>
-        <p class="text-lg text-teal-600 font-medium mb-3">Avocat d'affaires - Droit des sociétés</p>
-        <div class="flex flex-wrap gap-2 mb-4">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            ✓ Profil vérifié
-          </span>
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-            ⭐ Premium
-          </span>
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-            15 ans d'expérience
-          </span>
-        </div>
-        <div class="flex items-center gap-4 text-sm text-gray-600">
-          <div class="flex items-center gap-1">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-            <span class="font-semibold">4.8/5</span>
-            <span>(8 avis)</span>
-          </div>
-        </div>
-        <div class="mt-4">
-          <button class="px-6 py-3 bg-teal-600 text-white rounded-full hover:bg-teal-700 transition font-medium">
-            Contacter Sophie
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bg-white rounded-lg shadow-sm p-6">
-    <h4 class="font-bold text-gray-900 mb-3">À propos</h4>
-    <p class="text-gray-700 leading-relaxed">
-      Avocate spécialisée en droit des affaires depuis plus de 15 ans, j'accompagne les entrepreneurs dans toutes les étapes de la vie de leur entreprise : création, développement, cession et transmission. Mon expertise couvre notamment les opérations de fusion-acquisition, la rédaction d'actes juridiques et l'audit juridique.
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <p class="text-sm text-blue-800">
+      <strong>Aperçu:</strong> C'est ainsi que votre fiche apparaît dans l'annuaire partenaires
     </p>
   </div>
 
-  <!-- Action Buttons -->
-  <div class="flex gap-3">
-    <%= link_to mockups_partner_profile_path, class: "flex-1 px-6 py-3 border border-gray-300 text-center rounded-full text-gray-700 hover:bg-gray-50 transition font-medium" do %>
-      Retour à ma fiche
-    <% end %>
-    <%= link_to edit_mockups_partner_profile_path, class: "flex-1 px-6 py-3 bg-teal-600 text-white text-center rounded-full hover:bg-teal-700 transition font-medium" do %>
-      Modifier ma fiche
+  <!-- Card comme dans annuaire -->
+  <div class="bg-white rounded-xl shadow-sm border-2 border-purple-200 overflow-hidden">
+    <div class="p-6">
+      <div class="flex items-start gap-4 mb-4">
+        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">
+          SC
+        </div>
+        <div class="flex-1">
+          <h3 class="text-xl font-bold text-gray-900 mb-1">Sophie Conseil SARL</h3>
+          <p class="text-gray-600 mb-2">Avocat d'affaires</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">Avocat</span>
+            <span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">Île-de-France</span>
+            <span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">✓ Vérifié</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-gray-700 text-sm mb-4 leading-relaxed">
+        Cabinet spécialisé en droit des affaires et transmission d'entreprises. 15 ans d'expérience dans l'accompagnement juridique des PME.
+      </p>
+
+      <div class="flex items-center gap-4 text-sm text-gray-600 mb-4">
+        <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          </svg>
+          <span>France entière</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          <span>Commerce, Services, Digital</span>
+        </div>
+      </div>
+
+      <button class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium">
+        Voir le profil complet
+      </button>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <%= link_to mockups_partner_profile_path, class: "text-blue-600 hover:text-blue-800 font-medium" do %>
+      ← Retourner à l'édition de ma fiche
     <% end %>
   </div>
 </div>
