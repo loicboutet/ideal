@@ -1,88 +1,72 @@
 <% content_for :title, "Centre opérationnel - Administration - Idéal Reprise" %>
 
-<!-- Operations Center Dashboard -->
 <div class="space-y-6">
-  <!-- Page Header -->
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
     <div>
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Centre opérationnel</h1>
       <p class="text-gray-600 mt-1">À contrôler tous les jours</p>
     </div>
-    <div class="flex items-center gap-3">
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-        <option>30 derniers jours</option>
-        <option>7 derniers jours</option>
-        <option>Ce mois-ci</option>
-        <option>Mois dernier</option>
-      </select>
-    </div>
+    <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+      <option>30 derniers jours</option>
+      <option>7 derniers jours</option>
+      <option>Ce mois-ci</option>
+      <option>Mois dernier</option>
+    </select>
   </div>
 
-  <!-- Alert KPIs - À réduire -->
+  <!-- Alert KPIs -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <!-- Annonces à 0 vue -->
     <a href="#" class="bg-white rounded-xl shadow-sm p-6 border-2 border-red-200 hover:border-red-400 transition">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-          Alerte
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Alerte</span>
       </div>
       <div class="text-3xl font-bold text-red-600 mb-1">12</div>
       <div class="text-sm text-gray-600">Annonces à 0 vue</div>
       <div class="text-xs text-gray-500 mt-2">Cliquer pour détails →</div>
     </a>
 
-    <!-- Validations en attente -->
     <a href="#" class="bg-white rounded-xl shadow-sm p-6 border-2 border-orange-200 hover:border-orange-400 transition">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-          En attente
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">En attente</span>
       </div>
       <div class="text-3xl font-bold text-orange-600 mb-1">8</div>
       <div class="text-sm text-gray-600">Validations en attente</div>
       <div class="text-xs text-gray-500 mt-2">Cliquer pour détails →</div>
     </a>
 
-    <!-- Signalements en attente -->
     <a href="#" class="bg-white rounded-xl shadow-sm p-6 border-2 border-yellow-200 hover:border-yellow-400 transition">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-          À traiter
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">À traiter</span>
       </div>
       <div class="text-3xl font-bold text-yellow-600 mb-1">3</div>
       <div class="text-sm text-gray-600">Signalements en attente</div>
       <div class="text-xs text-gray-500 mt-2">Cliquer pour détails →</div>
     </a>
 
-    <!-- Deals à timer échu -->
     <a href="#" class="bg-white rounded-xl shadow-sm p-6 border-2 border-purple-200 hover:border-purple-400 transition">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-          Expiré
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">Expiré</span>
       </div>
       <div class="text-3xl font-bold text-purple-600 mb-1">5</div>
       <div class="text-sm text-gray-600">Deals à timer échu</div>
@@ -90,77 +74,45 @@
     </a>
   </div>
 
-  <!-- Deals par statut CRM -->
+  <!-- Deals par statut CRM - FIXED -->
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-lg font-bold text-gray-900">Deals par statut CRM</h2>
-      <div class="flex items-center gap-3">
-        <select class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
-          <option>30 derniers jours</option>
-          <option>7 derniers jours</option>
-          <option>Ce mois-ci</option>
-          <option>3 derniers mois</option>
-        </select>
-      </div>
+      <select class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+        <option>30 derniers jours</option>
+        <option>7 derniers jours</option>
+        <option>Ce mois-ci</option>
+        <option>3 derniers mois</option>
+      </select>
     </div>
-    <!-- Mock Bar Chart avec 10 statuts -->
-    <div class="h-80 flex items-end justify-between gap-3">
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-blue-100 group-hover:bg-blue-200 rounded-t-lg transition" style="height: 25%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Favoris</span>
-        <span class="text-sm font-semibold text-gray-900">45</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-blue-100 group-hover:bg-blue-200 rounded-t-lg transition" style="height: 65%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">À contacter</span>
-        <span class="text-sm font-semibold text-gray-900">87</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-blue-100 group-hover:bg-blue-200 rounded-t-lg transition" style="height: 55%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Échange</span>
-        <span class="text-sm font-semibold text-gray-900">72</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-blue-100 group-hover:bg-blue-200 rounded-t-lg transition" style="height: 48%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Analyse</span>
-        <span class="text-sm font-semibold text-gray-900">62</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-blue-100 group-hover:bg-blue-200 rounded-t-lg transition" style="height: 42%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Alignement</span>
-        <span class="text-sm font-semibold text-gray-900">54</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-green-100 group-hover:bg-green-200 rounded-t-lg transition" style="height: 35%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Négo</span>
-        <span class="text-sm font-semibold text-gray-900">45</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-green-100 group-hover:bg-green-200 rounded-t-lg transition" style="height: 28%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">LOI</span>
-        <span class="text-sm font-semibold text-gray-900">36</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-green-100 group-hover:bg-green-200 rounded-t-lg transition" style="height: 22%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Audits</span>
-        <span class="text-sm font-semibold text-gray-900">28</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-green-100 group-hover:bg-green-200 rounded-t-lg transition" style="height: 18%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Finance</span>
-        <span class="text-sm font-semibold text-gray-900">23</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full bg-green-600 group-hover:bg-green-700 rounded-t-lg transition" style="height: 15%;"></div>
-        <span class="text-xs text-gray-600 mt-2 text-center">Signé</span>
-        <span class="text-sm font-semibold text-gray-900">19</span>
-      </a>
+    
+    <!-- FIXED: Bar chart with proper structure -->
+    <div class="h-80 flex items-end justify-around gap-2 px-4">
+      <% [
+        {label: 'Favoris', value: 45, height: 25, color: 'blue'},
+        {label: 'À contacter', value: 87, height: 65, color: 'blue'},
+        {label: 'Échange', value: 72, height: 55, color: 'blue'},
+        {label: 'Analyse', value: 62, height: 48, color: 'blue'},
+        {label: 'Alignement', value: 54, height: 42, color: 'blue'},
+        {label: 'Négo', value: 45, height: 35, color: 'green'},
+        {label: 'LOI', value: 36, height: 28, color: 'green'},
+        {label: 'Audits', value: 28, height: 22, color: 'green'},
+        {label: 'Finance', value: 23, height: 18, color: 'green'},
+        {label: 'Signé', value: 19, height: 15, color: 'green'}
+      ].each do |stat| %>
+        <a href="#" class="flex flex-col items-center group cursor-pointer" style="width: 8%;">
+          <div class="w-full bg-<%= stat[:color] %>-400 group-hover:bg-<%= stat[:color] %>-500 rounded-t transition-colors" style="height: <%= stat[:height] * 3 %>px;"></div>
+          <div class="text-center mt-2">
+            <div class="text-xs text-gray-600 mb-1"><%= stat[:label] %></div>
+            <div class="text-sm font-bold text-gray-900"><%= stat[:value] %></div>
+          </div>
+        </a>
+      <% end %>
     </div>
   </div>
 
-  <!-- Ratio et Satisfaction -->
+  <!-- Rest of the page... -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Ratio Annonces/Repreneurs -->
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <h2 class="text-lg font-bold text-gray-900 mb-4">Ratio Annonces / Repreneurs payants</h2>
       <div class="flex items-center justify-center py-8">
@@ -172,16 +124,13 @@
       </div>
     </div>
 
-    <!-- Satisfaction -->
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <h2 class="text-lg font-bold text-gray-900 mb-4">Satisfaction utilisateurs</h2>
       <div class="flex items-center justify-center py-8">
         <div class="text-center">
           <div class="flex items-center justify-center gap-2 mb-2">
             <span class="text-5xl font-bold text-green-600">87%</span>
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-              +5%
-            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">+5%</span>
           </div>
           <div class="text-sm text-gray-600">Taux de satisfaction global</div>
           <div class="text-xs text-gray-500 mt-2">Basé sur 234 réponses ce mois</div>
@@ -194,120 +143,95 @@
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-lg font-bold text-gray-900">Deals abandonnés par statut</h2>
-      <select class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+      <select class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
         <option>30 derniers jours</option>
         <option>Ce trimestre</option>
       </select>
     </div>
-    <!-- Stacked Bar Chart -->
-    <div class="h-64 flex items-end justify-between gap-3">
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full flex flex-col rounded-t-lg overflow-hidden" style="height: 45%;">
-          <div class="bg-red-400 group-hover:bg-red-500 transition" style="height: 60%;"></div>
-          <div class="bg-red-200 group-hover:bg-red-300 transition" style="height: 40%;"></div>
-        </div>
-        <span class="text-xs text-gray-600 mt-2">Favoris</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full flex flex-col rounded-t-lg overflow-hidden" style="height: 65%;">
-          <div class="bg-red-400 group-hover:bg-red-500 transition" style="height: 70%;"></div>
-          <div class="bg-red-200 group-hover:bg-red-300 transition" style="height: 30%;"></div>
-        </div>
-        <span class="text-xs text-gray-600 mt-2">Contact</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full flex flex-col rounded-t-lg overflow-hidden" style="height: 55%;">
-          <div class="bg-red-400 group-hover:bg-red-500 transition" style="height: 50%;"></div>
-          <div class="bg-red-200 group-hover:bg-red-300 transition" style="height: 50%;"></div>
-        </div>
-        <span class="text-xs text-gray-600 mt-2">Échange</span>
-      </a>
-      <a href="#" class="flex-1 flex flex-col items-center group">
-        <div class="w-full flex flex-col rounded-t-lg overflow-hidden" style="height: 38%;">
-          <div class="bg-red-400 group-hover:bg-red-500 transition" style="height: 65%;"></div>
-          <div class="bg-red-200 group-hover:bg-red-300 transition" style="height: 35%;"></div>
-        </div>
-        <span class="text-xs text-gray-600 mt-2">Négo</span>
-      </a>
+    <div class="h-64 flex items-end justify-around gap-4 px-8">
+      <% [
+        {label: 'Favoris', voluntary: 12, timer: 8},
+        {label: 'Contact', voluntary: 18, timer: 9},
+        {label: 'Échange', voluntary: 15, timer: 12},
+        {label: 'Négo', voluntary: 8, timer: 6}
+      ].each do |stat| %>
+        <a href="#" class="flex flex-col items-center group cursor-pointer" style="width: 20%;">
+          <div class="w-full flex flex-col rounded-t-lg overflow-hidden" style="height: <%= (stat[:voluntary] + stat[:timer]) * 4 %>px;">
+            <div class="bg-red-500 group-hover:bg-red-600 transition" style="height: <%= (stat[:voluntary].to_f / (stat[:voluntary] + stat[:timer]) * 100).to_i %>%;"></div>
+            <div class="bg-red-300 group-hover:bg-red-400 transition" style="height: <%= (stat[:timer].to_f / (stat[:voluntary] + stat[:timer]) * 100).to_i %>%;"></div>
+          </div>
+          <div class="text-center mt-2">
+            <div class="text-xs text-gray-600"><%= stat[:label] %></div>
+            <div class="text-sm font-bold text-gray-900"><%= stat[:voluntary] + stat[:timer] %></div>
+          </div>
+        </a>
+      <% end %>
     </div>
     <div class="flex items-center justify-center gap-6 mt-6">
       <div class="flex items-center gap-2">
-        <div class="w-4 h-4 bg-red-400 rounded"></div>
+        <div class="w-4 h-4 bg-red-500 rounded"></div>
         <span class="text-sm text-gray-600">Volontaires</span>
       </div>
       <div class="flex items-center gap-2">
-        <div class="w-4 h-4 bg-red-200 rounded"></div>
+        <div class="w-4 h-4 bg-red-300 rounded"></div>
         <span class="text-sm text-gray-600">Via timer</span>
       </div>
     </div>
   </div>
 
-  <!-- Métriques Croissance -->
+  <!-- Rest unchanged... -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-          +8%
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">+8%</span>
       </div>
       <div class="text-2xl font-bold text-gray-900 mb-1">327</div>
       <div class="text-sm text-gray-600">Annonces actives</div>
     </div>
-
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-          +24%
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">+24%</span>
       </div>
       <div class="text-2xl font-bold text-gray-900 mb-1">48,562 €</div>
       <div class="text-sm text-gray-600">Revenus mensuel</div>
     </div>
-
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-          +12%
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">+12%</span>
       </div>
       <div class="text-2xl font-bold text-gray-900 mb-1">2,845</div>
       <div class="text-sm text-gray-600">Utilisateurs totaux</div>
     </div>
-
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <div class="flex items-center justify-between mb-4">
         <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
           <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
           </svg>
         </div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-          +15%
-        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">+15%</span>
       </div>
       <div class="text-2xl font-bold text-gray-900 mb-1">142</div>
       <div class="text-sm text-gray-600">Réservations</div>
     </div>
   </div>
 
-  <!-- Distribution utilisateurs & Spending -->
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Distribution utilisateurs avec évolution -->
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <h2 class="text-lg font-bold text-gray-900 mb-6">Distribution des utilisateurs</h2>
       <div class="space-y-4">
@@ -350,9 +274,8 @@
       </div>
     </div>
 
-    <!-- Spending par catégorie avec évolution -->
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-      <h2 class="text-lg font-bold text-gray-900 mb-6">Spending par catégorie d'utilisateurs</h2>
+      <h2 class="text-lg font-bold text-gray-900 mb-6">Spending par catégorie</h2>
       <div class="space-y-4">
         <div>
           <div class="flex items-center justify-between mb-2">
@@ -394,11 +317,10 @@
     </div>
   </div>
 
-  <!-- Utilisation partenaires -->
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
     <div class="flex items-center justify-between mb-6">
-      <h2 class="text-lg font-bold text-gray-900">Utilisation partenaires (Vues/Contacts)</h2>
-      <select class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+      <h2 class="text-lg font-bold text-gray-900">Utilisation partenaires</h2>
+      <select class="px-3 py-1.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
         <option>3 derniers mois</option>
         <option>30 derniers jours</option>
         <option>6 derniers mois</option>
@@ -408,43 +330,31 @@
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Partenaire</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vues</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contacts</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Taux conversion</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Partenaire</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vues</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contacts</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Taux conversion</th>
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
           <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="font-medium text-gray-900">Sophie Conseil</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800">Avocat</span>
-            </td>
+            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Sophie Conseil</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 text-xs rounded-full bg-purple-100 text-purple-800">Avocat</span></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">342</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">28</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">8.2%</td>
           </tr>
           <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="font-medium text-gray-900">Cabinet Martin</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">Comptable</span>
-            </td>
+            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Cabinet Martin</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 text-xs rounded-full bg-blue-100 text-blue-800">Comptable</span></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">287</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">35</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">12.2%</td>
           </tr>
           <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="font-medium text-gray-900">Conseil & Co</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Consultant</span>
-            </td>
+            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">Conseil & Co</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 text-xs rounded-full bg-green-100 text-green-800">Consultant</span></td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">198</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">15</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">7.6%</td>
