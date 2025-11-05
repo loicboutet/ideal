@@ -1,0 +1,21 @@
+CRITICAL REMAINING (~60):
+
+MUST DO NOW:
+- buyer/listings/search - 8 nouveaux champs
+- seller/interests - Graph période
+- seller/settings - Options NDA
+- buyer/reservations/release - Calcul crédits
+- admin/listings/show - Historique timeline
+- admin/listings/validate - Attribution deal
+- admin/partners/index - Nouveaux champs
+- seller/listings/show - Espace documents
+- buyer/profile - Badge vérifié
+- buyer/settings - Supprimer sections
+
+PARTNER (all 0%):
+- dashboard, profile, profile/edit - nouveaux champs
+
+REGISTER (4 pages):
+- Simplifications
+
+DOING NOW...
