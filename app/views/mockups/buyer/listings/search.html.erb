@@ -9,118 +9,159 @@
     Retour aux annonces
   <% end %>
 
-  <div class="bg-white rounded-xl shadow-sm p-6">
-    <h2 class="text-2xl font-bold text-gray-900 mb-6">Affinez votre recherche</h2>
-
-    <form class="space-y-6">
-      <!-- Localisation -->
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Localisation</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Région</label>
-            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-              <option>Toutes les régions</option>
-              <option>Île-de-France</option>
-              <option>Auvergne-Rhône-Alpes</option>
-              <option>Nouvelle-Aquitaine</option>
-              <option>Occitanie</option>
-              <option>Provence-Alpes-Côte d'Azur</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Département</label>
-            <input type="text" placeholder="Ex: 75, 69, 33..." class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-          </div>
-        </div>
-      </div>
-
-      <!-- Secteur d'activité -->
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Secteur d'activité</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <% ['Commerce', 'Restauration', 'Services', 'BTP', 'Industrie', 'Transport', 'Santé', 'Autre'].each do |sector| %>
-            <label class="flex items-center gap-2 p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-              <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-              <span class="text-sm text-gray-900"><%= sector %></span>
-            </label>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- Données financières -->
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Données financières</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Chiffre d'affaires minimum</label>
-            <input type="number" placeholder="Ex: 200000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Chiffre d'affaires maximum</label>
-            <input type="number" placeholder="Ex: 500000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Prix minimum</label>
-            <input type="number" placeholder="Ex: 100000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Prix maximum</label>
-            <input type="number" placeholder="Ex: 300000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-          </div>
-        </div>
-      </div>
-
-      <!-- Effectif -->
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Effectif</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <% ['0-5', '6-10', '11-20', '20+'].each do |range| %>
-            <label class="flex items-center gap-2 p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-              <input type="radio" name="employees" class="border-gray-300 text-blue-600 focus:ring-blue-500">
-              <span class="text-sm text-gray-900"><%= range %> salariés</span>
-            </label>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- Filtres avancés -->
-      <div>
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Filtres avancés</h3>
-        <div class="space-y-3">
-          <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
-            <div>
-              <div class="text-sm font-medium text-gray-900">Deals sous mandat IDEAL uniquement</div>
-              <div class="text-xs text-gray-600">Annonces premium avec garantie qualité</div>
-            </div>
-          </label>
-          <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
-            <div>
-              <div class="text-sm font-medium text-gray-900">Masquer les annonces réservées</div>
-              <div class="text-xs text-gray-600">Afficher uniquement les annonces disponibles</div>
-            </div>
-          </label>
-          <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
-            <div>
-              <div class="text-sm font-medium text-gray-900">Complétude minimum 80%</div>
-              <div class="text-xs text-gray-600">Annonces avec données complètes</div>
-            </div>
-          </label>
-        </div>
-      </div>
-
-      <!-- Actions -->
-      <div class="flex gap-4 pt-6 border-t border-gray-200">
-        <button type="button" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium">
-          Réinitialiser
-        </button>
-        <button type="submit" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium">
-          Rechercher
-        </button>
-      </div>
-    </form>
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900">Recherche avancée</h2>
+    <p class="text-gray-600 mt-1">Affinez votre recherche avec tous les critères</p>
   </div>
+
+  <form class="space-y-6">
+    <!-- Secteur -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Secteur d'activité</h3>
+      <select multiple size="6" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <option>Industrie</option>
+        <option>BTP</option>
+        <option>Commerce & Distribution</option>
+        <option>Transport & logistique</option>
+        <option>Hôtellerie / Restauration</option>
+        <option>Services</option>
+        <option>Agroalimentaire & Agriculture</option>
+        <option>Santé</option>
+        <option>Digital</option>
+        <option>Immobilier</option>
+        <option>Autre</option>
+      </select>
+      <p class="text-xs text-gray-500 mt-2">Maintenez Ctrl/Cmd pour sélectionner plusieurs</p>
+    </div>
+
+    <!-- Localisation -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Localisation</h3>
+      <input type="text" placeholder="Ex: Île-de-France, Lyon, Bordeaux..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <!-- Données financières -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Données financières</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">CA minimum</label>
+          <input type="number" placeholder="100000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">CA maximum</label>
+          <input type="number" placeholder="1000000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Résultat Net/CA minimum (%)</label>
+          <input type="number" placeholder="10" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Effectif</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Tous</option>
+            <option>1-5</option>
+            <option>6-10</option>
+            <option>11-50</option>
+            <option>50+</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nouveaux champs -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Critères supplémentaires</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Horizon pour transmission</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Tous</option>
+            <option>Immédiat (< 6 mois)</option>
+            <option>6-12 mois</option>
+            <option>1-2 ans</option>
+            <option>2-5 ans</option>
+            <option>+ de 5 ans</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type de transmission</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Tous</option>
+            <option>Fond de commerce</option>
+            <option>Cession titres partielle</option>
+            <option>Cession titres totale</option>
+            <option>Cession d'actifs</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Ancienneté entreprise (années)</label>
+          <input type="number" placeholder="Ex: 10" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Clientèle</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Tous</option>
+            <option>B2B uniquement</option>
+            <option>B2C uniquement</option>
+            <option>Mixte (B2B et B2C)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Forme juridique</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Toutes</option>
+            <option>SARL</option>
+            <option>SAS</option>
+            <option>EURL</option>
+            <option>SA</option>
+            <option>SCI</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Nombre d'étoiles (scorecard)</label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Toutes</option>
+            <option>5 étoiles</option>
+            <option>4 étoiles et +</option>
+            <option>3 étoiles et +</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtres avancés -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Filtres avancés</h3>
+      <div class="space-y-3">
+        <label class="flex items-center gap-2">
+          <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span class="text-sm text-gray-700">Deals en direct uniquement</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span class="text-sm text-gray-700">Deals sous mandat partenaire</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span class="text-sm text-gray-700">Mandats Idéal Reprise</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+          <span class="text-sm text-gray-700">Avec scorecard uniquement</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-3">
+      <%= link_to mockups_buyer_listings_path, class: "px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium" do %>
+        Annuler
+      <% end %>
+      <button type="submit" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+        Rechercher
+      </button>
+    </div>
+  </form>
 </div>

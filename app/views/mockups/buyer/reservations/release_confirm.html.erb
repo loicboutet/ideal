@@ -1,46 +1,88 @@
 <% content_for :title, "Libérer la réservation - Repreneur - Idéal Reprise" %>
 <% content_for :page_title, "Libérer la réservation" %>
 
-<div class="max-w-2xl mx-auto space-y-6">
-  <%= link_to mockups_buyer_reservation_path(@reservation_id || 1), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+<div class="max-w-3xl mx-auto space-y-6">
+  <%= link_to mockups_buyer_reservations_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" %>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>
-    Retour à la réservation
+    Retour aux réservations
   <% end %>
 
-  <div class="bg-white rounded-xl shadow-sm p-6">
-    <div class="text-center mb-6">
-      <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Libérer cette réservation</h2>
+    <p class="text-gray-600 mb-6">Boulangerie Paris 11e</p>
+
+    <!-- Calcul crédits obtenus -->
+    <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6 mb-6">
+      <div class="flex gap-4">
+        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-green-900 mb-3">Crédits que vous allez gagner :</h3>
+          <div class="space-y-2 text-sm text-green-800">
+            <div class="flex items-center justify-between">
+              <span>Libération volontaire</span>
+              <span class="font-semibold">+1 crédit</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Document ajouté: Bilan N-1</span>
+              <span class="font-semibold">+1 crédit</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Document ajouté: Compte de résultat</span>
+              <span class="font-semibold">+1 crédit</span>
+            </div>
+            <div class="pt-2 border-t border-green-300 flex items-center justify-between font-bold">
+              <span>TOTAL</span>
+              <span class="text-lg">+3 crédits</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <h2 class="text-2xl font-bold text-gray-900 mb-2">Libérer cette réservation ?</h2>
-      <p class="text-gray-600">Êtes-vous sûr de vouloir libérer la réservation pour <strong>Restaurant Italien Lyon 6ème</strong> ?</p>
     </div>
 
-    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-      <h3 class="font-semibold text-yellow-900 mb-2">⚠️ Attention</h3>
-      <ul class="text-sm text-yellow-800 space-y-1">
-        <li>• L'annonce redeviendra visible pour tous les repreneurs</li>
-        <li>• Temps restant: 23h 45m</li>
-        <li>• Cette action est irréversible</li>
-      </ul>
+    <!-- Communauté message -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+      <div class="flex gap-3">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+        </svg>
+        <div class="text-sm text-blue-800">
+          <p><strong>Vos retours permettent d'améliorer les annonces pour toute la communauté</strong></p>
+        </div>
+      </div>
     </div>
 
     <form class="space-y-4">
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Raison (optionnel)</label>
-        <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg" rows="3" placeholder="Pourquoi souhaitez-vous libérer cette réservation ?"></textarea>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Raison de la libération (optionnel)</label>
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          <option>Choisir...</option>
+          <option>Ne correspond pas à mon projet</option>
+          <option>Prix trop élevé</option>
+          <option>Localisation non adaptée</option>
+          <option>Manque d'informations</option>
+          <option>J'ai trouvé une autre opportunité</option>
+          <option>Autre</option>
+        </select>
       </div>
 
-      <div class="flex gap-3">
-        <%= link_to mockups_buyer_reservation_path(@reservation_id || 1), class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium text-center" do %>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Commentaires détaillés (optionnel)</label>
+        <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Vos retours aident à améliorer la qualité des annonces..."></textarea>
+        <p class="text-xs text-gray-500 mt-1">Ces commentaires seront transmis à l'admin pour améliorer la plateforme</p>
+      </div>
+
+      <div class="flex gap-3 pt-4">
+        <%= link_to mockups_buyer_reservations_path, class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" do %>
           Annuler
         <% end %>
-        <button type="submit" class="flex-1 px-6 py-3 bg-red-600 text-white rounded-full hover:bg-red-700 transition font-medium">
-          Confirmer la libération
+        <button type="submit" class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
+          Libérer et gagner 3 crédits
         </button>
       </div>
     </form>
