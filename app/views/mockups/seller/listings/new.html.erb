@@ -2,139 +2,186 @@
 <% content_for :page_title, "Créer une annonce" %>
 
 <div class="max-w-4xl mx-auto space-y-6">
+  <!-- Back Link -->
+  <%= link_to mockups_seller_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour au tableau de bord
+  <% end %>
+
+  <!-- Header -->
   <div>
-    <%= link_to mockups_seller_listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4" do %>
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-      </svg>
-      Retour à mes annonces
-    <% end %>
     <h2 class="text-2xl font-bold text-gray-900">Créer une nouvelle annonce</h2>
     <p class="text-gray-600 mt-1">Remplissez les informations pour publier votre entreprise</p>
+    <p class="text-blue-600 font-medium mt-2">Une fiche complète a 2x plus de chances d'attirer des repreneurs</p>
   </div>
 
+  <!-- Info Banner -->
   <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
     <div class="flex gap-3">
       <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
-      <div>
-        <p class="text-sm font-medium text-blue-900">Vos informations sont protégées</p>
-        <p class="text-sm text-blue-700 mt-1">Toutes les données sensibles ne seront visibles qu'après signature du NDA par l'acheteur.</p>
+      <div class="text-sm text-blue-800">
+        <p><strong>Vos informations sont protégées par un accord de confidentialité</strong></p>
+        <p class="mt-1">Ne mettez pas d'informations permettant de vous identifier dans les données publiques.</p>
+        <p class="mt-2">
+          <%= link_to "#", class: "text-blue-600 underline hover:text-blue-800" do %>
+            Voir à quoi ressemble la partie publique de votre annonce →
+          <% end %>
+        </p>
       </div>
     </div>
   </div>
 
-  <form class="space-y-6">
-    <!-- Basic Information -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Informations générales</h3>
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise *</label>
-          <input type="text" placeholder="Ex: Boulangerie artisanale" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Secteur d'activité *</label>
-            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-              <option>Sélectionner...</option>
-              <option>Commerce de détail</option>
-              <option>Restauration</option>
-              <option>Services aux entreprises</option>
-              <option>Services aux particuliers</option>
-              <option>Industrie</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Forme juridique *</label>
-            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-              <option>Sélectionner...</option>
-              <option>SARL</option>
-              <option>SAS</option>
-              <option>EURL</option>
-              <option>SA</option>
-              <option>Auto-entrepreneur</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Description courte *</label>
-          <textarea rows="3" placeholder="Décrivez brièvement votre entreprise..." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none"></textarea>
-          <p class="text-xs text-gray-500 mt-1">Maximum 200 caractères</p>
-        </div>
-      </div>
+  <!-- Progress -->
+  <div class="bg-white rounded-lg p-4 border border-gray-200">
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-sm font-medium text-gray-700">Complétude de l'annonce</span>
+      <span class="text-sm font-semibold text-gray-900">25%</span>
     </div>
-
-    <!-- Location -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Localisation</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Ville *</label>
-          <input type="text" placeholder="Ex: Paris" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Code postal *</label>
-          <input type="text" placeholder="75015" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Département *</label>
-          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <option>Sélectionner...</option>
-            <option>75 - Paris</option>
-            <option>69 - Rhône</option>
-            <option>31 - Haute-Garonne</option>
-          </select>
-        </div>
-      </div>
+    <div class="w-full bg-gray-200 rounded-full h-2">
+      <div class="bg-blue-600 h-2 rounded-full transition-all" style="width: 25%"></div>
     </div>
+  </div>
 
-    <!-- Financial Data -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Données financières</h3>
+  <!-- SECTION 1: Données publiques -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-xl font-bold text-gray-900 mb-6">Données publiques</h3>
+    
+    <form class="space-y-6">
+      <!-- Type entreprise (générique) -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Type d'entreprise (générique) <span class="text-red-500">*</span></label>
+        <input type="text" placeholder="Ex: Boulangerie artisanale, Restaurant italien, Agence digitale..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <p class="text-xs text-gray-500 mt-1">Ne mettez pas le nom exact de votre entreprise</p>
+      </div>
+
+      <!-- Secteur -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Secteur d'activité <span class="text-red-500">*</span></label>
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          <option>Sélectionnez...</option>
+          <option>Industrie</option>
+          <option>BTP</option>
+          <option>Commerce & Distribution</option>
+          <option>Transport & logistique</option>
+          <option>Hôtellerie / Restauration</option>
+          <option>Services</option>
+          <option>Agroalimentaire & Agriculture</option>
+          <option>Santé</option>
+          <option>Digital</option>
+          <option>Immobilier</option>
+          <option>Autre</option>
+        </select>
+      </div>
+
+      <!-- Localisation (département seulement) -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Localisation (département) <span class="text-red-500">*</span></label>
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          <option>Sélectionnez...</option>
+          <option>75 - Paris</option>
+          <option>69 - Rhône</option>
+          <option>31 - Haute-Garonne</option>
+          <option>33 - Gironde</option>
+          <option>59 - Nord</option>
+          <option>13 - Bouches-du-Rhône</option>
+        </select>
+        <p class="text-xs text-gray-500 mt-1">Seul le département sera visible publiquement</p>
+      </div>
+
+      <!-- Données financières -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Chiffre d'affaires annuel *</label>
-          <input type="text" placeholder="450 000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Chiffre d'affaires annuel <span class="text-red-500">*</span></label>
+          <input type="text" placeholder="450 000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
           <p class="text-xs text-gray-500 mt-1">En euros</p>
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Résultat net</label>
-          <input type="text" placeholder="85 000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-          <p class="text-xs text-gray-500 mt-1">En euros</p>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Prix de vente souhaité</label>
-          <input type="text" placeholder="350 000" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Effectif</label>
-          <input type="number" placeholder="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-          <p class="text-xs text-gray-500 mt-1">Nombre de salariés</p>
+          <input type="text" placeholder="85 000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
         </div>
       </div>
-    </div>
 
-    <!-- Description -->
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Description détaillée</h3>
-      <textarea rows="6" placeholder="Décrivez votre entreprise en détail: activités, clientèle, points forts, raisons de la cession..." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none"></textarea>
-    </div>
-
-    <!-- Actions -->
-    <div class="flex items-center justify-between">
-      <%= link_to mockups_seller_listings_path, class: "px-6 py-3 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-50 transition font-medium" do %>
-        Annuler
-      <% end %>
-      <div class="flex gap-3">
-        <button type="button" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300 transition font-medium">
-          Enregistrer comme brouillon
-        </button>
-        <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium">
-          Publier l'annonce
-        </button>
+      <!-- Effectif -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Effectif <span class="text-red-500">*</span></label>
+        <input type="number" placeholder="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <p class="text-xs text-gray-500 mt-1">Nombre de salariés</p>
       </div>
-    </div>
-  </form>
+
+      <!-- Prix -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Prix de vente souhaité</label>
+        <input type="text" placeholder="350 000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <p class="text-xs text-gray-500 mt-1">Ou fourchette de prix</p>
+      </div>
+
+      <!-- Nouveaux champs -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Horizon pour transmission <span class="text-red-500">*</span></label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Sélectionnez...</option>
+            <option>Immédiat (moins de 6 mois)</option>
+            <option>6-12 mois</option>
+            <option>1-2 ans</option>
+            <option>2-5 ans</option>
+            <option>Plus de 5 ans</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type de transmission <span class="text-red-500">*</span></label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Sélectionnez...</option>
+            <option>Fond de commerce</option>
+            <option>Cession de titres partielle</option>
+            <option>Cession de titres totale</option>
+            <option>Cession d'actifs</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Ancienneté entreprise <span class="text-red-500">*</span></label>
+          <input type="number" placeholder="15" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+          <p class="text-xs text-gray-500 mt-1">Années d'existence</p>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type de clients <span class="text-red-500">*</span></label>
+          <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            <option>Sélectionnez...</option>
+            <option>B2B uniquement</option>
+            <option>B2C uniquement</option>
+            <option>Mixte (B2B et B2C)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Description publique -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Description publique <span class="text-red-500">*</span></label>
+        <textarea rows="4" placeholder="Description générale visible par tous (sans informations confidentielles)..." class="w-full px-4 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500"></textarea>
+        <p class="text-xs text-gray-500 mt-1">Maximum 500 caractères - Ne mentionnez pas le nom de l'entreprise ni d'éléments identifiables</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+        <%= link_to mockups_seller_path, class: "px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium" do %>
+          Annuler
+        <% end %>
+        <div class="flex gap-3">
+          <button type="button" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium">
+            Enregistrer comme brouillon
+          </button>
+          <%= link_to "#", class: "px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium" do %>
+            Suite : données confidentielles →
+          <% end %>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,0 +1,31 @@
+<% content_for :title, "Partenaires - Repreneur - Idéal Reprise" %>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <div>
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Annuaire des Partenaires</h1>
+    <p class="text-gray-600 mt-1">Avocats, comptables, consultants pour votre reprise</p>
+  </div>
+
+  <!-- Access Info -->
+  <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-6 text-white">
+    <div class="flex items-center gap-3">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <h3 class="text-xl font-bold">Accès gratuit pour les abonnés</h3>
+        <p class="text-green-100">Votre abonnement Premium inclut l'accès illimité à l'annuaire</p>
+      </div>
+    </div>
+  </div>
+
+  <%= link_to mockups_directory_path, class: "block" do %>
+    <div class="bg-white rounded-xl shadow-sm p-8 border-2 border-blue-200 hover:border-blue-400 transition text-center">
+      <h2 class="text-2xl font-bold text-gray-900 mb-3">Accéder à l'annuaire</h2>
+      <p class="text-gray-600 mb-6">Découvrez nos partenaires vérifiés pour vous accompagner</p>
+      <span class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-medium text-lg">
+        Parcourir les partenaires →
+      </span>
+    </div>
+  <% end %>
+</div>

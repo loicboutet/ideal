@@ -1,80 +1,132 @@
 <% content_for :title, "Pipeline CRM - Repreneur - Idéal Reprise" %>
 <% content_for :page_title, "Mon Pipeline CRM" %>
 
-<div class="max-w-7xl mx-auto space-y-6">
+<div class="space-y-6">
   <div class="flex items-center justify-between">
-    <p class="text-gray-600">12 dossiers actifs dans votre pipeline</p>
+    <p class="text-gray-600">18 dossiers actifs • 3 avec timer actif</p>
     <%= link_to mockups_buyer_deals_path, class: "text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
       Vue liste →
     <% end %>
   </div>
 
-  <!-- Pipeline Columns -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-    <% [
-      { title: 'À contacter', color: 'blue', count: 5, deals: [{name: 'Boulangerie Paris', ca: '450k€'}, {name: 'Café Lyon', ca: '420k€'}] },
-      { title: 'En relation', color: 'yellow', count: 3, deals: [{name: 'Garage Toulouse', ca: '280k€'}] },
-      { title: 'Étude en cours', color: 'purple', count: 2, deals: [{name: 'Salon Bordeaux', ca: '180k€'}] },
-      { title: 'Négociation', color: 'green', count: 2, deals: [{name: 'Épicerie Nice', ca: '220k€'}] }
-    ].each do |column| %>
-      <div class="bg-gray-50 rounded-xl p-4 min-h-[500px]">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-bold text-gray-900"><%= column[:title] %></h3>
-          <% case column[:color] %>
-          <% when 'blue' %>
-            <span class="w-6 h-6 bg-blue-100 text-blue-600 text-xs font-bold rounded-full flex items-center justify-center">
-              <%= column[:count] %>
-            </span>
-          <% when 'yellow' %>
-            <span class="w-6 h-6 bg-yellow-100 text-yellow-600 text-xs font-bold rounded-full flex items-center justify-center">
-              <%= column[:count] %>
-            </span>
-          <% when 'purple' %>
-            <span class="w-6 h-6 bg-purple-100 text-purple-600 text-xs font-bold rounded-full flex items-center justify-center">
-              <%= column[:count] %>
-            </span>
-          <% when 'green' %>
-            <span class="w-6 h-6 bg-green-100 text-green-600 text-xs font-bold rounded-full flex items-center justify-center">
-              <%= column[:count] %>
-            </span>
-          <% end %>
-        </div>
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <p class="text-sm text-blue-900">
+      <strong>💡 Timers:</strong> À contacter 7j • Échange/Analyse/Alignement 33j • Négociation 20j • LOI nécessite validation cédant
+    </p>
+  </div>
 
-        <div class="space-y-3">
-          <% column[:deals].each do |deal| %>
-            <div class="bg-white rounded-lg shadow-sm p-4 cursor-move hover:shadow-md transition">
-              <h4 class="font-semibold text-gray-900 mb-2"><%= deal[:name] %></h4>
-              <p class="text-sm text-gray-600">CA: <%= deal[:ca] %></p>
-              <%= link_to mockups_buyer_deal_path(1), class: "block mt-3 text-sm text-blue-600 hover:text-blue-700" do %>
-                Voir le dossier →
+  <!-- Pipeline - Scroll horizontal -->
+  <div class="overflow-x-auto pb-4">
+    <div class="flex gap-4 min-w-max">
+      <% [
+        { title: 'Favoris', color: 'gray', count: 8, timer: false, deals: [
+          {name: 'Boulangerie Paris 11e', ca: '450k€', type: 'Direct'},
+          {name: 'Café Lyon 2e', ca: '420k€', type: 'Mandat Idéal'}
+        ]},
+        { title: 'À contacter', color: 'blue', count: 3, timer: '7j', deals: [
+          {name: 'Restaurant Toulouse', ca: '380k€', timer: '5j', type: 'Direct'}
+        ]},
+        { title: 'Échange d\'infos', color: 'blue', count: 2, timer: '33j', timeExtending: true, deals: [
+          {name: 'Garage Bordeaux', ca: '280k€', timer: '28j', type: 'Partenaire'}
+        ]},
+        { title: 'Analyse', color: 'blue', count: 1, timer: '33j', timeExtending: true, deals: []},
+        { title: 'Alignement projets', color: 'blue', count: 1, timer: '33j', timeExtending: true, deals: []},
+        { title: 'Négociation', color: 'green', count: 1, timer: '20j', deals: [
+          {name: 'Salon Nice', ca: '220k€', timer: '15j', type: 'Direct'}
+        ]},
+        { title: 'LOI', color: 'green', count: 1, timer: 'Validation', deals: []},
+        { title: 'Audits', color: 'green', count: 0, timer: false, deals: []},
+        { title: 'Financement', color: 'green', count: 1, timer: false, deals: []},
+        { title: 'Deal signé', color: 'purple', count: 0, timer: false, deals: []},
+        { title: 'Deals libérés', color: 'red', count: 3, timer: false, deals: []}
+      ].each do |column| %>
+        <div class="w-72 flex-shrink-0">
+          <div class="bg-white rounded-xl border-2 border-<%= column[:color] %>-200 p-4 h-full">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex-1">
+                <h3 class="font-bold text-gray-900 text-sm"><%= column[:title] %></h3>
+                <% if column[:timer] %>
+                  <p class="text-xs text-gray-500 mt-1">
+                    <%= column[:timer] == 'Validation' ? '⏸ Pause timer' : "⏱ #{column[:timer]}" %>
+                  </p>
+                <% end %>
+                <% if column[:timeExtending] %>
+                  <div class="mt-1 px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded inline-block">
+                    ⏱ Temps partagé 33j
+                  </div>
+                <% end %>
+              </div>
+              <span class="w-7 h-7 bg-<%= column[:color] %>-100 text-<%= column[:color] %>-600 text-xs font-bold rounded-full flex items-center justify-center flex-shrink-0">
+                <%= column[:count] %>
+              </span>
+            </div>
+
+            <!-- Deals -->
+            <div class="space-y-3 min-h-[200px]">
+              <% column[:deals].each do |deal| %>
+                <div class="bg-gray-50 rounded-lg p-3 border border-gray-200 hover:shadow-md transition cursor-move">
+                  <div class="flex items-start justify-between mb-2">
+                    <h4 class="font-semibold text-gray-900 text-sm flex-1"><%= deal[:name] %></h4>
+                    <% if deal[:type] %>
+                      <span class="px-2 py-0.5 text-xs rounded-full <%= deal[:type] == 'Direct' ? 'bg-blue-100 text-blue-700' : deal[:type] == 'Mandat Idéal' ? 'bg-purple-100 text-purple-700' : 'bg-orange-100 text-orange-700' %>">
+                        <%= deal[:type] %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <p class="text-xs text-gray-600 mb-2">CA: <%= deal[:ca] %></p>
+                  <% if deal[:timer] %>
+                    <div class="mb-2">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs text-gray-500">Temps restant</span>
+                        <span class="text-xs font-semibold text-gray-900"><%= deal[:timer] %></span>
+                      </div>
+                      <div class="w-full bg-gray-200 rounded-full h-1.5">
+                        <div class="bg-<%= column[:color] %>-500 h-1.5 rounded-full" style="width: <%= (deal[:timer].to_i.to_f / (column[:timer].to_i || 1) * 100).to_i %>%"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                  <%= link_to mockups_buyer_deal_path(1), class: "block text-xs text-blue-600 hover:text-blue-700" do %>
+                    Voir le dossier →
+                  <% end %>
+                </div>
               <% end %>
             </div>
-          <% end %>
+          </div>
         </div>
-
-        <% case column[:color] %>
-        <% when 'blue' %>
-          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-blue-300 hover:text-blue-600 transition text-sm font-medium">
-            + Ajouter un deal
-          </button>
-        <% when 'yellow' %>
-          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-yellow-300 hover:text-yellow-600 transition text-sm font-medium">
-            + Ajouter un deal
-          </button>
-        <% when 'purple' %>
-          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-purple-300 hover:text-purple-600 transition text-sm font-medium">
-            + Ajouter un deal
-          </button>
-        <% when 'green' %>
-          <button class="w-full mt-4 px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-green-300 hover:text-green-600 transition text-sm font-medium">
-            + Ajouter un deal
-          </button>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-    <p class="text-sm text-blue-900">💡 Glissez-déposez les cartes pour déplacer les dossiers entre les colonnes</p>
+  <!-- Legend -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="font-bold text-gray-900 mb-4">Légende</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 bg-blue-500 rounded"></div>
+        <span class="text-gray-700">Timer actif</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 bg-green-500 rounded"></div>
+        <span class="text-gray-700">Phase avancée</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 bg-purple-500 rounded"></div>
+        <span class="text-gray-700">Finalisé</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded">33j</div>
+        <span class="text-gray-700">Temps partagé étapes 3-5</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded">Mandat</div>
+        <span class="text-gray-700">Type de deal</span>
+      </div>
+    </div>
   </div>
 </div>
+
+<script>
+  // Drag & drop would be implemented with Stimulus controller
+  console.log('Pipeline ready for drag & drop interaction');
+</script>
