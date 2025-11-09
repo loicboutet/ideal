@@ -22,12 +22,19 @@
         <option>Banquier</option>
         <option>Broker</option>
       </select>
-      <select multiple size="1" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
-        <option>Tous les secteurs</option>
-        <option>Industrie</option>
-        <option>BTP</option>
-        <option>Commerce</option>
-        <option>Services</option>
+      <select multiple id="sectors-filter" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+        <option value="">Tous les secteurs</option>
+        <option value="industrie">Industrie</option>
+        <option value="construction">Construction</option>
+        <option value="commerce">Commerce & Distribution</option>
+        <option value="transport">Transport & Logistique</option>
+        <option value="restauration">Hôtellerie / Restauration</option>
+        <option value="services">Services</option>
+        <option value="agri">Agri-food & Agriculture</option>
+        <option value="sante">Santé</option>
+        <option value="digital">Digital</option>
+        <option value="immobilier">Immobilier</option>
+        <option value="autre">Autre</option>
       </select>
       <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Période: 30 derniers jours</option>
@@ -93,3 +100,121 @@
     </div>
   </div>
 </div>
+
+<!-- Choices.js CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+
+<!-- Choices.js JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+
+<script>
+// Initialize Choices.js for multi-select
+document.addEventListener('DOMContentLoaded', function() {
+  const sectorsFilter = document.getElementById('sectors-filter');
+  
+  if (sectorsFilter) {
+    const choices = new Choices(sectorsFilter, {
+      removeItemButton: true,
+      placeholderValue: 'Sélectionnez un ou plusieurs secteurs',
+      searchPlaceholderValue: 'Rechercher...',
+      noResultsText: 'Aucun résultat trouvé',
+      noChoicesText: 'Aucun choix disponible',
+      itemSelectText: 'Cliquer pour sélectionner',
+      maxItemCount: -1,
+      searchEnabled: true,
+      searchChoices: true,
+      classNames: {
+        containerOuter: 'choices',
+        containerInner: 'choices__inner',
+        input: 'choices__input',
+        inputCloned: 'choices__input--cloned',
+        list: 'choices__list',
+        listItems: 'choices__list--multiple',
+        listSingle: 'choices__list--single',
+        listDropdown: 'choices__list--dropdown',
+        item: 'choices__item',
+        itemSelectable: 'choices__item--selectable',
+        itemDisabled: 'choices__item--disabled',
+        itemChoice: 'choices__item--choice',
+        placeholder: 'choices__placeholder',
+        group: 'choices__group',
+        groupHeading: 'choices__heading',
+        button: 'choices__button',
+        activeState: 'is-active',
+        focusState: 'is-focused',
+        openState: 'is-open',
+        disabledState: 'is-disabled',
+        highlightedState: 'is-highlighted',
+        selectedState: 'is-selected',
+        flippedState: 'is-flipped',
+        loadingState: 'is-loading',
+        noResults: 'has-no-results',
+        noChoices: 'has-no-choices'
+      }
+    });
+  }
+});
+</script>
+
+<style>
+/* Custom styling for Choices.js to match Tailwind */
+.choices {
+  margin-bottom: 0;
+}
+
+.choices__inner {
+  min-height: 42px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: white;
+  font-size: 0.875rem;
+}
+
+.choices__inner:focus,
+.choices.is-focused .choices__inner {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.choices__list--multiple .choices__item {
+  background-color: #3b82f6;
+  border: 1px solid #2563eb;
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  margin-right: 0.375rem;
+  margin-bottom: 0.375rem;
+}
+
+.choices__list--dropdown {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.choices__list--dropdown .choices__item--selectable {
+  padding: 0.5rem 0.75rem;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+  background-color: #eff6ff;
+}
+
+.choices__button {
+  border: none;
+  padding: 0;
+  margin-left: 0.5rem;
+  opacity: 0.75;
+}
+
+.choices__button:hover {
+  opacity: 1;
+}
+
+.choices__input {
+  background-color: transparent;
+  margin-bottom: 0;
+}
+</style>

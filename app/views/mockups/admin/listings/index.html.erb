@@ -80,16 +80,65 @@
   <!-- Listings Table -->
   <div class="bg-white rounded-xl shadow-sm border border-gray-200">
     <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
+      <table class="min-w-full divide-y divide-gray-200" id="listings-table">
         <thead class="bg-gray-50">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Annonce</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type Deal</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Secteur</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vues</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Favoris</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Résa</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Abandons</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition" data-sort="name">
+              <div class="flex items-center gap-2">
+                Annonce
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition" data-sort="type">
+              <div class="flex items-center gap-2">
+                Type Deal
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition" data-sort="sector">
+              <div class="flex items-center gap-2">
+                Secteur
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition" data-sort="views">
+              <div class="flex items-center gap-2">
+                Vues
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition" data-sort="favorites">
+              <div class="flex items-center gap-2">
+                Favoris
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition" data-sort="reservations">
+              <div class="flex items-center gap-2">
+                Résa
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition" data-sort="abandons">
+              <div class="flex items-center gap-2">
+                Abandons
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/>
+                </svg>
+              </div>
+            </th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
@@ -142,3 +191,89 @@
     </div>
   </div>
 </div>
+
+<script>
+// Table sorting functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const table = document.getElementById('listings-table');
+  if (!table) return;
+  
+  const headers = table.querySelectorAll('th[data-sort]');
+  const tbody = table.querySelector('tbody');
+  let currentSort = { column: null, direction: 'asc' };
+  
+  headers.forEach(header => {
+    header.addEventListener('click', function() {
+      const column = this.dataset.sort;
+      const direction = currentSort.column === column && currentSort.direction === 'asc' ? 'desc' : 'asc';
+      
+      sortTable(column, direction);
+      updateSortIcons(this, direction);
+      
+      currentSort = { column, direction };
+    });
+  });
+  
+  function sortTable(column, direction) {
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    const sortedRows = rows.sort((a, b) => {
+      let aValue, bValue;
+      
+      switch(column) {
+        case 'name':
+          aValue = a.querySelector('td:nth-child(1) .font-medium').textContent.trim();
+          bValue = b.querySelector('td:nth-child(1) .font-medium').textContent.trim();
+          return direction === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+          
+        case 'type':
+          aValue = a.querySelector('td:nth-child(2) span').textContent.trim();
+          bValue = b.querySelector('td:nth-child(2) span').textContent.trim();
+          return direction === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+          
+        case 'sector':
+          aValue = a.querySelector('td:nth-child(3)').textContent.trim();
+          bValue = b.querySelector('td:nth-child(3)').textContent.trim();
+          return direction === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+          
+        case 'views':
+        case 'favorites':
+        case 'reservations':
+        case 'abandons':
+          const colIndex = { views: 4, favorites: 5, reservations: 6, abandons: 7 }[column];
+          aValue = parseInt(a.querySelector(`td:nth-child(${colIndex})`).textContent.trim());
+          bValue = parseInt(b.querySelector(`td:nth-child(${colIndex})`).textContent.trim());
+          return direction === 'asc' ? aValue - bValue : bValue - aValue;
+      }
+    });
+    
+    tbody.innerHTML = '';
+    sortedRows.forEach(row => tbody.appendChild(row));
+  }
+  
+  function updateSortIcons(activeHeader, direction) {
+    // Reset all icons
+    headers.forEach(h => {
+      const svg = h.querySelector('svg');
+      if (svg) {
+        svg.classList.remove('text-admin-600');
+        svg.classList.add('text-gray-400');
+      }
+    });
+    
+    // Highlight active column
+    const activeSvg = activeHeader.querySelector('svg');
+    if (activeSvg) {
+      activeSvg.classList.remove('text-gray-400');
+      activeSvg.classList.add('text-admin-600');
+      
+      // Rotate icon based on direction
+      if (direction === 'desc') {
+        activeSvg.style.transform = 'scaleY(-1)';
+      } else {
+        activeSvg.style.transform = 'scaleY(1)';
+      }
+    }
+  }
+});
+</script>
