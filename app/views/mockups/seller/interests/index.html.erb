@@ -11,7 +11,7 @@
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
     <div class="flex items-center justify-between mb-6">
       <h3 class="text-lg font-bold text-gray-900">Évolution des favoris</h3>
-      <select class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500">
         <option>30 derniers jours</option>
         <option>7 derniers jours</option>
         <option>3 mois</option>
@@ -21,7 +21,7 @@
     <!-- Mock Line Chart -->
     <div class="h-64 flex items-end justify-between gap-2">
       <% [12, 15, 14, 18, 16, 20, 19, 23, 21, 25, 24, 28, 26, 30, 28, 32, 30, 35, 33, 38, 36, 40, 38, 42, 40, 45, 43, 48, 46, 50].each do |val| %>
-        <div class="flex-1 bg-blue-400 rounded-t hover:bg-blue-500 transition cursor-pointer" style="height: <%= val %>%"></div>
+        <div class="flex-1 bg-seller-400 rounded-t hover:bg-seller-500 transition cursor-pointer" style="height: <%= val %>%"></div>
       <% end %>
     </div>
     <div class="flex justify-between mt-4 text-xs text-gray-500">
@@ -88,7 +88,7 @@
             <%= link_to mockups_seller_buyer_path(i + 1), class: "flex-1 px-3 py-2 text-sm text-center border border-gray-300 rounded-lg hover:bg-gray-50 transition" do %>
               Voir le profil
             <% end %>
-            <%= link_to mockups_seller_push_listing_path, class: "flex-1 px-3 py-2 text-sm text-center bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" do %>
+            <%= link_to mockups_seller_push_listing_path, class: "flex-1 px-3 py-2 text-sm text-center bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" do %>
               Pousser annonce
             <% end %>
           </div>

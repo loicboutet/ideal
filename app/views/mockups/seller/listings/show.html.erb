@@ -20,7 +20,7 @@
               Active
             </span>
           </div>
-          <%= link_to edit_mockups_seller_listing_path(@listing_id), class: "px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium" do %>
+          <%= link_to edit_mockups_seller_listing_path(@listing_id), class: "px-4 py-2 bg-seller-600 text-white rounded-full hover:bg-seller-700 transition font-medium" do %>
             Modifier
           <% end %>
         </div>
@@ -40,7 +40,7 @@
           </div>
           <div>
             <div class="text-sm text-gray-600 mb-1">Prix souhaité</div>
-            <div class="text-lg font-bold text-blue-600">350 000 €</div>
+            <div class="text-lg font-bold text-seller-600">350 000 €</div>
           </div>
         </div>
 
@@ -54,8 +54,8 @@
       <div class="bg-white rounded-xl shadow-sm p-6">
         <h3 class="text-lg font-bold text-gray-900 mb-4">Performance de l'annonce</h3>
         <div class="grid grid-cols-3 gap-4">
-          <div class="text-center p-4 bg-blue-50 rounded-lg">
-            <div class="text-3xl font-bold text-blue-600">342</div>
+          <div class="text-center p-4 bg-seller-50 rounded-lg">
+            <div class="text-3xl font-bold text-seller-600">342</div>
             <div class="text-sm text-gray-600 mt-1">Vues</div>
           </div>
           <div class="text-center p-4 bg-green-50 rounded-lg">
@@ -103,7 +103,7 @@
         </div>
       </div>
 
-      <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
+      <div class="bg-gradient-to-br from-seller-50 to-purple-50 rounded-xl p-6 border border-seller-200">
         <h4 class="font-semibold text-gray-900 mb-2">💡 Astuce</h4>
         <p class="text-sm text-gray-700">Ajoutez des photos et documents pour augmenter l'intérêt des repreneurs de 65%</p>
       </div>
@@ -115,7 +115,7 @@
   <div class="lg:col-span-3 bg-white rounded-xl shadow-sm p-6 border border-gray-200">
     <div class="flex items-center justify-between mb-6">
       <h3 class="text-lg font-bold text-gray-900">Documents (40% de la complétude)</h3>
-      <%= link_to new_mockups_seller_listing_document_path(@listing_id), class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" do %>
+      <%= link_to new_mockups_seller_listing_document_path(@listing_id), class: "px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700" do %>
         + Ajouter un document
       <% end %>
     </div>
@@ -162,11 +162,11 @@
       <% end %>
     </div>
     
-    <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-      <p class="text-sm text-blue-800">
+    <div class="mt-6 p-4 bg-seller-50 border border-seller-200 rounded-lg">
+      <p class="text-sm text-seller-800">
         <strong>Complétude documents:</strong> 5/11 catégories uploadées = 45%
       </p>
-      <p class="text-xs text-blue-700 mt-1">
+      <p class="text-xs text-seller-700 mt-1">
         Documents = 40% de la complétude totale • Annonce = 60%
       </p>
     </div>

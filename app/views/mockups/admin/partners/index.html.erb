@@ -14,7 +14,7 @@
   <!-- Filters -->
   <div class="bg-white rounded-lg p-4 border border-gray-200">
     <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Tous les types</option>
         <option>Avocat</option>
         <option>Comptable</option>
@@ -22,20 +22,20 @@
         <option>Banquier</option>
         <option>Broker</option>
       </select>
-      <select multiple size="1" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select multiple size="1" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Tous les secteurs</option>
         <option>Industrie</option>
         <option>BTP</option>
         <option>Commerce</option>
         <option>Services</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Période: 30 derniers jours</option>
         <option>7 derniers jours</option>
         <option>3 mois</option>
         <option>6 mois</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Tri: Nom</option>
         <option>Tri: Vues</option>
         <option>Tri: Contacts</option>
@@ -72,7 +72,7 @@
                 <div class="font-medium text-gray-900"><%= partner[:name] %></div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800"><%= partner[:type] %></span>
+                <span class="px-2 py-1 text-xs rounded-full bg-admin-100 text-admin-800"><%= partner[:type] %></span>
               </td>
               <td class="px-6 py-4 text-sm text-gray-600"><%= partner[:sectors] %></td>
               <td class="px-6 py-4 text-sm text-gray-600"><%= partner[:stages] %></td>
@@ -82,7 +82,7 @@
                 <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Validé</span>
               </td>
               <td class="px-6 py-4">
-                <%= link_to mockups_admin_partner_path(partner[:id]), class: "text-blue-600 hover:text-blue-800 text-sm" do %>
+                <%= link_to mockups_admin_partner_path(partner[:id]), class: "text-admin-600 hover:text-admin-800 text-sm" do %>
                   Voir →
                 <% end %>
               </td>

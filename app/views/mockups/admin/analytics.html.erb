@@ -17,21 +17,21 @@
   <!-- Period Selector -->
   <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>30 derniers jours</option>
         <option>3 mois</option>
         <option>6 mois</option>
         <option>1 an</option>
         <option>Personnalisé...</option>
       </select>
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Tous les secteurs</option>
         <option>Industrie</option>
         <option>BTP</option>
         <option>Commerce & Distribution</option>
         <option>Services</option>
       </select>
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Toutes les régions</option>
         <option>Île-de-France</option>
         <option>Auvergne-Rhône-Alpes</option>
@@ -72,7 +72,7 @@
                 <div class="bg-<%= stat[:avg] > stat[:max] * 0.8 ? 'red' : 'green' %>-500 h-3 rounded-full" style="width: <%= [stat[:avg] / stat[:max] * 100, 100].min %>%"></div>
                 <div class="absolute top-0 h-3 w-0.5 bg-red-600" style="left: 100%"></div>
               <% else %>
-                <div class="bg-blue-500 h-3 rounded-full" style="width: 60%"></div>
+                <div class="bg-admin-500 h-3 rounded-full" style="width: 60%"></div>
               <% end %>
             </div>
           </div>
@@ -90,7 +90,7 @@
     <!-- Tabs -->
     <div class="border-b border-gray-200">
       <nav class="flex px-6">
-        <button class="px-4 py-3 border-b-2 border-blue-500 text-blue-600 font-medium text-sm">Par Secteur</button>
+        <button class="px-4 py-3 border-b-2 border-admin-500 text-admin-600 font-medium text-sm">Par Secteur</button>
         <button class="px-4 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">Par CA</button>
         <button class="px-4 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">Par Géographie</button>
         <button class="px-4 py-3 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">Par Effectif</button>

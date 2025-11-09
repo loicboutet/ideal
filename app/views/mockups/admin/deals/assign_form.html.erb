@@ -4,8 +4,8 @@
   <div class="bg-white rounded-xl shadow-sm p-8">
     <!-- Header -->
     <div class="text-center mb-8">
-      <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="w-16 h-16 bg-admin-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-admin-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
       </div>
@@ -24,7 +24,7 @@
           <div class="p-4 bg-white rounded-lg">
             <div class="text-sm text-gray-500 mb-2">Vendeur</div>
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+              <div class="w-10 h-10 bg-admin-600 rounded-full flex items-center justify-center text-white font-bold">
                 JD
               </div>
               <div>
@@ -57,7 +57,7 @@
         <!-- Search Buyers -->
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700 mb-2">Rechercher un repreneur</label>
-          <input type="text" placeholder="Nom, email ou ID..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <input type="text" placeholder="Nom, email ou ID..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-500">
         </div>
 
         <!-- Available Buyers -->
@@ -68,8 +68,8 @@
             { name: "Thomas Dubois", email: "t.dubois@email.fr", initials: "TD", interests: "Commerce, Retail", experience: "3 ans" },
             { name: "Claire Lambert", email: "c.lambert@email.fr", initials: "CL", interests: "Commerce", experience: "8 ans" },
           ].each do |buyer| %>
-            <label class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 border-2 border-transparent hover:border-blue-200">
-              <input type="radio" name="new_buyer" value="<%= buyer[:email] %>" class="text-blue-600 focus:ring-blue-500">
+            <label class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 border-2 border-transparent hover:border-admin-200">
+              <input type="radio" name="new_buyer" value="<%= buyer[:email] %>" class="text-admin-600 focus:ring-admin-500">
               <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
                 <%= buyer[:initials] %>
               </div>
@@ -97,14 +97,14 @@
         <label class="block text-sm font-medium text-gray-700 mb-3">Type d'attribution</label>
         <div class="space-y-2">
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="radio" name="assignment_type" value="exclusive" checked class="text-blue-600 focus:ring-blue-500 mt-0.5">
+            <input type="radio" name="assignment_type" value="exclusive" checked class="text-admin-600 focus:ring-admin-500 mt-0.5">
             <div>
               <div class="text-sm font-medium text-gray-900">Attribution exclusive</div>
               <div class="text-xs text-gray-600">L'repreneur a l'exclusivité pour 30 jours</div>
             </div>
           </label>
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="radio" name="assignment_type" value="non_exclusive" class="text-blue-600 focus:ring-blue-500 mt-0.5">
+            <input type="radio" name="assignment_type" value="non_exclusive" class="text-admin-600 focus:ring-admin-500 mt-0.5">
             <div>
               <div class="text-sm font-medium text-gray-900">Attribution non-exclusive</div>
               <div class="text-xs text-gray-600">Plusieurs repreneurs peuvent être intéressés</div>
@@ -116,7 +116,7 @@
       <!-- Exclusivity Period -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Période d'exclusivité</label>
-        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-500">
           <option>15 jours</option>
           <option selected>30 jours</option>
           <option>45 jours</option>
@@ -130,21 +130,21 @@
         <label class="block text-sm font-medium text-gray-700 mb-3">Notifications</label>
         <div class="space-y-3">
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
+            <input type="checkbox" checked class="rounded border-gray-300 text-admin-600 focus:ring-admin-500 mt-0.5">
             <div>
               <div class="text-sm font-medium text-gray-900">Notifier le nouvel repreneur</div>
               <div class="text-xs text-gray-600">Envoyer un email d'attribution</div>
             </div>
           </label>
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="checkbox" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
+            <input type="checkbox" checked class="rounded border-gray-300 text-admin-600 focus:ring-admin-500 mt-0.5">
             <div>
               <div class="text-sm font-medium text-gray-900">Notifier le vendeur</div>
               <div class="text-xs text-gray-600">Informer de la nouvelle attribution</div>
             </div>
           </label>
           <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5">
+            <input type="checkbox" class="rounded border-gray-300 text-admin-600 focus:ring-admin-500 mt-0.5">
             <div>
               <div class="text-sm font-medium text-gray-900">Notifier l'ancien repreneur</div>
               <div class="text-xs text-gray-600">Informer du changement d'attribution</div>
@@ -156,16 +156,16 @@
       <!-- Reason for Change -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Raison du changement (optionnel)</label>
-        <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Expliquez pourquoi cette transaction est réattribuée..."></textarea>
+        <textarea rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-500" placeholder="Expliquez pourquoi cette transaction est réattribuée..."></textarea>
       </div>
 
       <!-- Warning -->
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div class="bg-admin-50 border border-admin-200 rounded-lg p-4">
         <div class="flex gap-3">
-          <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-admin-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <div class="text-sm text-blue-800">
+          <div class="text-sm text-admin-800">
             <p class="font-medium mb-1">Important :</p>
             <ul class="list-disc list-inside space-y-0.5">
               <li>Cette action modifiera l'repreneur attribué à cette transaction</li>
@@ -181,7 +181,7 @@
         <%= link_to mockups_admin_deal_path(@deal_id), class: "px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" do %>
           Annuler
         <% end %>
-        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+        <button type="submit" class="px-6 py-2 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition font-medium">
           Confirmer l'attribution
         </button>
       </div>

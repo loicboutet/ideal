@@ -18,7 +18,7 @@
     <!-- Catégorie document (11 catégories) -->
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <h3 class="text-lg font-bold text-gray-900 mb-4">Catégorie du document *</h3>
-      <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500">
         <option>Sélectionnez une catégorie...</option>
         <option>Bilans N-1</option>
         <option>Bilans N-2</option>
@@ -37,13 +37,13 @@
     <!-- Upload -->
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <h3 class="text-lg font-bold text-gray-900 mb-4">Fichier</h3>
-      <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition">
+      <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-seller-400 transition">
         <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
         </svg>
         <p class="text-gray-700 font-medium mb-1">Glissez-déposez votre fichier ici</p>
         <p class="text-sm text-gray-500 mb-4">ou</p>
-        <label class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer">
+        <label class="inline-flex items-center px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition cursor-pointer">
           <input type="file" class="hidden">
           Parcourir
         </label>
@@ -73,7 +73,7 @@
               </div>
             </div>
             <div class="flex gap-2">
-              <button class="text-blue-600 hover:text-blue-700 text-sm">
+              <button class="text-seller-600 hover:text-seller-700 text-sm">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                 </svg>
@@ -94,7 +94,7 @@
       <%= link_to mockups_seller_listing_path(@listing_id), class: "px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
         Annuler
       <% end %>
-      <button type="submit" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+      <button type="submit" class="flex-1 px-6 py-3 bg-seller-600 text-white rounded-lg hover:bg-seller-700">
         Ajouter le document
       </button>
     </div>
