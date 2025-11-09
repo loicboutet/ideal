@@ -2,9 +2,9 @@
 <% content_for :page_title, "Tableau de bord" %>
 
 <div class="max-w-7xl mx-auto space-y-6">
-  <!-- Welcome Banner -->
+  <!-- Welcome Banner with Scrolling Messages -->
   <div class="bg-gradient-to-r from-seller-500 to-seller-600 rounded-xl shadow-sm p-6 text-white">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between mb-3">
       <div>
         <h2 class="text-2xl font-bold mb-2">Bonjour Jean 👋</h2>
         <p class="text-seller-100">Bienvenue sur votre espace cédant</p>
@@ -16,6 +16,19 @@
           </svg>
           Créer une annonce
         <% end %>
+      </div>
+    </div>
+    <!-- Scrolling Messages Banner -->
+    <div class="overflow-hidden bg-white/10 rounded-lg py-2 px-3">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div class="animate-marquee whitespace-nowrap text-sm">
+          <span class="mx-4">📢 Nouveauté : Accédez à notre annuaire de partenaires pour vous faire accompagner</span>
+          <span class="mx-4">💡 Astuce : Les profils complets à 100% reçoivent 3x plus de contacts</span>
+          <span class="mx-4">🎯 Promo : -20% sur l'abonnement Premium jusqu'à la fin du mois</span>
+        </div>
       </div>
     </div>
   </div>
@@ -87,7 +100,7 @@
       <div class="bg-white rounded-xl shadow-sm">
         <div class="p-6 border-b border-gray-200">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold text-gray-900">Mes annonces actives</h3>
+            <h3 class="text-lg font-bold text-gray-900">Mes annonces</h3>
             <%= link_to mockups_seller_listings_path, class: "text-sm text-seller-600 hover:text-seller-700 font-medium" do %>
               Voir tout →
             <% end %>
@@ -95,9 +108,9 @@
         </div>
         <div class="divide-y divide-gray-200">
           <% [
-            { id: 1, name: 'Boulangerie Paris 15ème', status: 'active', views: 342, interests: 5, completion: 90 },
-            { id: 2, name: 'Café Restaurant Lyon', status: 'active', views: 189, interests: 3, completion: 85 },
-            { id: 3, name: 'Garage Automobile Toulouse', status: 'pending', views: 45, interests: 1, completion: 65 }
+            { id: 1, name: 'Boulangerie Paris 15ème', status: 'active', views: 342, interests: 5, completion: 90, crm_stage: 'negotiation', crm_progress: 75 },
+            { id: 2, name: 'Café Restaurant Lyon', status: 'active', views: 189, interests: 3, completion: 85, crm_stage: 'analysis', crm_progress: 50 },
+            { id: 3, name: 'Garage Automobile Toulouse', status: 'pending', views: 45, interests: 1, completion: 65, crm_stage: 'to_contact', crm_progress: 25 }
           ].each do |listing| %>
             <div class="p-6 hover:bg-gray-50 transition">
               <div class="flex items-start justify-between mb-3">
@@ -124,14 +137,35 @@
                     Active
                   </span>
                 <% else %>
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-seller-100 text-seller-800">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                     En attente
                   </span>
                 <% end %>
               </div>
+              
+              <!-- Pipeline/CRM Stages -->
+              <div class="mb-3">
+                <div class="flex items-center justify-between text-xs text-gray-600 mb-2">
+                  <span>Pipeline repreneur</span>
+                  <span class="font-medium">
+                    <% case listing[:crm_stage]
+                       when 'to_contact' then 'À contacter'
+                       when 'analysis' then 'Analyse'
+                       when 'negotiation' then 'Négociation'
+                       else 'En cours'
+                    end %>
+                  </span>
+                </div>
+                <div class="flex gap-1">
+                  <% ['Favoris', 'Contact', 'Échange', 'Analyse', 'Négociation', 'LOI'].each_with_index do |stage, idx| %>
+                    <div class="flex-1 h-1.5 rounded-full <%= idx < (listing[:crm_progress] / 20) ? 'bg-seller-500' : 'bg-gray-200' %>" title="<%= stage %>"></div>
+                  <% end %>
+                </div>
+              </div>
+              
               <div class="mb-2">
                 <div class="flex items-center justify-between text-xs text-gray-600 mb-1">
-                  <span>Complétude</span>
+                  <span>Complétude du profil</span>
                   <span class="font-medium"><%= listing[:completion] %>%</span>
                 </div>
                 <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -177,6 +211,18 @@
             <div class="flex-1">
               <div class="text-sm font-medium text-gray-900">Voir les contacts</div>
               <div class="text-xs text-gray-600">23 repreneurs intéressés</div>
+            </div>
+          <% end %>
+
+          <%= link_to mockups_seller_assistance_partners_path, class: "flex items-center gap-3 p-3 bg-seller-50 hover:bg-seller-100 rounded-lg transition group" do %>
+            <div class="w-10 h-10 bg-seller-600 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm font-medium text-gray-900">Trouver des partenaires</div>
+              <div class="text-xs text-gray-600">Accédez à notre annuaire</div>
             </div>
           <% end %>
 
