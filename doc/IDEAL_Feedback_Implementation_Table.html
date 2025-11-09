@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDEAL - Client Feedback Implementation Table</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; padding: 20px; line-height: 1.6; }
+        .container { max-width: 1800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; margin-bottom: 10px; font-size: 28px; }
+        .header-info { background: #ecf0f1; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .header-info p { margin: 5px 0; color: #555; }
+        .summary { margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-radius: 5px; border-left: 4px solid #4caf50; }
+        .summary h3 { color: #2e7d32; margin-bottom: 10px; }
+        .summary-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+        .stat-item { padding: 10px; background: white; border-radius: 4px; text-align: center; }
+        .stat-number { font-size: 24px; font-weight: bold; color: #1976d2; }
+        .stat-label { font-size: 11px; color: #666; margin-top: 5px; }
+        .filters { margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px; }
+        .filters label { margin-right: 10px; font-weight: 600; }
+        .filters select, .filters input { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; margin-right: 15px; }
+        .filters button { padding: 6px 12px; background: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer; margin-left: 10px; }
+        .filters button:hover { background: #45a049; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
+        thead { background: #34495e; color: white; position: sticky; top: 0; z-index: 10; }
+        th { padding: 12px 8px; text-align: left; font-weight: 600; border: 1px solid #2c3e50; }
+        td { padding: 10px 8px; border: 1px solid #ddd; vertical-align: top; }
+        tr:nth-child(even) { background: #f9f9f9; }
+        tr:hover { background: #e3f2fd; }
+        .category { font-weight: 600; padding: 4px 8px; border-radius: 4px; display: inline-block; font-size: 11px; white-space: nowrap; }
+        .cat-GENERAL { background: #fce4ec; color: #c2185b; }
+        .cat-ADMIN { background: #e3f2fd; color: #1976d2; }
+        .cat-SELLER { background: #f3e5f5; color: #7b1fa2; }
+        .cat-BUYER { background: #e8f5e9; color: #388e3c; }
+        .cat-PARTNER { background: #fff3e0; color: #f57c00; }
+        .cat-COMMON { background: #fce4ec; color: #c2185b; }
+        .action { font-weight: 600; padding: 4px 8px; border-radius: 4px; display: inline-block; font-size: 11px; white-space: nowrap; }
+        .action-NEW { background: #c8e6c9; color: #2e7d32; }
+        .action-MODIFY { background: #fff9c4; color: #f57f17; }
+        .action-DELETE { background: #ffcdd2; color: #c62828; }
+        .action-FIELD { background: #b3e5fc; color: #0277bd; }
+        .priority { font-weight: 600; padding: 4px 8px; border-radius: 4px; display: inline-block; font-size: 11px; white-space: nowrap; }
+        .priority-Critical { background: #ffebee; color: #c62828; }
+        .priority-High { background: #fff3e0; color: #e65100; }
+        .priority-Medium { background: #fff9c4; color: #f57f17; }
+        .priority-Low { background: #f1f8e9; color: #558b2f; }
+        code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 11px; color: #d32f2f; }
+        .status { font-weight: 600; padding: 4px 8px; border-radius: 4px; display: inline-block; font-size: 11px; white-space: nowrap; }
+        .status-Done { background: #c8e6c9; color: #2e7d32; }
+        .status-Partial { background: #fff9c4; color: #f57f17; }
+        .status-Not-Started { background: #ffcdd2; color: #c62828; }
+        .status-NA { background: #e0e0e0; color: #616161; }
+        .status-checkbox { width: 20px; height: 20px; cursor: pointer; }
+        .row-count { margin-bottom: 10px; font-size: 13px; color: #666; font-weight: 600; }
+        @media print { body { background: white; } .container { box-shadow: none; } .filters { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 IDEAL - Client Feedback Implementation Table</h1>
+        
+        <div class="header-info">
+            <p><strong>Document:</strong> Feedback_brique_1_V2 (Block 1 Version 2)</p>
+            <p><strong>Purpose:</strong> Comprehensive tracking of all 115 client feedback items and required implementation changes</p>
+            <p><strong>Instructions:</strong> Review each item and check the "Red Item?" column for feedback that still needs addressing (corresponds to red-colored items in original ODT)</p>
+        </div>
+        
+        <div class="summary">
+            <h3>📊 Feedback Summary</h3>
+            <div class="summary-stats">
+                <div class="stat-item"><div class="stat-number">115</div><div class="stat-label">Total Items</div></div>
+                <div class="stat-item"><div class="stat-number">4</div><div class="stat-label">General</div></div>
+                <div class="stat-item"><div class="stat-number">16</div><div class="stat-label">Admin</div></div>
+                <div class="stat-item"><div class="stat-number">35</div><div class="stat-label">Seller</div></div>
+                <div class="stat-item"><div class="stat-number">45</div><div class="stat-label">Buyer</div></div>
+                <div class="stat-item"><div class="stat-number">10</div><div class="stat-label">Partner</div></div>
+                <div class="stat-item"><div class="stat-number">5</div><div class="stat-label">Common</div></div>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <label>Category:</label>
+            <select id="categoryFilter" onchange="filterTable()">
+                <option value="all">All</option>
+                <option value="GENERAL">General (4)</option>
+                <option value="ADMIN">Admin (16)</option>
+                <option value="SELLER">Seller (35)</option>
+                <option value="BUYER">Buyer (45)</option>
+                <option value="PARTNER">Partner (10)</option>
+                <option value="COMMON">Common (5)</option>
+            </select>
+            
+            <label>Action:</label>
+            <select id="actionFilter" onchange="filterTable()">
+                <option value="all">All</option>
+                <option value="NEW">New Page</option>
+                <option value="MODIFY">Modify</option>
+                <option value="DELETE">Delete</option>
+                <option value="FIELD">Add Field</option>
+            </select>
+            
+            <label>Priority:</label>
+            <select id="priorityFilter" onchange="filterTable()">
+                <option value="all">All</option>
+                <option value="Critical">Critical</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+            
+            <label>Red Items Only:</label>
+            <input type="checkbox" id="redOnlyFilter" onchange="filterTable()">
+            
+            <button onclick="exportToCSV()">Export to CSV</button>
+            <button onclick="window.print()">Print</button>
+        </div>
+        
+        <div class="row-count" id="rowCount">Showing all 115 items</div>
+        
+        <table id="feedbackTable">
+            <thead>
+                <tr>
+                    <th style="width: 3%">#</th>
+                    <th style="width: 6%">Category</th>
+                    <th style="width: 11%">Page/Feature</th>
+                    <th style="width: 13%">URL</th>
+                    <th style="width: 20%">Previous UI</th>
+                    <th style="width: 20%">New UI (Client Feedback)</th>
+                    <th style="width: 7%">Status</th>
+                    <th style="width: 6%">Action</th>
+                    <th style="width: 6%">Priority</th>
+                    <th style="width: 4%">Red?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-category="GENERAL" data-action="MODIFY" data-priority="High">
+                    <td>1</td>
+                    <td><span class="category cat-GENERAL">GENERAL</span></td>
+                    <td>Terminology</td>
+                    <td>All pages</td>
+                    <td>Uses 'Acquirer' (Acheteur)</td>
+                    <td>Use 'Buyer' (Repreneur) throughout platform</td>
+                    <td><span class="status status-Not-Started">Not Started</span></td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="GENERAL" data-action="MODIFY" data-priority="Medium">
+                    <td>2</td>
+                    <td><span class="category cat-GENERAL">GENERAL</span></td>
+                    <td>Color Scheme</td>
+                    <td>All user pages</td>
+                    <td>Inconsistent color coding</td>
+                    <td>Use consistent color code across all pages</td>
+                    <td><span class="status status-Not-Started">Not Started</span></td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="GENERAL" data-action="MODIFY" data-priority="High">
+                    <td>3</td>
+                    <td><span class="category cat-GENERAL">GENERAL</span></td>
+                    <td>Partner Profiles</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/partners/1" style="color: #d32f2f; text-decoration: none;">/mockups/admin/partners/*</a></code></td>
+                    <td>Missing initial fields/info</td>
+                    <td>Restore missing partner profile fields from v1</td>
+                    <td><span class="status status-Partial">Partial</span></td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="GENERAL" data-action="FIELD" data-priority="Low">
+                    <td>4</td>
+                    <td><span class="category cat-GENERAL">GENERAL</span></td>
+                    <td>Dashboard Banner</td>
+                    <td>All dashboards</td>
+                    <td>No scrolling messages</td>
+                    <td>Add configurable scrolling messages in top banner</td>
+                    <td><span class="status status-Not-Started">Not Started</span></td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="FIELD" data-priority="Critical">
+                    <td>5</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Admin Capabilities</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/1" style="color: #d32f2f; text-decoration: none;">/mockups/admin/*</a></code></td>
+                    <td>Cannot create profiles/listings</td>
+                    <td>Admin must create profiles and listings</td>
+                    <td><span class="status status-Not-Started">Not Started</span></td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="NEW" data-priority="High">
+                    <td>6</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Platform Settings</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/settings" style="color: #d32f2f; text-decoration: none;">/mockups/admin/settings</a></code></td>
+                    <td>No settings page</td>
+                    <td>Add platform settings: pricing, offers management</td>
+                    <td><span class="status status-Done">Done</span></td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="NEW" data-priority="High">
+                    <td>7</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Messages & Surveys</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/messages" style="color: #d32f2f; text-decoration: none;">/mockups/admin/messages</a></code></td>
+                    <td>No messaging/surveys</td>
+                    <td>Add messages, satisfaction surveys functionality</td>
+                    <td><span class="status status-Done">Done</span></td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="FIELD" data-priority="Critical">
+                    <td>8</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Pipeline Timers</td>
+                    <td><code>/mockups/admin/settings</code></td>
+                    <td>No timer config</td>
+                    <td>Adjust times per stage (1w-2m): Contact 7d, Exchange 33d, Nego 20d</td>
+                    <td><span class="status status-Not-Started">Not Started</span></td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="MODIFY" data-priority="Critical">
+                    <td>9</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Operations Center</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/operations" style="color: #d32f2f; text-decoration: none;">/mockups/admin/operations</a></code></td>
+                    <td>Basic dashboard</td>
+                    <td>Enhanced with KPIs, charts, ratios, satisfaction tracking</td>
+                    <td><span class="status status-Done">Done</span></td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="FIELD" data-priority="High">
+                    <td>10</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Growth Metrics</td>
+                    <td><code>/mockups/admin/operations</code></td>
+                    <td>No growth tracking</td>
+                    <td>Add: listings, revenue, users, spending, partner usage</td>
+                    <td><span class="status status-Not-Started">Not Started</span></td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="MODIFY" data-priority="Medium">
+                    <td>11</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Analytics</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/analytics" style="color: #d32f2f; text-decoration: none;">/mockups/admin/analytics</a></code></td>
+                    <td>Basic analytics</td>
+                    <td>Add time charts, pivot tables, data export</td>
+                    <td><span class="status status-Partial">Partial</span></td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="FIELD" data-priority="High">
+                    <td>12</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Listings Management</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/listings" style="color: #d32f2f; text-decoration: none;">/mockups/admin/listings</a></code></td>
+                    <td>Limited filters</td>
+                    <td>Add: sort, period, abandonments, views, deal type</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="FIELD" data-priority="High">
+                    <td>13</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Listing History</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/listings/1" style="color: #d32f2f; text-decoration: none;">/mockups/admin/listings/:id</a></code></td>
+                    <td>No history tracking</td>
+                    <td>Add history: views, favorites, reservations, CRM status</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="MODIFY" data-priority="High">
+                    <td>14</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Assign Transaction</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/deals/1/assign" style="color: #d32f2f; text-decoration: none;">/mockups/admin/deals/:id/assign</a></code></td>
+                    <td>Separate page</td>
+                    <td>Move to validation with dropdown, may not need page</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="DELETE" data-priority="High">
+                    <td>15</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Enrichment</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/enrichments/1" style="color: #d32f2f; text-decoration: none;">/mockups/admin/enrichments/*</a></code></td>
+                    <td>Separate sections</td>
+                    <td>Remove sections, use credit system on release</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="ADMIN" data-action="FIELD" data-priority="Medium">
+                    <td>16</td>
+                    <td><span class="category cat-ADMIN">ADMIN</span></td>
+                    <td>Partners Management</td>
+                    <td><code><a href="http://localhost:3000/mockups/admin/partners" style="color: #d32f2f; text-decoration: none;">/mockups/admin/partners</a></code></td>
+                    <td>Limited info</td>
+                    <td>Add: CRM stage, sector, views, contacts, sorting</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="High">
+                    <td>17</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Dashboard</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller" style="color: #d32f2f; text-decoration: none;">/mockups/seller</a></code></td>
+                    <td>Basic dashboard</td>
+                    <td>Scrolling banner, reorder boxes, clickable</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="High">
+                    <td>18</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>My Listings Widget</td>
+                    <td><code>/mockups/seller</code></td>
+                    <td>'My active listings'</td>
+                    <td>Replace with 'My listings': show pipeline/CRM stages</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="Medium">
+                    <td>19</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Quick Actions</td>
+                    <td><code>/mockups/seller</code></td>
+                    <td>Limited actions</td>
+                    <td>Add: Push listings, Find partners, Go premium</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="High">
+                    <td>20</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Left Menu</td>
+                    <td><code>/mockups/seller</code></td>
+                    <td>Basic menu</td>
+                    <td>Add 'Buyers' in CONTACTS, 'Assistance' section</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="Medium">
+                    <td>21</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Get Support</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/assistance/support" style="color: #d32f2f; text-decoration: none;">/mockups/seller/assistance/support</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Create support page with appointment booking</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="Medium">
+                    <td>22</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Partners Directory</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/assistance/partners" style="color: #d32f2f; text-decoration: none;">/mockups/seller/assistance/partners</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Link to directory (5 credits, free 6mo)</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="Low">
+                    <td>23</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Tools</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/assistance/tools" style="color: #d32f2f; text-decoration: none;">/mockups/seller/assistance/tools</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Link to Ideal site tools</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="High">
+                    <td>24</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Interested Buyers</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/interests" style="color: #d32f2f; text-decoration: none;">/mockups/seller/interests</a></code></td>
+                    <td>Basic list</td>
+                    <td>Add graph, profile buttons, favoriting dates</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="DELETE" data-priority="High">
+                    <td>25</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Contact Details</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/interests/1" style="color: #d32f2f; text-decoration: none;">/mockups/seller/interests/:id</a></code></td>
+                    <td>Separate page</td>
+                    <td>Delete, replace with Push page</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="Critical">
+                    <td>26</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Push My Listing</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/push_listing" style="color: #d32f2f; text-decoration: none;">/mockups/seller/push_listing</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Create: profile, msg, credits, bulk push</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="DELETE" data-priority="High">
+                    <td>27</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>My Listings Page</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings</a></code></td>
+                    <td>Standalone page</td>
+                    <td>Delete (integrated in dashboard)</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="DELETE" data-priority="High">
+                    <td>28</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Documents Page</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings/1/documents" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings/:id/documents</a></code></td>
+                    <td>Separate page</td>
+                    <td>Delete (integrate in Listing Details)</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="High">
+                    <td>29</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Add Document</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings/1/documents/new" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings/:id/documents/new</a></code></td>
+                    <td>Basic upload</td>
+                    <td>Add category dropdown, 11 doc types, 40% weight</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Critical">
+                    <td>30</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Create Listing</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings/new" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings/new</a></code></td>
+                    <td>Single page</td>
+                    <td>Split Public/Confidential, add fields, examples</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Medium">
+                    <td>31</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Settings</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/settings" style="color: #d32f2f; text-decoration: none;">/mockups/seller/settings</a></code></td>
+                    <td>Has Profile visible</td>
+                    <td>Remove visibility, add NDA receipt option</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="DELETE" data-priority="Medium">
+                    <td>32</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Platform NDA</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/nda" style="color: #d32f2f; text-decoration: none;">/mockups/seller/nda</a></code></td>
+                    <td>Separate page</td>
+                    <td>Delete platform NDA page</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Medium">
+                    <td>33</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Premium Sub</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/subscription" style="color: #d32f2f; text-decoration: none;">/mockups/seller/subscription</a></code></td>
+                    <td>Basic page</td>
+                    <td>Reserved for brokers: unlimited, support, push 5/mo</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="High">
+                    <td>34</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Buyer Directory</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/buyers" style="color: #d32f2f; text-decoration: none;">/mockups/seller/buyers</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Create directory like listings, show first names</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="High">
+                    <td>35</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Buyer Profile</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/buyers/1" style="color: #d32f2f; text-decoration: none;">/mockups/seller/buyers/:id</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Create profile page, propose listing (1 credit)</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="High">
+                    <td>36</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Listing Details</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings/1" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings/:id</a></code></td>
+                    <td>Basic details</td>
+                    <td>Add docs space with management buttons</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Medium">
+                    <td>37</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Edit Listing</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings/1/edit" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings/:id/edit</a></code></td>
+                    <td>Basic edit</td>
+                    <td>Same as Create but with filled fields</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Medium">
+                    <td>38</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Profile</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/profile" style="color: #d32f2f; text-decoration: none;">/mockups/seller/profile</a></code></td>
+                    <td>Basic profile</td>
+                    <td>Align with broker capabilities</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Low">
+                    <td>39</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Return Links</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings/1" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings/*</a></code></td>
+                    <td>Go to My Listings</td>
+                    <td>Change to go to Dashboard</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="Medium">
+                    <td>40</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Info Boxes</td>
+                    <td><code>/mockups/seller/listings/new</code></td>
+                    <td>Basic info</td>
+                    <td>Add confidentiality, 2x chances text</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="Medium">
+                    <td>41</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Example Links</td>
+                    <td><code>/mockups/seller/listings/new</code></td>
+                    <td>No examples</td>
+                    <td>Add link to public listing example (popup)</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Critical">
+                    <td>42</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Public Data Page</td>
+                    <td><code>/mockups/seller/listings/new</code></td>
+                    <td>All in one</td>
+                    <td>Split: generic type, dept only, new fields</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="Critical">
+                    <td>43</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Confidential Page</td>
+                    <td><code><a href="http://localhost:3000/mockups/seller/listings/new/confidential" style="color: #d32f2f; text-decoration: none;">/mockups/seller/listings/new/confidential</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Create: website, scorecard, docs, % complete</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="Medium">
+                    <td>44</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Completion %</td>
+                    <td><code>/mockups/seller/listings/new</code></td>
+                    <td>No gauge</td>
+                    <td>Add completion % and visual gauge</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="Medium">
+                    <td>45</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Scorecard Link</td>
+                    <td><code>/mockups/seller/listings/new/confidential</code></td>
+                    <td>No scorecard</td>
+                    <td>Add scorecard test link, display option</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="High">
+                    <td>46</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Doc Categories</td>
+                    <td><code>/mockups/seller/listings/:id/documents/new</code></td>
+                    <td>No categories</td>
+                    <td>11 categories: balances, org, tax, etc</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="FIELD" data-priority="High">
+                    <td>47</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Transfer Fields</td>
+                    <td><code>/mockups/seller/listings/new</code></td>
+                    <td>Missing fields</td>
+                    <td>Add: horizon, type, age, customers</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="Critical">
+                    <td>48</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Credits System</td>
+                    <td><code>/mockups/seller</code></td>
+                    <td>No credits</td>
+                    <td>Implement credit system for pushing listings</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="NEW" data-priority="Medium">
+                    <td>49</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Match Buyers</td>
+                    <td><code>/mockups/seller</code></td>
+                    <td>No matches</td>
+                    <td>Show buyers whose criteria match listings</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Low">
+                    <td>50</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Views Counter</td>
+                    <td><code>/mockups/seller</code></td>
+                    <td>Basic counter</td>
+                    <td>Enhanced views tracking per listing</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="SELLER" data-action="MODIFY" data-priority="Medium">
+                    <td>51</td>
+                    <td><span class="category cat-SELLER">SELLER</span></td>
+                    <td>Interests Counter</td>
+                    <td><code>/mockups/seller</code></td>
+                    <td>Basic counter</td>
+                    <td>Track favorited by buyers</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="High">
+                    <td>52</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Dashboard</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer" style="color: #d32f2f; text-decoration: none;">/mockups/buyer</a></code></td>
+                    <td>Basic dashboard</td>
+                    <td>Scrolling banner, reorder boxes, clickable</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="Medium">
+                    <td>53</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Quick Actions</td>
+                    <td><code>/mockups/buyer</code></td>
+                    <td>Limited actions</td>
+                    <td>Add: Search deals, Find partners, Go premium</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>54</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Left Menu</td>
+                    <td><code>/mockups/buyer</code></td>
+                    <td>Has Enrichment</td>
+                    <td>Add Sourcing/Partners/Tools, remove Enrichment</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="NEW" data-priority="Medium">
+                    <td>55</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Sourcing Service</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/services/sourcing" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/services/sourcing</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Create sourcing page with booking</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="NEW" data-priority="Medium">
+                    <td>56</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Partners Service</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/services/partners" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/services/partners</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Link to partner directory (free for subs)</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="NEW" data-priority="Low">
+                    <td>57</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Tools Service</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/services/tools" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/services/tools</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Link to Ideal site tools</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Critical">
+                    <td>58</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>CRM Pipeline</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/pipeline" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/pipeline</a></code></td>
+                    <td>No timers</td>
+                    <td>Add stages, timers, gauges, no backward, thumbnails</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="High">
+                    <td>59</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>My Files</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/deals" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/deals</a></code></td>
+                    <td>Basic list</td>
+                    <td>Add expiry box, sort time, company names, gauges</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="High">
+                    <td>60</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>My Reservations</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/reservations" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/reservations</a></code></td>
+                    <td>Separate page</td>
+                    <td>Delete (integrated in My Files)</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="High">
+                    <td>61</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>New File</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/deals/new" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/deals/new</a></code></td>
+                    <td>Create page</td>
+                    <td>Delete (auto-created on favorite)</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Critical">
+                    <td>62</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>File Details</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/deals/1" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/deals/:id</a></code></td>
+                    <td>Basic details</td>
+                    <td>Add popup?, rating, contacts, history, docs, msg</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="Medium">
+                    <td>63</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Edit File</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/deals/1/edit" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/deals/:id/edit</a></code></td>
+                    <td>Separate page</td>
+                    <td>Delete (edit in File Details)</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="Medium">
+                    <td>64</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Reservation Details</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/reservations/1" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/reservations/:id</a></code></td>
+                    <td>Separate page</td>
+                    <td>Delete (in File Details)</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="High">
+                    <td>65</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Release Reservation</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/reservations/1/release" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/reservations/:id/release</a></code></td>
+                    <td>Basic</td>
+                    <td>Add credits calc, credit them, feedback text</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Medium">
+                    <td>66</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>My Credits</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/credits" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/credits</a></code></td>
+                    <td>Basic page</td>
+                    <td>Put pricing above history, review</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Medium">
+                    <td>67</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>My Subscription</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/subscription" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/subscription</a></code></td>
+                    <td>Basic page</td>
+                    <td>Align pricing, show columns: free/starter/premium</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Medium">
+                    <td>68</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Go Premium</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/subscription/upgrade" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/subscription/upgrade</a></code></td>
+                    <td>Basic page</td>
+                    <td>Align pricing, add credit packs, redo</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Low">
+                    <td>69</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Cancel Sub</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/subscription/cancel" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/subscription/cancel</a></code></td>
+                    <td>Basic</td>
+                    <td>Add effective date info</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="Medium">
+                    <td>70</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Platform NDA</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/nda" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/nda</a></code></td>
+                    <td>Separate page</td>
+                    <td>Delete platform NDA</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="High">
+                    <td>71</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Listing NDA</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/nda/listing/1" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/nda/listing/:id</a></code></td>
+                    <td>Basic</td>
+                    <td>Align with Marc's input</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>72</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Browse Listings</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/listings" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/listings</a></code></td>
+                    <td>Basic filters</td>
+                    <td>Add deal type filter, stars, badges</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>73</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Sector List</td>
+                    <td>All pages</td>
+                    <td>Inconsistent</td>
+                    <td>Use standard: Industry, Construction, Retail, etc (11)</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>74</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Advanced Search</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/listings/search" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/listings/search</a></code></td>
+                    <td>Limited fields</td>
+                    <td>Add: timeframe, type, age, clientele, legal form, stars, net income</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Critical">
+                    <td>75</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Listing Details</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/listings/1" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/listings/:id</a></code></td>
+                    <td>Basic</td>
+                    <td>ALL public data, %, stars=scorecard, new fields, confidential when reserved</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Medium">
+                    <td>76</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>My Favorites</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/favorites" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/favorites</a></code></td>
+                    <td>Basic</td>
+                    <td>Same as Browse, replace +CRM with Reserve</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="High">
+                    <td>77</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>My Enrichments</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/enrichments" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/enrichments</a></code></td>
+                    <td>Exists</td>
+                    <td>Delete enrichments page</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="High">
+                    <td>78</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Submit Enrichment</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/enrichments/new" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/enrichments/new</a></code></td>
+                    <td>Exists</td>
+                    <td>Delete submit page</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="DELETE" data-priority="High">
+                    <td>79</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Enrichment Details</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/enrichments/1" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/enrichments/:id</a></code></td>
+                    <td>Exists</td>
+                    <td>Delete details page</td>
+                    <td><span class="action action-DELETE">DELETE</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="NEW" data-priority="Critical">
+                    <td>80</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Create Profile</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/profile/create" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/profile/create</a></code></td>
+                    <td>Doesn't exist</td>
+                    <td>Create like listing: Public/Confidential, type, thesis, target, financial</td>
+                    <td><span class="action action-NEW">NEW</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Medium">
+                    <td>81</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>My Profile</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/profile" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/profile</a></code></td>
+                    <td>Basic</td>
+                    <td>Remove verified 3X text, condition on 30min audit</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Medium">
+                    <td>82</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Settings</td>
+                    <td><code><a href="http://localhost:3000/mockups/buyer/settings" style="color: #d32f2f; text-decoration: none;">/mockups/buyer/settings</a></code></td>
+                    <td>Has Privacy</td>
+                    <td>Remove Privacy/visibility, remove search criteria</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>83</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Profile Public</td>
+                    <td><code>/mockups/buyer/profile/create</code></td>
+                    <td>N/A</td>
+                    <td>Type, Education, Experience, Skills, Thesis 500c</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>84</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Profile Target</td>
+                    <td><code>/mockups/buyer/profile/create</code></td>
+                    <td>N/A</td>
+                    <td>Sectors, Locations, Revenue, Headcount, Health, Timeframe</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>85</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Profile Financial</td>
+                    <td><code>/mockups/buyer/profile/create</code></td>
+                    <td>N/A</td>
+                    <td>Contribution capacity, Funding sources 200c</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="Medium">
+                    <td>86</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Profile Confidential</td>
+                    <td><code>/mockups/buyer/profile/create</code></td>
+                    <td>N/A</td>
+                    <td>Name, LinkedIn, Future: Mastery test</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="Medium">
+                    <td>87</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Profile Gauge</td>
+                    <td><code>/mockups/buyer/profile/create</code></td>
+                    <td>N/A</td>
+                    <td>Add completion % and visual gauge</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="MODIFY" data-priority="Critical">
+                    <td>88</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Pipeline Stages</td>
+                    <td><code>/mockups/buyer/pipeline</code></td>
+                    <td>Basic</td>
+                    <td>Favorites→Contact→Exchange→Analysis→Align→Nego→LOI→Audits→Finance→Signed</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="Critical">
+                    <td>89</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Pipeline Timer</td>
+                    <td><code>/mockups/buyer/pipeline</code></td>
+                    <td>No timer</td>
+                    <td>Contact 7d, Exchange-Align 33d, Nego 20d, LOI=end</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="Medium">
+                    <td>90</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Released Deals</td>
+                    <td><code>/mockups/buyer/pipeline</code></td>
+                    <td>No box</td>
+                    <td>Add released deals box</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>91</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Add Documents</td>
+                    <td><code>/mockups/buyer/deals/:id</code></td>
+                    <td>No option</td>
+                    <td>Add docs (+1 credit) with seller validation</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>92</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Doc Categories</td>
+                    <td><code>/mockups/buyer/deals/:id</code></td>
+                    <td>N/A</td>
+                    <td>11 categories same as seller</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="Medium">
+                    <td>93</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Action History</td>
+                    <td><code>/mockups/buyer/deals/:id</code></td>
+                    <td>No history</td>
+                    <td>Add CRM movement history</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>94</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Contact Info</td>
+                    <td><code>/mockups/buyer/deals/:id</code></td>
+                    <td>Not shown</td>
+                    <td>Show email/phone when reserved+NDA</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="Medium">
+                    <td>95</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Message Button</td>
+                    <td><code>/mockups/buyer/deals/:id</code></td>
+                    <td>No button</td>
+                    <td>Add Send message to Quick actions</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="BUYER" data-action="FIELD" data-priority="High">
+                    <td>96</td>
+                    <td><span class="category cat-BUYER">BUYER</span></td>
+                    <td>Reservation Box</td>
+                    <td><code>/mockups/buyer/deals/:id</code></td>
+                    <td>No box</td>
+                    <td>Add reservation info box with timer</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="MODIFY" data-priority="Medium">
+                    <td>97</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Dashboard</td>
+                    <td><code><a href="http://localhost:3000/mockups/partner" style="color: #d32f2f; text-decoration: none;">/mockups/partner</a></code></td>
+                    <td>Basic</td>
+                    <td>Scrolling banner, add Contact support to actions</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="MODIFY" data-priority="Low">
+                    <td>98</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Public Label</td>
+                    <td><code>/mockups/partner</code></td>
+                    <td>'View profile'</td>
+                    <td>Change to 'View my public listing'</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="MODIFY" data-priority="Medium">
+                    <td>99</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>My Subscription</td>
+                    <td><code><a href="http://localhost:3000/mockups/partner/subscription" style="color: #d32f2f; text-decoration: none;">/mockups/partner/subscription</a></code></td>
+                    <td>Basic</td>
+                    <td>Align with offers and pricing</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="MODIFY" data-priority="Medium">
+                    <td>100</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Renew Sub</td>
+                    <td><code><a href="http://localhost:3000/mockups/partner/subscription/renew" style="color: #d32f2f; text-decoration: none;">/mockups/partner/subscription/renew</a></code></td>
+                    <td>Basic</td>
+                    <td>Align with offers and pricing</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="MODIFY" data-priority="High">
+                    <td>101</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Public Preview</td>
+                    <td><code><a href="http://localhost:3000/mockups/partner/profile/preview" style="color: #d32f2f; text-decoration: none;">/mockups/partner/profile/preview</a></code></td>
+                    <td>Doesn't match directory</td>
+                    <td>Match directory presentation exactly</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="MODIFY" data-priority="Low">
+                    <td>102</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Preview Button</td>
+                    <td><code><a href="http://localhost:3000/mockups/partner/profile" style="color: #d32f2f; text-decoration: none;">/mockups/partner/profile</a></code></td>
+                    <td>Goes to preview</td>
+                    <td>Should go to directory view or remove</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Low">Low</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="FIELD" data-priority="High">
+                    <td>103</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Coverage Area</td>
+                    <td><code>/mockups/partner/profile</code></td>
+                    <td>No field</td>
+                    <td>Add: City, Dept, Region, All France+</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="FIELD" data-priority="High">
+                    <td>104</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>CRM Stages</td>
+                    <td><code>/mockups/partner/profile</code></td>
+                    <td>No field</td>
+                    <td>Add intervention stages (not public), remove 'in CRM'</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="FIELD" data-priority="Medium">
+                    <td>105</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Target Sector</td>
+                    <td><code>/mockups/partner/profile</code></td>
+                    <td>No field</td>
+                    <td>Add target business sectors if specialized</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="PARTNER" data-action="FIELD" data-priority="High">
+                    <td>106</td>
+                    <td><span class="category cat-PARTNER">PARTNER</span></td>
+                    <td>Registration</td>
+                    <td><code><a href="http://localhost:3000/mockups/register/partner" style="color: #d32f2f; text-decoration: none;">/mockups/register/partner</a></code></td>
+                    <td>Missing fields</td>
+                    <td>Add coverage, stages, sector, appointment link, restore v1</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="FIELD" data-priority="High">
+                    <td>107</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Registration</td>
+                    <td><code><a href="http://localhost:3000/mockups/register" style="color: #d32f2f; text-decoration: none;">/mockups/register</a></code></td>
+                    <td>3 types</td>
+                    <td>Add 4th: intermediary (seller w/ pro status)</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="MODIFY" data-priority="Medium">
+                    <td>108</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Seller Registration</td>
+                    <td><code><a href="http://localhost:3000/mockups/register/seller" style="color: #d32f2f; text-decoration: none;">/mockups/register/seller</a></code></td>
+                    <td>Redundant fields</td>
+                    <td>Remove: Business type, sector, location</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="MODIFY" data-priority="Medium">
+                    <td>109</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Buyer Registration</td>
+                    <td><code><a href="http://localhost:3000/mockups/register/buyer" style="color: #d32f2f; text-decoration: none;">/mockups/register/buyer</a></code></td>
+                    <td>Has project</td>
+                    <td>Remove project section (moved to profile)</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="FIELD" data-priority="High">
+                    <td>110</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Partner Registration</td>
+                    <td><code>/mockups/register/partner</code></td>
+                    <td>Missing fields</td>
+                    <td>Add coverage, stages (not public), sector, appointment</td>
+                    <td><span class="action action-FIELD">FIELD</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="MODIFY" data-priority="High">
+                    <td>111</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Terms of Use</td>
+                    <td><code><a href="http://localhost:3000/mockups/terms" style="color: #d32f2f; text-decoration: none;">/mockups/terms</a></code></td>
+                    <td>Basic</td>
+                    <td>Align with Marc's input, add broker commission provision</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="MODIFY" data-priority="Medium">
+                    <td>112</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Privacy Policy</td>
+                    <td><code><a href="http://localhost:3000/mockups/privacy" style="color: #d32f2f; text-decoration: none;">/mockups/privacy</a></code></td>
+                    <td>Basic</td>
+                    <td>Align with Marc's input</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="MODIFY" data-priority="Medium">
+                    <td>113</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Messages</td>
+                    <td><code><a href="http://localhost:3000/mockups/messages" style="color: #d32f2f; text-decoration: none;">/mockups/messages</a></code></td>
+                    <td>Basic</td>
+                    <td>Clarify how messages sent, from icons?</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Medium">Medium</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="MODIFY" data-priority="High">
+                    <td>114</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Partner Profile View</td>
+                    <td><code><a href="http://localhost:3000/mockups/directory/1" style="color: #d32f2f; text-decoration: none;">/mockups/directory/:id</a></code></td>
+                    <td>Contact visible</td>
+                    <td>Hide by default, click to reveal (paid by offer)</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-High">High</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+                <tr data-category="COMMON" data-action="MODIFY" data-priority="Critical">
+                    <td>115</td>
+                    <td><span class="category cat-COMMON">COMMON</span></td>
+                    <td>Professional TOS</td>
+                    <td><code>/mockups/terms</code></td>
+                    <td>Not highlighted</td>
+                    <td>Highlight commission terms for pro registration</td>
+                    <td><span class="action action-MODIFY">MODIFY</span></td>
+                    <td><span class="priority priority-Critical">Critical</span></td>
+                    <td><input type="checkbox" class="status-checkbox" onchange="filterTable()"></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+        function filterTable() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const actionFilter = document.getElementById('actionFilter').value;
+            const priorityFilter = document.getElementById('priorityFilter').value;
+            const redOnlyFilter = document.getElementById('redOnlyFilter').checked;
+            
+            const rows = document.querySelectorAll('#feedbackTable tbody tr');
+            let visibleCount = 0;
+            
+            rows.forEach(row => {
+                const category = row.dataset.category;
+                const action = row.dataset.action;
+                const priority = row.dataset.priority;
+                const isRed = row.querySelector('.status-checkbox').checked;
+                
+                const categoryMatch = categoryFilter === 'all' || category === categoryFilter;
+                const actionMatch = actionFilter === 'all' || action === actionFilter;
+                const priorityMatch = priorityFilter === 'all' || priority === priorityFilter;
+                const redMatch = !redOnlyFilter || isRed;
+                
+                if (categoryMatch && actionMatch && priorityMatch && redMatch) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            
+            document.getElementById('rowCount').textContent = `Showing ${visibleCount} of 115 items`;
+        }
+        
+        function exportToCSV() {
+            const rows = document.querySelectorAll('#feedbackTable tbody tr:not([style*="display: none"])');
+            let csv = '#,Category,Page/Feature,URL,Previous UI,New UI,Action,Priority,Red Item?\n';
+            
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                const rowData = Array.from(cells).map((cell, i) => {
+                    if (i === 8) { // Checkbox
+                        return cell.querySelector('.status-checkbox').checked ? 'Yes' : 'No';
+                    }
+                    return '"' + cell.textContent.trim().replace(/"/g, '""') + '"';
+                });
+                csv += rowData.join(',') + '\n';
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ideal_feedback_implementation.csv';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
