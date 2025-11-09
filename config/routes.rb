@@ -33,6 +33,9 @@ Rails.application.routes.draw do
   # Mockups routes - Admin Users
   get "mockups/admin/users", to: "mockups/admin/users#index", as: :mockups_admin_users
   get "mockups/admin/users/new", to: "mockups/admin/users#new", as: :new_mockups_admin_user
+  get "mockups/admin/users/new/seller", to: "mockups/admin/users#new_seller", as: :new_seller_mockups_admin_user
+  get "mockups/admin/users/new/buyer", to: "mockups/admin/users#new_buyer", as: :new_buyer_mockups_admin_user
+  get "mockups/admin/users/new/partner", to: "mockups/admin/users#new_partner", as: :new_partner_mockups_admin_user
   get "mockups/admin/users/:id", to: "mockups/admin/users#show", as: :mockups_admin_user
   get "mockups/admin/users/:id/edit", to: "mockups/admin/users#edit", as: :edit_mockups_admin_user
   get "mockups/admin/users/:id/suspend", to: "mockups/admin/users#suspend_confirm", as: :suspend_mockups_admin_user
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
   # Mockups routes - Admin Listings
   get "mockups/admin/listings", to: "mockups/admin/listings#index", as: :mockups_admin_listings
   get "mockups/admin/listings/pending", to: "mockups/admin/listings#pending", as: :mockups_admin_listings_pending
+  get "mockups/admin/listings/new", to: "mockups/admin/listings#new", as: :new_mockups_admin_listing
   get "mockups/admin/listings/:id", to: "mockups/admin/listings#show", as: :mockups_admin_listing
   get "mockups/admin/listings/:id/validate", to: "mockups/admin/listings#validate_form", as: :validate_mockups_admin_listing
   get "mockups/admin/listings/:id/reject", to: "mockups/admin/listings#reject_form", as: :reject_mockups_admin_listing
@@ -47,6 +51,7 @@ Rails.application.routes.draw do
   # Mockups routes - Admin Partners
   get "mockups/admin/partners", to: "mockups/admin/partners#index", as: :mockups_admin_partners
   get "mockups/admin/partners/pending", to: "mockups/admin/partners#pending", as: :mockups_admin_partners_pending
+  get "mockups/admin/partners/new", to: "mockups/admin/partners#new", as: :new_mockups_admin_partner
   get "mockups/admin/partners/:id", to: "mockups/admin/partners#show", as: :mockups_admin_partner
   get "mockups/admin/partners/:id/approve", to: "mockups/admin/partners#approve_form", as: :approve_mockups_admin_partner
   get "mockups/admin/partners/:id/reject", to: "mockups/admin/partners#reject_form", as: :reject_mockups_admin_partner
