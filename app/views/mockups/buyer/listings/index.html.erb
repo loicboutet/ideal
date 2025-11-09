@@ -7,7 +7,7 @@
       <h2 class="text-2xl font-bold text-gray-900">Toutes les annonces</h2>
       <p class="text-gray-600 mt-1">156 entreprises disponibles</p>
     </div>
-    <%= link_to mockups_buyer_listings_search_path, class: "px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium" do %>
+    <%= link_to mockups_buyer_listings_search_path, class: "px-6 py-3 bg-buyer-600 text-white rounded-full hover:bg-buyer-700 transition font-medium" do %>
       🔍 Recherche avancée
     <% end %>
   </div>
@@ -15,13 +15,13 @@
   <!-- Filters -->
   <div class="bg-white rounded-xl shadow-sm p-6">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Tous les types de deal</option>
         <option>Deal Direct</option>
         <option>Mandat Idéal Reprise</option>
         <option>Mandat Partenaire</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Toutes les étoiles</option>
         <option>5 étoiles</option>
         <option>4 étoiles</option>
@@ -33,13 +33,13 @@
         <option>Restauration</option>
         <option>Services</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Tous les types de deal</option>
         <option>Deal Direct</option>
         <option>Mandat Idéal Reprise</option>
         <option>Mandat Partenaire</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Toutes les étoiles</option>
         <option>5 étoiles</option>
         <option>4 étoiles</option>
@@ -51,13 +51,13 @@
         <option>Auvergne-Rhône-Alpes</option>
         <option>Nouvelle-Aquitaine</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Tous les types de deal</option>
         <option>Deal Direct</option>
         <option>Mandat Idéal Reprise</option>
         <option>Mandat Partenaire</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Toutes les étoiles</option>
         <option>5 étoiles</option>
         <option>4 étoiles</option>
@@ -69,13 +69,13 @@
         <option>200k€ - 500k€</option>
         <option>> 500k€</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Tous les types de deal</option>
         <option>Deal Direct</option>
         <option>Mandat Idéal Reprise</option>
         <option>Mandat Partenaire</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Toutes les étoiles</option>
         <option>5 étoiles</option>
         <option>4 étoiles</option>
@@ -102,7 +102,7 @@
     ].each do |listing| %>
       <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
         <div class="relative">
-          <div class="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold text-2xl">
+          <div class="h-48 bg-gradient-to-br from-buyer-400 to-purple-500 flex items-center justify-center text-white font-bold text-2xl">
             <%= listing[:name].split(' ').map(&:first).join[0..1] %>
           </div>
           <button class="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-50 transition">
@@ -170,10 +170,10 @@
 
           <div class="mb-4">
             <p class="text-sm text-gray-600">Prix estimé</p>
-            <p class="text-lg font-bold text-blue-600"><%= listing[:price] %></p>
+            <p class="text-lg font-bold text-buyer-600"><%= listing[:price] %></p>
           </div>
 
-          <%= link_to mockups_buyer_listing_path(listing[:id]), class: "block w-full px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium text-center text-sm" do %>
+          <%= link_to mockups_buyer_listing_path(listing[:id]), class: "block w-full px-4 py-2 bg-buyer-600 text-white rounded-full hover:bg-buyer-700 transition font-medium text-center text-sm" do %>
             Voir l'annonce
           <% end %>
         </div>
@@ -184,7 +184,7 @@
   <!-- Pagination -->
   <div class="flex justify-center items-center gap-2">
     <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">Précédent</button>
-    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">1</button>
+    <button class="px-4 py-2 bg-buyer-600 text-white rounded-lg">1</button>
     <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
     <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
     <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">Suivant</button>

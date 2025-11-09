@@ -34,12 +34,12 @@
           <!-- Partner Info -->
           <div class="flex-1">
             <div class="flex items-start gap-4 mb-4">
-              <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
+              <div class="w-16 h-16 bg-admin-600 rounded-lg flex items-center justify-center text-white font-bold text-xl flex-shrink-0">
                 <%= partner[:name].split(' ').map(&:first).join[0..1] %>
               </div>
               <div class="flex-1">
                 <h3 class="text-xl font-bold text-gray-900 mb-1"><%= partner[:name] %></h3>
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-admin-100 text-admin-800">
                   <%= partner[:type] %>
                 </span>
               </div>

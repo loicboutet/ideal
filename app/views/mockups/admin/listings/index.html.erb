@@ -17,7 +17,7 @@
   <!-- Filters & Sort -->
   <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
     <div class="grid grid-cols-1 sm:grid-cols-5 gap-4">
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Tous les statuts</option>
         <option>Brouillon</option>
         <option>En attente</option>
@@ -25,13 +25,13 @@
         <option>Rejetée</option>
         <option>Retirée</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Tous les types de deal</option>
         <option>Deal Direct</option>
         <option>Mandat Idéal Reprise</option>
         <option>Mandat Partenaire</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Période: 30 derniers jours</option>
         <option>7 derniers jours</option>
         <option>Ce mois</option>
@@ -39,7 +39,7 @@
         <option>6 mois</option>
         <option>Tout</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
         <option>Tri: Plus récent</option>
         <option>Plus ancien</option>
         <option>Plus de vues</option>
@@ -109,9 +109,9 @@
               <td class="px-6 py-4 whitespace-nowrap">
                 <% case listing[:type] %>
                 <% when 'Direct' %>
-                  <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-700">Direct</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-admin-100 text-admin-700">Direct</span>
                 <% when 'Mandat Idéal' %>
-                  <span class="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-700">Mandat Idéal</span>
+                  <span class="px-2 py-1 text-xs rounded-full bg-admin-100 text-admin-700">Mandat Idéal</span>
                 <% when 'Mandat Partenaire' %>
                   <span class="px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-700">Mandat Partenaire</span>
                 <% end %>
@@ -131,7 +131,7 @@
                 <% end %>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <%= link_to mockups_admin_listing_path(listing[:id]), class: "text-blue-600 hover:text-blue-800" do %>
+                <%= link_to mockups_admin_listing_path(listing[:id]), class: "text-admin-600 hover:text-admin-800" do %>
                   Voir →
                 <% end %>
               </td>

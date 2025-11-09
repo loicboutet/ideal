@@ -4,14 +4,14 @@
 <div class="max-w-4xl mx-auto space-y-6">
   <div class="flex items-center justify-between">
     <h1 class="text-2xl font-bold text-gray-900">Mon profil</h1>
-    <%= link_to edit_mockups_seller_profile_path, class: "px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" do %>
+    <%= link_to edit_mockups_seller_profile_path, class: "px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700" do %>
       Modifier
     <% end %>
   </div>
 
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
     <div class="flex items-center gap-4 mb-6">
-      <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+      <div class="w-20 h-20 bg-gradient-to-br from-seller-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
         JD
       </div>
       <div>
@@ -45,7 +45,7 @@
             <div class="font-medium text-gray-900">Annonce <%= i + 1 %></div>
             <div class="text-sm text-gray-600">Active • <%= 300 + (i * 50) %> vues</div>
           </div>
-          <%= link_to mockups_seller_listing_path(i + 1), class: "text-blue-600 hover:text-blue-800 text-sm font-medium" do %>
+          <%= link_to mockups_seller_listing_path(i + 1), class: "text-seller-600 hover:text-seller-800 text-sm font-medium" do %>
             Voir →
           <% end %>
         </div>

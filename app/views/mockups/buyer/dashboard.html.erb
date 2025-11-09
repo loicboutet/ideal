@@ -23,11 +23,11 @@
   <!-- 4 Stats Cards - Réordonné -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     <!-- Messages -->
-    <%= link_to mockups_messages_path, class: "bg-white rounded-xl shadow-sm p-6 border-2 border-transparent hover:border-blue-200 transition cursor-pointer" do %>
+    <%= link_to mockups_messages_path, class: "bg-white rounded-xl shadow-sm p-6 border-2 border-transparent hover:border-buyer-200 transition cursor-pointer" do %>
       <div class="flex items-center justify-between mb-2">
         <div class="text-sm text-gray-600">Messages</div>
-        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-10 h-10 bg-buyer-100 rounded-full flex items-center justify-center">
+          <svg class="w-5 h-5 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         </div>
@@ -89,7 +89,7 @@
     <div class="p-6 border-b border-gray-200">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-bold text-gray-900">Mon Pipeline</h2>
-        <%= link_to mockups_buyer_pipeline_path, class: "text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+        <%= link_to mockups_buyer_pipeline_path, class: "text-sm text-buyer-600 hover:text-buyer-700 font-medium" do %>
           Vue Kanban →
         <% end %>
       </div>
@@ -120,7 +120,7 @@
       </div>
 
       <p class="text-sm text-gray-600 text-center">
-        <%= link_to mockups_buyer_pipeline_path, class: "text-blue-600 hover:text-blue-700 font-medium" do %>
+        <%= link_to mockups_buyer_pipeline_path, class: "text-buyer-600 hover:text-buyer-700 font-medium" do %>
           Voir le pipeline complet →
         <% end %>
       </p>
@@ -131,13 +131,13 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
     <%= link_to mockups_buyer_listings_path, class: "bg-white rounded-xl shadow-sm p-6 border border-gray-200 hover:shadow-md transition group" do %>
       <div class="flex items-center gap-4">
-        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition">
-          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 bg-buyer-100 rounded-lg flex items-center justify-center group-hover:bg-buyer-200 transition">
+          <svg class="w-6 h-6 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
         <div>
-          <div class="font-semibold text-gray-900 group-hover:text-blue-600 transition">Rechercher des deals</div>
+          <div class="font-semibold text-gray-900 group-hover:text-buyer-600 transition">Rechercher des deals</div>
           <div class="text-sm text-gray-500">327 annonces disponibles</div>
         </div>
       </div>
@@ -191,7 +191,7 @@
         </div>
         <div class="p-4 hover:bg-gray-50 transition">
           <div class="flex gap-3">
-            <div class="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
+            <div class="w-2 h-2 bg-buyer-600 rounded-full mt-2"></div>
             <div class="flex-1">
               <p class="text-sm text-gray-900 font-medium">Nouveau message</p>
               <p class="text-xs text-gray-500">Jean D. (Café Lyon) - Il y a 5h</p>
@@ -243,15 +243,15 @@
             <span class="font-medium">24</span>
           </div>
         </div>
-        <%= link_to mockups_buyer_subscription_path, class: "block text-center text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+        <%= link_to mockups_buyer_subscription_path, class: "block text-center text-sm text-buyer-600 hover:text-buyer-700 font-medium" do %>
           Gérer mon abonnement →
         <% end %>
       </div>
 
-      <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
+      <div class="bg-gradient-to-br from-buyer-50 to-purple-50 rounded-xl p-6 border border-buyer-200">
         <div class="flex items-start gap-3">
-          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-10 h-10 bg-buyer-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
           </div>
