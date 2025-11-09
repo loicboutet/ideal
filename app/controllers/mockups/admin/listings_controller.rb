@@ -7,6 +7,10 @@ class Mockups::Admin::ListingsController < Mockups::AdminController
     # Pending validation queue
   end
 
+  def new
+    # Create new listing for a seller
+  end
+
   def show
     # Listing detail for validation
     @listing_id = params[:id]
