@@ -2,15 +2,15 @@
 <% content_for :page_title, "Tableau de bord" %>
 
 <div class="max-w-7xl mx-auto space-y-6">
-  <!-- Welcome Banner -->
-  <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl shadow-sm p-6 text-white">
-    <div class="flex items-center justify-between">
+  <!-- Welcome Banner with Scrolling Messages -->
+  <div class="bg-gradient-to-r from-seller-500 to-seller-600 rounded-xl shadow-sm p-6 text-white">
+    <div class="flex items-center justify-between mb-3">
       <div>
         <h2 class="text-2xl font-bold mb-2">Bonjour Jean 👋</h2>
-        <p class="text-blue-100">Bienvenue sur votre espace cédant</p>
+        <p class="text-seller-100">Bienvenue sur votre espace cédant</p>
       </div>
       <div class="hidden md:block">
-        <%= link_to new_mockups_seller_listing_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-full font-medium hover:bg-blue-50 transition shadow-lg" do %>
+        <%= link_to new_mockups_seller_listing_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-white text-seller-600 rounded-full font-medium hover:bg-seller-50 transition shadow-lg" do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
           </svg>
@@ -18,67 +18,111 @@
         <% end %>
       </div>
     </div>
+    <!-- Auto-Rotating Messages Carousel -->
+    <div class="bg-white/10 rounded-lg py-2 px-3" data-controller="carousel">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div class="flex-1 relative overflow-hidden" style="min-height: 1.5rem;">
+          <!-- Slide 1 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0">
+            <p class="text-sm">
+              📢 Nouveauté : Accédez à notre annuaire de partenaires pour vous faire accompagner
+            </p>
+          </div>
+          <!-- Slide 2 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
+            <p class="text-sm">
+              💡 Astuce : Les profils complets à 100% reçoivent 3x plus de contacts
+            </p>
+          </div>
+          <!-- Slide 3 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
+            <p class="text-sm">
+              🎯 Promo : -20% sur l'abonnement Premium jusqu'à la fin du mois
+            </p>
+          </div>
+        </div>
+        <!-- Carousel Dots -->
+        <div class="flex items-center gap-1.5 ml-2">
+          <button type="button" data-carousel-dot data-index="0" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white transition-all"></button>
+          <button type="button" data-carousel-dot data-index="1" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
+          <button type="button" data-carousel-dot data-index="2" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Stats Cards -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between mb-2">
-        <div class="text-sm text-gray-600">Mes annonces</div>
-        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
+    <!-- Messages -->
+    <%= link_to mockups_messages_path, class: "block" do %>
+      <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition cursor-pointer">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm text-gray-600">Messages non lus</div>
+          <div class="w-10 h-10 bg-seller-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
         </div>
+        <div class="text-3xl font-bold text-gray-900">7</div>
+        <div class="text-xs text-gray-500 mt-1">Depuis hier</div>
       </div>
-      <div class="text-3xl font-bold text-gray-900">5</div>
-      <div class="text-xs text-gray-500 mt-1">3 actives, 2 en attente</div>
-    </div>
+    <% end %>
 
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between mb-2">
-        <div class="text-sm text-gray-600">Vues totales</div>
-        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-          </svg>
+    <!-- Interested Buyers (Favorited) -->
+    <%= link_to mockups_seller_interests_path, class: "block" do %>
+      <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition cursor-pointer">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm text-gray-600">Repreneurs intéressés</div>
+          <div class="w-10 h-10 bg-seller-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
         </div>
+        <div class="text-3xl font-bold text-gray-900">23</div>
+        <div class="text-xs text-seller-600 mt-1">3 nouveaux cette semaine</div>
       </div>
-      <div class="text-3xl font-bold text-gray-900">2 847</div>
-      <div class="text-xs text-green-600 mt-1 flex items-center gap-1">
-        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-        +12% ce mois
-      </div>
-    </div>
+    <% end %>
 
+    <!-- Total Views -->
     <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between mb-2">
-        <div class="text-sm text-gray-600">Repreneurs intéressés</div>
-        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-          <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm text-gray-600">Vues totales</div>
+          <div class="w-10 h-10 bg-seller-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </div>
+        </div>
+        <div class="text-3xl font-bold text-gray-900">2 847</div>
+        <div class="text-xs text-seller-600 mt-1 flex items-center gap-1">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
           </svg>
+          +12% ce mois
         </div>
       </div>
-      <div class="text-3xl font-bold text-gray-900">23</div>
-      <div class="text-xs text-orange-600 mt-1">3 nouveaux cette semaine</div>
-    </div>
 
-    <div class="bg-white rounded-xl shadow-sm p-6">
-      <div class="flex items-center justify-between mb-2">
-        <div class="text-sm text-gray-600">Messages non lus</div>
-        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-          <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
+    <!-- Buyer Matches -->
+    <%= link_to mockups_seller_listings_path, class: "block" do %>
+      <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition cursor-pointer">
+        <div class="flex items-center justify-between mb-2">
+          <div class="text-sm text-gray-600">Correspondances acheteurs</div>
+          <div class="w-10 h-10 bg-seller-100 rounded-full flex items-center justify-center">
+            <svg class="w-5 h-5 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
         </div>
+        <div class="text-3xl font-bold text-gray-900">12</div>
+        <div class="text-xs text-seller-600 mt-1">Acheteurs selon vos critères</div>
       </div>
-      <div class="text-3xl font-bold text-gray-900">7</div>
-      <div class="text-xs text-gray-500 mt-1">Depuis hier</div>
-    </div>
+    <% end %>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -87,17 +131,14 @@
       <div class="bg-white rounded-xl shadow-sm">
         <div class="p-6 border-b border-gray-200">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold text-gray-900">Mes annonces actives</h3>
-            <%= link_to mockups_seller_listings_path, class: "text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
-              Voir tout →
-            <% end %>
+            <h3 class="text-lg font-bold text-gray-900">Mes annonces</h3>
           </div>
         </div>
         <div class="divide-y divide-gray-200">
           <% [
-            { id: 1, name: 'Boulangerie Paris 15ème', status: 'active', views: 342, interests: 5, completion: 90 },
-            { id: 2, name: 'Café Restaurant Lyon', status: 'active', views: 189, interests: 3, completion: 85 },
-            { id: 3, name: 'Garage Automobile Toulouse', status: 'pending', views: 45, interests: 1, completion: 65 }
+            { id: 1, name: 'Boulangerie Paris 15ème', status: 'active', views: 342, interests: 5, completion: 90, crm_stage: 'negotiation', crm_progress: 75 },
+            { id: 2, name: 'Café Restaurant Lyon', status: 'active', views: 189, interests: 3, completion: 85, crm_stage: 'analysis', crm_progress: 50 },
+            { id: 3, name: 'Garage Automobile Toulouse', status: 'pending', views: 45, interests: 1, completion: 65, crm_stage: 'to_contact', crm_progress: 25 }
           ].each do |listing| %>
             <div class="p-6 hover:bg-gray-50 transition">
               <div class="flex items-start justify-between mb-3">
@@ -120,25 +161,46 @@
                   </div>
                 </div>
                 <% if listing[:status] == 'active' %>
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-seller-100 text-seller-800">
                     Active
                   </span>
                 <% else %>
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                     En attente
                   </span>
                 <% end %>
               </div>
+              
+              <!-- Pipeline/CRM Stages -->
+              <div class="mb-3">
+                <div class="flex items-center justify-between text-xs text-gray-600 mb-2">
+                  <span>Pipeline repreneur</span>
+                  <span class="font-medium">
+                    <% case listing[:crm_stage]
+                       when 'to_contact' then 'À contacter'
+                       when 'analysis' then 'Analyse'
+                       when 'negotiation' then 'Négociation'
+                       else 'En cours'
+                    end %>
+                  </span>
+                </div>
+                <div class="flex gap-1">
+                  <% ['Favoris', 'Contact', 'Échange', 'Analyse', 'Négociation', 'LOI'].each_with_index do |stage, idx| %>
+                    <div class="flex-1 h-1.5 rounded-full <%= idx < (listing[:crm_progress] / 20) ? 'bg-seller-500' : 'bg-gray-200' %>" title="<%= stage %>"></div>
+                  <% end %>
+                </div>
+              </div>
+              
               <div class="mb-2">
                 <div class="flex items-center justify-between text-xs text-gray-600 mb-1">
-                  <span>Complétude</span>
+                  <span>Complétude du profil</span>
                   <span class="font-medium"><%= listing[:completion] %>%</span>
                 </div>
                 <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div class="h-full bg-gradient-to-r from-green-400 to-green-600" style="width: <%= listing[:completion] %>%"></div>
+                  <div class="h-full bg-gradient-to-r from-seller-400 to-seller-600" style="width: <%= listing[:completion] %>%"></div>
                 </div>
               </div>
-              <%= link_to mockups_seller_listing_path(listing[:id]), class: "inline-flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+              <%= link_to mockups_seller_listing_path(listing[:id]), class: "inline-flex items-center gap-2 text-sm text-seller-600 hover:text-seller-700 font-medium" do %>
                 <span>Gérer</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -156,8 +218,8 @@
       <div class="bg-white rounded-xl shadow-sm p-6">
         <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
         <div class="space-y-3">
-          <%= link_to new_mockups_seller_listing_path, class: "flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition group" do %>
-            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+          <%= link_to new_mockups_seller_listing_path, class: "flex items-center gap-3 p-3 bg-seller-50 hover:bg-seller-100 rounded-lg transition group" do %>
+            <div class="w-10 h-10 bg-seller-600 rounded-lg flex items-center justify-center">
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
@@ -168,20 +230,32 @@
             </div>
           <% end %>
 
-          <%= link_to mockups_seller_interests_path, class: "flex items-center gap-3 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition group" do %>
-            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
-              <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+          <%= link_to mockups_seller_push_listing_path, class: "flex items-center gap-3 p-3 bg-seller-50 hover:bg-seller-100 rounded-lg transition group" do %>
+            <div class="w-10 h-10 bg-seller-600 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
               </svg>
             </div>
             <div class="flex-1">
-              <div class="text-sm font-medium text-gray-900">Voir les contacts</div>
-              <div class="text-xs text-gray-600">23 repreneurs intéressés</div>
+              <div class="text-sm font-medium text-gray-900">Pousser mes annonces</div>
+              <div class="text-xs text-gray-600">Proposer à des repreneurs ciblés</div>
             </div>
           <% end %>
 
-          <%= link_to mockups_seller_subscription_path, class: "flex items-center gap-3 p-3 bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 rounded-lg transition group" do %>
-            <div class="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg flex items-center justify-center">
+          <%= link_to mockups_seller_assistance_partners_path, class: "flex items-center gap-3 p-3 bg-seller-50 hover:bg-seller-100 rounded-lg transition group" do %>
+            <div class="w-10 h-10 bg-seller-600 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm font-medium text-gray-900">Trouver des partenaires</div>
+              <div class="text-xs text-gray-600">Accédez à notre annuaire</div>
+            </div>
+          <% end %>
+
+          <%= link_to mockups_seller_subscription_path, class: "flex items-center gap-3 p-3 bg-gradient-to-r from-seller-50 to-seller-100 hover:from-seller-100 hover:to-seller-200 rounded-lg transition group" do %>
+            <div class="w-10 h-10 bg-gradient-to-r from-seller-500 to-seller-600 rounded-lg flex items-center justify-center">
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
               </svg>
@@ -199,28 +273,28 @@
         <h3 class="text-lg font-bold text-gray-900 mb-4">Activité récente</h3>
         <div class="space-y-4">
           <div class="flex gap-3">
-            <div class="w-2 h-2 bg-blue-600 rounded-full mt-1.5"></div>
+            <div class="w-2 h-2 bg-seller-600 rounded-full mt-1.5"></div>
             <div class="flex-1">
               <p class="text-sm text-gray-900">Nouvelle demande de contact</p>
               <p class="text-xs text-gray-500">Boulangerie Paris 15ème - Il y a 2h</p>
             </div>
           </div>
           <div class="flex gap-3">
-            <div class="w-2 h-2 bg-green-600 rounded-full mt-1.5"></div>
+            <div class="w-2 h-2 bg-seller-600 rounded-full mt-1.5"></div>
             <div class="flex-1">
               <p class="text-sm text-gray-900">Annonce validée</p>
               <p class="text-xs text-gray-500">Café Restaurant Lyon - Il y a 1j</p>
             </div>
           </div>
           <div class="flex gap-3">
-            <div class="w-2 h-2 bg-orange-600 rounded-full mt-1.5"></div>
+            <div class="w-2 h-2 bg-seller-600 rounded-full mt-1.5"></div>
             <div class="flex-1">
               <p class="text-sm text-gray-900">Document ajouté</p>
               <p class="text-xs text-gray-500">Bilan financier - Il y a 2j</p>
             </div>
           </div>
           <div class="flex gap-3">
-            <div class="w-2 h-2 bg-purple-600 rounded-full mt-1.5"></div>
+            <div class="w-2 h-2 bg-seller-600 rounded-full mt-1.5"></div>
             <div class="flex-1">
               <p class="text-sm text-gray-900">Nouveau message</p>
               <p class="text-xs text-gray-500">Marie L. - Il y a 3j</p>
@@ -230,10 +304,10 @@
       </div>
 
       <!-- Tips -->
-      <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
+      <div class="bg-gradient-to-br from-seller-50 to-seller-100 rounded-xl p-6 border border-seller-200">
         <div class="flex items-start gap-3">
-          <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-10 h-10 bg-seller-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
             </svg>
           </div>

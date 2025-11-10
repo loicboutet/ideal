@@ -21,6 +21,10 @@ class Mockups::AuthController < MockupsController
     # Partner registration form
   end
 
+  def register_intermediary
+    # Intermediary/Broker registration form
+  end
+
   def forgot_password
     # Password reset request form
   end

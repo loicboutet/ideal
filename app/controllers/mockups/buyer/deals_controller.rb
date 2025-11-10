@@ -16,4 +16,9 @@ class Mockups::Buyer::DealsController < Mockups::BuyerController
   def new
     # Add listing to pipeline (from listing page)
   end
+
+  def new_document
+    # Buyer uploads documents to deal (enrichment replacement)
+    @deal_id = params[:id]
+  end
 end

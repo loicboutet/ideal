@@ -13,7 +13,19 @@ module Mockups
       end
 
       def new
-        # Create new user form
+        # Create new user form - select user type
+      end
+
+      def new_seller
+        # Create new seller profile form
+      end
+
+      def new_buyer
+        # Create new buyer profile form
+      end
+
+      def new_partner
+        # Create new partner profile form
       end
 
       def edit

@@ -7,6 +7,10 @@ class Mockups::Admin::PartnersController < Mockups::AdminController
     # Pending partner validation
   end
 
+  def new
+    # Create new partner profile
+  end
+
   def show
     # Partner detail
     @partner_id = params[:id]

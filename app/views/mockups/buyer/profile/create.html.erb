@@ -15,16 +15,16 @@
   </div>
 
   <!-- Info Banner -->
-  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+  <div class="bg-buyer-50 border border-buyer-200 rounded-lg p-4">
     <div class="flex gap-3">
-      <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="w-5 h-5 text-buyer-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
       </svg>
-      <div class="text-sm text-blue-800">
+      <div class="text-sm text-buyer-800">
         <p><strong>Vos données confidentielles sont protégées par les CGU.</strong></p>
         <p class="mt-1">Ne mettez pas d'informations permettant de vous identifier dans les données publiques.</p>
         <p class="mt-2">
-          <%= link_to "#", class: "text-blue-600 underline hover:text-blue-800" do %>
+          <%= link_to "#", class: "text-buyer-600 underline hover:text-buyer-800" do %>
             Voir à quoi ressemble la partie publique de votre profil →
           <% end %>
         </p>
@@ -39,7 +39,7 @@
       <span class="text-sm font-semibold text-gray-900">35%</span>
     </div>
     <div class="w-full bg-gray-200 rounded-full h-2">
-      <div class="bg-blue-600 h-2 rounded-full transition-all" style="width: 35%"></div>
+      <div class="bg-buyer-600 h-2 rounded-full transition-all" style="width: 35%"></div>
     </div>
   </div>
 
@@ -51,7 +51,7 @@
       <!-- Type repreneur -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Type de repreneur <span class="text-red-500">*</span></label>
-        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
           <option>Sélectionnez...</option>
           <option>Personne physique</option>
           <option>Holding / Société</option>
@@ -63,19 +63,19 @@
       <!-- Formation -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Formation (incl. reprise) <span class="text-red-500">*</span></label>
-        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Décrivez votre parcours de formation..."></textarea>
+        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Décrivez votre parcours de formation..."></textarea>
       </div>
 
       <!-- Expérience -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Expérience professionnelle <span class="text-red-500">*</span></label>
-        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Décrivez votre expérience..."></textarea>
+        <textarea rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Décrivez votre expérience..."></textarea>
       </div>
 
       <!-- Compétences -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Compétences (200 caractères max) <span class="text-red-500">*</span></label>
-        <textarea rows="2" maxlength="200" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Management, Finance, Commercial..."></textarea>
+        <textarea rows="2" maxlength="200" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Management, Finance, Commercial..."></textarea>
         <p class="text-xs text-gray-500 mt-1">0 / 200 caractères</p>
       </div>
 
@@ -83,7 +83,7 @@
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Thèse de reprise (500 caractères max) <span class="text-red-500">*</span></label>
         <p class="text-sm text-gray-600 mb-2">Vous, vos motivations et priorités pour cette reprise (équipe, clients...), votre proposition de valeur (développement, continuité...)</p>
-        <textarea rows="4" maxlength="500" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Décrivez votre projet..."></textarea>
+        <textarea rows="4" maxlength="500" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Décrivez votre projet..."></textarea>
         <p class="text-xs text-gray-500 mt-1">0 / 500 caractères</p>
       </div>
     </div>
@@ -97,7 +97,7 @@
       <!-- Secteurs -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Secteur(s) <span class="text-red-500">*</span></label>
-        <select multiple class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" size="5">
+        <select multiple class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" size="5">
           <option>Industrie</option>
           <option>BTP</option>
           <option>Commerce & Distribution</option>
@@ -116,18 +116,18 @@
       <!-- Localisation -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Localisation(s) <span class="text-red-500">*</span></label>
-        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: Île-de-France, Lyon, Bordeaux...">
+        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Ex: Île-de-France, Lyon, Bordeaux...">
       </div>
 
       <!-- CA -->
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">CA minimum <span class="text-red-500">*</span></label>
-          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: 500000">
+          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Ex: 500000">
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">CA maximum <span class="text-red-500">*</span></label>
-          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: 2000000">
+          <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Ex: 2000000">
         </div>
       </div>
 
@@ -135,18 +135,18 @@
       <div class="grid grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Effectif minimum <span class="text-red-500">*</span></label>
-          <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: 5">
+          <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Ex: 5">
         </div>
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Effectif maximum <span class="text-red-500">*</span></label>
-          <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: 50">
+          <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Ex: 50">
         </div>
       </div>
 
       <!-- Santé financière -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Santé financière <span class="text-red-500">*</span></label>
-        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
           <option>Sélectionnez...</option>
           <option>In bonis uniquement</option>
           <option>En difficulté uniquement</option>
@@ -159,15 +159,15 @@
         <label class="block text-sm font-medium text-gray-700 mb-2">Type de clients <span class="text-red-500">*</span></label>
         <div class="space-y-2">
           <label class="flex items-center gap-2">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600">
+            <input type="checkbox" class="rounded border-gray-300 text-buyer-600">
             <span class="text-sm text-gray-700">B2B</span>
           </label>
           <label class="flex items-center gap-2">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600">
+            <input type="checkbox" class="rounded border-gray-300 text-buyer-600">
             <span class="text-sm text-gray-700">B2C</span>
           </label>
           <label class="flex items-center gap-2">
-            <input type="checkbox" class="rounded border-gray-300 text-blue-600">
+            <input type="checkbox" class="rounded border-gray-300 text-buyer-600">
             <span class="text-sm text-gray-700">Mixte</span>
           </label>
         </div>
@@ -182,12 +182,12 @@
     <div class="space-y-6">
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Capacité d'apport</label>
-        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: 150000 €">
+        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Ex: 150000 €">
       </div>
       
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Sources de financement (200 caractères max)</label>
-        <textarea rows="2" maxlength="200" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Apport personnel, prêt bancaire..."></textarea>
+        <textarea rows="2" maxlength="200" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Apport personnel, prêt bancaire..."></textarea>
       </div>
     </div>
   </div>
@@ -201,7 +201,7 @@
       <button class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
         Enregistrer comme brouillon
       </button>
-      <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+      <button class="px-6 py-2 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition">
         Suite : données confidentielles →
       </button>
     </div>

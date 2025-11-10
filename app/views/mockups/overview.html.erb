@@ -156,14 +156,6 @@
             <li><%= link_to "Abonnement", mockups_seller_subscription_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
           </ul>
         </div>
-
-        <!-- NDA -->
-        <div>
-          <h3 class="font-medium text-gray-900 mb-2">📄 NDA</h3>
-          <ul class="space-y-1 text-sm">
-            <li><%= link_to "NDA plateforme", mockups_seller_nda_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-          </ul>
-        </div>
       </div>
     </section>
 
@@ -217,25 +209,7 @@
           </ul>
         </div>
 
-        <!-- Reservations -->
-        <div>
-          <h3 class="font-medium text-gray-900 mb-2">🔒 Réservations</h3>
-          <ul class="space-y-1 text-sm">
-            <li><%= link_to "Mes réservations", mockups_buyer_reservations_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-            <li><%= link_to "Détail réservation", mockups_buyer_reservation_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-            <li><%= link_to "Libérer réservation", release_mockups_buyer_reservation_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-          </ul>
-        </div>
-
-        <!-- Enrichments -->
-        <div>
-          <h3 class="font-medium text-gray-900 mb-2">✨ Enrichissements</h3>
-          <ul class="space-y-1 text-sm">
-            <li><%= link_to "Mes enrichissements", mockups_buyer_enrichments_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-            <li><%= link_to "Soumettre enrichissement", new_mockups_buyer_enrichment_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-            <li><%= link_to "Détail enrichissement", mockups_buyer_enrichment_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-          </ul>
-        </div>
+        <!-- Reservations integrated into My Files/Deals - see mockups_buyer_deals_path -->
 
         <!-- Credits & Subscription -->
         <div>
