@@ -132,8 +132,6 @@
             <li><%= link_to "Nouvelle annonce", new_mockups_seller_listing_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
             <li><%= link_to "Détail annonce", mockups_seller_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
             <li><%= link_to "Éditer annonce", edit_mockups_seller_listing_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-            <li><%= link_to "Documents annonce", mockups_seller_listing_documents_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
-            <li><%= link_to "Nouveau document", new_mockups_seller_listing_document_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
           </ul>
         </div>
 
@@ -236,7 +234,6 @@
         <div>
           <h3 class="font-medium text-gray-900 mb-2">📄 NDA</h3>
           <ul class="space-y-1 text-sm">
-            <li><%= link_to "NDA plateforme", mockups_buyer_nda_path, class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
             <li><%= link_to "NDA annonce spécifique", mockups_buyer_listing_nda_path(1), class: "text-blue-600 hover:text-blue-800 hover:underline" %></li>
           </ul>
         </div>
