@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "mockups/register/seller", to: "mockups/auth#register_seller", as: :mockups_register_seller
   get "mockups/register/buyer", to: "mockups/auth#register_buyer", as: :mockups_register_buyer
   get "mockups/register/partner", to: "mockups/auth#register_partner", as: :mockups_register_partner
+  get "mockups/register/intermediary", to: "mockups/auth#register_intermediary", as: :mockups_register_intermediary
   get "mockups/forgot_password", to: "mockups/auth#forgot_password", as: :mockups_forgot_password
   get "mockups/reset_password", to: "mockups/auth#reset_password", as: :mockups_reset_password
 
