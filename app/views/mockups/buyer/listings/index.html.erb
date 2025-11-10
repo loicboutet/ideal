@@ -14,7 +14,7 @@
 
   <!-- Filters -->
   <div class="bg-white rounded-xl shadow-sm p-6">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
         <option>Tous les types de deal</option>
         <option>Deal Direct</option>
@@ -33,53 +33,17 @@
         <option>Restauration</option>
         <option>Services</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
-        <option>Tous les types de deal</option>
-        <option>Deal Direct</option>
-        <option>Mandat Idéal Reprise</option>
-        <option>Mandat Partenaire</option>
-      </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
-        <option>Toutes les étoiles</option>
-        <option>5 étoiles</option>
-        <option>4 étoiles</option>
-        <option>3 étoiles</option>
-      </select>
       <select class="px-4 py-2 border border-gray-300 rounded-lg">
         <option>Toutes les régions</option>
         <option>Île-de-France</option>
         <option>Auvergne-Rhône-Alpes</option>
         <option>Nouvelle-Aquitaine</option>
       </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
-        <option>Tous les types de deal</option>
-        <option>Deal Direct</option>
-        <option>Mandat Idéal Reprise</option>
-        <option>Mandat Partenaire</option>
-      </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
-        <option>Toutes les étoiles</option>
-        <option>5 étoiles</option>
-        <option>4 étoiles</option>
-        <option>3 étoiles</option>
-      </select>
       <select class="px-4 py-2 border border-gray-300 rounded-lg">
         <option>Toutes les fourchettes CA</option>
         <option>< 200k€</option>
         <option>200k€ - 500k€</option>
         <option>> 500k€</option>
-      </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
-        <option>Tous les types de deal</option>
-        <option>Deal Direct</option>
-        <option>Mandat Idéal Reprise</option>
-        <option>Mandat Partenaire</option>
-      </select>
-      <select class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
-        <option>Toutes les étoiles</option>
-        <option>5 étoiles</option>
-        <option>4 étoiles</option>
-        <option>3 étoiles</option>
       </select>
       <select class="px-4 py-2 border border-gray-300 rounded-lg">
         <option>Trier par: Plus récent</option>
@@ -93,12 +57,12 @@
   <!-- Listings Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <% [
-      { id: 1, name: 'Boulangerie artisanale', location: 'Paris 15ème', sector: 'Commerce', ca: '450k€', price: '350k€', employees: 5, rating: 4, completion: 90, badge: 'ideal', reserved: false },
-      { id: 2, name: 'Restaurant Italien', location: 'Lyon 6ème', sector: 'Restauration', ca: '420k€', price: '320k€', employees: 8, rating: 5, completion: 95, badge: 'ideal', reserved: true },
-      { id: 3, name: 'Garage Automobile', location: 'Toulouse', sector: 'Services', ca: '280k€', price: '180k€', employees: 3, rating: 3, completion: 75, badge: nil, reserved: false },
-      { id: 4, name: 'Salon de coiffure', location: 'Bordeaux', sector: 'Services', ca: '180k€', price: '120k€', employees: 4, rating: 4, completion: 85, badge: nil, reserved: false },
-      { id: 5, name: 'Épicerie fine', location: 'Nice', sector: 'Commerce', ca: '220k€', price: '160k€', employees: 2, rating: 5, completion: 92, badge: 'ideal', reserved: false },
-      { id: 6, name: 'Café-Restaurant', location: 'Marseille', sector: 'Restauration', ca: '380k€', price: '290k€', employees: 6, rating: 4, completion: 88, badge: nil, reserved: false }
+      { id: 1, name: 'Boulangerie artisanale', location: 'Paris 15ème', sector: 'Commerce', ca: '450k€', price: '350k€', employees: 5, rating: 4, completion: 90, deal_type: 'direct', reserved: false },
+      { id: 2, name: 'Restaurant Italien', location: 'Lyon 6ème', sector: 'Restauration', ca: '420k€', price: '320k€', employees: 8, rating: 5, completion: 95, deal_type: 'ideal', reserved: true },
+      { id: 3, name: 'Garage Automobile', location: 'Toulouse', sector: 'Services', ca: '280k€', price: '180k€', employees: 3, rating: 3, completion: 75, deal_type: 'partner', reserved: false },
+      { id: 4, name: 'Salon de coiffure', location: 'Bordeaux', sector: 'Services', ca: '180k€', price: '120k€', employees: 4, rating: 4, completion: 85, deal_type: 'direct', reserved: false },
+      { id: 5, name: 'Épicerie fine', location: 'Nice', sector: 'Commerce', ca: '220k€', price: '160k€', employees: 2, rating: 5, completion: 92, deal_type: 'ideal', reserved: false },
+      { id: 6, name: 'Café-Restaurant', location: 'Marseille', sector: 'Restauration', ca: '380k€', price: '290k€', employees: 6, rating: 4, completion: 88, deal_type: 'partner', reserved: false }
     ].each do |listing| %>
       <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
         <div class="relative">
@@ -110,13 +74,22 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
           </button>
-          <% if listing[:badge] == 'ideal' %>
-            <div class="absolute top-3 left-3">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900">
-                🏆 Deal IDEAL
+          <div class="absolute top-3 left-3">
+            <% case listing[:deal_type] %>
+            <% when 'direct' %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-buyer-500 text-white">
+                ⚡ Deal Direct
               </span>
-            </div>
-          <% end %>
+            <% when 'ideal' %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900">
+                🏆 Mandat Idéal
+              </span>
+            <% when 'partner' %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-partner-500 text-white">
+                🤝 Mandat Partenaire
+              </span>
+            <% end %>
+          </div>
           <% if listing[:reserved] %>
             <div class="absolute bottom-3 left-3 right-3">
               <span class="block text-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
