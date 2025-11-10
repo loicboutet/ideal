@@ -132,11 +132,6 @@ Rails.application.routes.draw do
   get "mockups/buyer/reservations/:id", to: "mockups/buyer/reservations#show", as: :mockups_buyer_reservation
   get "mockups/buyer/reservations/:id/release", to: "mockups/buyer/reservations#release_confirm", as: :release_mockups_buyer_reservation
 
-  # Mockups routes - Buyer Enrichments
-  get "mockups/buyer/enrichments", to: "mockups/buyer/enrichments#index", as: :mockups_buyer_enrichments
-  get "mockups/buyer/enrichments/new", to: "mockups/buyer/enrichments#new", as: :new_mockups_buyer_enrichment
-  get "mockups/buyer/enrichments/:id", to: "mockups/buyer/enrichments#show", as: :mockups_buyer_enrichment
-
   # Mockups routes - Buyer Credits & Subscription
   get "mockups/buyer/credits", to: "mockups/buyer/credits#index", as: :mockups_buyer_credits
   get "mockups/buyer/subscription", to: "mockups/buyer/subscription#show", as: :mockups_buyer_subscription
