@@ -2,11 +2,11 @@
 <% content_for :page_title, "Libérer la réservation" %>
 
 <div class="max-w-3xl mx-auto space-y-6">
-  <%= link_to mockups_buyer_reservations_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+  <%= link_to mockups_buyer_deals_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>
-    Retour aux réservations
+    Retour à mes dossiers
   <% end %>
 
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
@@ -78,7 +78,7 @@
       </div>
 
       <div class="flex gap-3 pt-4">
-        <%= link_to mockups_buyer_reservations_path, class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" do %>
+        <%= link_to mockups_buyer_deals_path, class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" do %>
           Annuler
         <% end %>
         <button type="submit" class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">
