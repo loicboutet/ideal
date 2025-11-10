@@ -1,0 +1,239 @@
+<% content_for :title, "Modifier le dossier - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Modifier le dossier" %>
+
+<div class="max-w-3xl mx-auto space-y-6">
+  <%= link_to mockups_buyer_deal_path(@deal_id), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Retour au dossier
+  <% end %>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Modifier le dossier</h1>
+    <p class="text-gray-600">L'Amie dorée - Boulangerie Paris 11e</p>
+  </div>
+
+  <!-- Form -->
+  <form class="space-y-6">
+    <!-- Deal Status -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Statut du dossier</h2>
+      <div class="space-y-3">
+        <label class="block">
+          <span class="text-sm font-medium text-gray-700 mb-2 block">Étape actuelle du dossier</span>
+          <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500 focus:border-buyer-500">
+            <option>Nouveau</option>
+            <option selected>À contacter</option>
+            <option>Premier contact</option>
+            <option>En cours de négociation</option>
+            <option>Due diligence</option>
+            <option>Offre envoyée</option>
+            <option>Gagné</option>
+            <option>Non retenu</option>
+            <option>Abandonné</option>
+          </select>
+        </label>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div class="flex items-start gap-2">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-sm text-blue-800">
+              Le changement de statut sera enregistré dans l'historique des actions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Rating -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Ma notation personnelle</h2>
+      <div class="space-y-3">
+        <label class="block">
+          <span class="text-sm font-medium text-gray-700 mb-2 block">Mon évaluation de cette opportunité</span>
+          <div class="flex items-center gap-2">
+            <% 5.times do |i| %>
+              <button type="button" data-rating="<%= i + 1 %>" class="rating-star <%= i < 3 ? 'text-buyer-600' : 'text-gray-300' %> hover:text-buyer-600 transition">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              </button>
+            <% end %>
+            <span class="text-sm text-gray-600 ml-2 rating-label">(3/5)</span>
+          </div>
+        </label>
+        <p class="text-sm text-gray-500">Cette notation est privée et vous aide à prioriser vos dossiers.</p>
+      </div>
+    </div>
+
+    <!-- Notes Management -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Gestion des notes</h2>
+      
+      <!-- Existing Notes -->
+      <div class="space-y-3 mb-4">
+        <div class="border-l-4 border-buyer-500 bg-gray-50 p-4 rounded-r-lg">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <div class="text-sm font-medium text-gray-900 mb-1">Note du 18/01/2025 à 14:30</div>
+              <p class="text-sm text-gray-700">
+                Excellente opportunité, bonne localisation. Besoin de vérifier les comptes en détail. Rendez-vous prévu la semaine prochaine avec le cédant.
+              </p>
+            </div>
+            <div class="flex gap-2 ml-4">
+              <button type="button" class="text-gray-400 hover:text-buyer-600 transition" title="Modifier">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                </svg>
+              </button>
+              <button type="button" class="text-gray-400 hover:text-red-600 transition" title="Supprimer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-l-4 border-gray-300 bg-gray-50 p-4 rounded-r-lg">
+          <div class="flex items-start justify-between mb-2">
+            <div>
+              <div class="text-sm font-medium text-gray-900 mb-1">Note du 15/01/2025 à 16:45</div>
+              <p class="text-sm text-gray-700">
+                Première impression positive après lecture de l'annonce. Localisation stratégique dans un quartier en développement.
+              </p>
+            </div>
+            <div class="flex gap-2 ml-4">
+              <button type="button" class="text-gray-400 hover:text-buyer-600 transition" title="Modifier">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                </svg>
+              </button>
+              <button type="button" class="text-gray-400 hover:text-red-600 transition" title="Supprimer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add New Note -->
+      <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+        <label class="block">
+          <span class="text-sm font-medium text-gray-700 mb-2 block">Ajouter une nouvelle note</span>
+          <textarea 
+            rows="4" 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500 focus:border-buyer-500 mb-3"
+            placeholder="Nouvelle note, observation, prochaine étape..."
+          ></textarea>
+        </label>
+        <button type="button" class="px-4 py-2 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition text-sm font-medium">
+          + Ajouter cette note
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Actions Settings -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Paramètres rapides</h2>
+      <div class="space-y-3">
+        <label class="flex items-center gap-3">
+          <input type="checkbox" class="w-5 h-5 text-buyer-600 border-gray-300 rounded focus:ring-buyer-500">
+          <div>
+            <div class="text-sm font-medium text-gray-900">Marquer comme prioritaire</div>
+            <div class="text-xs text-gray-500">Ce dossier apparaîtra en haut de votre pipeline</div>
+          </div>
+        </label>
+        
+        <label class="flex items-center gap-3">
+          <input type="checkbox" checked class="w-5 h-5 text-buyer-600 border-gray-300 rounded focus:ring-buyer-500">
+          <div>
+            <div class="text-sm font-medium text-gray-900">Recevoir des notifications</div>
+            <div class="text-xs text-gray-500">Être alerté des mises à jour sur ce dossier</div>
+          </div>
+        </label>
+
+        <label class="flex items-center gap-3">
+          <input type="checkbox" class="w-5 h-5 text-buyer-600 border-gray-300 rounded focus:ring-buyer-500">
+          <div>
+            <div class="text-sm font-medium text-gray-900">Archiver le dossier</div>
+            <div class="text-xs text-gray-500">Masquer de la vue principale (récupérable depuis les archives)</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-red-200">
+      <h2 class="text-lg font-bold text-red-900 mb-4">Zone dangereuse</h2>
+      <div class="space-y-4">
+        <div class="flex items-start justify-between">
+          <div>
+            <div class="font-medium text-gray-900 mb-1">Retirer du pipeline</div>
+            <div class="text-sm text-gray-600">Ce dossier sera supprimé de votre pipeline. Cette action est irréversible.</div>
+          </div>
+          <button type="button" class="px-4 py-2 border border-red-600 text-red-600 rounded-lg hover:bg-red-50 transition text-sm font-medium flex-shrink-0">
+            Retirer
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center gap-3 pt-4">
+      <%= link_to mockups_buyer_deal_path(@deal_id), class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center font-medium" do %>
+        Annuler
+      <% end %>
+      <%= link_to mockups_buyer_deal_path(@deal_id), class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition text-center font-medium" do %>
+        Enregistrer les modifications
+      <% end %>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Star rating interaction (for mockup purposes)
+  document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.rating-star');
+    let selectedRating = 3; // Initial rating
+    
+    stars.forEach((star, index) => {
+      star.addEventListener('click', function() {
+        selectedRating = index + 1;
+        updateStars();
+      });
+      
+      star.addEventListener('mouseenter', function() {
+        highlightStars(index + 1);
+      });
+    });
+    
+    const starsContainer = document.querySelector('.rating-star').parentElement;
+    starsContainer.addEventListener('mouseleave', function() {
+      updateStars();
+    });
+    
+    function highlightStars(count) {
+      stars.forEach((star, index) => {
+        if (index < count) {
+          star.classList.remove('text-gray-300');
+          star.classList.add('text-buyer-600');
+        } else {
+          star.classList.remove('text-buyer-600');
+          star.classList.add('text-gray-300');
+        }
+      });
+    }
+    
+    function updateStars() {
+      highlightStars(selectedRating);
+      const label = starsContainer.querySelector('.rating-label');
+      label.textContent = `(${selectedRating}/5)`;
+    }
+  });
+</script>

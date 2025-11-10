@@ -1,0 +1,179 @@
+<% content_for :title, "Ajouter au pipeline - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Ajouter au pipeline" %>
+
+<div class="max-w-3xl mx-auto space-y-6">
+  <%= link_to mockups_buyer_listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Retour aux annonces
+  <% end %>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Ajouter cette annonce à mon pipeline</h1>
+    <p class="text-gray-600">Organisez vos dossiers d'acquisition en ajoutant cette annonce à votre pipeline.</p>
+  </div>
+
+  <!-- Listing Summary -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Annonce sélectionnée</h2>
+    
+    <div class="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
+      <div class="w-24 h-24 bg-gray-300 rounded-lg flex-shrink-0 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200&h=200&fit=crop" 
+             alt="Boulangerie" 
+             class="w-full h-full object-cover">
+      </div>
+      <div class="flex-1">
+        <h3 class="font-bold text-gray-900 mb-1">L'Amie dorée - Boulangerie Paris 11e</h3>
+        <p class="text-sm text-gray-600 mb-2">Paris (75) • Commerce & Distribution</p>
+        <div class="flex items-center gap-4 text-sm">
+          <span class="font-semibold text-buyer-600">350k €</span>
+          <span class="text-gray-600">CA: 450k €</span>
+          <span class="text-gray-600">5 employés</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form class="space-y-6">
+    <!-- Initial Status -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Statut initial</h2>
+      <div class="space-y-3">
+        <label class="block">
+          <span class="text-sm font-medium text-gray-700 mb-2 block">Dans quelle étape souhaitez-vous placer ce dossier ?</span>
+          <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500 focus:border-buyer-500">
+            <option>Nouveau</option>
+            <option selected>À contacter</option>
+            <option>Premier contact</option>
+            <option>En cours de négociation</option>
+            <option>Due diligence</option>
+            <option>Offre envoyée</option>
+            <option>Non retenu</option>
+          </select>
+        </label>
+        <p class="text-sm text-gray-500">Vous pourrez modifier ce statut à tout moment depuis la fiche du dossier.</p>
+      </div>
+    </div>
+
+    <!-- Personal Rating -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Ma notation personnelle</h2>
+      <div class="space-y-3">
+        <label class="block">
+          <span class="text-sm font-medium text-gray-700 mb-2 block">Comment évaluez-vous cette opportunité ?</span>
+          <div class="flex items-center gap-2">
+            <% 5.times do |i| %>
+              <button type="button" data-rating="<%= i + 1 %>" class="rating-star text-gray-300 hover:text-buyer-600 transition">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              </button>
+            <% end %>
+            <span class="text-sm text-gray-600 ml-2">(Non noté)</span>
+          </div>
+        </label>
+        <p class="text-sm text-gray-500">Cette notation est privée et vous aide à prioriser vos dossiers.</p>
+      </div>
+    </div>
+
+    <!-- Initial Notes -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Notes initiales</h2>
+      <div class="space-y-3">
+        <label class="block">
+          <span class="text-sm font-medium text-gray-700 mb-2 block">Première impression, points d'attention... (optionnel)</span>
+          <textarea 
+            rows="6" 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500 focus:border-buyer-500"
+            placeholder="Ex: Bonne localisation, besoin de vérifier les comptes détaillés, contacter le cédant cette semaine..."
+          ></textarea>
+        </label>
+        <p class="text-sm text-gray-500">Vous pourrez ajouter d'autres notes à tout moment.</p>
+      </div>
+    </div>
+
+    <!-- Scorecard Integration -->
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <div class="flex-1">
+          <h3 class="font-semibold text-blue-900 mb-2">💡 Score Scorecard calculé</h3>
+          <p class="text-sm text-blue-800 mb-3">
+            Cette annonce a obtenu un score de <strong>4/5 étoiles</strong> selon vos critères Scorecard.
+          </p>
+          <div class="flex items-center gap-2">
+            <% 4.times do %>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            <% end %>
+            <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center gap-3">
+      <%= link_to mockups_buyer_listings_path, class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center font-medium" do %>
+        Annuler
+      <% end %>
+      <%= link_to mockups_buyer_pipeline_path, class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition text-center font-medium" do %>
+        Ajouter au pipeline
+      <% end %>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Simple star rating interaction (for mockup purposes)
+  document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelectorAll('.rating-star');
+    let selectedRating = 0;
+    
+    stars.forEach((star, index) => {
+      star.addEventListener('click', function() {
+        selectedRating = index + 1;
+        updateStars();
+      });
+      
+      star.addEventListener('mouseenter', function() {
+        highlightStars(index + 1);
+      });
+    });
+    
+    document.querySelector('.rating-star').parentElement.addEventListener('mouseleave', function() {
+      updateStars();
+    });
+    
+    function highlightStars(count) {
+      stars.forEach((star, index) => {
+        if (index < count) {
+          star.classList.remove('text-gray-300');
+          star.classList.add('text-buyer-600');
+        } else {
+          star.classList.remove('text-buyer-600');
+          star.classList.add('text-gray-300');
+        }
+      });
+    }
+    
+    function updateStars() {
+      highlightStars(selectedRating);
+      const label = document.querySelector('.rating-star').parentElement.querySelector('span');
+      if (selectedRating > 0) {
+        label.textContent = `(${selectedRating}/5)`;
+      } else {
+        label.textContent = '(Non noté)';
+      }
+    }
+  });
+</script>
