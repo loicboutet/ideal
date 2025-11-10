@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get "mockups/register/seller", to: "mockups/auth#register_seller", as: :mockups_register_seller
   get "mockups/register/buyer", to: "mockups/auth#register_buyer", as: :mockups_register_buyer
   get "mockups/register/partner", to: "mockups/auth#register_partner", as: :mockups_register_partner
+  get "mockups/register/intermediary", to: "mockups/auth#register_intermediary", as: :mockups_register_intermediary
   get "mockups/forgot_password", to: "mockups/auth#forgot_password", as: :mockups_forgot_password
   get "mockups/reset_password", to: "mockups/auth#reset_password", as: :mockups_reset_password
 
@@ -33,6 +34,9 @@ Rails.application.routes.draw do
   # Mockups routes - Admin Users
   get "mockups/admin/users", to: "mockups/admin/users#index", as: :mockups_admin_users
   get "mockups/admin/users/new", to: "mockups/admin/users#new", as: :new_mockups_admin_user
+  get "mockups/admin/users/new/seller", to: "mockups/admin/users#new_seller", as: :new_seller_mockups_admin_user
+  get "mockups/admin/users/new/buyer", to: "mockups/admin/users#new_buyer", as: :new_buyer_mockups_admin_user
+  get "mockups/admin/users/new/partner", to: "mockups/admin/users#new_partner", as: :new_partner_mockups_admin_user
   get "mockups/admin/users/:id", to: "mockups/admin/users#show", as: :mockups_admin_user
   get "mockups/admin/users/:id/edit", to: "mockups/admin/users#edit", as: :edit_mockups_admin_user
   get "mockups/admin/users/:id/suspend", to: "mockups/admin/users#suspend_confirm", as: :suspend_mockups_admin_user
@@ -40,6 +44,7 @@ Rails.application.routes.draw do
   # Mockups routes - Admin Listings
   get "mockups/admin/listings", to: "mockups/admin/listings#index", as: :mockups_admin_listings
   get "mockups/admin/listings/pending", to: "mockups/admin/listings#pending", as: :mockups_admin_listings_pending
+  get "mockups/admin/listings/new", to: "mockups/admin/listings#new", as: :new_mockups_admin_listing
   get "mockups/admin/listings/:id", to: "mockups/admin/listings#show", as: :mockups_admin_listing
   get "mockups/admin/listings/:id/validate", to: "mockups/admin/listings#validate_form", as: :validate_mockups_admin_listing
   get "mockups/admin/listings/:id/reject", to: "mockups/admin/listings#reject_form", as: :reject_mockups_admin_listing
@@ -47,6 +52,7 @@ Rails.application.routes.draw do
   # Mockups routes - Admin Partners
   get "mockups/admin/partners", to: "mockups/admin/partners#index", as: :mockups_admin_partners
   get "mockups/admin/partners/pending", to: "mockups/admin/partners#pending", as: :mockups_admin_partners_pending
+  get "mockups/admin/partners/new", to: "mockups/admin/partners#new", as: :new_mockups_admin_partner
   get "mockups/admin/partners/:id", to: "mockups/admin/partners#show", as: :mockups_admin_partner
   get "mockups/admin/partners/:id/approve", to: "mockups/admin/partners#approve_form", as: :approve_mockups_admin_partner
   get "mockups/admin/partners/:id/reject", to: "mockups/admin/partners#reject_form", as: :reject_mockups_admin_partner
@@ -118,19 +124,16 @@ Rails.application.routes.draw do
   get "mockups/buyer/deals/new", to: "mockups/buyer/deals#new", as: :new_mockups_buyer_deal
   get "mockups/buyer/deals/:id", to: "mockups/buyer/deals#show", as: :mockups_buyer_deal
   get "mockups/buyer/deals/:id/edit", to: "mockups/buyer/deals#edit", as: :edit_mockups_buyer_deal
+  get "mockups/buyer/deals/:id/documents/new", to: "mockups/buyer/deals#new_document", as: :new_mockups_buyer_deal_document
 
   # Mockups routes - Buyer Favorites
   get "mockups/buyer/favorites", to: "mockups/buyer/favorites#index", as: :mockups_buyer_favorites
 
-  # Mockups routes - Buyer Reservations
-  get "mockups/buyer/reservations", to: "mockups/buyer/reservations#index", as: :mockups_buyer_reservations
-  get "mockups/buyer/reservations/:id", to: "mockups/buyer/reservations#show", as: :mockups_buyer_reservation
+  # Mockups routes - Buyer Reservations (DELETED PER CLIENT FEEDBACK #60 - Integrated into My Files/Deals)
+  # get "mockups/buyer/reservations", to: "mockups/buyer/reservations#index", as: :mockups_buyer_reservations
+  # get "mockups/buyer/reservations/:id", to: "mockups/buyer/reservations#show", as: :mockups_buyer_reservation
+  # Keep release route - accessed from deal details page
   get "mockups/buyer/reservations/:id/release", to: "mockups/buyer/reservations#release_confirm", as: :release_mockups_buyer_reservation
-
-  # Mockups routes - Buyer Enrichments
-  get "mockups/buyer/enrichments", to: "mockups/buyer/enrichments#index", as: :mockups_buyer_enrichments
-  get "mockups/buyer/enrichments/new", to: "mockups/buyer/enrichments#new", as: :new_mockups_buyer_enrichment
-  get "mockups/buyer/enrichments/:id", to: "mockups/buyer/enrichments#show", as: :mockups_buyer_enrichment
 
   # Mockups routes - Buyer Credits & Subscription
   get "mockups/buyer/credits", to: "mockups/buyer/credits#index", as: :mockups_buyer_credits

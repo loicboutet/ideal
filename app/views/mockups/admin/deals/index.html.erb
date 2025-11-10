@@ -15,8 +15,8 @@
           <p class="text-sm text-gray-600">Total</p>
           <p class="text-2xl font-bold text-gray-900 mt-1">89</p>
         </div>
-        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-12 h-12 bg-admin-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-admin-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
           </svg>
         </div>
@@ -66,20 +66,20 @@
   <!-- Filters -->
   <div class="bg-white rounded-xl shadow-sm p-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      <input type="text" placeholder="Rechercher..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <input type="text" placeholder="Rechercher..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-500">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-500">
         <option>Tous les statuts</option>
         <option>En cours</option>
         <option>Conclue</option>
         <option>Abandonnée</option>
       </select>
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-500">
         <option>Toutes les périodes</option>
         <option>Ce mois</option>
         <option>Ce trimestre</option>
         <option>Cette année</option>
       </select>
-      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+      <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-admin-500">
         <option>Tri: Plus récent</option>
         <option>Plus ancien</option>
         <option>Montant croissant</option>
@@ -121,7 +121,7 @@
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center gap-2">
-                  <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                  <div class="w-8 h-8 bg-admin-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
                     <%= deal[:seller].split(' ').map(&:first).join %>
                   </div>
                   <div class="text-sm text-gray-900"><%= deal[:seller] %></div>
@@ -151,7 +151,7 @@
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <%= link_to mockups_admin_deal_path(deal[:id]), class: "text-blue-600 hover:text-blue-900" do %>
+                <%= link_to mockups_admin_deal_path(deal[:id]), class: "text-admin-600 hover:text-admin-900" do %>
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -174,7 +174,7 @@
       <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 disabled:opacity-50" disabled>
         Précédent
       </button>
-      <button class="px-3 py-2 bg-blue-600 text-white rounded-lg">1</button>
+      <button class="px-3 py-2 bg-admin-600 text-white rounded-lg">1</button>
       <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">2</button>
       <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">3</button>
       <button class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">

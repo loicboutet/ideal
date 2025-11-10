@@ -2,11 +2,11 @@
 <% content_for :page_title, "Libérer la réservation" %>
 
 <div class="max-w-3xl mx-auto space-y-6">
-  <%= link_to mockups_buyer_reservations_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+  <%= link_to mockups_buyer_deals_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>
-    Retour aux réservations
+    Retour à mes dossiers
   <% end %>
 
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
@@ -46,12 +46,12 @@
     </div>
 
     <!-- Communauté message -->
-    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+    <div class="bg-buyer-50 border border-buyer-200 rounded-lg p-4 mb-6">
       <div class="flex gap-3">
-        <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 text-buyer-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
         </svg>
-        <div class="text-sm text-blue-800">
+        <div class="text-sm text-buyer-800">
           <p><strong>Vos retours permettent d'améliorer les annonces pour toute la communauté</strong></p>
         </div>
       </div>
@@ -60,7 +60,7 @@
     <form class="space-y-4">
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Raison de la libération (optionnel)</label>
-        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500">
           <option>Choisir...</option>
           <option>Ne correspond pas à mon projet</option>
           <option>Prix trop élevé</option>
@@ -73,12 +73,12 @@
 
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">Commentaires détaillés (optionnel)</label>
-        <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Vos retours aident à améliorer la qualité des annonces..."></textarea>
+        <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" placeholder="Vos retours aident à améliorer la qualité des annonces..."></textarea>
         <p class="text-xs text-gray-500 mt-1">Ces commentaires seront transmis à l'admin pour améliorer la plateforme</p>
       </div>
 
       <div class="flex gap-3 pt-4">
-        <%= link_to mockups_buyer_reservations_path, class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" do %>
+        <%= link_to mockups_buyer_deals_path, class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" do %>
           Annuler
         <% end %>
         <button type="submit" class="flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium">

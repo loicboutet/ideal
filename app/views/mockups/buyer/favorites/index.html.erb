@@ -42,11 +42,11 @@
           </div>
           <div class="mb-4">
             <p class="text-sm text-gray-600">Prix estimé</p>
-            <p class="text-lg font-bold text-blue-600"><%= fav[:price] %></p>
+            <p class="text-lg font-bold text-buyer-600"><%= fav[:price] %></p>
           </div>
 
           <div class="flex gap-2">
-            <%= link_to mockups_buyer_listing_path(fav[:id]), class: "flex-1 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition font-medium text-center text-sm" do %>
+            <%= link_to mockups_buyer_listing_path(fav[:id]), class: "flex-1 px-4 py-2 bg-buyer-600 text-white rounded-full hover:bg-buyer-700 transition font-medium text-center text-sm" do %>
               Voir
             <% end %>
             <%= link_to new_mockups_buyer_deal_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium text-sm" do %>

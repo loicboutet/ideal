@@ -1,0 +1,150 @@
+<% content_for :title, "Créer une annonce - Administration - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <div>
+    <a href="<%= mockups_admin_listings_path %>" class="text-admin-600 hover:text-admin-700 flex items-center gap-2 mb-4">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+      Retour aux annonces
+    </a>
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Créer une annonce pour un cédant</h1>
+    <p class="text-gray-600 mt-1">Interface admin pour créer directement une annonce</p>
+  </div>
+
+  <div class="bg-admin-50 border border-admin-200 rounded-lg p-4">
+    <div class="flex items-start gap-3">
+      <svg class="w-5 h-5 text-admin-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <p class="text-sm text-admin-800">
+        <strong>Note:</strong> Cette interface permet de créer une annonce pour le compte d'un cédant. L'annonce sera directement active après validation (ou immédiatement si vous la validez maintenant).
+      </p>
+    </div>
+  </div>
+
+  <form class="space-y-6">
+    <!-- Sélection du cédant -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Cédant</h2>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Sélectionner le cédant propriétaire *</label>
+          <select required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+            <option value="">Choisir un cédant...</option>
+            <option value="1">Jean Dupont (jean.dupont@example.com)</option>
+            <option value="2">Marie Martin (marie.martin@example.com)</option>
+            <option value="3">Pierre Lefebvre (pierre.lefebvre@example.com)</option>
+          </select>
+          <p class="text-xs text-gray-500 mt-1">Ou <a href="<%= new_seller_mockups_admin_user_path %>" class="text-admin-600 hover:underline">créer un nouveau profil cédant</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Données publiques -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Données publiques</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type générique d'entreprise *</label>
+          <input type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500" placeholder="Ex: Boulangerie, Cabinet conseil, Entreprise industrielle...">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Secteur *</label>
+          <select required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+            <option value="">Sélectionnez...</option>
+            <option>Industrie</option>
+            <option>Construction</option>
+            <option>Commerce & Distribution</option>
+            <option>Transport & Logistique</option>
+            <option>Hôtellerie / Restauration</option>
+            <option>Services</option>
+            <option>Agri-food</option>
+            <option>Santé</option>
+            <option>Digital</option>
+            <option>Immobilier</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Localisation (Département) *</label>
+          <input type="text" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500" placeholder="Ex: 75, 33, 13...">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Chiffre d'affaires (€) *</label>
+          <input type="number" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Prix demandé (€) *</label>
+          <input type="number" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type de cession *</label>
+          <select required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+            <option value="">Sélectionnez...</option>
+            <option>Fonds de commerce</option>
+            <option>Cession de parts (partielle)</option>
+            <option>Cession de parts (totale)</option>
+            <option>Cession d'actifs</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Nombre d'employés</label>
+          <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Description publique</label>
+          <textarea rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500" placeholder="Description visible par tous les repreneurs..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statut et validation -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Statut de l'annonce</h2>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Statut initial</label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+            <option value="draft">Brouillon - À compléter par le cédant</option>
+            <option value="pending">En attente - À valider par admin</option>
+            <option value="active">Active - Immédiatement visible</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Type de deal</label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+            <option value="direct">Direct (cédant propriétaire)</option>
+            <option value="ideal">Mandat Idéal Premium</option>
+            <option value="partner">Mandat partenaire</option>
+          </select>
+        </div>
+        <div>
+          <label class="flex items-center gap-2">
+            <input type="checkbox" class="w-4 h-4 text-admin-600 rounded">
+            <span class="text-sm text-gray-700">Notifier le cédant par email</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex justify-end gap-3 pt-4">
+      <a href="<%= mockups_admin_listings_path %>" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+        Annuler
+      </a>
+      <button type="submit" name="action" value="draft" class="px-6 py-2 border border-admin-600 text-admin-600 rounded-lg hover:bg-admin-50 transition">
+        Enregistrer brouillon
+      </button>
+      <button type="submit" name="action" value="publish" class="px-6 py-2 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition">
+        Créer et publier
+      </button>
+    </div>
+  </form>
+
+  <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+    <p class="text-sm text-gray-600">
+      <strong>💡 Astuce:</strong> Les données confidentielles (nom de l'entreprise, site web, documents) peuvent être ajoutées ultérieurement par le cédant ou via l'édition de l'annonce.
+    </p>
+  </div>
+</div>
