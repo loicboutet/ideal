@@ -124,6 +124,7 @@ Rails.application.routes.draw do
   get "mockups/buyer/deals/new", to: "mockups/buyer/deals#new", as: :new_mockups_buyer_deal
   get "mockups/buyer/deals/:id", to: "mockups/buyer/deals#show", as: :mockups_buyer_deal
   get "mockups/buyer/deals/:id/edit", to: "mockups/buyer/deals#edit", as: :edit_mockups_buyer_deal
+  get "mockups/buyer/deals/:id/documents/new", to: "mockups/buyer/deals#new_document", as: :new_mockups_buyer_deal_document
 
   # Mockups routes - Buyer Favorites
   get "mockups/buyer/favorites", to: "mockups/buyer/favorites#index", as: :mockups_buyer_favorites
