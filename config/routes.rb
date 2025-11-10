@@ -128,9 +128,10 @@ Rails.application.routes.draw do
   # Mockups routes - Buyer Favorites
   get "mockups/buyer/favorites", to: "mockups/buyer/favorites#index", as: :mockups_buyer_favorites
 
-  # Mockups routes - Buyer Reservations
-  get "mockups/buyer/reservations", to: "mockups/buyer/reservations#index", as: :mockups_buyer_reservations
-  get "mockups/buyer/reservations/:id", to: "mockups/buyer/reservations#show", as: :mockups_buyer_reservation
+  # Mockups routes - Buyer Reservations (DELETED PER CLIENT FEEDBACK #60 - Integrated into My Files/Deals)
+  # get "mockups/buyer/reservations", to: "mockups/buyer/reservations#index", as: :mockups_buyer_reservations
+  # get "mockups/buyer/reservations/:id", to: "mockups/buyer/reservations#show", as: :mockups_buyer_reservation
+  # Keep release route - accessed from deal details page
   get "mockups/buyer/reservations/:id/release", to: "mockups/buyer/reservations#release_confirm", as: :release_mockups_buyer_reservation
 
   # Mockups routes - Buyer Credits & Subscription
