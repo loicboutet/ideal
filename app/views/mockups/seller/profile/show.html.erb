@@ -77,6 +77,78 @@
   </div>
 
   <% if is_broker %>
+    <!-- Professional Information Section -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Informations professionnelles</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <div class="text-sm font-medium text-gray-700 mb-2">📍 Zones d'intervention</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">Île-de-France</span>
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">Auvergne-Rhône-Alpes</span>
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">Toute France</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-sm font-medium text-gray-700 mb-2">🎯 Secteurs de spécialisation</div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Commerce & Distribution</span>
+            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Services</span>
+            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm">Digital</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <div class="text-sm font-medium text-gray-700">🔄 Stades d'intervention</div>
+            <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">Privé</span>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 bg-seller-100 text-seller-700 rounded-full text-sm">Négociation</span>
+            <span class="px-3 py-1 bg-seller-100 text-seller-700 rounded-full text-sm">LOI</span>
+            <span class="px-3 py-1 bg-seller-100 text-seller-700 rounded-full text-sm">Audits</span>
+            <span class="px-3 py-1 bg-seller-100 text-seller-700 rounded-full text-sm">Financement</span>
+          </div>
+          <p class="text-xs text-gray-500 mt-1">Ces informations ne sont pas visibles publiquement</p>
+        </div>
+
+        <div>
+          <div class="text-sm font-medium text-gray-700 mb-2">📅 Prendre rendez-vous</div>
+          <a href="https://calendar.google.com/calendar/appointments" target="_blank" class="inline-flex items-center gap-2 text-seller-600 hover:text-seller-800">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Réserver un créneau de consultation
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">📊 Statistiques (30 derniers jours)</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
+          <div class="text-sm text-blue-700 font-medium">Vues profil</div>
+          <div class="text-2xl font-bold text-blue-900">156</div>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
+          <div class="text-sm text-green-700 font-medium">Contacts reçus</div>
+          <div class="text-2xl font-bold text-green-900">12</div>
+        </div>
+        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+          <div class="text-sm text-purple-700 font-medium">Mandats actifs</div>
+          <div class="text-2xl font-bold text-purple-900">3</div>
+        </div>
+        <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-lg">
+          <div class="text-sm text-orange-700 font-medium">Pushs envoyés</div>
+          <div class="text-2xl font-bold text-orange-900">8</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Professional Capabilities Section -->
     <div class="bg-gradient-to-br from-purple-50 to-seller-50 rounded-xl shadow-sm p-6 border border-purple-200">
       <div class="flex items-center gap-2 mb-4">
@@ -137,12 +209,17 @@
       </div>
 
       <div class="mt-4 p-4 bg-white/60 rounded-lg border border-purple-200">
-        <div class="flex items-center gap-2 text-sm">
-          <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex items-start gap-3">
+          <svg class="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
           </svg>
-          <span class="font-medium text-gray-900">Accord de commission signé</span>
-          <span class="text-gray-600">• Commission sur transactions réalisées via la plateforme</span>
+          <div class="flex-1">
+            <div class="font-medium text-gray-900">Accord de commission signé</div>
+            <div class="text-sm text-gray-600 mt-1">
+              Commission sur transactions réalisées via la plateforme conformément aux 
+              <%= link_to "Conditions Générales d'Utilisation (section commission)", mockups_terms_path(anchor: 'commission'), class: "text-purple-600 hover:text-purple-800 underline", target: "_blank" %>.
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -152,10 +229,14 @@
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-lg font-bold text-gray-900">Mes annonces</h3>
       <% if is_broker %>
-        <span class="text-sm text-gray-600">
-          <span class="font-semibold text-purple-600"><%= 3 %></span> active<%= 3 > 1 ? 's' : '' %> 
-          <span class="text-gray-400">• Illimitées</span>
-        </span>
+        <div class="text-right">
+          <div class="text-sm text-gray-600">
+            <span class="font-semibold text-purple-600">3</span> mandats actifs
+            <span class="text-gray-400">•</span>
+            <span class="font-semibold text-purple-600">3</span> annonces totales
+          </div>
+          <div class="text-xs text-gray-500">Annonces illimitées</div>
+        </div>
       <% else %>
         <span class="text-sm text-gray-600">
           <span class="font-semibold text-seller-600"><%= 3 %></span> / 3 annonces
@@ -170,8 +251,17 @@
               <div class="font-medium text-gray-900">
                 <%= i == 0 ? 'Boulangerie artisanale - Paris 15e' : i == 1 ? 'Commerce de proximité - Lyon' : 'Restaurant traditionnel - Bordeaux' %>
               </div>
-              <% if is_broker && i < 2 %>
-                <span class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-medium rounded">Mandat</span>
+              <% if is_broker %>
+                <% if i < 2 %>
+                  <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-semibold rounded">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                    </svg>
+                    Mandat <%= i == 0 ? 'Idéal Reprise' : 'Partenaire' %>
+                  </span>
+                <% else %>
+                  <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded">Annonce directe</span>
+                <% end %>
               <% end %>
             </div>
             <div class="text-sm text-gray-600 mt-1">
