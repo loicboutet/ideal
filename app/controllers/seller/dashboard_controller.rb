@@ -1,4 +1,6 @@
 class Seller::DashboardController < ApplicationController
+  layout 'mockup_seller'
+  
   before_action :authenticate_user!
   before_action :authorize_seller!
 

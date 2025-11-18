@@ -21,7 +21,8 @@
     <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 -translate-x-full" id="seller-sidebar">
       <!-- Logo -->
       <div class="flex items-center justify-between h-16 px-6 border-b border-gray-200">
-        <%= link_to root_path, class: "flex items-center gap-3" do %>
+        <%# Temporary hardcoded link - seller routes will be added later %>
+        <%= link_to "http://localhost:3000/seller", class: "flex items-center gap-3" do %>
           <%= image_tag "IDAL.jpg", class: "h-8 w-auto", alt: "Idéal Reprise" %>
           <span class="text-gray-900 font-bold text-lg">IDEAL</span>
         <% end %>
@@ -30,7 +31,8 @@
       <!-- Navigation -->
       <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto h-[calc(100vh-8rem)]">
         <!-- Dashboard -->
-        <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition" do %>
+        <%# Temporary hardcoded link - seller routes will be added later %>
+        <%= link_to "http://localhost:3000/seller", class: "flex items-center gap-3 px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition" do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
