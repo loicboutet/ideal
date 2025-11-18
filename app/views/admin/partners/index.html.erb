@@ -1,0 +1,237 @@
+<% content_for :title, "Partenaires - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Partenaires</h1>
+      <p class="text-gray-600 mt-1">Gestion de l'annuaire des partenaires</p>
+    </div>
+    <% if @stats[:pending] > 0 %>
+      <%= link_to pending_admin_partners_path, class: "px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition" do %>
+        En attente (<%= @stats[:pending] %>)
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+      <div class="text-sm text-gray-600">Total</div>
+      <div class="text-2xl font-bold text-gray-900"><%= @stats[:total] %></div>
+    </div>
+    <div class="bg-orange-50 rounded-lg p-4 shadow-sm border border-orange-200">
+      <div class="text-sm text-orange-800">En attente</div>
+      <div class="text-2xl font-bold text-orange-900">
+        <%= link_to @stats[:pending], pending_admin_partners_path, class: "hover:underline" %>
+      </div>
+    </div>
+    <div class="bg-green-50 rounded-lg p-4 shadow-sm border border-green-200">
+      <div class="text-sm text-green-800">Approuvés</div>
+      <div class="text-2xl font-bold text-green-900"><%= @stats[:approved] %></div>
+    </div>
+    <div class="bg-red-50 rounded-lg p-4 shadow-sm border border-red-200">
+      <div class="text-sm text-red-800">Rejetés</div>
+      <div class="text-2xl font-bold text-red-900"><%= @stats[:rejected] %></div>
+    </div>
+  </div>
+
+  <!-- Quick Link to Pending Queue -->
+  <% if @stats[:pending] > 0 %>
+    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div>
+            <p class="font-semibold text-orange-900"><%= @stats[:pending] %> partenaire<%= 's' if @stats[:pending] != 1 %> en attente de validation</p>
+            <p class="text-sm text-orange-700">Consultez la file d'attente pour traiter les candidatures</p>
+          </div>
+        </div>
+        <%= link_to pending_admin_partners_path, class: "px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition" do %>
+          Voir la file d'attente
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Filters -->
+  <%= form_with url: admin_partners_path, method: :get, class: "bg-white rounded-lg shadow-sm p-4 border border-gray-200" do |f| %>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <%= f.select :partner_type,
+            options_for_select([
+              ['Tous les types', 'all'],
+              ['Avocat', 'lawyer'],
+              ['Comptable', 'accountant'],
+              ['Consultant', 'consultant'],
+              ['Banquier', 'banker'],
+              ['Broker', 'broker'],
+              ['Autre', 'other']
+            ], params[:partner_type]),
+            {}, class: "w-full px-4 py-2 border border-gray-300 rounded-lg" %>
+      </div>
+      <div>
+        <%= f.select :validation_status,
+            options_for_select([
+              ['Tous les statuts', 'all'],
+              ['En attente', 'pending'],
+              ['Approuvé', 'approved'],
+              ['Rejeté', 'rejected']
+            ], params[:validation_status]),
+            {}, class: "w-full px-4 py-2 border border-gray-300 rounded-lg" %>
+      </div>
+      <div>
+        <%= f.search_field :search, placeholder: "Rechercher...", value: params[:search], class: "w-full px-4 py-2 border border-gray-300 rounded-lg" %>
+      </div>
+    </div>
+    <div class="mt-3 flex gap-2">
+      <%= f.submit "Filtrer", class: "px-4 py-2 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition" %>
+      <%= link_to "Réinitialiser", admin_partners_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition" %>
+    </div>
+  <% end %>
+
+  <!-- Partners Table -->
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Partenaire</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Zone</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vues</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contacts</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Statut</th>
+          <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @partners.each do |partner| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4">
+              <div class="font-medium text-gray-900"><%= partner.user.company_name || partner.user.full_name || partner.user.email %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                <%= partner.partner_type.humanize %>
+              </span>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-900">
+              <%= partner.user.email %>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-600">
+              <%= partner.coverage_area&.humanize || '-' %>
+            </td>
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              <%= partner.views_count || 0 %>
+            </td>
+            <td class="px-6 py-4 text-sm font-medium text-gray-900">
+              <%= partner.contacts_count || 0 %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <% case partner.validation_status %>
+              <% when 'approved' %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  Approuvé
+                </span>
+              <% when 'rejected' %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                  Rejeté
+                </span>
+              <% else %>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                  En attente
+                </span>
+              <% end %>
+            </td>
+            <td class="px-6 py-4 text-right text-sm">
+              <%= link_to "Voir", admin_partner_path(partner), class: "text-admin-600 hover:text-admin-900" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <% if @partners.total_pages > 1 %>
+      <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+        <div class="flex-1 flex justify-between sm:hidden">
+          <% if @partners.prev_page %>
+            <%= link_to admin_partners_path(page: @partners.prev_page, partner_type: params[:partner_type], validation_status: params[:validation_status]), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+              Précédent
+            <% end %>
+          <% else %>
+            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-50 cursor-not-allowed">
+              Précédent
+            </span>
+          <% end %>
+          <% if @partners.next_page %>
+            <%= link_to admin_partners_path(page: @partners.next_page, partner_type: params[:partner_type], validation_status: params[:validation_status]), class: "ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+              Suivant
+            <% end %>
+          <% else %>
+            <span class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-50 cursor-not-allowed">
+              Suivant
+            </span>
+          <% end %>
+        </div>
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Affichage de <span class="font-medium"><%= @partners.offset_value + 1 %></span> à <span class="font-medium"><%= [@partners.offset_value + @partners.count, @partners.total_count].min %></span> sur <span class="font-medium"><%= @partners.total_count %></span> résultats
+            </p>
+          </div>
+          <div>
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+              <% if @partners.prev_page %>
+                <%= link_to admin_partners_path(page: @partners.prev_page, partner_type: params[:partner_type], validation_status: params[:validation_status]), class: "relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
+                  <span class="sr-only">Précédent</span>
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                <% end %>
+              <% else %>
+                <span class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-gray-50 text-sm font-medium text-gray-300 cursor-not-allowed">
+                  <span class="sr-only">Précédent</span>
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </span>
+              <% end %>
+              
+              <% page_start = [1, @partners.current_page - 1].max %>
+              <% page_end = [page_start + 2, @partners.total_pages].min %>
+              <% page_start = [page_end - 2, 1].max if page_end - page_start < 2 %>
+              
+              <% (page_start..page_end).each do |page| %>
+                <% if page == @partners.current_page %>
+                  <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-admin-50 text-sm font-medium text-admin-600"><%= page %></span>
+                <% else %>
+                  <%= link_to page, admin_partners_path(page: page, partner_type: params[:partner_type], validation_status: params[:validation_status]), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+                <% end %>
+              <% end %>
+              
+              <% if @partners.next_page %>
+                <%= link_to admin_partners_path(page: @partners.next_page, partner_type: params[:partner_type], validation_status: params[:validation_status]), class: "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
+                  <span class="sr-only">Suivant</span>
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                <% end %>
+              <% else %>
+                <span class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-gray-50 text-sm font-medium text-gray-300 cursor-not-allowed">
+                  <span class="sr-only">Suivant</span>
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              <% end %>
+            </nav>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

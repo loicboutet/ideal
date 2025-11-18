@@ -1,0 +1,225 @@
+<% content_for :title, "Détail partenaire - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Breadcrumb -->
+  <nav class="flex items-center gap-2 text-sm">
+    <%= link_to "Partenaires", admin_partners_path, class: "text-gray-500 hover:text-gray-700" %>
+    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+    <span class="text-gray-900 font-medium"><%= @partner.user.company_name || @partner.user.full_name || @partner.user.email %></span>
+  </nav>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6">
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 bg-admin-600 rounded-lg flex items-center justify-center text-white font-bold text-2xl">
+          <%= (@partner.user.company_name || @partner.user.full_name || @partner.user.email).split(' ').map(&:first).join[0..1].upcase %>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900"><%= @partner.user.company_name || @partner.user.full_name || @partner.user.email %></h1>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+              <%= @partner.partner_type.humanize %>
+            </span>
+            <% case @partner.validation_status %>
+            <% when 'approved' %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                Approuvé
+              </span>
+            <% when 'rejected' %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                Rejeté
+              </span>
+            <% else %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-800">
+                En attente
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% if @partner.pending? %>
+        <div class="flex items-center gap-3">
+          <%= button_to approve_admin_partner_path(@partner), method: :patch, class: "inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition", form: { data: { turbo_confirm: "Êtes-vous sûr de vouloir approuver ce partenaire ?" } } do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Approuver
+          <% end %>
+          <%= button_to reject_admin_partner_path(@partner), method: :patch, class: "inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition", form: { data: { turbo_confirm: "Êtes-vous sûr de vouloir rejeter ce partenaire ?" } } do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            Rejeter
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Company Info -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Informations</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Entreprise</div>
+            <div class="font-medium text-gray-900"><%= @partner.user.company_name || '-' %></div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Type de partenaire</div>
+            <div class="font-medium text-gray-900"><%= @partner.partner_type.humanize %></div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Zone de couverture</div>
+            <div class="font-medium text-gray-900"><%= @partner.coverage_area&.humanize || '-' %></div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Site web</div>
+            <% if @partner.website.present? %>
+              <%= link_to @partner.website, @partner.website, target: "_blank", class: "font-medium text-admin-600 hover:text-admin-800" %>
+            <% else %>
+              <div class="font-medium text-gray-900">-</div>
+            <% end %>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Lien calendrier</div>
+            <% if @partner.calendar_link.present? %>
+              <%= link_to @partner.calendar_link, @partner.calendar_link, target: "_blank", class: "font-medium text-admin-600 hover:text-admin-800 truncate block" %>
+            <% else %>
+              <div class="font-medium text-gray-900">-</div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h2 class="text-lg font-bold text-gray-900 mb-4">Contact principal</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Nom</div>
+            <div class="font-medium text-gray-900"><%= @user.full_name || '-' %></div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Email</div>
+            <div class="font-medium text-gray-900"><%= @user.email %></div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Téléphone</div>
+            <div class="font-medium text-gray-900"><%= @user.phone || '-' %></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <% if @partner.description.present? %>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">Présentation</h2>
+          <div class="prose prose-sm max-w-none text-gray-700">
+            <%= simple_format(@partner.description) %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Services -->
+      <% if @partner.services_offered.present? %>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">Services proposés</h2>
+          <div class="prose prose-sm max-w-none text-gray-700">
+            <%= simple_format(@partner.services_offered) %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Industry Specializations -->
+      <% if @partner.industry_specializations.present? && @partner.industry_specializations.any? %>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">Secteurs spécifiques</h2>
+          <div class="flex flex-wrap gap-2">
+            <% @partner.industry_specializations.each do |sector| %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                <%= sector %>
+              </span>
+            <% end %>
+          </div>
+          <p class="text-xs text-gray-500 mt-3">Si non spécifié, le partenaire intervient dans tous les secteurs.</p>
+        </div>
+      <% end %>
+
+      <!-- Intervention Stages -->
+      <% if @partner.intervention_stages.present? && @partner.intervention_stages.any? %>
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h2 class="text-lg font-bold text-gray-900 mb-4">Étapes d'intervention CRM</h2>
+          <div class="flex flex-wrap gap-2">
+            <% @partner.intervention_stages.each do |stage| %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                <%= stage %>
+              </span>
+            <% end %>
+          </div>
+          <p class="text-xs text-gray-500 mt-3">
+            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Ces informations ne sont pas affichées sur le profil public du partenaire.
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lg:col-span-1 space-y-6">
+      <!-- Stats -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Statistiques</h3>
+        <div class="space-y-4">
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Inscription</div>
+            <div class="text-sm font-medium text-gray-900"><%= @partner.created_at.strftime("%d/%m/%Y") %></div>
+          </div>
+          <% if @partner.validated_at.present? %>
+            <div>
+              <div class="text-sm text-gray-500 mb-1">Validation</div>
+              <div class="text-sm font-medium text-gray-900"><%= @partner.validated_at.strftime("%d/%m/%Y") %></div>
+            </div>
+          <% end %>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Vues profil</div>
+            <div class="text-sm font-medium text-gray-900"><%= @partner.views_count || 0 %></div>
+          </div>
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Contacts reçus</div>
+            <div class="text-sm font-medium text-gray-900"><%= @partner.contacts_count || 0 %></div>
+          </div>
+          <% if @partner.directory_subscription_expires_at.present? %>
+            <div>
+              <div class="text-sm text-gray-500 mb-1">Abonnement expire</div>
+              <div class="text-sm font-medium text-gray-900"><%= @partner.directory_subscription_expires_at.strftime("%d/%m/%Y") %></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- User Account -->
+      <div class="bg-white rounded-xl shadow-sm p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Compte utilisateur</h3>
+        <div class="space-y-3">
+          <div>
+            <div class="text-sm text-gray-500 mb-1">Statut du compte</div>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= @user.active? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+              <%= @user.status.humanize %>
+            </span>
+          </div>
+          <%= link_to admin_user_path(@user), class: "block w-full text-center px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition text-sm" do %>
+            Voir le compte utilisateur →
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
