@@ -95,7 +95,39 @@ class Seller::ListingsController < ApplicationController
   end
 
   def analytics
-    # Show analytics for this listing
+    # Load analytics data with period filtering
+    @period = params[:period] || '30'
+    @period_days = @period.to_i
+    
+    # Calculate date range
+    @start_date = @period_days.days.ago
+    @end_date = Time.current
+    
+    # Views data for graph
+    @views_data = @listing.listing_views
+      .where('created_at >= ?', @start_date)
+      .group_by_day(:created_at)
+      .count
+    
+    # Favorites data for graph
+    @favorites_data = @listing.favorites
+      .where('created_at >= ?', @start_date)
+      .group_by_day(:created_at)
+      .count
+    
+    # Buyers who favorited with profiles
+    @interested_buyers = @listing.favorites
+      .includes(buyer_profile: :user)
+      .order(created_at: :desc)
+    
+    # Deals by CRM stage
+    @deals_by_stage = @listing.deals.active.group(:status).count
+    
+    # Recent activity
+    @recent_views = @listing.listing_views
+      .includes(:user)
+      .order(created_at: :desc)
+      .limit(10)
   end
 
   def push_to_buyer
