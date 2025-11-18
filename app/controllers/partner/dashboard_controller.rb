@@ -1,4 +1,6 @@
 class Partner::DashboardController < ApplicationController
+  layout 'mockup_partner'
+  
   before_action :authenticate_user!
   before_action :authorize_partner!
 
