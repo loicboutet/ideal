@@ -49,7 +49,7 @@ class Listing < ApplicationRecord
   
   def days_pending
     return nil unless pending_validation? && submitted_at
-    ((Time.current - submitted_at) / 1.day).to_i
+    ((Time.current - submitted_at.to_time) / 1.day).to_i
   end
   
   def calculate_completeness
