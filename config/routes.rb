@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   # =========================================================================
   
   # Landing & Marketing Pages
-  root 'home#index'
+  #root 'home#index'
+  root "mockups#overview"
   get 'about', to: 'pages#about'
   get 'how-it-works', to: 'pages#how_it_works'
   get 'pricing', to: 'pages#pricing'
