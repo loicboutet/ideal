@@ -1,0 +1,35 @@
+<% content_for :title, "Créer une annonce - Cédant - Idéal Reprise" %>
+<% content_for :page_title, "Créer une annonce" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <!-- Back Link -->
+  <%= link_to seller_listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour aux annonces
+  <% end %>
+
+  <!-- Header -->
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900">Créer une nouvelle annonce</h2>
+    <p class="text-gray-600 mt-1">Remplissez les informations pour publier votre entreprise</p>
+    <p class="text-seller-600 font-medium mt-2">Une fiche complète a 2x plus de chances d'attirer des repreneurs</p>
+  </div>
+
+  <!-- Info Banner -->
+  <div class="bg-seller-50 border border-seller-200 rounded-lg p-4">
+    <div class="flex gap-3">
+      <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <div class="text-sm text-seller-800">
+        <p><strong>Vos informations sont protégées par un accord de confidentialité</strong></p>
+        <p class="mt-1">Les informations confidentielles ne seront visibles qu'après signature d'un NDA par les acheteurs qualifiés.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <%= render 'form' %>
+</div>

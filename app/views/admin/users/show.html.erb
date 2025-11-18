@@ -1,0 +1,195 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-4 text-sm">
+      <%= link_to "Utilisateurs", admin_users_path, class: "text-purple-600 hover:text-purple-800" %>
+      <span class="text-gray-500 mx-2">›</span>
+      <span class="text-gray-700"><%= @user.full_name %></span>
+    </nav>
+
+    <!-- User Header -->
+    <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <div class="h-20 w-20 rounded-full <%= role_color(@user.role) %> flex items-center justify-center text-white text-2xl font-bold">
+            <%= user_initials(@user) %>
+          </div>
+          <div class="ml-6">
+            <h1 class="text-2xl font-bold text-gray-900"><%= @user.full_name %></h1>
+            <p class="text-gray-600"><%= @user.email %></p>
+            <div class="flex items-center gap-2 mt-2">
+              <%= role_badge(@user.role) %>
+              <%= status_badge(@user.status) %>
+            </div>
+          </div>
+        </div>
+        <div class="flex gap-2">
+          <%= link_to edit_admin_user_path(@user), class: "inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" do %>
+            <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Modifier
+          <% end %>
+          <% if @user.active? %>
+            <%= link_to suspend_confirm_admin_user_path(@user), class: "inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors" do %>
+              <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+              </svg>
+              Suspendre
+            <% end %>
+          <% else %>
+            <%= link_to activate_admin_user_path(@user), method: :patch, data: { turbo_method: :patch }, class: "inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors" do %>
+              <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Activer
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Personal Information -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Informations personnelles</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Nom complet</p>
+              <p class="text-base font-medium text-gray-900"><%= @user.full_name %></p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Email</p>
+              <p class="text-base font-medium text-gray-900"><%= @user.email %></p>
+            </div>
+            <% if @user.phone.present? %>
+              <div>
+                <p class="text-sm text-gray-500">Téléphone</p>
+                <p class="text-base font-medium text-gray-900"><%= @user.phone %></p>
+              </div>
+            <% end %>
+            <% if @user.company_name.present? %>
+              <div>
+                <p class="text-sm text-gray-500">Ville</p>
+                <p class="text-base font-medium text-gray-900">Paris</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Role and Status -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Rôle et statut</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-sm text-gray-500">Rôle</p>
+              <p class="text-base font-medium"><%= role_badge(@user.role) %></p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Statut</p>
+              <p class="text-base font-medium"><%= status_badge(@user.status) %></p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Date d'inscription</p>
+              <p class="text-base font-medium text-gray-900"><%= l(@user.created_at, format: :long) %></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Section -->
+        <% if @user.seller? && @listings %>
+          <div class="bg-white rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl font-semibold text-gray-900">Annonces récentes</h2>
+              <span class="text-sm text-gray-500"><%= @listings_count %> au total</span>
+            </div>
+            <% if @listings.any? %>
+              <div class="space-y-3">
+                <% @listings.each do |listing| %>
+                  <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                      <p class="font-medium text-gray-900"><%= listing.title %></p>
+                      <p class="text-sm text-gray-500"><%= l(listing.created_at, format: :short) %></p>
+                    </div>
+                    <span class="px-2 py-1 text-xs font-medium rounded-full <%= listing.approved? ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' %>">
+                      <%= listing.validation_status.humanize %>
+                    </span>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="text-gray-500 text-center py-4">Aucune annonce</p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-6">
+        <!-- Statistics -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Statistiques</h2>
+          <div class="space-y-4">
+            <% if @user.seller? %>
+              <div>
+                <p class="text-sm text-gray-500">Annonces</p>
+                <p class="text-2xl font-bold text-gray-900"><%= @listings_count %></p>
+              </div>
+            <% elsif @user.buyer? %>
+              <div>
+                <p class="text-sm text-gray-500">Dossiers</p>
+                <p class="text-2xl font-bold text-gray-900"><%= @deals_count %></p>
+              </div>
+            <% elsif @user.partner? %>
+              <div>
+                <p class="text-sm text-gray-500">Contacts</p>
+                <p class="text-2xl font-bold text-gray-900"><%= @contacts_count %></p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">Vues</p>
+                <p class="text-2xl font-bold text-gray-900"><%= @views_count %></p>
+              </div>
+            <% end %>
+            <div>
+              <p class="text-sm text-gray-500">Messages</p>
+              <p class="text-2xl font-bold text-gray-900"><%= @messages_count %></p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Dernière connexion</p>
+              <p class="text-base font-medium text-gray-900">
+                <% if @user.last_sign_in_at %>
+                  <%= time_ago_in_words(@user.last_sign_in_at) %>
+                <% else %>
+                  Jamais
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Status -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <h2 class="text-xl font-semibold text-gray-900 mb-4">Statut du compte</h2>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Compte actif</span>
+              <span class="text-sm font-medium <%= @user.active? ? 'text-green-600' : 'text-red-600' %>">
+                <%= @user.active? ? 'Oui' : 'Non' %>
+              </span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Nombre de connexions</span>
+              <span class="text-sm font-medium text-gray-900"><%= @user.sign_in_count %></span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Dernière IP</span>
+              <span class="text-sm font-medium text-gray-900"><%= @user.last_sign_in_ip || 'N/A' %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
