@@ -5,6 +5,11 @@ class ApplicationController < ActionController::Base
   # Use custom layout for Devise controllers
   layout :layout_by_resource
 
+  # Redirect to root path after sign in
+  def after_sign_in_path_for(resource)
+    root_path
+  end
+
   # Global error handling
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
   rescue_from ActionController::RoutingError, with: :handle_not_found
