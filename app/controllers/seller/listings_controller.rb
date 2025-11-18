@@ -103,18 +103,6 @@ class Seller::ListingsController < ApplicationController
     @start_date = @period_days.days.ago
     @end_date = Time.current
     
-    # Views data for graph
-    @views_data = @listing.listing_views
-      .where('created_at >= ?', @start_date)
-      .group_by_day(:created_at)
-      .count
-    
-    # Favorites data for graph
-    @favorites_data = @listing.favorites
-      .where('created_at >= ?', @start_date)
-      .group_by_day(:created_at)
-      .count
-    
     # Buyers who favorited with profiles
     @interested_buyers = @listing.favorites
       .includes(buyer_profile: :user)
