@@ -61,9 +61,7 @@ Rails.application.routes.draw do
     # Listing Management & Validation
     resources :listings do
       member do
-        patch :approve, :reject
-        get :validate_form, :reject_form
-        post :assign_deal # For attribution during validation
+        patch :validate, :reject
       end
       collection do
         get :pending
