@@ -1,5 +1,5 @@
 class Seller::ListingsController < ApplicationController
-  layout 'mockup_seller'
+  layout 'seller'
   
   before_action :authenticate_user!
   before_action :authorize_seller!
