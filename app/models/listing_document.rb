@@ -10,6 +10,9 @@ class ListingDocument < ApplicationRecord
     property_title: 8, scorecard: 9, other: 10
   }
   
+  # Callbacks to populate file metadata from Active Storage
+  before_validation :set_file_metadata, if: -> { file.attached? }
+  
   validates :listing_id, presence: true
   validates :uploaded_by_id, presence: true
   validates :document_category, presence: true
@@ -35,5 +38,14 @@ class ListingDocument < ApplicationRecord
   
   def category_label
     self.class.category_options.find { |label, value| value == document_category.to_s }&.first || document_category.humanize
+  end
+  
+  private
+  
+  def set_file_metadata
+    self.file_name = file.filename.to_s
+    self.file_path = file.key
+    self.file_size = file.byte_size
+    self.content_type = file.content_type
   end
 end
