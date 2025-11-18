@@ -1,14 +1,53 @@
 <% content_for :title, "Tableau de bord Partenaire - Idéal Reprise" %>
 
 <div class="space-y-6">
-  <!-- Welcome Section -->
-  <div class="bg-white rounded-lg shadow p-6">
-    <h1 class="text-2xl font-bold text-gray-900 mb-2">
-      Bienvenue, <%= current_user.full_name %>
-    </h1>
-    <p class="text-gray-600">
-      Tableau de bord partenaire - Gérez votre profil professionnel
-    </p>
+  <!-- Welcome Banner with Scrolling Messages -->
+  <div class="bg-gradient-to-r from-partner-500 to-partner-600 rounded-xl shadow-sm p-6 text-white">
+    <div class="flex items-center justify-between mb-3">
+      <div>
+        <h2 class="text-2xl font-bold mb-2">Bonjour <%= current_user.full_name.split(' ').first %> 👋</h2>
+        <p class="text-partner-100">Bienvenue sur votre espace partenaire</p>
+      </div>
+      <div class="hidden md:block">
+        <%= link_to preview_partner_profile_path, class: "px-6 py-3 bg-white text-partner-600 rounded-full font-medium hover:bg-partner-50 transition shadow-lg" do %>
+          Voir ma fiche publique
+        <% end %>
+      </div>
+    </div>
+    <!-- Auto-Rotating Messages Carousel -->
+    <div class="bg-white/10 rounded-lg py-2 px-3" data-controller="carousel">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div class="flex-1 relative overflow-hidden" style="min-height: 1.5rem;">
+          <!-- Slide 1 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0">
+            <p class="text-sm">
+              📢 Nouveauté : Optimisez votre fiche pour apparaître en tête des résultats
+            </p>
+          </div>
+          <!-- Slide 2 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
+            <p class="text-sm">
+              💡 Astuce : Les profils complets reçoivent 5x plus de demandes de contact
+            </p>
+          </div>
+          <!-- Slide 3 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
+            <p class="text-sm">
+              🎯 Conseil : Répondez rapidement aux demandes pour améliorer votre taux de conversion
+            </p>
+          </div>
+        </div>
+        <!-- Carousel Dots -->
+        <div class="flex items-center gap-1.5 ml-2">
+          <button type="button" data-carousel-dot data-index="0" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white transition-all"></button>
+          <button type="button" data-carousel-dot data-index="1" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
+          <button type="button" data-carousel-dot data-index="2" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Stats Grid -->
