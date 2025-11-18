@@ -5,9 +5,20 @@ class ApplicationController < ActionController::Base
   # Use custom layout for Devise controllers
   layout :layout_by_resource
 
-  # Redirect to root path after sign in
+  # Redirect to role-based dashboard after sign in
   def after_sign_in_path_for(resource)
-    root_path
+    case resource.role
+    when 'admin'
+      admin_root_path
+    when 'seller'
+      seller_root_path
+    when 'buyer'
+      buyer_root_path
+    when 'partner'
+      partner_root_path
+    else
+      root_path
+    end
   end
 
   # Global error handling

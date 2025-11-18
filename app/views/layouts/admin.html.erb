@@ -11,7 +11,7 @@
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/icon.png">
   <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
 </head>
 
@@ -22,7 +22,8 @@
     <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 transform transition-transform duration-300 ease-in-out lg:translate-x-0 -translate-x-full" id="sidebar">
       <!-- Logo -->
       <div class="flex items-center justify-between h-16 px-6 bg-gray-800">
-        <%= link_to root_path, class: "flex items-center gap-3" do %>
+        <%# Temporary hardcoded link - admin routes will be added later %>
+        <%= link_to "http://localhost:3000/admin", class: "flex items-center gap-3" do %>
           <%= image_tag "IDAL.jpg", class: "h-8 w-auto", alt: "Idéal Reprise" %>
           <span class="text-white font-bold text-lg">Admin</span>
         <% end %>
@@ -40,13 +41,14 @@
           <div class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
             Principal
           </div>
-          <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition group" do %>
+          <%# Temporary hardcoded link - admin routes will be added later %>
+          <%= link_to "http://localhost:3000/admin", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition group #{request.path == '/admin' ? 'bg-gray-800 text-white' : ''}" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
             <span>Tableau de bord</span>
           <% end %>
-          <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition group" do %>
+          <%= link_to admin_analytics_path, class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition group #{request.path == admin_analytics_path ? 'bg-gray-800 text-white' : ''}" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
@@ -59,31 +61,31 @@
           <div class="px-3 mb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
             Gestion
           </div>
-          <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition group" do %>
+          <%= link_to admin_users_path, class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition group #{request.path.start_with?('/admin/users') ? 'bg-gray-800 text-white' : ''}" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
             <span>Utilisateurs</span>
           <% end %>
-          <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition" do %>
+          <%= link_to admin_listings_path, class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition #{request.path.start_with?('/admin/listings') ? 'bg-gray-800 text-white' : ''}" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
             <span>Annonces</span>
           <% end %>
-          <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition" do %>
+          <%= link_to admin_deals_path, class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition #{request.path.start_with?('/admin/deals') ? 'bg-gray-800 text-white' : ''}" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             <span>Transactions</span>
           <% end %>
-          <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition" do %>
+          <%= link_to admin_partners_path, class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition #{request.path.start_with?('/admin/partners') ? 'bg-gray-800 text-white' : ''}" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
             <span>Partenaires</span>
           <% end %>
-          <%= link_to "#", class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition" do %>
+          <%= link_to admin_imports_path, class: "flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-lg transition #{request.path.start_with?('/admin/imports') ? 'bg-gray-800 text-white' : ''}" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
@@ -138,11 +140,11 @@
               <div class="text-xs text-gray-400">admin@ideal.fr</div>
             </div>
           <% end %>
-          <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "p-2 text-gray-400 hover:text-white transition" do %>
+          <button class="p-2 text-gray-400 hover:text-white transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
-          <% end %>
+          </button>
         </div>
       </div>
     </aside>
