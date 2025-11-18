@@ -1,0 +1,121 @@
+<% content_for :title, "Annonces en attente - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <div class="flex items-center gap-3 mb-2">
+        <%= link_to admin_listings_path, class: "text-gray-400 hover:text-gray-600" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        <% end %>
+        <h1 class="text-3xl font-bold text-gray-900">File d'attente de validation</h1>
+      </div>
+      <p class="text-gray-600">Annonces en attente de validation (du plus ancien au plus récent)</p>
+    </div>
+    <div class="flex items-center gap-2 px-4 py-2 bg-orange-100 text-orange-800 rounded-lg">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span class="font-bold"><%= @listings.count %> annonce<%= 's' if @listings.count != 1 %></span>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <% if @listings.empty? %>
+    <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+      <svg class="mx-auto w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3 class="text-lg font-bold text-gray-900 mb-2">Aucune annonce en attente</h3>
+      <p class="text-gray-600">Toutes les annonces ont été traitées !</p>
+    </div>
+  <% else %>
+    <!-- Listing Queue -->
+    <div class="space-y-4">
+      <% @listings.each do |listing| %>
+        <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition <%= 'border-2 border-red-500' if listing.days_pending && listing.days_pending >= 3 %>">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <!-- Listing Info -->
+            <div class="flex-1">
+              <div class="flex items-start gap-4">
+                <%= user_initials_avatar(listing.seller_profile.user) %>
+                <div class="flex-1">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h3 class="text-lg font-bold text-gray-900"><%= listing.title %></h3>
+                    <% if listing.days_pending && listing.days_pending >= 3 %>
+                      <span class="inline-flex items-center gap-1 px-2 py-0.5 bg-red-100 text-red-800 text-xs font-medium rounded-full">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                        Urgent
+                      </span>
+                    <% end %>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600">
+                    <span class="inline-flex items-center gap-1">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      <%= listing.seller_profile.user.first_name || listing.seller_profile.user.email %>
+                    </span>
+                    <span class="inline-flex items-center gap-1">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                      </svg>
+                      <%= sector_badge(listing.industry_sector) %>
+                    </span>
+                    <% if listing.location_department.present? %>
+                      <span class="inline-flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <%= listing.location_department %>
+                      </span>
+                    <% end %>
+                    <% if listing.submitted_at %>
+                      <span class="inline-flex items-center gap-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <%= days_pending_badge(listing) %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <div class="mt-2">
+                    <span class="text-xl font-bold text-gray-900"><%= listing_price_display(listing) %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+              <%= link_to admin_listing_path(listing), class: "inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" do %>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                Examiner
+              <% end %>
+              <%= button_to validate_admin_listing_path(listing), method: :patch, class: "inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition", form: { data: { turbo_confirm: "Valider cette annonce ?" } } do %>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Valider
+              <% end %>
+              <%= button_to reject_admin_listing_path(listing), method: :patch, params: { comment: "À revoir" }, class: "inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition", form: { data: { turbo_confirm: "Rejeter cette annonce ?" } } do %>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Rejeter
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
