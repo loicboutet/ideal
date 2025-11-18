@@ -168,7 +168,13 @@
             <%= f.select :attributed_buyer_id, 
                 options_from_collection_for_select(BuyerProfile.includes(:user).all, :id, ->(bp) { "#{bp.user.email} - #{bp.buyer_type&.humanize}" }),
                 { include_blank: "Sélectionner un repreneur..." },
-                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500" %>
+                {
+                  class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500",
+                  data: {
+                    controller: "searchable-select",
+                    searchable_select_placeholder_value: "Rechercher par email ou nom..."
+                  }
+                } %>
             <p class="text-xs text-gray-600">Cette annonce sera visible uniquement par le repreneur sélectionné</p>
             <%= f.submit "Valider et attribuer", class: "w-full px-6 py-3 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition font-medium" %>
           <% end %>

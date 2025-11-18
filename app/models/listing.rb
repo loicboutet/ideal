@@ -38,6 +38,20 @@ class Listing < ApplicationRecord
   scope :approved_listings, -> { where(validation_status: :approved) }
   scope :rejected_listings, -> { where(validation_status: :rejected) }
   
+  # Exclusive deal filtering for buyers
+  # Returns listings that are either:
+  # - Not attributed to anyone (available to all), OR
+  # - Attributed to the specific buyer
+  scope :available_for_buyer, ->(buyer_profile) {
+    where(attributed_buyer_id: nil)
+      .or(where(attributed_buyer_id: buyer_profile&.id))
+  }
+  
+  # Returns only listings exclusively attributed to a specific buyer
+  scope :attributed_to, ->(buyer_profile) {
+    where(attributed_buyer_id: buyer_profile&.id)
+  }
+  
   # Instance methods
   def increment_views!
     increment!(:views_count)

@@ -12,6 +12,70 @@
   <link rel="apple-touch-icon" href="/icon.png">
   <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.default.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+  <style>
+    /* Tom Select Tailwind custom styling */
+    .ts-wrapper {
+      width: 100%;
+    }
+    .ts-control {
+      background: white !important;
+      border: 1px solid #d1d5db !important;
+      border-radius: 0.5rem !important;
+      padding: 0.5rem 1rem !important;
+      min-height: 2.75rem !important;
+      font-size: 1rem !important;
+      line-height: 1.5rem !important;
+    }
+    .ts-control:focus, .ts-control.focus {
+      border-color: #3b82f6 !important;
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    }
+    .ts-dropdown {
+      background: white !important;
+      border: 1px solid #d1d5db !important;
+      border-radius: 0.5rem !important;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+      margin-top: 0.25rem !important;
+      z-index: 1000 !important;
+    }
+    .ts-dropdown .option {
+      background: white !important;
+      padding: 0.625rem 1rem !important;
+      font-size: 1rem !important;
+      cursor: pointer !important;
+      color: #111827 !important;
+    }
+    .ts-dropdown .option:hover,
+    .ts-dropdown .option.active {
+      background-color: #f3f4f6 !important;
+      color: #111827 !important;
+    }
+    .ts-dropdown .option.selected {
+      background-color: #e5e7eb !important;
+    }
+    .ts-control input {
+      color: #111827 !important;
+      font-size: 1rem !important;
+    }
+    .ts-control .item {
+      color: #111827 !important;
+      font-size: 1rem !important;
+    }
+    .ts-wrapper .clear-button {
+      margin-right: 0.5rem !important;
+      font-size: 1.25rem !important;
+      color: #6b7280 !important;
+    }
+    .ts-wrapper .clear-button:hover {
+      color: #111827 !important;
+    }
+    .ts-wrapper.single .ts-control::after {
+      border-radius: 0 !important;
+    }
+  </style>
   <%= javascript_importmap_tags %>
 </head>
 
