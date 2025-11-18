@@ -4,6 +4,7 @@ class BuyerProfile < ApplicationRecord
   has_many :deals, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :enrichments, dependent: :destroy
+  has_many :listing_pushes, dependent: :destroy
   
   # Enums
   enum :subscription_plan, { free: 0, starter: 1, standard: 2, premium: 3, club: 4 }

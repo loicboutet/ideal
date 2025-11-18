@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_18_182234) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_18_202728) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -213,6 +213,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_182234) do
     t.index ["listing_id", "document_category"], name: "index_listing_documents_on_listing_id_and_document_category"
     t.index ["listing_id"], name: "index_listing_documents_on_listing_id"
     t.index ["uploaded_by_id"], name: "index_listing_documents_on_uploaded_by_id"
+  end
+
+  create_table "listing_pushes", force: :cascade do |t|
+    t.integer "listing_id", null: false
+    t.integer "buyer_profile_id", null: false
+    t.integer "seller_profile_id", null: false
+    t.datetime "pushed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["buyer_profile_id"], name: "index_listing_pushes_on_buyer_profile_id"
+    t.index ["listing_id"], name: "index_listing_pushes_on_listing_id"
+    t.index ["seller_profile_id"], name: "index_listing_pushes_on_seller_profile_id"
   end
 
   create_table "listing_views", force: :cascade do |t|
@@ -481,6 +493,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_182234) do
   add_foreign_key "lead_imports", "users", column: "imported_by_id"
   add_foreign_key "listing_documents", "listings"
   add_foreign_key "listing_documents", "users", column: "uploaded_by_id"
+  add_foreign_key "listing_pushes", "buyer_profiles"
+  add_foreign_key "listing_pushes", "listings"
+  add_foreign_key "listing_pushes", "seller_profiles"
   add_foreign_key "listing_views", "listings"
   add_foreign_key "listing_views", "users"
   add_foreign_key "listings", "buyer_profiles", column: "attributed_buyer_id"

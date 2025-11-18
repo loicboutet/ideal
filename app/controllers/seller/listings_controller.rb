@@ -119,10 +119,45 @@ class Seller::ListingsController < ApplicationController
   end
 
   def push_to_buyer
-    # Push listing to specific buyer (costs credits)
-    # Implementation to be added
-    redirect_to seller_listing_path(@listing), 
-                notice: 'Fonctionnalité bientôt disponible.'
+    buyer_profile = BuyerProfile.find(params[:buyer_profile_id])
+    seller_profile = current_user.seller_profile
+    
+    # Check if seller has enough credits
+    unless seller_profile.credits >= 1
+      redirect_to seller_buyer_path(buyer_profile), 
+                  alert: 'Crédits insuffisants. Vous avez besoin de 1 crédit pour proposer une annonce.'
+      return
+    end
+    
+    # Check if listing is approved
+    unless @listing.validation_status == 'approved'
+      redirect_to seller_buyer_path(buyer_profile), 
+                  alert: 'Seules les annonces approuvées peuvent être proposées.'
+      return
+    end
+    
+    # Try to create the push
+    listing_push = ListingPush.new(
+      listing: @listing,
+      buyer_profile: buyer_profile,
+      seller_profile: seller_profile
+    )
+    
+    if listing_push.save
+      # Deduct credit
+      seller_profile.deduct_credits(1)
+      
+      # Create notification for buyer
+      create_push_notification(buyer_profile, @listing)
+      
+      redirect_to seller_buyer_path(buyer_profile), 
+                  notice: "Annonce \"#{@listing.title}\" proposée à #{buyer_profile.user.first_name}. 1 crédit déduit."
+    else
+      redirect_to seller_buyer_path(buyer_profile), 
+                  alert: listing_push.errors.full_messages.first || 'Une erreur est survenue.'
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to seller_buyers_path, alert: 'Repreneur introuvable.'
   end
 
   private
@@ -148,5 +183,17 @@ class Seller::ListingsController < ApplicationController
       :transfer_horizon, :transfer_type, :company_age, :customer_type,
       :legal_form, :website, :deal_type, :show_scorecard_stars, :scorecard_stars
     )
+  end
+  
+  def create_push_notification(buyer_profile, listing)
+    Notification.create(
+      user: buyer_profile.user,
+      notification_type: :listing_pushed,
+      title: 'Nouvelle annonce suggérée',
+      message: "Un cédant vous a proposé l'annonce \"#{listing.title}\" qui pourrait correspondre à vos critères de recherche.",
+      link_url: "/buyer/listings/#{listing.id}"
+    )
+  rescue => e
+    Rails.logger.error "Failed to create push notification: #{e.message}"
   end
 end

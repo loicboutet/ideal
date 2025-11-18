@@ -2,6 +2,7 @@ class SellerProfile < ApplicationRecord
   belongs_to :user
   
   has_many :listings, dependent: :destroy
+  has_many :listing_pushes, dependent: :destroy
   
   validates :user_id, presence: true, uniqueness: true
   validates :credits, numericality: { greater_than_or_equal_to: 0 }
