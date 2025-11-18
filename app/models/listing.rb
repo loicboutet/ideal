@@ -21,6 +21,9 @@ class Listing < ApplicationRecord
   enum :validation_status, { pending: 0, approved: 1, rejected: 2 }
   enum :status, { draft: 0, published: 1, reserved: 2, in_negotiation: 3, sold: 4, withdrawn: 5 }
   
+  # Callbacks
+  after_update :send_validation_notification, if: :saved_change_to_validation_status?
+  
   # Validations
   validates :title, presence: true, length: { minimum: 3, maximum: 200 }
   validates :industry_sector, presence: true
@@ -31,10 +34,22 @@ class Listing < ApplicationRecord
   scope :published_listings, -> { where(status: :published) }
   scope :available, -> { approved.published_listings.where.not(status: [:reserved, :sold]) }
   scope :by_sector, ->(sector) { where(industry_sector: sector) }
+  scope :pending_validation, -> { where(validation_status: :pending) }
+  scope :approved_listings, -> { where(validation_status: :approved) }
+  scope :rejected_listings, -> { where(validation_status: :rejected) }
   
   # Instance methods
   def increment_views!
     increment!(:views_count)
+  end
+  
+  def pending_validation?
+    validation_status == 'pending'
+  end
+  
+  def days_pending
+    return nil unless pending_validation? && submitted_at
+    ((Time.current - submitted_at) / 1.day).to_i
   end
   
   def calculate_completeness
@@ -60,5 +75,15 @@ class Listing < ApplicationRecord
     uploaded = listing_documents.where(not_applicable: false).select(:document_category).distinct.count
     na_count = listing_documents.where(not_applicable: true).select(:document_category).distinct.count
     ((uploaded + na_count).to_f / total_categories * 100).round
+  end
+  
+  def send_validation_notification
+    case validation_status
+    when 'approved'
+      update_column(:validated_at, Time.current) unless validated_at
+      ListingNotificationMailer.listing_approved(self).deliver_later
+    when 'rejected'
+      ListingNotificationMailer.listing_rejected(self).deliver_later
+    end
   end
 end

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
+    .content { background: #f9fafb; padding: 30px; border-radius: 0 0 8px 8px; }
+    .button { display: inline-block; padding: 12px 24px; background: #10b981; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+    .footer { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 style="margin: 0;">✅ Annonce Approuvée</h1>
+    </div>
+    <div class="content">
+      <p>Bonjour <%= @seller.first_name || 'Vendeur' %>,</p>
+      
+      <p>Excellente nouvelle ! Votre annonce <strong>"<%= @listing.title %>"</strong> a été approuvée par notre équipe.</p>
+      
+      <p>Votre annonce est maintenant visible par tous les repreneurs de la plateforme Idéal Reprise.</p>
+      
+      <h3>Prochaines étapes :</h3>
+      <ul>
+        <li>Consultez les profils des repreneurs intéressés</li>
+        <li>Répondez aux demandes de contact</li>
+        <li>Complétez vos documents pour augmenter l'intérêt (actuellement <%= @listing.calculate_completeness %>%)</li>
+      </ul>
+      
+      <div style="text-align: center;">
+        <a href="<%= seller_listing_url(@listing) %>" class="button">Voir mon annonce</a>
+      </div>
+      
+      <p>Bonne chance dans votre recherche de repreneur !</p>
+      
+      <p>Cordialement,<br>
+      L'équipe Idéal Reprise</p>
+    </div>
+    <div class="footer">
+      <p>Vous recevez cet email car vous avez soumis une annonce sur Idéal Reprise.</p>
+    </div>
+  </div>
+</body>
+</html>
