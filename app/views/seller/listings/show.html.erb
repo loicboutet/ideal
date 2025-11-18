@@ -218,9 +218,19 @@
             <span class="text-sm text-gray-600">Favoris</span>
             <span class="text-lg font-semibold text-gray-900"><%= @listing.favorites.count %></span>
           </div>
-          <div class="flex items-center justify-between">
-            <span class="text-sm text-gray-600">Complétude</span>
-            <span class="text-lg font-semibold text-gray-900"><%= @listing.calculate_completeness %>%</span>
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-gray-600">Complétude</span>
+              <span class="text-lg font-semibold text-gray-900"><%= @listing.calculate_completeness %>%</span>
+            </div>
+            <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-seller-400 to-seller-600 transition-all duration-300" style="width: <%= @listing.calculate_completeness %>%"></div>
+            </div>
+            <% if @listing.calculate_completeness < 70 %>
+              <p class="text-xs text-gray-500 mt-2">
+                💡 Augmentez la complétude pour améliorer vos chances de validation
+              </p>
+            <% end %>
           </div>
         </div>
       </div>

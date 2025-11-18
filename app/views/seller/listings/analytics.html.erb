@@ -202,7 +202,7 @@
                     <svg class="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                     </svg>
-                    <span class="text-gray-600"><%= buyer_profile.target_sectors&.truncate(30) || '-' %></span>
+                    <span class="text-gray-600"><%= buyer_profile.target_sectors.is_a?(Array) ? buyer_profile.target_sectors.join(', ').truncate(30) : buyer_profile.target_sectors.to_s.truncate(30) %></span>
                   </div>
                 <% end %>
                 
@@ -211,7 +211,7 @@
                     <svg class="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     </svg>
-                    <span class="text-gray-600"><%= buyer_profile.target_locations&.truncate(25) || '-' %></span>
+                    <span class="text-gray-600"><%= buyer_profile.target_locations.is_a?(Array) ? buyer_profile.target_locations.join(', ').truncate(25) : buyer_profile.target_locations.to_s.truncate(25) %></span>
                   </div>
                 <% end %>
                 
