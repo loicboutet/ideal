@@ -8,6 +8,7 @@ class Listing < ApplicationRecord
   has_many :listing_documents, dependent: :destroy
   has_many :listing_views, dependent: :destroy
   has_many :conversations, dependent: :nullify
+  has_many :listing_pushes, dependent: :destroy
   
   # Enums
   enum :deal_type, { direct: 0, ideal_mandate: 1, partner_mandate: 2 }
