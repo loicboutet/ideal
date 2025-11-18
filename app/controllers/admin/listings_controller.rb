@@ -33,6 +33,9 @@ module Admin
         )
       end
 
+      # Apply pagination
+      @listings = @listings.page(params[:page]).per(20)
+
       @stats = {
         total: Listing.count,
         pending: Listing.pending_validation.count,
