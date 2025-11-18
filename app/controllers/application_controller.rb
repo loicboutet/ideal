@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   # allow_browser versions: :modern
 
+  # Use custom layout for Devise controllers
+  layout :layout_by_resource
+
   # Global error handling
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
   rescue_from ActionController::RoutingError, with: :handle_not_found
@@ -53,5 +56,14 @@ class ApplicationController < ActionController::Base
   # Helper method to raise 404 manually when needed
   def not_found!
     raise ActionController::RoutingError, 'Not Found'
+  end
+
+  # Custom layout for Devise
+  def layout_by_resource
+    if devise_controller?
+      "devise"
+    else
+      "application"
+    end
   end
 end
