@@ -11,6 +11,49 @@
     </p>
   </div>
 
+  <!-- Pending Validation Alerts -->
+  <% if @pending_listings > 0 || @pending_partners > 0 %>
+    <div class="space-y-3">
+      <% if @pending_listings > 0 %>
+        <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <p class="font-semibold text-orange-900"><%= @pending_listings %> annonce<%= 's' if @pending_listings != 1 %> en attente de validation</p>
+                <p class="text-sm text-orange-700">Consultez la file d'attente pour traiter les annonces</p>
+              </div>
+            </div>
+            <%= link_to pending_admin_listings_path, class: "px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition text-sm" do %>
+              Voir les annonces
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @pending_partners > 0 %>
+        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <div>
+                <p class="font-semibold text-purple-900"><%= @pending_partners %> partenaire<%= 's' if @pending_partners != 1 %> en attente de validation</p>
+                <p class="text-sm text-purple-700">Consultez la file d'attente pour traiter les candidatures</p>
+              </div>
+            </div>
+            <%= link_to pending_admin_partners_path, class: "px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm" do %>
+              Voir les partenaires
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
   <!-- Stats Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Total Users -->

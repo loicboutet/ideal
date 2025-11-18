@@ -124,5 +124,83 @@
         <% end %>
       </tbody>
     </table>
+
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <% if @listings.prev_page %>
+          <%= link_to admin_listings_path(page: @listings.prev_page, search: params[:search], status: params[:status], validation_status: params[:validation_status], sector: params[:sector]), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+            Précédent
+          <% end %>
+        <% else %>
+          <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-50 cursor-not-allowed">
+            Précédent
+          </span>
+        <% end %>
+        <% if @listings.next_page %>
+          <%= link_to admin_listings_path(page: @listings.next_page, search: params[:search], status: params[:status], validation_status: params[:validation_status], sector: params[:sector]), class: "ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+            Suivant
+          <% end %>
+        <% else %>
+          <span class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-50 cursor-not-allowed">
+            Suivant
+          </span>
+        <% end %>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Affichage de <span class="font-medium"><%= @listings.offset_value + 1 %></span> à <span class="font-medium"><%= [@listings.offset_value + @listings.count, @listings.total_count].min %></span> sur <span class="font-medium"><%= @listings.total_count %></span> résultats
+          </p>
+        </div>
+        <div>
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+            <% if @listings.prev_page %>
+              <%= link_to admin_listings_path(page: @listings.prev_page, search: params[:search], status: params[:status], validation_status: params[:validation_status], sector: params[:sector]), class: "relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
+                <span class="sr-only">Précédent</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              <% end %>
+            <% else %>
+              <span class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-gray-50 text-sm font-medium text-gray-300 cursor-not-allowed">
+                <span class="sr-only">Précédent</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </span>
+            <% end %>
+            
+            <% page_start = [1, @listings.current_page - 1].max %>
+            <% page_end = [page_start + 2, @listings.total_pages].min %>
+            <% page_start = [page_end - 2, 1].max if page_end - page_start < 2 %>
+            
+            <% (page_start..page_end).each do |page| %>
+              <% if page == @listings.current_page %>
+                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-admin-50 text-sm font-medium text-admin-600"><%= page %></span>
+              <% else %>
+                <%= link_to page, admin_listings_path(page: page, search: params[:search], status: params[:status], validation_status: params[:validation_status], sector: params[:sector]), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+              <% end %>
+            <% end %>
+            
+            <% if @listings.next_page %>
+              <%= link_to admin_listings_path(page: @listings.next_page, search: params[:search], status: params[:status], validation_status: params[:validation_status], sector: params[:sector]), class: "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
+                <span class="sr-only">Suivant</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              <% end %>
+            <% else %>
+              <span class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-gray-50 text-sm font-medium text-gray-300 cursor-not-allowed">
+                <span class="sr-only">Suivant</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            <% end %>
+          </nav>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
