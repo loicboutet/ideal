@@ -1,0 +1,116 @@
+<% content_for :title, "Tableau de bord Admin - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Welcome Section -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">
+      Bienvenue, <%= current_user.full_name %>
+    </h1>
+    <p class="text-gray-600">
+      Tableau de bord administrateur - Gérez votre plateforme
+    </p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Total Users -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-blue-100 rounded-lg">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Utilisateurs</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900"><%= User.count %></div>
+      <p class="text-sm text-gray-500 mt-2">Total des utilisateurs</p>
+    </div>
+
+    <!-- Active Listings -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-green-100 rounded-lg">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Annonces</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900"><%= Listing.count %></div>
+      <p class="text-sm text-gray-500 mt-2">Annonces actives</p>
+    </div>
+
+    <!-- Pending Validations -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-yellow-100 rounded-lg">
+          <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">En attente</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900">0</div>
+      <p class="text-sm text-gray-500 mt-2">Validations en attente</p>
+    </div>
+
+    <!-- Active Deals -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Transactions</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900"><%= Deal.count %></div>
+      <p class="text-sm text-gray-500 mt-2">Transactions actives</p>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Actions rapides</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <%= link_to admin_users_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
+        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Gérer les utilisateurs</div>
+          <div class="text-sm text-gray-500">Ajouter, modifier ou supprimer</div>
+        </div>
+      <% end %>
+
+      <%= link_to admin_listings_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
+        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Valider les annonces</div>
+          <div class="text-sm text-gray-500">Approuver ou rejeter</div>
+        </div>
+      <% end %>
+
+      <%= link_to admin_analytics_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
+        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Voir les statistiques</div>
+          <div class="text-sm text-gray-500">Analytique détaillée</div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Activité récente</h2>
+    <div class="space-y-4">
+      <p class="text-gray-500 text-center py-8">Aucune activité récente</p>
+    </div>
+  </div>
+</div>
