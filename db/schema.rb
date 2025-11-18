@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_18_040955) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_18_145652) do
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
     t.string "trackable_type"
@@ -234,6 +234,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_040955) do
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "submitted_at"
+    t.datetime "validated_at"
+    t.text "rejection_reason"
+    t.text "validation_notes"
     t.index ["attributed_buyer_id"], name: "index_listings_on_attributed_buyer_id"
     t.index ["deal_type"], name: "index_listings_on_deal_type"
     t.index ["industry_sector"], name: "index_listings_on_industry_sector"
