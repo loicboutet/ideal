@@ -1,7 +1,7 @@
 class Notification < ApplicationRecord
   belongs_to :user
   
-  enum notification_type: {
+  enum :notification_type, {
     new_deal: 0, listing_validated: 1, listing_rejected: 2,
     favorite_available: 3, reservation_expiring: 4, subscription_expiring: 5,
     enrichment_validated: 6, new_message: 7, deal_status_changed: 8,

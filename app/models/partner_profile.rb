@@ -4,9 +4,9 @@ class PartnerProfile < ApplicationRecord
   has_many :partner_contacts, dependent: :destroy
   
   # Enums
-  enum partner_type: { lawyer: 0, accountant: 1, consultant: 2, banker: 3, broker: 4, other: 5 }
-  enum validation_status: { pending: 0, approved: 1, rejected: 2 }
-  enum coverage_area: { city: 0, department: 1, region: 2, nationwide: 3, international: 4 }
+  enum :partner_type, { lawyer: 0, accountant: 1, consultant: 2, banker: 3, broker: 4, other: 5 }
+  enum :validation_status, { pending: 0, approved: 1, rejected: 2 }
+  enum :coverage_area, { city: 0, department: 1, region: 2, nationwide: 3, international: 4 }
   
   # Validations
   validates :user_id, presence: true, uniqueness: true

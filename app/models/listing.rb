@@ -10,16 +10,16 @@ class Listing < ApplicationRecord
   has_many :conversations, dependent: :nullify
   
   # Enums
-  enum deal_type: { direct: 0, ideal_mandate: 1, partner_mandate: 2 }
-  enum industry_sector: { 
+  enum :deal_type, { direct: 0, ideal_mandate: 1, partner_mandate: 2 }
+  enum :industry_sector, { 
     industry: 0, construction: 1, commerce: 2, transport_logistics: 3,
     hospitality: 4, services: 5, agrifood: 6, healthcare: 7,
     digital: 8, real_estate: 9, other: 10
   }
-  enum transfer_type: { asset_sale: 0, partial_shares: 1, total_shares: 2, assets: 3 }
-  enum customer_type: { b2b: 0, b2c: 1, mixed: 2 }
-  enum validation_status: { pending: 0, approved: 1, rejected: 2 }
-  enum status: { draft: 0, published: 1, reserved: 2, in_negotiation: 3, sold: 4, withdrawn: 5 }
+  enum :transfer_type, { asset_sale: 0, partial_shares: 1, total_shares: 2, assets: 3 }
+  enum :customer_type, { b2b: 0, b2c: 1, mixed: 2 }
+  enum :validation_status, { pending: 0, approved: 1, rejected: 2 }
+  enum :status, { draft: 0, published: 1, reserved: 2, in_negotiation: 3, sold: 4, withdrawn: 5 }
   
   # Validations
   validates :title, presence: true, length: { minimum: 3, maximum: 200 }

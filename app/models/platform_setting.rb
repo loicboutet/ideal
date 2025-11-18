@@ -1,7 +1,7 @@
 class PlatformSetting < ApplicationRecord
   belongs_to :updated_by, class_name: 'User', optional: true
   
-  enum setting_type: { string: 0, integer: 1, boolean: 2, json: 3, decimal: 4 }
+  enum :setting_type, { string: 0, integer: 1, boolean: 2, json: 3, decimal: 4 }
   
   validates :setting_key, presence: true, uniqueness: true
   validates :setting_value, presence: true

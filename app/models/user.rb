@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   # Enums
-  enum role: { admin: 0, seller: 1, buyer: 2, partner: 3 }
-  enum status: { pending: 0, active: 1, suspended: 2 }
+  enum :role, { admin: 0, seller: 1, buyer: 2, partner: 3 }
+  enum :status, { pending: 0, active: 1, suspended: 2 }
 
   # Associations
   has_one :seller_profile, dependent: :destroy

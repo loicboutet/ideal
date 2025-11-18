@@ -5,7 +5,7 @@ class Deal < ApplicationRecord
   has_many :deal_history_events, dependent: :destroy
   
   # Enums
-  enum status: {
+  enum :status, {
     favorited: 0, to_contact: 1, info_exchange: 2, analysis: 3,
     project_alignment: 4, negotiation: 5, loi: 6, audits: 7,
     financing: 8, signed: 9, released: 10, abandoned: 11

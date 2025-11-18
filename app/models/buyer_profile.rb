@@ -6,11 +6,11 @@ class BuyerProfile < ApplicationRecord
   has_many :enrichments, dependent: :destroy
   
   # Enums
-  enum subscription_plan: { free: 0, starter: 1, standard: 2, premium: 3, club: 4 }
-  enum subscription_status: { inactive: 0, active: 1, cancelled: 2, expired: 3 }
-  enum profile_status: { draft: 0, pending: 1, published: 2 }
-  enum buyer_type: { individual: 0, holding: 1, fund: 2, investor: 3 }
-  enum target_financial_health: { in_bonis: 0, in_difficulty: 1, both: 2 }
+  enum :subscription_plan, { free: 0, starter: 1, standard: 2, premium: 3, club: 4 }
+  enum :subscription_status, { inactive: 0, active: 1, cancelled: 2, expired: 3 }
+  enum :profile_status, { draft: 0, pending: 1, published: 2 }
+  enum :buyer_type, { individual: 0, holding: 1, fund: 2, investor: 3 }
+  enum :target_financial_health, { in_bonis: 0, in_difficulty: 1, both: 2 }
   
   # Validations
   validates :user_id, presence: true, uniqueness: true
