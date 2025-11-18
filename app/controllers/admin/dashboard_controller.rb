@@ -5,7 +5,9 @@ class Admin::DashboardController < ApplicationController
   before_action :authorize_admin!
 
   def index
-    # Admin dashboard logic
+    # Pending validation counts for alerts
+    @pending_listings = Listing.where(validation_status: :pending).count
+    @pending_partners = PartnerProfile.where(validation_status: :pending).count
   end
 
   private
