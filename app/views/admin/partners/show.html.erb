@@ -182,12 +182,6 @@
             <div class="text-sm text-gray-500 mb-1">Inscription</div>
             <div class="text-sm font-medium text-gray-900"><%= @partner.created_at.strftime("%d/%m/%Y") %></div>
           </div>
-          <% if @partner.validated_at.present? %>
-            <div>
-              <div class="text-sm text-gray-500 mb-1">Validation</div>
-              <div class="text-sm font-medium text-gray-900"><%= @partner.validated_at.strftime("%d/%m/%Y") %></div>
-            </div>
-          <% end %>
           <div>
             <div class="text-sm text-gray-500 mb-1">Vues profil</div>
             <div class="text-sm font-medium text-gray-900"><%= @partner.views_count || 0 %></div>
