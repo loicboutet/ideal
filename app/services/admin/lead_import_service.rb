@@ -157,8 +157,10 @@ class Admin::LeadImportService
   end
 
   def valid_email?(email)
-    email.match?(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
+    # Using \p{L} to match any Unicode letter instead of just \w
+    email.match?(/\A[\p{L}\d+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
   end
+
 
   def map_buyer_type(type)
     case type&.downcase&.strip
