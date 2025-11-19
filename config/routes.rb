@@ -45,6 +45,10 @@ Rails.application.routes.draw do
     get 'analytics', to: 'dashboard#analytics'
     get 'operations', to: 'dashboard#operations'
     
+    # Dashboard drill-down actions
+    get 'dashboard/zero_views', to: 'dashboard#zero_views', as: :dashboard_zero_views
+    get 'dashboard/expired_timers', to: 'dashboard#expired_timers', as: :dashboard_expired_timers
+    
     # User Management
     resources :users do
       member do

@@ -1,0 +1,135 @@
+<% content_for :title, "Annonces sans vues - Admin - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Back Link -->
+  <%= link_to admin_root_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour au centre opérationnel
+  <% end %>
+
+  <!-- Header -->
+  <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+    <div class="flex items-center gap-3 mb-2">
+      <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      <h1 class="text-2xl font-bold text-gray-900">Annonces sans vues</h1>
+    </div>
+    <p class="text-gray-600">
+      Ces annonces validées et publiées n'ont pas encore reçu de vues. Elles pourraient nécessiter une promotion ou une révision.
+    </p>
+  </div>
+
+  <!-- Stats Summary -->
+  <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <div class="text-3xl font-bold text-orange-900"><%= @listings.total_count %></div>
+        <div class="text-sm text-gray-600 mt-1">Annonces sans aucune vue</div>
+      </div>
+      <svg class="w-12 h-12 text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Listings Table -->
+  <% if @listings.any? %>
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Annonce
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Vendeur
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Secteur
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Prix
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Publié le
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Complétude
+              </th>
+              <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @listings.each do |listing| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                  <div class="flex items-center">
+                    <div>
+                      <div class="text-sm font-medium text-gray-900">
+                        <%= listing.title %>
+                      </div>
+                      <div class="text-sm text-gray-500">
+                        <%= listing.location_department %>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">
+                    <%= listing.seller_profile.user.email %>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <%= sector_badge(listing.industry_sector) %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">
+                    <%= listing_price_display(listing) %>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-500">
+                    <%= listing.published_at ? time_ago_in_words(listing.published_at) + ' ago' : 'N/A' %>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <%= completeness_gauge(listing.calculate_completeness) %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <%= link_to 'Voir', admin_listing_path(listing), class: 'text-admin-600 hover:text-admin-900' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-between">
+      <div class="text-sm text-gray-700">
+        Affichage de <span class="font-medium"><%= @listings.offset_value + 1 %></span> à 
+        <span class="font-medium"><%= [@listings.offset_value + @listings.size, @listings.total_count].min %></span> sur 
+        <span class="font-medium"><%= @listings.total_count %></span> résultats
+      </div>
+      <%= paginate @listings, theme: 'twitter-bootstrap-4' %>
+    </div>
+  <% else %>
+    <div class="bg-white rounded-lg shadow-sm p-12 text-center border border-gray-200">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">Excellent!</h3>
+      <p class="mt-1 text-sm text-gray-500">
+        Toutes les annonces publiées ont au moins une vue.
+      </p>
+    </div>
+  <% end %>
+</div>
