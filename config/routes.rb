@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # Custom Devise routes with role-based registration
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+  
+  # Additional registration routes
+  devise_scope :user do
+    get '/inscription', to: 'devise/registrations#new', as: :inscription
+    get '/inscription/en-attente', to: 'users/registrations#pending_approval', as: :pending_approval_users_registrations
+  end
   
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
