@@ -1,0 +1,189 @@
+<% content_for :title, "Modifier mon profil - Partenaire - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-900">Modifier mon profil partenaire</h1>
+    <%= link_to partner_profile_path, class: "text-gray-600 hover:text-gray-900" do %>
+      ← Retour au profil
+    <% end %>
+  </div>
+
+  <%= form_with model: @profile, url: partner_profile_path, method: :patch, local: true, class: "space-y-6" do |f| %>
+    
+    <!-- Type de partenaire -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Type de partenaire</h3>
+      
+      <div>
+        <%= f.label :partner_type, "Votre profession", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.select :partner_type,
+          options_for_select([
+            ['Avocat', 'lawyer'],
+            ['Expert-comptable', 'accountant'],
+            ['Consultant', 'consultant'],
+            ['Banquier', 'banker'],
+            ['Courtier', 'broker'],
+            ['Autre', 'other']
+          ], @profile.partner_type),
+          { include_blank: 'Sélectionnez un type' },
+          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500"
+        %>
+      </div>
+    </div>
+
+    <!-- Description et services -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Présentation</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :description, "Description de votre cabinet/activité", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :description,
+            rows: 4,
+            placeholder: "Présentez votre cabinet, votre expérience, vos domaines d'expertise...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :services_offered, "Services proposés", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :services_offered,
+            rows: 3,
+            placeholder: "Listez les services que vous proposez aux repreneurs...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500"
+          %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone de couverture -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Zone de couverture</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :coverage_area, "Étendue géographique", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :coverage_area,
+            options_for_select([
+              ['Ville', 'city'],
+              ['Département', 'department'],
+              ['Région', 'region'],
+              ['France entière', 'nationwide'],
+              ['International', 'international']
+            ], @profile.coverage_area),
+            { include_blank: 'Sélectionnez' },
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :coverage_details, "Précisions (optionnel)", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :coverage_details,
+            placeholder: "Ex: Île-de-France, Lyon, Bordeaux...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500"
+          %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spécialisations -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Spécialisations</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :intervention_stages, "Stades d'intervention dans le processus de reprise", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :intervention_stages,
+            options_for_select([
+              'To Contact',
+              'Info Exchange',
+              'Analysis',
+              'Project Alignment',
+              'Negotiation',
+              'LOI',
+              'Audits',
+              'Financing',
+              'Deal Signed'
+            ], @profile.intervention_stages),
+            {},
+            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500" }
+          %>
+          <p class="mt-1 text-sm text-gray-500">Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs stades</p>
+        </div>
+
+        <div>
+          <%= f.label :industry_specializations, "Secteurs d'activité de spécialisation (optionnel)", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :industry_specializations,
+            options_for_select([
+              'Industrie',
+              'Construction (BTP)',
+              'Commerce & Distribution',
+              'Transport & Logistique',
+              'Hôtellerie / Restauration',
+              'Services',
+              'Agri-food & Agriculture',
+              'Santé',
+              'Digital',
+              'Immobilier',
+              'Autre'
+            ], @profile.industry_specializations),
+            {},
+            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500" }
+          %>
+          <p class="mt-1 text-sm text-gray-500">Laissez vide si vous intervenez dans tous les secteurs</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Liens utiles -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Liens et contact</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :website, "Site web", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.url_field :website,
+            placeholder: "https://www.votre-site.fr",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :calendar_link, "Lien Google Agenda (pour prise de rendez-vous)", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.url_field :calendar_link,
+            placeholder: "https://calendar.google.com/calendar/appointments/...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-partner-500 focus:ring-partner-500"
+          %>
+          <p class="mt-1 text-sm text-gray-500">
+            Facilitez la prise de rendez-vous en partageant votre lien Google Agenda
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <%= link_to partner_profile_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
+        Annuler
+      <% end %>
+      
+      <%= f.submit "Enregistrer les modifications", class: "px-6 py-2 bg-partner-600 text-white rounded-lg hover:bg-partner-700 font-medium" %>
+    </div>
+
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div class="flex gap-3">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <div class="text-sm text-blue-800">
+          <p><strong>Validation requise :</strong> Après avoir complété votre profil, il sera soumis à validation par l'équipe Idéal Reprise avant d'apparaître dans l'annuaire.</p>
+          <% if @profile.validation_status == 'pending' %>
+            <p class="mt-2 text-yellow-700"><strong>Statut actuel :</strong> En attente de validation</p>
+          <% elsif @profile.validation_status == 'approved' %>
+            <p class="mt-2 text-green-700"><strong>Statut actuel :</strong> Validé ✓</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

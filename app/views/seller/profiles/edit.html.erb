@@ -1,0 +1,90 @@
+<% content_for :title, "Modifier mon profil - Cédant - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-900">Modifier mon profil</h1>
+    <%= link_to seller_profile_path, class: "text-gray-600 hover:text-gray-900" do %>
+      ← Retour au profil
+    <% end %>
+  </div>
+
+  <%= form_with model: @profile, url: seller_profile_path, method: :patch, local: true, class: "space-y-6" do |f| %>
+    
+    <!-- NDA Settings -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Paramètres de confidentialité</h3>
+      
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <%= f.check_box :receive_signed_nda, class: "mt-1 h-4 w-4 rounded border-gray-300 text-seller-600 focus:ring-seller-500" %>
+          <div class="flex-1">
+            <%= f.label :receive_signed_nda, class: "text-sm font-medium text-gray-700" do %>
+              Recevoir une copie des accords de confidentialité signés
+            <% end %>
+            <p class="text-sm text-gray-500 mt-1">
+              Lorsqu'un repreneur signe l'accord de confidentialité pour accéder à vos informations confidentielles, vous recevrez une copie par email.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informations personnelles (via User model) -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Informations personnelles</h3>
+      
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <div class="flex gap-3">
+          <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <div class="text-sm text-blue-800">
+            <p><strong>Informations actuelles :</strong></p>
+            <ul class="mt-2 space-y-1">
+              <li>Nom : <%= current_user.full_name %></li>
+              <li>Email : <%= current_user.email %></li>
+              <li>Téléphone : <%= current_user.phone || 'Non renseigné' %></li>
+              <li>Entreprise : <%= current_user.company_name || 'Non renseignée' %></li>
+            </ul>
+            <p class="mt-3">
+              Pour modifier ces informations, veuillez accéder aux 
+              <%= link_to 'paramètres de votre compte', seller_settings_path, class: "underline font-medium" %>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% if @profile.is_broker %>
+      <!-- Broker Information -->
+      <div class="bg-gradient-to-br from-purple-50 to-seller-50 rounded-xl shadow-sm p-6 border border-purple-200">
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+          <h3 class="text-lg font-bold text-gray-900">Statut Professionnel</h3>
+        </div>
+        
+        <div class="bg-white/60 p-4 rounded-lg">
+          <p class="text-sm text-gray-700">
+            Votre compte est configuré en tant que <strong>courtier/intermédiaire professionnel</strong>.
+          </p>
+          <% if @profile.premium_access %>
+            <p class="text-sm text-purple-600 font-medium mt-2">
+              ✓ Abonnement Premium actif
+            </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <%= link_to seller_profile_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
+        Annuler
+      <% end %>
+      
+      <%= f.submit "Enregistrer les modifications", class: "px-6 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 font-medium" %>
+    </div>
+  <% end %>
+</div>

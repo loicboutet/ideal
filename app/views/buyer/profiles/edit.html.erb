@@ -1,0 +1,304 @@
+<% content_for :title, "Modifier mon profil - Repreneur - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-900">Modifier mon profil</h1>
+    <%= link_to buyer_profile_path, class: "text-gray-600 hover:text-gray-900" do %>
+      ← Retour au profil
+    <% end %>
+  </div>
+
+  <%= form_with model: @profile, url: buyer_profile_path, method: :patch, local: true, class: "space-y-6" do |f| %>
+    
+    <!-- Type de repreneur -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Type de repreneur</h3>
+      
+      <div class="space-y-3">
+        <%= f.label :buyer_type, "Type de repreneur", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.select :buyer_type, 
+          options_for_select([
+            ['Repreneur individuel', 'individual'],
+            ['Holding', 'holding'],
+            ['Fonds d\'investissement', 'fund'],
+            ['Investisseur', 'investor']
+          ], @profile.buyer_type),
+          { include_blank: 'Sélectionnez un type' },
+          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+        %>
+      </div>
+    </div>
+
+    <!-- Formation et Expérience -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Formation et Expérience</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :formation, "Formation", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :formation, 
+            rows: 3,
+            placeholder: "Ex: MBA, formation en reprise d'entreprise...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :experience, "Expérience professionnelle", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :experience, 
+            rows: 3,
+            placeholder: "Décrivez votre parcours professionnel...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :skills, "Compétences (200 caractères max)", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :skills, 
+            rows: 2,
+            maxlength: 200,
+            placeholder: "Management, Marketing Digital, Commercial, Finance...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thèse de reprise -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Thèse de reprise</h3>
+      
+      <div>
+        <%= f.label :investment_thesis, "Votre thèse d'investissement (500 caractères max)", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.text_area :investment_thesis, 
+          rows: 4,
+          maxlength: 500,
+          placeholder: "Décrivez votre projet de reprise, vos motivations et objectifs...",
+          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+        %>
+        <p class="mt-1 text-sm text-gray-500">Maximum 500 caractères</p>
+      </div>
+    </div>
+
+    <!-- Critères de recherche -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Entreprise recherchée</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :target_sectors, "Secteurs d'activité", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :target_sectors,
+            options_for_select([
+              'Industrie',
+              'Construction (BTP)',
+              'Commerce & Distribution',
+              'Transport & Logistique',
+              'Hôtellerie / Restauration',
+              'Services',
+              'Agri-food & Agriculture',
+              'Santé',
+              'Digital',
+              'Immobilier',
+              'Autre'
+            ], @profile.target_sectors),
+            {},
+            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+          %>
+          <p class="mt-1 text-sm text-gray-500">Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs secteurs</p>
+        </div>
+
+        <div>
+          <%= f.label :target_locations, "Localisations", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :target_locations,
+            options_for_select([
+              'Île-de-France',
+              'Auvergne-Rhône-Alpes',
+              'Provence-Alpes-Côte d\'Azur',
+              'Nouvelle-Aquitaine',
+              'Occitanie',
+              'Hauts-de-France',
+              'Bretagne',
+              'Grand Est',
+              'Pays de la Loire',
+              'Normandie',
+              'Bourgogne-Franche-Comté',
+              'Centre-Val de Loire',
+              'Corse',
+              'Toute France'
+            ], @profile.target_locations),
+            {},
+            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+          %>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= f.label :target_revenue_min, "CA minimum (€)", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.number_field :target_revenue_min, 
+              step: 1000,
+              placeholder: "500000",
+              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            %>
+          </div>
+          <div>
+            <%= f.label :target_revenue_max, "CA maximum (€)", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.number_field :target_revenue_max, 
+              step: 1000,
+              placeholder: "2000000",
+              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            %>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= f.label :target_employees_min, "Effectif minimum", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.number_field :target_employees_min, 
+              min: 0,
+              placeholder: "5",
+              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            %>
+          </div>
+          <div>
+            <%= f.label :target_employees_max, "Effectif maximum", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.number_field :target_employees_max, 
+              min: 0,
+              placeholder: "50",
+              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            %>
+          </div>
+        </div>
+
+        <div>
+          <%= f.label :target_financial_health, "Santé financière recherchée", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :target_financial_health,
+            options_for_select([
+              ['En bonne santé', 'in_bonis'],
+              ['En difficulté', 'in_difficulty'],
+              ['Les deux', 'both']
+            ], @profile.target_financial_health),
+            { include_blank: 'Sélectionnez' },
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :target_horizon, "Horizon de transmission", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :target_horizon, 
+            placeholder: "Ex: Immédiat, 6 mois, 1 an...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :target_transfer_types, "Types de transmission", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :target_transfer_types,
+            options_for_select([
+              'Cession de fonds de commerce',
+              'Cession de parts (partielle)',
+              'Cession de parts (totale)',
+              'Cession d\'actifs'
+            ], @profile.target_transfer_types),
+            {},
+            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+          %>
+        </div>
+
+        <div>
+          <%= f.label :target_customer_types, "Types de clientèle", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.select :target_customer_types,
+            options_for_select([
+              'B2B',
+              'B2C',
+              'Mixte'
+            ], @profile.target_customer_types),
+            {},
+            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+          %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Données financières (privées) -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="flex items-center gap-2 mb-4">
+        <h3 class="text-lg font-bold text-gray-900">Données financières</h3>
+        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">Privé - Non visible publiquement</span>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :investment_capacity, "Capacité d'investissement (€)", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.number_field :investment_capacity, 
+            step: 1000,
+            placeholder: "500000",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :funding_sources, "Sources de financement", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_area :funding_sources, 
+            rows: 2,
+            placeholder: "Apport personnel, emprunt bancaire, Love Money...",
+            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profil professionnel -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Profil professionnel</h3>
+      
+      <div>
+        <%= f.label :linkedin_url, "URL LinkedIn", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.url_field :linkedin_url, 
+          placeholder: "https://www.linkedin.com/in/...",
+          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+        %>
+      </div>
+    </div>
+
+    <!-- Statut du profil -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Visibilité du profil</h3>
+      
+      <div>
+        <%= f.label :profile_status, "Statut", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.select :profile_status,
+          options_for_select([
+            ['Brouillon (non visible)', 'draft'],
+            ['Publié (visible dans l\'annuaire)', 'published']
+          ], @profile.profile_status),
+          {},
+          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+        %>
+        <p class="mt-1 text-sm text-gray-500">
+          Publiez votre profil pour être visible par les cédants dans l'annuaire des repreneurs
+        </p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <%= link_to buyer_profile_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
+        Annuler
+      <% end %>
+      
+      <%= f.submit "Enregistrer les modifications", class: "px-6 py-2 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 font-medium" %>
+    </div>
+
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div class="flex gap-3">
+        <svg class="w-5 h-5 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <div class="text-sm text-blue-800">
+          <p><strong>Score de complétude :</strong> Plus votre profil est complet, plus vous augmentez vos chances d'être contacté par des cédants sérieux.</p>
+          <p class="mt-1">Score actuel : <strong><%= @profile.completeness_score %>%</strong></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
