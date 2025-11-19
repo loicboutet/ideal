@@ -110,7 +110,9 @@ class Admin::DashboardController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_analytics_csv }
+      format.csv { send_analytics_export('csv') }
+      format.xlsx { send_analytics_export('xlsx') }
+      format.pdf { send_analytics_export('pdf') }
     end
   end
 
@@ -384,50 +386,27 @@ class Admin::DashboardController < ApplicationController
     end
   end
 
-  def send_analytics_csv
-    require 'csv'
-    
-    csv_data = CSV.generate(headers: true) do |csv|
-      # Sector Analysis
-      csv << ['ANALYSE PAR SECTEUR']
-      csv << ['Secteur', 'Annonces', 'Réservations', 'Transactions', 'Taux conversion', 'Évolution']
-      @sector_data.each do |row|
-        csv << [row[:sector], row[:listings], row[:reservations], row[:transactions], row[:conversion], row[:evolution]]
-      end
-      csv << []
-      
-      # Revenue Analysis
-      csv << ['ANALYSE PAR CHIFFRE D\'AFFAIRES']
-      csv << ['Tranche CA', 'Annonces', 'Réservations', 'Transactions', 'Évolution']
-      @revenue_data.each do |row|
-        csv << [row[:range], row[:listings], row[:reservations], row[:transactions], row[:evolution]]
-      end
-      csv << []
-      
-      # Geography Analysis
-      csv << ['ANALYSE PAR GÉOGRAPHIE']
-      csv << ['Département', 'Annonces', 'Réservations', 'Transactions', 'Évolution']
-      @geography_data.each do |row|
-        csv << [row[:department], row[:listings], row[:reservations], row[:transactions], row[:evolution]]
-      end
-      csv << []
-      
-      # Employee Count Analysis
-      csv << ['ANALYSE PAR EFFECTIF']
-      csv << ['Tranche effectif', 'Annonces', 'Réservations', 'Transactions', 'Évolution']
-      @employee_data.each do |row|
-        csv << [row[:range], row[:listings], row[:reservations], row[:transactions], row[:evolution]]
-      end
-      csv << []
-      
-      # CRM Time Analysis
-      csv << ['TEMPS MOYEN PAR STATUT CRM']
-      csv << ['Statut', 'Temps moyen (jours)', 'Temps maximum (jours)']
-      @crm_time_stats.each do |stat|
-        csv << [stat[:name], stat[:avg], stat[:max] || 'N/A']
-      end
+  def send_analytics_export(format_type)
+    export_service = Admin::AnalyticsExportService.new(
+      period: @period,
+      start_date: @start_date,
+      end_date: @end_date,
+      scope: params[:scope] || 'current'
+    )
+
+    case format_type
+    when 'csv'
+      send_data export_service.to_csv,
+                filename: "analytics_#{@start_date.strftime('%Y%m%d')}_#{@end_date.strftime('%Y%m%d')}.csv",
+                type: 'text/csv'
+    when 'xlsx'
+      send_data export_service.to_excel,
+                filename: "analytics_#{@start_date.strftime('%Y%m%d')}_#{@end_date.strftime('%Y%m%d')}.xlsx",
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    when 'pdf'
+      send_data export_service.to_pdf,
+                filename: "analytics_#{@start_date.strftime('%Y%m%d')}_#{@end_date.strftime('%Y%m%d')}.pdf",
+                type: 'application/pdf'
     end
-    
-    send_data csv_data, filename: "analytics_#{@start_date.strftime('%Y%m%d')}_#{@end_date.strftime('%Y%m%d')}.csv"
   end
 end

@@ -7,13 +7,87 @@
       <p class="text-gray-600 mt-1">Analyses détaillées pour le développement</p>
     </div>
     
-    <!-- Export Button -->
-    <%= link_to admin_analytics_path(period: @period, format: :csv), class: "px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center gap-2" do %>
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-      </svg>
-      Exporter en CSV
-    <% end %>
+    <!-- Enhanced Export Dropdown -->
+    <div class="relative" x-data="{ open: false, format: 'xlsx', scope: 'current' }">
+      <button @click="open = !open" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        Exporter les données
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      
+      <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10" style="display: none;">
+        <div class="px-4 py-2 border-b border-gray-200">
+          <p class="text-xs font-medium text-gray-700 uppercase">Format d'export</p>
+        </div>
+        <button @click="format = 'xlsx'" :class="format === 'xlsx' ? 'bg-gray-50' : ''" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <div class="text-left">
+            <p class="text-sm font-medium text-gray-900">Excel (.xlsx)</p>
+            <p class="text-xs text-gray-500">Avec graphiques et formatage</p>
+          </div>
+          <svg x-show="format === 'xlsx'" class="w-5 h-5 text-green-600 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </button>
+        <button @click="format = 'csv'" :class="format === 'csv' ? 'bg-gray-50' : ''" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          <div class="text-left">
+            <p class="text-sm font-medium text-gray-900">CSV (.csv)</p>
+            <p class="text-xs text-gray-500">Données brutes</p>
+          </div>
+          <svg x-show="format === 'csv'" class="w-5 h-5 text-blue-600 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </button>
+        <button @click="format = 'pdf'" :class="format === 'pdf' ? 'bg-gray-50' : ''" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition">
+          <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          <div class="text-left">
+            <p class="text-sm font-medium text-gray-900">PDF (.pdf)</p>
+            <p class="text-xs text-gray-500">Rapport complet avec graphiques</p>
+          </div>
+          <svg x-show="format === 'pdf'" class="w-5 h-5 text-red-600 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </button>
+        
+        <div class="border-t border-gray-200 mt-2 pt-2">
+          <div class="px-4 py-2">
+            <p class="text-xs font-medium text-gray-700 uppercase mb-2">Portée de l'export</p>
+            <div class="space-y-1">
+              <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" x-model="scope" value="current" class="text-admin-600 focus:ring-admin-500">
+                Vue actuelle
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" x-model="scope" value="filtered" class="text-admin-600 focus:ring-admin-500">
+                Données filtrées
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" x-model="scope" value="all" class="text-admin-600 focus:ring-admin-500">
+                Toutes les données
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-200 mt-2 pt-2 px-4 py-2">
+          <a :href="`<%= admin_analytics_path(period: @period) %>?format=${format}&scope=${scope}`" 
+             class="block w-full px-4 py-2 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition text-sm font-medium text-center">
+            Confirmer l'export
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Period Selector -->
