@@ -140,6 +140,315 @@ module Admin
       result.reverse
     end
 
+    # Analytics Dashboard Methods
+
+    # Average time spent in each CRM status with max limits
+    def average_time_by_crm_status
+      statuses = {
+        'favorites' => { max: nil, unit: 'jours' },
+        'to_contact' => { max: 7, unit: 'jours' },
+        'info_exchange' => { max: 33, unit: 'jours' },
+        'analysis' => { max: 33, unit: 'jours' },
+        'project_alignment' => { max: 33, unit: 'jours' },
+        'negotiation' => { max: 20, unit: 'jours' },
+        'loi' => { max: nil, unit: 'jours' },
+        'audits' => { max: nil, unit: 'jours' },
+        'financing' => { max: nil, unit: 'jours' },
+        'deal_signed' => { max: nil, unit: 'jours' }
+      }
+
+      statuses.map do |status, config|
+        deals = Deal.where(status: status).where.not(stage_entered_at: nil)
+        
+        avg_days = if deals.any?
+                     deals.average(:time_in_stage).to_f / 86400 # Convert seconds to days
+                   else
+                     0
+                   end
+
+        {
+          name: I18n.t("deal.statuses.#{status}", default: status.humanize),
+          avg: avg_days.round(1),
+          max: config[:max],
+          unit: config[:unit]
+        }
+      end
+    end
+
+    # Listings breakdown by sector with evolution
+    def listings_by_sector_with_evolution
+      sectors = Listing.industry_sectors.keys
+      
+      sectors.map do |sector|
+        current_listings = Listing.where(industry_sector: sector)
+                                  .where(validation_status: :approved)
+                                  .where('created_at >= ?', @start_date)
+                                  .count
+        
+        current_reservations = Deal.joins(:listing)
+                                   .where(listings: { industry_sector: sector })
+                                   .where(reserved: true)
+                                   .where('deals.created_at >= ?', @start_date)
+                                   .count
+        
+        current_transactions = Deal.joins(:listing)
+                                   .where(listings: { industry_sector: sector })
+                                   .where(status: :deal_signed)
+                                   .where('deals.created_at >= ?', @start_date)
+                                   .count
+
+        # Previous period for evolution
+        prev_start, prev_end = previous_period_dates
+        prev_listings = Listing.where(industry_sector: sector)
+                               .where(validation_status: :approved)
+                               .where('created_at >= ? AND created_at < ?', prev_start, prev_end)
+                               .count
+
+        evolution = calculate_evolution_percentage(current_listings, prev_listings)
+        conversion = current_listings > 0 ? ((current_transactions.to_f / current_listings) * 100).round(1) : 0
+
+        {
+          sector: I18n.t("listing.sectors.#{sector}", default: sector.humanize),
+          listings: current_listings,
+          reservations: current_reservations,
+          transactions: current_transactions,
+          conversion: "#{conversion}%",
+          evolution: "#{evolution >= 0 ? '+' : ''}#{evolution}%"
+        }
+      end
+    end
+
+    # Listings breakdown by revenue range
+    def listings_by_revenue_range
+      ranges = [
+        { label: '0 - 100k €', min: 0, max: 100_000 },
+        { label: '100k - 250k €', min: 100_000, max: 250_000 },
+        { label: '250k - 500k €', min: 250_000, max: 500_000 },
+        { label: '500k - 1M €', min: 500_000, max: 1_000_000 },
+        { label: '1M+ €', min: 1_000_000, max: nil }
+      ]
+
+      ranges.map do |range|
+        # Build query based on whether there's a max value
+        listings_scope = Listing.where(validation_status: :approved)
+                                .where('created_at >= ?', @start_date)
+        
+        listings_scope = if range[:max]
+                          listings_scope.where('annual_revenue >= ? AND annual_revenue < ?', range[:min], range[:max])
+                        else
+                          listings_scope.where('annual_revenue >= ?', range[:min])
+                        end
+        
+        current_listings = listings_scope.count
+
+        # Current reservations
+        deals_scope = Deal.joins(:listing)
+                          .where(reserved: true)
+                          .where('deals.created_at >= ?', @start_date)
+        
+        deals_scope = if range[:max]
+                        deals_scope.where('listings.annual_revenue >= ? AND listings.annual_revenue < ?', range[:min], range[:max])
+                      else
+                        deals_scope.where('listings.annual_revenue >= ?', range[:min])
+                      end
+        
+        current_reservations = deals_scope.count
+
+        # Current transactions
+        transactions_scope = Deal.joins(:listing)
+                                 .where(status: :deal_signed)
+                                 .where('deals.created_at >= ?', @start_date)
+        
+        transactions_scope = if range[:max]
+                               transactions_scope.where('listings.annual_revenue >= ? AND listings.annual_revenue < ?', range[:min], range[:max])
+                             else
+                               transactions_scope.where('listings.annual_revenue >= ?', range[:min])
+                             end
+        
+        current_transactions = transactions_scope.count
+
+        # Previous period
+        prev_start, prev_end = previous_period_dates
+        prev_scope = Listing.where(validation_status: :approved)
+                            .where('created_at >= ? AND created_at < ?', prev_start, prev_end)
+        
+        prev_scope = if range[:max]
+                       prev_scope.where('annual_revenue >= ? AND annual_revenue < ?', range[:min], range[:max])
+                     else
+                       prev_scope.where('annual_revenue >= ?', range[:min])
+                     end
+        
+        prev_listings = prev_scope.count
+
+        evolution = calculate_evolution_percentage(current_listings, prev_listings)
+
+        {
+          range: range[:label],
+          listings: current_listings,
+          reservations: current_reservations,
+          transactions: current_transactions,
+          evolution: "#{evolution >= 0 ? '+' : ''}#{evolution}%"
+        }
+      end
+    end
+
+    # Listings breakdown by geography (department/region)
+    def listings_by_geography
+      departments = Listing.where(validation_status: :approved)
+                           .where('created_at >= ?', @start_date)
+                           .where.not(location_department: nil)
+                           .group(:location_department)
+                           .count
+                           .sort_by { |_, count| -count }
+                           .first(10)
+
+      departments.map do |department, current_count|
+        current_reservations = Deal.joins(:listing)
+                                   .where(listings: { location_department: department })
+                                   .where(reserved: true)
+                                   .where('deals.created_at >= ?', @start_date)
+                                   .count
+
+        current_transactions = Deal.joins(:listing)
+                                   .where(listings: { location_department: department })
+                                   .where(status: :deal_signed)
+                                   .where('deals.created_at >= ?', @start_date)
+                                   .count
+
+        # Previous period
+        prev_start, prev_end = previous_period_dates
+        prev_count = Listing.where(validation_status: :approved)
+                            .where(location_department: department)
+                            .where('created_at >= ? AND created_at < ?', prev_start, prev_end)
+                            .count
+
+        evolution = calculate_evolution_percentage(current_count, prev_count)
+
+        {
+          department: department,
+          listings: current_count,
+          reservations: current_reservations,
+          transactions: current_transactions,
+          evolution: "#{evolution >= 0 ? '+' : ''}#{evolution}%"
+        }
+      end
+    end
+
+    # Listings breakdown by employee count
+    def listings_by_employee_count
+      ranges = [
+        { label: '1 - 5', min: 1, max: 5 },
+        { label: '6 - 10', min: 6, max: 10 },
+        { label: '11 - 20', min: 11, max: 20 },
+        { label: '21 - 50', min: 21, max: 50 },
+        { label: '50+', min: 50, max: nil }
+      ]
+
+      ranges.map do |range|
+        # Build query based on whether there's a max value
+        listings_scope = Listing.where(validation_status: :approved)
+                                .where('created_at >= ?', @start_date)
+        
+        listings_scope = if range[:max]
+                          listings_scope.where('employee_count >= ? AND employee_count <= ?', range[:min], range[:max])
+                        else
+                          listings_scope.where('employee_count >= ?', range[:min])
+                        end
+        
+        current_listings = listings_scope.count
+
+        # Current reservations
+        deals_scope = Deal.joins(:listing)
+                          .where(reserved: true)
+                          .where('deals.created_at >= ?', @start_date)
+        
+        deals_scope = if range[:max]
+                        deals_scope.where('listings.employee_count >= ? AND listings.employee_count <= ?', range[:min], range[:max])
+                      else
+                        deals_scope.where('listings.employee_count >= ?', range[:min])
+                      end
+        
+        current_reservations = deals_scope.count
+
+        # Current transactions
+        transactions_scope = Deal.joins(:listing)
+                                 .where(status: :deal_signed)
+                                 .where('deals.created_at >= ?', @start_date)
+        
+        transactions_scope = if range[:max]
+                               transactions_scope.where('listings.employee_count >= ? AND listings.employee_count <= ?', range[:min], range[:max])
+                             else
+                               transactions_scope.where('listings.employee_count >= ?', range[:min])
+                             end
+        
+        current_transactions = transactions_scope.count
+
+        # Previous period
+        prev_start, prev_end = previous_period_dates
+        prev_scope = Listing.where(validation_status: :approved)
+                            .where('created_at >= ? AND created_at < ?', prev_start, prev_end)
+        
+        prev_scope = if range[:max]
+                       prev_scope.where('employee_count >= ? AND employee_count <= ?', range[:min], range[:max])
+                     else
+                       prev_scope.where('employee_count >= ?', range[:min])
+                     end
+        
+        prev_listings = prev_scope.count
+
+        evolution = calculate_evolution_percentage(current_listings, prev_listings)
+
+        {
+          range: "#{range[:label]} employés",
+          listings: current_listings,
+          reservations: current_reservations,
+          transactions: current_transactions,
+          evolution: "#{evolution >= 0 ? '+' : ''}#{evolution}%"
+        }
+      end
+    end
+
+    # Time series data for charts
+    def time_series_data(metric: :listings, periods: 8)
+      duration_days = (@end_date - @start_date).to_i
+      days_per_period = [duration_days / periods, 1].max
+      
+      result = []
+      periods.times do |i|
+        period_start = @start_date + (i * days_per_period).days
+        period_end = period_start + days_per_period.days
+
+        value = case metric
+                when :listings
+                  Listing.where(validation_status: :approved)
+                         .where(created_at: period_start..period_end)
+                         .count
+                when :reservations
+                  Deal.where(reserved: true)
+                      .where(reserved_at: period_start..period_end)
+                      .count
+                when :transactions
+                  Deal.where(status: :deal_signed)
+                      .where(created_at: period_start..period_end)
+                      .count
+                when :revenue
+                  # Simplified revenue calculation
+                  BuyerProfile.where(subscription_status: :active)
+                              .where(created_at: period_start..period_end)
+                              .count * 89
+                else
+                  0
+                end
+
+        result << {
+          period: period_start.strftime('%d/%m'),
+          value: value
+        }
+      end
+
+      result
+    end
+
     private
 
     def calculate_start_date
@@ -207,6 +516,14 @@ module Admin
                   end
       
       { current: current, evolution: evolution }
+    end
+
+    def calculate_evolution_percentage(current, previous)
+      if previous.zero?
+        current.zero? ? 0 : 100
+      else
+        ((current - previous).to_f / previous * 100).round(0)
+      end
     end
   end
 end
