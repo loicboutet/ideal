@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_19_144421) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +53,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
     t.index ["trackable_type", "trackable_id"], name: "index_activities_on_trackable"
     t.index ["trackable_type", "trackable_id"], name: "index_activities_on_trackable_type_and_trackable_id"
     t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "admin_messages", force: :cascade do |t|
+    t.integer "sent_by_id", null: false
+    t.string "subject", null: false
+    t.text "body", null: false
+    t.integer "message_type", default: 0, null: false
+    t.integer "target_role", default: 0, null: false
+    t.boolean "send_email", default: true
+    t.boolean "show_in_dashboard", default: true
+    t.datetime "sent_at"
+    t.integer "recipients_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_type"], name: "index_admin_messages_on_message_type"
+    t.index ["sent_at"], name: "index_admin_messages_on_sent_at"
+    t.index ["sent_by_id"], name: "index_admin_messages_on_sent_by_id"
   end
 
   create_table "buyer_profiles", force: :cascade do |t|
@@ -289,6 +306,21 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
     t.index ["validation_status"], name: "index_listings_on_validation_status"
   end
 
+  create_table "message_recipients", force: :cascade do |t|
+    t.integer "admin_message_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "read", default: false, null: false
+    t.datetime "read_at"
+    t.boolean "email_sent", default: false, null: false
+    t.datetime "email_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_message_id", "user_id"], name: "index_message_recipients_on_admin_message_id_and_user_id", unique: true
+    t.index ["admin_message_id"], name: "index_message_recipients_on_admin_message_id"
+    t.index ["user_id", "read"], name: "index_message_recipients_on_user_id_and_read", where: "read = false"
+    t.index ["user_id"], name: "index_message_recipients_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.integer "conversation_id", null: false
     t.integer "sender_id", null: false
@@ -457,6 +489,35 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
+  create_table "survey_responses", force: :cascade do |t|
+    t.integer "survey_id", null: false
+    t.integer "user_id", null: false
+    t.json "answers"
+    t.integer "satisfaction_score"
+    t.datetime "submitted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["survey_id", "user_id"], name: "index_survey_responses_on_survey_id_and_user_id", unique: true
+    t.index ["survey_id"], name: "index_survey_responses_on_survey_id"
+    t.index ["user_id"], name: "index_survey_responses_on_user_id"
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.integer "admin_message_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.integer "survey_type", default: 0, null: false
+    t.json "questions"
+    t.boolean "active", default: true
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_surveys_on_active"
+    t.index ["admin_message_id"], name: "index_surveys_on_admin_message_id"
+    t.index ["survey_type"], name: "index_surveys_on_survey_type"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -485,6 +546,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "activities", "users"
+  add_foreign_key "admin_messages", "users", column: "sent_by_id"
   add_foreign_key "buyer_profiles", "users"
   add_foreign_key "conversation_participants", "conversations"
   add_foreign_key "conversation_participants", "users"
@@ -508,6 +570,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
   add_foreign_key "listing_views", "users"
   add_foreign_key "listings", "buyer_profiles", column: "attributed_buyer_id"
   add_foreign_key "listings", "seller_profiles"
+  add_foreign_key "message_recipients", "admin_messages"
+  add_foreign_key "message_recipients", "users"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "nda_signatures", "listings"
@@ -522,4 +586,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
   add_foreign_key "questionnaires", "users", column: "created_by_id"
   add_foreign_key "seller_profiles", "users"
   add_foreign_key "subscriptions", "users"
+  add_foreign_key "survey_responses", "surveys"
+  add_foreign_key "survey_responses", "users"
+  add_foreign_key "surveys", "admin_messages"
 end

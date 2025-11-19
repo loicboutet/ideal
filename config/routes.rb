@@ -123,8 +123,8 @@ Rails.application.routes.draw do
     resource :settings, only: [:show, :update]
     
     # Admin Communication
-    resources :messages, only: [:index, :new, :create]
-    resources :surveys, only: [:new, :create]
+    resources :messages, only: [:index, :new, :create, :show]
+    resources :surveys, only: [:new, :create, :show]
   end
   
   # Seller Routes (role: seller, status: active)
