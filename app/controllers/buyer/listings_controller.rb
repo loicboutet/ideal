@@ -7,7 +7,7 @@ module Buyer
     before_action :authenticate_user!
     before_action :ensure_buyer!
     before_action :set_buyer_profile
-    before_action :set_listing, only: [:show]
+    before_action :set_listing, only: [:show, :favorite, :unfavorite]
 
     def index
       # Base query: approved, published listings available for this buyer
@@ -61,6 +61,40 @@ module Buyer
                                   .page(params[:page]).per(20)
       
       render :index
+    end
+
+    def favorite
+      # Check if already favorited
+      if @buyer_profile.favorites.exists?(listing_id: @listing.id)
+        redirect_to buyer_listing_path(@listing), alert: "Cette annonce est déjà dans vos favoris."
+        return
+      end
+
+      # Create favorite
+      @favorite = @buyer_profile.favorites.create!(listing_id: @listing.id)
+
+      # Auto-create deal with "favorited" status if no active deal exists
+      unless @buyer_profile.deals.active.exists?(listing_id: @listing.id)
+        @buyer_profile.deals.create!(
+          listing_id: @listing.id,
+          status: :favorited,
+          stage_entered_at: Time.current
+        )
+      end
+
+      redirect_to buyer_listing_path(@listing), notice: "✅ Annonce ajoutée aux favoris et à votre CRM."
+    end
+
+    def unfavorite
+      @favorite = @buyer_profile.favorites.find_by(listing_id: @listing.id)
+      
+      unless @favorite
+        redirect_to buyer_listing_path(@listing), alert: "Cette annonce n'est pas dans vos favoris."
+        return
+      end
+
+      @favorite.destroy!
+      redirect_to buyer_listing_path(@listing), notice: "Annonce retirée des favoris."
     end
 
     private
