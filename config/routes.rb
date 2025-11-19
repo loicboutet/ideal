@@ -106,7 +106,8 @@ Rails.application.routes.draw do
         get :download_errors
       end
       collection do
-        get :template
+        get :simple_template
+        get :complete_template
       end
     end
     

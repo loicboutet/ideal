@@ -5,6 +5,6 @@ class LeadImport < ApplicationRecord
   
   validates :imported_by_id, presence: true
   validates :file_name, presence: true
-  validates :total_rows, presence: true, numericality: { greater_than: 0 }
+  validates :total_rows, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :import_status, presence: true
 end

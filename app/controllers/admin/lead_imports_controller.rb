@@ -18,7 +18,8 @@ class Admin::LeadImportsController < ApplicationController
 
   def create
     unless params[:file].present?
-      redirect_to new_admin_lead_import_path, alert: "Veuillez sélectionner un fichier"
+      flash[:alert] = "Veuillez sélectionner un fichier"
+      redirect_to new_admin_lead_import_path
       return
     end
 
@@ -26,8 +27,8 @@ class Admin::LeadImportsController < ApplicationController
     
     # Validate file type
     unless valid_file_type?(file)
-      redirect_to new_admin_lead_import_path, 
-                  alert: "Type de fichier invalide. Utilisez .xlsx ou .csv"
+      flash[:alert] = "Type de fichier invalide. Utilisez .xlsx ou .csv"
+      redirect_to new_admin_lead_import_path
       return
     end
 
@@ -49,18 +50,26 @@ class Admin::LeadImportsController < ApplicationController
         )
         service.process
         
-        redirect_to admin_lead_import_path(@lead_import),
-                    notice: "Import terminé avec succès: #{@lead_import.successful_imports} entrées importées, #{@lead_import.failed_imports} échecs."
+        if @lead_import.successful_imports > 0
+          flash[:notice] = "✅ Import terminé avec succès! #{@lead_import.successful_imports} entrée(s) importée(s)"
+          flash[:alert] = "⚠️ #{@lead_import.failed_imports} échec(s)" if @lead_import.failed_imports > 0
+        else
+          flash[:alert] = "❌ Aucune entrée n'a pu être importée. #{@lead_import.failed_imports} échec(s)."
+        end
+        
+        redirect_to admin_lead_imports_path
       rescue => e
+        Rails.logger.error "Import error: #{e.message}\n#{e.backtrace.join("\n")}"
         @lead_import.update(
           import_status: :failed,
-          error_log: { global_error: e.message }.to_json
+          error_log: { global_error: e.message, backtrace: e.backtrace.first(5) }.to_json
         )
-        redirect_to admin_lead_import_path(@lead_import),
-                    alert: "Erreur lors de l'import: #{e.message}"
+        flash[:alert] = "❌ Erreur lors de l'import: #{e.message}"
+        redirect_to admin_lead_imports_path
       end
     else
-      render :new
+      flash[:alert] = "Erreur lors de la création de l'import: #{@lead_import.errors.full_messages.join(', ')}"
+      redirect_to new_admin_lead_import_path
     end
   end
 
@@ -86,8 +95,8 @@ class Admin::LeadImportsController < ApplicationController
               type: 'text/csv; charset=utf-8'
   end
 
-  def template
-    # Simple CSV template
+  def simple_template
+    # Simple CSV template with basic fields only
     require 'csv'
     
     csv_data = CSV.generate(headers: true) do |csv|
@@ -109,10 +118,130 @@ class Admin::LeadImportsController < ApplicationController
         'Holding',
         'Standard'
       ]
+      csv << [
+        'marie.martin@example.com',
+        'Marie',
+        'Martin',
+        '0687654321',
+        '',
+        'Individual',
+        'Free'
+      ]
     end
     
     send_data csv_data,
-              filename: "template_import_repreneurs.csv",
+              filename: "template_simple_import_repreneurs.csv",
+              type: 'text/csv; charset=utf-8'
+  end
+
+  def complete_template
+    # Complete CSV template with all available fields
+    require 'csv'
+    
+    csv_data = CSV.generate(headers: true) do |csv|
+      # Headers
+      csv << [
+        'Email*',
+        'Prénom',
+        'Nom',
+        'Téléphone',
+        'Entreprise',
+        'Type',
+        'Abonnement',
+        'Formation',
+        'Experience',
+        'Compétences',
+        'Thèse d\'investissement',
+        'Secteurs cibles',
+        'Localisations cibles',
+        'CA minimum',
+        'CA maximum',
+        'Employés minimum',
+        'Employés maximum',
+        'Santé financière cible',
+        'Horizon de transfert',
+        'Capacité d\'investissement',
+        'Sources de financement'
+      ]
+      
+      # Example 1: Complete profile
+      csv << [
+        'jean.dupont@example.com',
+        'Jean',
+        'Dupont',
+        '0612345678',
+        'Dupont Holding',
+        'Holding',
+        'Premium',
+        'MBA HEC Paris, Formation reprise entreprise',
+        '15 ans direction commerciale PME, 5 ans directeur général',
+        'Management, Commercial, Stratégie',
+        'Acquérir PME industrielles rentables en vue consolidation holding familiale',
+        'Industry,Construction,Services',
+        'Île-de-France,Hauts-de-France',
+        '1000000',
+        '5000000',
+        '10',
+        '50',
+        'in_bonis',
+        '3-6 mois',
+        '2000000',
+        'Apport personnel 40%, Prêt bancaire 50%, Crédit vendeur 10%'
+      ]
+      
+      # Example 2: Simpler profile
+      csv << [
+        'marie.martin@example.com',
+        'Marie',
+        'Martin',
+        '0687654321',
+        '',
+        'Individual',
+        'Starter',
+        'BTS Commerce',
+        '10 ans gérante magasin de détail',
+        'Vente, Gestion',
+        'Reprendre commerce de proximité pour développer service client',
+        'Commerce,Hospitality',
+        'Provence-Alpes-Côte d\'Azur',
+        '300000',
+        '800000',
+        '3',
+        '15',
+        'both',
+        '6-12 mois',
+        '150000',
+        'Apport personnel, Prêt bancaire'
+      ]
+      
+      # Example 3: Minimal required fields only
+      csv << [
+        'pierre.bernard@example.com',
+        'Pierre',
+        'Bernard',
+        '0698765432',
+        'Bernard Investissements',
+        'Fund',
+        'Club',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        '',
+        ''
+      ]
+    end
+    
+    send_data csv_data,
+              filename: "template_complet_import_repreneurs.csv",
               type: 'text/csv; charset=utf-8'
   end
 
