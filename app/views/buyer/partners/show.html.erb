@@ -1,0 +1,177 @@
+<% content_for :title, "#{@partner.user.company_name || @partner.user.full_name} - Partenaire - Idéal Reprise" %>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <!-- Back Button -->
+  <%= link_to buyer_partners_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour à l'annuaire
+  <% end %>
+
+  <!-- Partner Header -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+    <div class="flex items-start justify-between">
+      <div class="flex-1">
+        <h1 class="text-3xl font-bold text-gray-900">
+          <%= @partner.user.company_name || @partner.user.full_name %>
+        </h1>
+        <div class="flex items-center gap-3 mt-3">
+          <span class="px-4 py-2 bg-purple-100 text-purple-700 font-medium rounded-full">
+            <%= @partner.partner_type.humanize %>
+          </span>
+          <span class="px-4 py-2 bg-green-100 text-green-700 font-medium rounded-full flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Profil validé
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl shadow-sm p-6 text-white">
+    <div class="flex items-center justify-between">
+      <div class="flex-1">
+        <h2 class="text-xl font-bold mb-2">Contactez ce partenaire</h2>
+        <p class="text-purple-100">
+          <% if @can_contact %>
+            Envoyez une demande de contact pour démarrer la conversation
+          <% else %>
+            Abonnement requis pour contacter les partenaires
+          <% end %>
+        </p>
+      </div>
+      <div>
+        <% if @can_contact %>
+          <%= button_to 'Contacter ce partenaire', contact_buyer_partner_path(@partner), 
+            method: :post,
+            class: "px-6 py-3 bg-white text-purple-700 font-medium rounded-lg hover:bg-purple-50 transition",
+            data: { confirm: 'Envoyer une demande de contact à ce partenaire ?' } %>
+        <% else %>
+          <%= link_to 'Voir les abonnements', '#', class: "px-6 py-3 bg-white text-purple-700 font-medium rounded-lg hover:bg-purple-50 transition" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Description -->
+      <% if @partner.description.present? %>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Présentation</h3>
+          <div class="prose prose-sm max-w-none text-gray-700">
+            <%= simple_format(@partner.description) %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Services Offered -->
+      <% if @partner.services_offered.present? %>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Services proposés</h3>
+          <div class="prose prose-sm max-w-none text-gray-700">
+            <%= simple_format(@partner.services_offered) %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Intervention Stages -->
+      <% if @partner.intervention_stages.present? && @partner.intervention_stages.any? %>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Stades d'intervention (CRM)</h3>
+          <div class="flex flex-wrap gap-2">
+            <% @partner.intervention_stages.each do |stage| %>
+              <span class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg font-medium">
+                <%= stage %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Industry Specializations -->
+      <% if @partner.industry_specializations.present? && @partner.industry_specializations.any? %>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Secteurs d'activité visés</h3>
+          <div class="flex flex-wrap gap-2">
+            <% @partner.industry_specializations.each do |sector| %>
+              <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-medium">
+                <%= sector %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="space-y-6">
+      <!-- Coverage Area -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Zone d'intervention</h3>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <div class="flex-1">
+              <div class="font-medium text-gray-900">
+                <%= @partner.coverage_area&.humanize || 'Non spécifié' %>
+              </div>
+              <% if @partner.coverage_details.present? %>
+                <div class="text-sm text-gray-600 mt-1">
+                  <%= @partner.coverage_details %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Information -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Contact</h3>
+        <div class="space-y-3">
+          <% if @partner.website.present? %>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-purple-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+              </svg>
+              <%= link_to 'Site web', @partner.website, target: '_blank', class: 'text-purple-600 hover:text-purple-800 font-medium' %>
+            </div>
+          <% end %>
+
+          <% if @partner.calendar_link.present? %>
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-purple-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <%= link_to 'Prendre rendez-vous', @partner.calendar_link, target: '_blank', class: 'text-purple-600 hover:text-purple-800 font-medium' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Statistiques</h3>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-600">Vues profil</span>
+            <span class="font-bold text-gray-900"><%= @partner.views_count %></span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gray-600">Contacts</span>
+            <span class="font-bold text-gray-900"><%= @partner.contacts_count %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
