@@ -27,19 +27,51 @@
             <h3 class="text-sm font-semibold text-gray-700 mb-3">Statut</h3>
             <div class="space-y-2">
               <label class="flex items-center cursor-pointer">
-                <input type="radio" name="status" value="all" checked class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                <input type="radio" name="status" checked class="w-4 h-4 text-blue-600 focus:ring-blue-500">
                 <span class="ml-3 text-sm text-gray-900 font-medium">Toutes (<%= @total_count %>)</span>
               </label>
               <label class="flex items-center cursor-pointer">
-                <input type="radio" name="status" value="unread" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                <input type="radio" name="status" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
                 <span class="ml-3 text-sm text-gray-700">Non lues (<%= @unread_count %>)</span>
               </label>
               <label class="flex items-center cursor-pointer">
-                <input type="radio" name="status" value="read" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                <input type="radio" name="status" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
                 <span class="ml-3 text-sm text-gray-700">Lues (<%= @total_count - @unread_count %>)</span>
               </label>
             </div>
           </div>
+
+          <!-- Category Filter -->
+          <div class="mb-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">Catégorie</h3>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                <span class="ml-3 text-sm text-gray-700">Annonces (5)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                <span class="ml-3 text-gray-700">Messages (7)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                <span class="ml-3 text-gray-700">Réservations (3)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                <span class="ml-3 text-gray-700">Enrichissements (4)</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500">
+                <span class="ml-3 text-gray-700">Système (5)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Clear Filters -->
+          <button class="w-full mt-4 px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-full font-medium hover:bg-gray-50 transition-colors text-sm">
+            Réinitialiser
+          </button>
         </div>
       </aside>
 
@@ -86,10 +118,6 @@
               <% end %>
             <% end %>
 
-            <!-- Pagination -->
-            <div class="px-6 py-4 border-t border-gray-200">
-              <%= paginate @notifications %>
-            </div>
           <% else %>
             <div class="p-12 text-center">
               <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,6 +128,30 @@
             </div>
           <% end %>
         </div>
+
+        <!-- Pagination -->
+        <% if @notifications.any? %>
+          <div class="mt-6 flex justify-center">
+            <nav class="flex items-center gap-2">
+              <%= link_to notifications_path(page: @notifications.prev_page), class: "px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 #{@notifications.prev_page ? '' : 'disabled:opacity-50 disabled:cursor-not-allowed pointer-events-none opacity-50'}" do %>
+                Précédent
+              <% end %>
+              
+              <% @notifications.total_pages.times do |i| %>
+                <% page_number = i + 1 %>
+                <% if page_number == @notifications.current_page %>
+                  <span class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium"><%= page_number %></span>
+                <% else %>
+                  <%= link_to page_number, notifications_path(page: page_number), class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" %>
+                <% end %>
+              <% end %>
+              
+              <%= link_to notifications_path(page: @notifications.next_page), class: "px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 #{@notifications.next_page ? '' : 'disabled:opacity-50 disabled:cursor-not-allowed pointer-events-none opacity-50'}" do %>
+                Suivant
+              <% end %>
+            </nav>
+          </div>
+        <% end %>
       </main>
     </div>
   </div>
