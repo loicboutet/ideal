@@ -1,0 +1,49 @@
+<%# Append new message to messages container %>
+<%= turbo_stream.append "messages" do %>
+  <div class="flex <%= @message.sender_id == current_user.id ? 'justify-end' : 'justify-start' %>">
+    <div class="max-w-md">
+      <% if @message.sender_id != current_user.id %>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-xs font-medium text-gray-600">
+            <%= @message.sender.full_name %>
+          </span>
+          <span class="text-xs text-gray-400">
+            <%= @message.created_at.strftime('%H:%M') %>
+          </span>
+        </div>
+      <% end %>
+      
+      <div class="<%= @message.sender_id == current_user.id ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900' %> rounded-lg p-3">
+        <p class="text-sm whitespace-pre-wrap"><%= @message.body %></p>
+      </div>
+      
+      <% if @message.sender_id == current_user.id %>
+        <div class="flex items-center justify-end gap-2 mt-1">
+          <span class="text-xs text-gray-400">
+            <%= @message.created_at.strftime('%H:%M') %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%# Clear the message input %>
+<%= turbo_stream.replace "message_form" do %>
+  <%= form_with model: [@conversation, Message.new], 
+                data: { turbo_stream: true },
+                id: "message_form",
+                class: "flex gap-3" do |f| %>
+    <%= f.text_area :body, 
+        rows: 1,
+        placeholder: "Tapez votre message...",
+        class: "flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none",
+        required: true,
+        data: { 
+          action: "keydown->message-form#submit",
+          message_form_target: "input"
+        } %>
+    <%= f.submit "Envoyer", 
+        class: "px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium flex items-center gap-2" %>
+  <% end %>
+<% end %>

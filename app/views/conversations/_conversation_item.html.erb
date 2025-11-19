@@ -1,0 +1,31 @@
+<%= link_to conversation_path(conversation), class: "block p-4 border-b border-gray-200 hover:bg-gray-50 transition" do %>
+  <div class="flex items-start gap-3">
+    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+      <span class="text-sm font-semibold text-blue-600">
+        <%= conversation.other_participant(current_user)&.full_name&.first&.upcase %>
+      </span>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="flex items-center justify-between mb-1">
+        <h3 class="text-sm font-semibold text-gray-900 truncate">
+          <%= conversation.other_participant(current_user)&.full_name %>
+        </h3>
+        <% if conversation.latest_message %>
+          <span class="text-xs text-gray-500">
+            <%= time_ago_in_words(conversation.latest_message.created_at) %>
+          </span>
+        <% end %>
+      </div>
+      <% if conversation.listing %>
+        <p class="text-xs text-gray-500 truncate mb-1">
+          Re: <%= conversation.listing.title %>
+        </p>
+      <% end %>
+      <% if conversation.latest_message %>
+        <p class="text-sm text-gray-600 truncate">
+          <%= conversation.latest_message.body %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+<% end %>

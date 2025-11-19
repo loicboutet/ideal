@@ -22,6 +22,12 @@ class User < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
   has_many :activities, dependent: :nullify
   
+  # Admin messaging system
+  has_many :sent_admin_messages, class_name: 'AdminMessage', foreign_key: 'sent_by_id', dependent: :destroy
+  has_many :message_recipients, dependent: :destroy
+  has_many :received_admin_messages, through: :message_recipients, source: :admin_message
+  has_many :survey_responses, dependent: :destroy
+  
   # Validations
   validates :role, presence: true
   validates :status, presence: true
