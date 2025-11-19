@@ -7,7 +7,7 @@ module Buyer
     before_action :authenticate_user!
     before_action :ensure_buyer!
     before_action :set_buyer_profile
-    before_action :set_listing, only: [:show, :favorite, :unfavorite]
+    before_action :set_listing, only: [:show, :favorite, :unfavorite, :reserve, :release, :release_confirm]
 
     def index
       # Base query: approved, published listings available for this buyer
@@ -97,6 +97,99 @@ module Buyer
       redirect_to buyer_listing_path(@listing), notice: "Annonce retirée des favoris."
     end
 
+    def reserve
+      # Check if listing can be reserved
+      unless @listing.can_be_reserved_by?(@buyer_profile)
+        redirect_to buyer_listing_path(@listing), alert: "Cette annonce ne peut pas être réservée."
+        return
+      end
+
+      # Check platform NDA is signed
+      platform_nda_signed = current_user.nda_signatures.exists?(signature_type: :platform_wide)
+      unless platform_nda_signed
+        redirect_to buyer_nda_path, alert: "Vous devez d'abord signer l'accord de confidentialité plateforme."
+        return
+      end
+
+      # Check listing-specific NDA is signed
+      listing_nda_signed = current_user.nda_signatures.exists?(signature_type: :listing_specific, listing_id: @listing.id)
+      unless listing_nda_signed
+        redirect_to buyer_listing_path(@listing), alert: "Vous devez signer l'accord de confidentialité spécifique à cette annonce."
+        return
+      end
+
+      # Find or create deal
+      @deal = @buyer_profile.deals.find_or_initialize_by(listing_id: @listing.id, released_at: nil)
+      
+      if @deal.new_record?
+        @deal.status = :to_contact
+        @deal.stage_entered_at = Time.current
+      end
+
+      # Reserve the deal
+      @deal.reserve!
+
+      # Update listing status to reserved
+      @listing.update(status: :reserved)
+
+      # Create notification
+      Notification.create!(
+        user: current_user,
+        notification_type: :deal_reserved,
+        title: "Annonce réservée avec succès",
+        message: "L'annonce '#{@listing.title}' a été réservée. Vous avez #{@deal.days_remaining} jours pour progresser.",
+        link_url: buyer_deal_path(@deal)
+      )
+
+      redirect_to buyer_listing_path(@listing), notice: "✅ Annonce réservée avec succès ! Vous avez #{@deal.days_remaining} jours pour cette étape."
+    end
+
+    def release
+      # Find active deal
+      @deal = @buyer_profile.deals.find_by(listing_id: @listing.id, released_at: nil)
+      
+      unless @deal
+        redirect_to buyer_listing_path(@listing), alert: "Aucune réservation active pour cette annonce."
+        return
+      end
+
+      # Calculate credits before releasing
+      credits_earned = @deal.calculate_release_credits
+
+      # Release the deal
+      @deal.release!(params[:release_reason])
+
+      # Update buyer credits
+      @buyer_profile.increment!(:credits, credits_earned)
+
+      # Update listing status back to published
+      @listing.update(status: :published)
+
+      # Create notification
+      Notification.create!(
+        user: current_user,
+        notification_type: :deal_released,
+        title: "Annonce libérée",
+        message: "Vous avez libéré l'annonce '#{@listing.title}' et gagné #{credits_earned} crédit(s).",
+        link_url: buyer_credits_path
+      )
+
+      redirect_to buyer_listings_path, notice: "✅ Annonce libérée avec succès ! Vous avez gagné #{credits_earned} crédit(s)."
+    end
+
+    def release_confirm
+      # Find active deal
+      @deal = @buyer_profile.deals.find_by(listing_id: @listing.id, released_at: nil)
+      
+      unless @deal
+        redirect_to buyer_listing_path(@listing), alert: "Aucune réservation active pour cette annonce."
+        return
+      end
+
+      # Calculate potential credits
+      @credits_to_earn = @deal.calculate_release_credits
+    end
+
     private
 
     def set_buyer_profile
@@ -120,6 +213,12 @@ module Buyer
     def listing_available_to_buyer?
       # Listing must be either not attributed, or attributed to current buyer
       @listing.attributed_buyer_id.nil? || @listing.attributed_buyer_id == @buyer_profile.id
+    end
+
+    def calculate_release_credits
+      base_credit = 1
+      doc_credits = @deal.enrichments.where(validated: true).count
+      base_credit + doc_credits
     end
 
     def apply_filters
