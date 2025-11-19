@@ -1,0 +1,34 @@
+<% content_for :title, "Partenaires - Cédant - Idéal Reprise" %>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <div>
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Annuaire des Partenaires</h1>
+    <p class="text-gray-600 mt-1">Avocats, comptables, consultants pour votre transmission</p>
+  </div>
+
+  <!-- Promo Banner -->
+  <div class="bg-gradient-to-r from-green-600 to-green-700 rounded-xl p-6 text-white">
+    <div class="flex items-center gap-3 mb-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+      </svg>
+      <span class="text-xl font-bold">Offre de lancement</span>
+    </div>
+    <p class="text-green-100">
+      Accès <strong>GRATUIT</strong> à l'annuaire complet des partenaires pendant les 6 premiers mois après lancement.
+      Normalement 5 crédits pour un accès complet à l'annuaire.
+    </p>
+  </div>
+
+  <%= link_to mockups_directory_path, class: "block" do %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border-2 border-seller-200 hover:border-seller-400 transition text-center">
+      <h2 class="text-xl font-bold text-gray-900 mb-2">Accéder à l'annuaire</h2>
+      <p class="text-gray-600">Découvrez nos partenaires vérifiés</p>
+      <div class="mt-4">
+        <span class="inline-flex items-center px-4 py-2 bg-seller-600 text-white rounded-lg font-medium">
+          Parcourir →
+        </span>
+      </div>
+    </div>
+  <% end %>
+</div>

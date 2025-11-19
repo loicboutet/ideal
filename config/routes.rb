@@ -144,12 +144,10 @@ Rails.application.routes.draw do
     resource :profile, except: [:destroy]
     resource :settings, only: [:show, :update]
     
-    # Services & Assistance
-    namespace :services do
-      get :support    # Get accompanied
-      get :partners   # Find partners (directory access)
-      get :tools      # Access tools
-    end
+    # Assistance Menu
+    get 'assistance/support', to: 'assistance#support', as: :assistance_support
+    get 'assistance/partners', to: 'assistance#partners', as: :assistance_partners
+    get 'assistance/tools', to: 'assistance#tools', as: :assistance_tools
     
     # Communication
     resources :messages, only: [:index, :show, :new, :create]
