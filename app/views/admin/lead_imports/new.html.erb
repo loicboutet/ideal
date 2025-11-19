@@ -1,0 +1,122 @@
+<% content_for :title, "Nouvel import - Administration" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <%= link_to admin_lead_imports_path, class: "text-admin-600 hover:text-admin-700 flex items-center gap-2" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Retour aux imports
+  <% end %>
+
+  <h1 class="text-3xl font-bold text-gray-900">Importer des repreneurs</h1>
+
+  <!-- Template Download -->
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+    <h3 class="text-lg font-semibold text-blue-900 mb-2 flex items-center gap-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+      </svg>
+      Télécharger le modèle
+    </h3>
+    <p class="text-blue-700 mb-4">
+      Utilisez notre modèle CSV pour formater correctement vos données
+    </p>
+    <%= link_to template_admin_lead_imports_path, 
+        class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition gap-2" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+      </svg>
+      Télécharger le modèle CSV
+    <% end %>
+  </div>
+
+  <!-- Upload Form -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <%= form_with url: admin_lead_imports_path, multipart: true, class: "space-y-6" do |f| %>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Type d'import
+        </label>
+        <%= select_tag :import_type, 
+            options_for_select([
+              ['Repreneurs (leads)', 'buyers']
+            ], 'buyers'),
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500 focus:border-admin-500" %>
+        <p class="mt-1 text-sm text-gray-500">Import de listings pas encore disponible</p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Fichier (.xlsx ou .csv) *
+        </label>
+        <%= file_field_tag :file, 
+            accept: '.xlsx,.csv',
+            required: true,
+            class: "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-admin-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-admin-50 file:text-admin-700 hover:file:bg-admin-100" %>
+        <p class="mt-1 text-sm text-gray-500">
+          Formats acceptés: CSV, Excel (.xlsx)
+        </p>
+      </div>
+
+      <!-- Instructions -->
+      <div class="bg-gray-50 rounded-lg p-4">
+        <h4 class="text-sm font-semibold text-gray-900 mb-2">Instructions:</h4>
+        <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+          <li>Le champ <strong>Email</strong> est obligatoire</li>
+          <li>Les emails en double seront ignorés</li>
+          <li>Les mots de passe seront générés automatiquement</li>
+          <li>Types acceptés: Individual, Holding, Fund, Investor</li>
+          <li>Plans: Free, Starter, Standard, Premium, Club</li>
+        </ul>
+      </div>
+
+      <div class="flex gap-4">
+        <%= f.submit "Lancer l'import", 
+            class: "px-6 py-3 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition font-medium" %>
+        <%= link_to "Annuler", admin_lead_imports_path, 
+            class: "px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Example Data -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Exemple de données</h3>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Email*</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Prénom</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Nom</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Téléphone</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Entreprise</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Type</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Abonnement</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-4 py-2 text-gray-600">jean.dupont@example.com</td>
+            <td class="px-4 py-2 text-gray-600">Jean</td>
+            <td class="px-4 py-2 text-gray-600">Dupont</td>
+            <td class="px-4 py-2 text-gray-600">0612345678</td>
+            <td class="px-4 py-2 text-gray-600">Dupont Holding</td>
+            <td class="px-4 py-2 text-gray-600">Holding</td>
+            <td class="px-4 py-2 text-gray-600">Standard</td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="px-4 py-2 text-gray-600">marie.martin@example.com</td>
+            <td class="px-4 py-2 text-gray-600">Marie</td>
+            <td class="px-4 py-2 text-gray-600">Martin</td>
+            <td class="px-4 py-2 text-gray-600">0687654321</td>
+            <td class="px-4 py-2 text-gray-600">-</td>
+            <td class="px-4 py-2 text-gray-600">Individual</td>
+            <td class="px-4 py-2 text-gray-600">Free</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
