@@ -66,3 +66,9 @@ end
 
 gem "devise", "~> 4.9"
 gem "kaminari"
+
+# Export functionality
+gem "caxlsx"
+gem "caxlsx_rails"
+gem "prawn"
+gem "prawn-table"
