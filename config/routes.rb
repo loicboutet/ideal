@@ -112,7 +112,7 @@ Rails.application.routes.draw do
     end
     
     # Platform Settings
-    resources :platform_settings, only: [:index, :update]
+    resource :settings, only: [:show, :update]
     
     # Admin Communication
     resources :messages, only: [:index, :new, :create]

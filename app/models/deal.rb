@@ -1,8 +1,11 @@
 class Deal < ApplicationRecord
+  include DealTimer
+  
   belongs_to :buyer_profile
   belongs_to :listing
   
   has_many :deal_history_events, dependent: :destroy
+  has_many :enrichments, dependent: :destroy
   
   # Enums
   enum :status, {
@@ -22,6 +25,7 @@ class Deal < ApplicationRecord
   scope :by_status, ->(status) { where(status: status) }
   
   # Callbacks
+  before_save :update_timer_on_status_change, if: :status_changed?
   after_update :track_status_change, if: :saved_change_to_status?
   
   # Instance methods
@@ -39,24 +43,9 @@ class Deal < ApplicationRecord
     buyer_profile.add_credits(credits_earned)
   end
   
-  def timer_expired?
-    reserved_until.present? && reserved_until < Time.current
-  end
+  # Timer expiry is now handled by DealTimer concern
   
   private
-  
-  def calculate_reserved_until
-    case status
-    when 'to_contact'
-      7.days.from_now
-    when 'info_exchange', 'analysis', 'project_alignment'
-      33.days.from_now
-    when 'negotiation'
-      20.days.from_now
-    else
-      nil
-    end
-  end
   
   def calculate_release_credits
     base_credit = 1
