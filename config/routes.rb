@@ -259,7 +259,11 @@ Rails.application.routes.draw do
     
     # NDA Management
     resource :nda, only: [:show, :create]
-    resources :listing_ndas, only: [:create] # Listing-specific NDAs
+    
+    # Listing-specific NDAs (nested under listings)
+    resources :listings, only: [] do
+      resources :listing_ndas, only: [:create], path: 'ndas'
+    end
   end
   
   # Partner Routes (role: partner, status: active)
