@@ -1,11 +1,16 @@
 <% content_for :title, "Modifier mon profil - Repreneur - Idéal Reprise" %>
 
 <div class="max-w-4xl mx-auto space-y-6">
-  <div class="flex items-center justify-between">
-    <h1 class="text-2xl font-bold text-gray-900">Modifier mon profil</h1>
-    <%= link_to buyer_profile_path, class: "text-gray-600 hover:text-gray-900" do %>
-      ← Retour au profil
-    <% end %>
+  <%= link_to buyer_profile_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour à mon profil
+  <% end %>
+
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Modifier mon profil repreneur</h1>
+    <p class="text-buyer-600 font-medium mt-1">Complétude: <%= @profile.completeness_score %>%</p>
   </div>
 
   <%= form_with model: @profile, url: buyer_profile_path, method: :patch, local: true, class: "space-y-6" do |f| %>
@@ -15,16 +20,16 @@
       <h3 class="text-lg font-bold text-gray-900 mb-4">Type de repreneur</h3>
       
       <div class="space-y-3">
-        <%= f.label :buyer_type, "Type de repreneur", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.label :buyer_type, "Type de repreneur *", class: "block text-sm font-medium text-gray-700 mb-2" %>
         <%= f.select :buyer_type, 
           options_for_select([
-            ['Repreneur individuel', 'individual'],
-            ['Holding', 'holding'],
-            ['Fonds d\'investissement', 'fund'],
+            ['Personne physique', 'individual'],
+            ['Holding / Société', 'holding'],
+            ['Fond d\'investissement', 'fund'],
             ['Investisseur', 'investor']
           ], @profile.buyer_type),
           { include_blank: 'Sélectionnez un type' },
-          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
         %>
       </div>
     </div>
@@ -34,32 +39,36 @@
       <h3 class="text-lg font-bold text-gray-900 mb-4">Formation et Expérience</h3>
       
       <div class="space-y-4">
-        <div>
-          <%= f.label :formation, "Formation", class: "block text-sm font-medium text-gray-700" %>
+        <div data-controller="char-counter" data-char-counter-max-value="200">
+          <%= f.label :formation, "Formation *", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.text_area :formation, 
-            rows: 3,
+            rows: 2,
             placeholder: "Ex: MBA, formation en reprise d'entreprise...",
-            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500",
+            data: { char_counter_target: "input", action: "input->char-counter#input" }
           %>
         </div>
 
-        <div>
-          <%= f.label :experience, "Expérience professionnelle", class: "block text-sm font-medium text-gray-700" %>
+        <div data-controller="char-counter" data-char-counter-max-value="300">
+          <%= f.label :experience, "Expérience *", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.text_area :experience, 
-            rows: 3,
+            rows: 2,
             placeholder: "Décrivez votre parcours professionnel...",
-            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500",
+            data: { char_counter_target: "input", action: "input->char-counter#input" }
           %>
         </div>
 
-        <div>
-          <%= f.label :skills, "Compétences (200 caractères max)", class: "block text-sm font-medium text-gray-700" %>
+        <div data-controller="char-counter" data-char-counter-max-value="200">
+          <%= f.label :skills, "Compétences (200 car max) *", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.text_area :skills, 
             rows: 2,
             maxlength: 200,
             placeholder: "Management, Marketing Digital, Commercial, Finance...",
-            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500",
+            data: { char_counter_target: "input", action: "input->char-counter#input" }
           %>
+          <p class="text-xs text-gray-500 mt-1" data-char-counter-target="counter"></p>
         </div>
       </div>
     </div>
@@ -68,15 +77,16 @@
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <h3 class="text-lg font-bold text-gray-900 mb-4">Thèse de reprise</h3>
       
-      <div>
-        <%= f.label :investment_thesis, "Votre thèse d'investissement (500 caractères max)", class: "block text-sm font-medium text-gray-700" %>
+      <div data-controller="char-counter" data-char-counter-max-value="500">
+        <%= f.label :investment_thesis, "Thèse de reprise (500 car max) *", class: "block text-sm font-medium text-gray-700 mb-2" %>
         <%= f.text_area :investment_thesis, 
           rows: 4,
           maxlength: 500,
           placeholder: "Décrivez votre projet de reprise, vos motivations et objectifs...",
-          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500",
+          data: { char_counter_target: "input", action: "input->char-counter#input" }
         %>
-        <p class="mt-1 text-sm text-gray-500">Maximum 500 caractères</p>
+        <p class="text-xs text-gray-500 mt-1" data-char-counter-target="counter"></p>
       </div>
     </div>
 
@@ -86,7 +96,7 @@
       
       <div class="space-y-4">
         <div>
-          <%= f.label :target_sectors, "Secteurs d'activité", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :target_sectors, "Secteurs d'activité", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.select :target_sectors,
             options_for_select([
               'Industrie',
@@ -102,13 +112,13 @@
               'Autre'
             ], @profile.target_sectors),
             {},
-            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+            { multiple: true, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" }
           %>
-          <p class="mt-1 text-sm text-gray-500">Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs secteurs</p>
+          <p class="text-xs text-gray-500 mt-1">Maintenez Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs secteurs</p>
         </div>
 
         <div>
-          <%= f.label :target_locations, "Localisations", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :target_locations, "Localisations", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.select :target_locations,
             options_for_select([
               'Île-de-France',
@@ -127,50 +137,50 @@
               'Toute France'
             ], @profile.target_locations),
             {},
-            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+            { multiple: true, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" }
           %>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <%= f.label :target_revenue_min, "CA minimum (€)", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.label :target_revenue_min, "CA minimum (€)", class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= f.number_field :target_revenue_min, 
               step: 1000,
               placeholder: "500000",
-              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+              class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             %>
           </div>
           <div>
-            <%= f.label :target_revenue_max, "CA maximum (€)", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.label :target_revenue_max, "CA maximum (€)", class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= f.number_field :target_revenue_max, 
               step: 1000,
               placeholder: "2000000",
-              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+              class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             %>
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <%= f.label :target_employees_min, "Effectif minimum", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.label :target_employees_min, "Effectif minimum", class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= f.number_field :target_employees_min, 
               min: 0,
               placeholder: "5",
-              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+              class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             %>
           </div>
           <div>
-            <%= f.label :target_employees_max, "Effectif maximum", class: "block text-sm font-medium text-gray-700" %>
+            <%= f.label :target_employees_max, "Effectif maximum", class: "block text-sm font-medium text-gray-700 mb-2" %>
             <%= f.number_field :target_employees_max, 
               min: 0,
               placeholder: "50",
-              class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+              class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
             %>
           </div>
         </div>
 
         <div>
-          <%= f.label :target_financial_health, "Santé financière recherchée", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :target_financial_health, "Santé financière recherchée", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.select :target_financial_health,
             options_for_select([
               ['En bonne santé', 'in_bonis'],
@@ -178,20 +188,20 @@
               ['Les deux', 'both']
             ], @profile.target_financial_health),
             { include_blank: 'Sélectionnez' },
-            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
           %>
         </div>
 
         <div>
-          <%= f.label :target_horizon, "Horizon de transmission", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :target_horizon, "Horizon de transmission", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.text_field :target_horizon, 
             placeholder: "Ex: Immédiat, 6 mois, 1 an...",
-            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
           %>
         </div>
 
         <div>
-          <%= f.label :target_transfer_types, "Types de transmission", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :target_transfer_types, "Types de transmission", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.select :target_transfer_types,
             options_for_select([
               'Cession de fonds de commerce',
@@ -200,12 +210,12 @@
               'Cession d\'actifs'
             ], @profile.target_transfer_types),
             {},
-            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+            { multiple: true, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" }
           %>
         </div>
 
         <div>
-          <%= f.label :target_customer_types, "Types de clientèle", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.label :target_customer_types, "Types de clientèle", class: "block text-sm font-medium text-gray-700 mb-2" %>
           <%= f.select :target_customer_types,
             options_for_select([
               'B2B',
@@ -213,7 +223,7 @@
               'Mixte'
             ], @profile.target_customer_types),
             {},
-            { multiple: true, class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500" }
+            { multiple: true, class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500" }
           %>
         </div>
       </div>
@@ -222,71 +232,26 @@
     <!-- Données financières (privées) -->
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
       <div class="flex items-center gap-2 mb-4">
-        <h3 class="text-lg font-bold text-gray-900">Données financières</h3>
-        <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">Privé - Non visible publiquement</span>
+        <h3 class="text-lg font-bold text-gray-900">Données confidentielles</h3>
       </div>
       
       <div class="space-y-4">
         <div>
-          <%= f.label :investment_capacity, "Capacité d'investissement (€)", class: "block text-sm font-medium text-gray-700" %>
-          <%= f.number_field :investment_capacity, 
-            step: 1000,
-            placeholder: "500000",
-            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
+          <%= f.label :linkedin_url, "LinkedIn", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.url_field :linkedin_url, 
+            placeholder: "https://www.linkedin.com/in/...",
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
           %>
         </div>
-
-        <div>
-          <%= f.label :funding_sources, "Sources de financement", class: "block text-sm font-medium text-gray-700" %>
-          <%= f.text_area :funding_sources, 
-            rows: 2,
-            placeholder: "Apport personnel, emprunt bancaire, Love Money...",
-            class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
-          %>
-        </div>
-      </div>
-    </div>
-
-    <!-- Profil professionnel -->
-    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Profil professionnel</h3>
-      
-      <div>
-        <%= f.label :linkedin_url, "URL LinkedIn", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.url_field :linkedin_url, 
-          placeholder: "https://www.linkedin.com/in/...",
-          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
-        %>
-      </div>
-    </div>
-
-    <!-- Statut du profil -->
-    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-      <h3 class="text-lg font-bold text-gray-900 mb-4">Visibilité du profil</h3>
-      
-      <div>
-        <%= f.label :profile_status, "Statut", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.select :profile_status,
-          options_for_select([
-            ['Brouillon (non visible)', 'draft'],
-            ['Publié (visible dans l\'annuaire)', 'published']
-          ], @profile.profile_status),
-          {},
-          class: "mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-buyer-500 focus:ring-buyer-500"
-        %>
-        <p class="mt-1 text-sm text-gray-500">
-          Publiez votre profil pour être visible par les cédants dans l'annuaire des repreneurs
-        </p>
       </div>
     </div>
 
     <!-- Actions -->
-    <div class="flex items-center justify-between bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-      <%= link_to buyer_profile_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
+    <div class="flex gap-3">
+      <%= link_to buyer_profile_path, class: "px-6 py-3 border border-gray-300 rounded-lg" do %>
         Annuler
       <% end %>
-      
-      <%= f.submit "Enregistrer les modifications", class: "px-6 py-2 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 font-medium" %>
+      <%= f.submit "Enregistrer", class: "flex-1 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700" %>
     </div>
 
     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
