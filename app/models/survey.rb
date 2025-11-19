@@ -2,7 +2,7 @@ class Survey < ApplicationRecord
   belongs_to :admin_message
   has_many :survey_responses, dependent: :destroy
   
-  enum survey_type: { satisfaction: 0, development: 1 }
+  enum :survey_type, { satisfaction: 0, development: 1 }
   
   validates :title, presence: true
   
