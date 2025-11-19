@@ -82,6 +82,7 @@
         
         <div class="border-t border-gray-200 mt-2 pt-2 px-4 py-2">
           <a :href="`/admin/analytics.${format}?period=<%= @period %>&scope=${scope}`" 
+             data-turbo="false"
              class="block w-full px-4 py-2 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition text-sm font-medium text-center">
             Confirmer l'export
           </a>

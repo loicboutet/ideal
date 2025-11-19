@@ -95,12 +95,31 @@ class Admin::LeadImportService
     )
     
     if user.save
-      # Create buyer profile
-      user.create_buyer_profile!(
+      # Profile was automatically created by User's after_create callback
+      # Update it with import data
+      profile_attrs = {
         buyer_type: map_buyer_type(row['Type']),
         subscription_plan: map_subscription(row['Abonnement']),
         subscription_status: :active
-      )
+      }
+      
+      # Add optional fields if present
+      profile_attrs[:formation] = row['Formation']&.to_s if row['Formation'].present?
+      profile_attrs[:experience] = row['Experience']&.to_s if row['Experience'].present?
+      profile_attrs[:skills] = row['Compétences']&.to_s if row['Compétences'].present?
+      profile_attrs[:investment_thesis] = row['Thèse d\'investissement']&.to_s if row['Thèse d\'investissement'].present?
+      profile_attrs[:target_sectors] = row['Secteurs cibles']&.to_s&.split(',')&.map(&:strip) if row['Secteurs cibles'].present?
+      profile_attrs[:target_locations] = row['Localisations cibles']&.to_s&.split(',')&.map(&:strip) if row['Localisations cibles'].present?
+      profile_attrs[:target_revenue_min] = row['CA minimum']&.to_i if row['CA minimum'].present?
+      profile_attrs[:target_revenue_max] = row['CA maximum']&.to_i if row['CA maximum'].present?
+      profile_attrs[:target_employees_min] = row['Employés minimum']&.to_i if row['Employés minimum'].present?
+      profile_attrs[:target_employees_max] = row['Employés maximum']&.to_i if row['Employés maximum'].present?
+      profile_attrs[:target_financial_health] = map_financial_health(row['Santé financière cible']) if row['Santé financière cible'].present?
+      profile_attrs[:target_horizon] = row['Horizon de transfert']&.to_s if row['Horizon de transfert'].present?
+      profile_attrs[:investment_capacity] = row['Capacité d\'investissement']&.to_i if row['Capacité d\'investissement'].present?
+      profile_attrs[:funding_sources] = row['Sources de financement']&.to_s if row['Sources de financement'].present?
+      
+      user.buyer_profile.update!(profile_attrs)
       
       @successful_count += 1
     else
@@ -158,6 +177,15 @@ class Admin::LeadImportService
     when 'premium' then :premium
     when 'club' then :club
     else :free
+    end
+  end
+
+  def map_financial_health(health)
+    case health&.downcase&.strip
+    when 'in_bonis', 'saine', 'healthy' then :in_bonis
+    when 'in_difficulty', 'difficulté', 'difficulty' then :in_difficulty
+    when 'both', 'les deux', 'both' then :both
+    else :both
     end
   end
 end
