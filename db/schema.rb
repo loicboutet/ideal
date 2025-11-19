@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_18_202728) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_19_112415) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -423,6 +423,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_202728) do
     t.boolean "receive_signed_nda", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "siret_number"
+    t.text "specialization"
+    t.text "intervention_zones"
+    t.text "specialization_sectors"
+    t.text "intervention_stages"
+    t.string "calendar_link"
+    t.integer "profile_views_count", default: 0, null: false
+    t.integer "profile_contacts_count", default: 0, null: false
     t.index ["is_broker"], name: "index_seller_profiles_on_is_broker"
     t.index ["premium_access"], name: "index_seller_profiles_on_premium_access"
     t.index ["user_id"], name: "index_seller_profiles_on_user_id", unique: true

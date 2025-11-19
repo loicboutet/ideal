@@ -6,6 +6,22 @@ class Seller::ProfilesController < ApplicationController
   def show
     @profile = current_user.seller_profile
     @active_listings = @profile.listings.where(status: [:active, :pending])
+    
+    # Load interested buyers count for each listing
+    @listings_with_interests = @active_listings.includes(:deals).map do |listing|
+      {
+        listing: listing,
+        interested_count: listing.deals.where(status: [:initial_contact, :nda_signed, :loi_stage, :audit_stage]).count
+      }
+    end
+    
+    # Calculate statistics for last 30 days
+    @stats = {
+      profile_views: @profile.profile_views_count,
+      contacts_received: @profile.profile_contacts_count,
+      active_mandates: @profile.active_mandates_count,
+      pushes_sent: @profile.monthly_pushes_count
+    }
   end
   
   def edit
