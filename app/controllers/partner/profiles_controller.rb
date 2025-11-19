@@ -12,6 +12,11 @@ class Partner::ProfilesController < ApplicationController
   end
   
   def update
+    # Update user's company name if provided
+    if params[:user].present? && params[:user][:company_name].present?
+      current_user.update(company_name: params[:user][:company_name])
+    end
+    
     if @profile.update(profile_params)
       flash.now[:notice] = 'Votre profil a été mis à jour avec succès.'
       render :edit
