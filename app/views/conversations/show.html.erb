@@ -1,0 +1,142 @@
+<% content_for :title, "Conversation - Idéal Reprise" %>
+
+<div class="flex h-[calc(100vh-8rem)] bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+  <!-- Conversations List -->
+  <div class="w-80 border-r border-gray-200 flex flex-col">
+    <!-- Header -->
+    <div class="p-4 border-b border-gray-200">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-gray-900">Messages</h2>
+        <%= link_to conversations_path, class: "text-gray-600 hover:text-gray-900" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+        <% end %>
+      </div>
+      <input type="text" 
+             placeholder="Rechercher..." 
+             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm">
+    </div>
+
+    <!-- Conversations -->
+    <div class="flex-1 overflow-y-auto">
+      <% current_user.conversations.includes(:listing, :participants, :messages).order('messages.created_at DESC').distinct.each do |conversation| %>
+        <%= link_to conversation_path(conversation), class: "block p-4 border-b border-gray-200 hover:bg-gray-50 transition #{conversation.id == @conversation.id ? 'bg-blue-50' : ''}" do %>
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-sm font-semibold text-blue-600">
+                <%= conversation.other_participant(current_user)&.full_name&.first&.upcase %>
+              </span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between mb-1">
+                <h3 class="text-sm font-semibold text-gray-900 truncate">
+                  <%= conversation.other_participant(current_user)&.full_name %>
+                </h3>
+                <% if conversation.latest_message %>
+                  <span class="text-xs text-gray-500">
+                    <%= time_ago_in_words(conversation.latest_message.created_at) %>
+                  </span>
+                <% end %>
+              </div>
+              <% if conversation.listing %>
+                <p class="text-xs text-gray-500 truncate mb-1">
+                  Re: <%= conversation.listing.title %>
+                </p>
+              <% end %>
+              <% if conversation.latest_message %>
+                <p class="text-sm text-gray-600 truncate">
+                  <%= conversation.latest_message.body %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Message Thread -->
+  <div class="flex-1 flex flex-col">
+    <!-- Thread Header -->
+    <div class="p-4 border-b border-gray-200">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+          <span class="text-sm font-semibold text-blue-600">
+            <%= @conversation.other_participant(current_user)&.full_name&.first&.upcase %>
+          </span>
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-gray-900">
+            <%= @conversation.other_participant(current_user)&.full_name %>
+          </h2>
+          <% if @conversation.listing %>
+            <p class="text-sm text-gray-600">
+              Re: <%= link_to @conversation.listing.title, @conversation.listing, class: "text-blue-600 hover:underline" %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-4" data-controller="scroll">
+      <% @messages.each do |message| %>
+        <div class="flex <%= message.sender_id == current_user.id ? 'justify-end' : 'justify-start' %>">
+          <div class="max-w-md">
+            <% if message.sender_id != current_user.id %>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="text-xs font-medium text-gray-600">
+                  <%= message.sender.full_name %>
+                </span>
+                <span class="text-xs text-gray-400">
+                  <%= message.created_at.strftime('%H:%M') %>
+                </span>
+              </div>
+            <% end %>
+            
+            <div class="<%= message.sender_id == current_user.id ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-900' %> rounded-lg p-3">
+              <p class="text-sm whitespace-pre-wrap"><%= message.body %></p>
+            </div>
+            
+            <% if message.sender_id == current_user.id %>
+              <div class="flex items-center justify-end gap-2 mt-1">
+                <span class="text-xs text-gray-400">
+                  <%= message.created_at.strftime('%H:%M') %>
+                </span>
+                <% if message.read? %>
+                  <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Message Input -->
+    <div class="p-4 border-t border-gray-200">
+      <%= form_with model: [@conversation, @message], 
+                    data: { turbo_stream: true },
+                    id: "message_form",
+                    class: "flex gap-3" do |f| %>
+        <%= f.text_area :body, 
+            rows: 1,
+            placeholder: "Tapez votre message...",
+            class: "flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none",
+            required: true,
+            data: { 
+              action: "keydown->message-form#submit",
+              message_form_target: "input"
+            } %>
+        <%= f.submit "Envoyer", 
+            class: "px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium flex items-center gap-2" %>
+      <% end %>
+      <p class="text-xs text-gray-500 mt-2">
+        Appuyez sur Entrée pour envoyer, Maj+Entrée pour une nouvelle ligne
+      </p>
+    </div>
+  </div>
+</div>
