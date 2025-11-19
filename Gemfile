@@ -72,3 +72,6 @@ gem "caxlsx"
 gem "caxlsx_rails"
 gem "prawn"
 gem "prawn-table"
+
+# Import functionality (Excel/CSV reading)
+gem "roo", "~> 2.10"

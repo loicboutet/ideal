@@ -100,8 +100,15 @@ Rails.application.routes.draw do
       end
     end
     
-    # Bulk Import System
-    resources :imports, only: [:index, :show, :new, :create]
+    # Bulk Import System (Lead Imports)
+    resources :lead_imports, only: [:index, :show, :new, :create] do
+      member do
+        get :download_errors
+      end
+      collection do
+        get :template
+      end
+    end
     
     # Enrichment Validation
     resources :enrichments, only: [:index, :show] do
