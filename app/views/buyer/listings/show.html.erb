@@ -141,6 +141,179 @@
     </div>
   <% end %>
 
+  <!-- NDA & Confidential Information Section -->
+  <% 
+    platform_nda_signed = current_user.nda_signatures.exists?(signature_type: :platform_wide)
+    listing_nda_signed = current_user.nda_signatures.exists?(signature_type: :listing_specific, listing_id: @listing.id)
+    has_access_to_confidential = platform_nda_signed && listing_nda_signed
+  %>
+
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="bg-gradient-to-r from-buyer-600 to-purple-600 px-6 py-4">
+      <div class="flex items-center gap-3">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <h2 class="text-lg font-bold text-white">Informations confidentielles</h2>
+        <% if has_access_to_confidential %>
+          <span class="ml-auto px-3 py-1 bg-green-500 text-white text-sm font-medium rounded-full">
+            ✓ Déverrouillé
+          </span>
+        <% else %>
+          <span class="ml-auto px-3 py-1 bg-yellow-400 text-gray-900 text-sm font-medium rounded-full">
+            🔒 Verrouillé
+          </span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="p-6">
+      <% if has_access_to_confidential %>
+        <!-- Show confidential information -->
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <% if @listing.company_name.present? %>
+              <div>
+                <div class="text-sm text-gray-600 mb-1">Nom de l'entreprise</div>
+                <div class="font-semibold text-gray-900"><%= @listing.company_name %></div>
+              </div>
+            <% end %>
+            
+            <% if @listing.specific_location.present? %>
+              <div>
+                <div class="text-sm text-gray-600 mb-1">Adresse précise</div>
+                <div class="font-semibold text-gray-900"><%= @listing.specific_location %></div>
+              </div>
+            <% end %>
+            
+            <% if @listing.website.present? %>
+              <div>
+                <div class="text-sm text-gray-600 mb-1">Site web</div>
+                <div class="font-semibold text-buyer-600">
+                  <%= link_to @listing.website, @listing.website, target: "_blank", class: "hover:underline" %>
+                </div>
+              </div>
+            <% end %>
+            
+            <% if @listing.contact_email.present? %>
+              <div>
+                <div class="text-sm text-gray-600 mb-1">Email de contact</div>
+                <div class="font-semibold text-gray-900"><%= @listing.contact_email %></div>
+              </div>
+            <% end %>
+            
+            <% if @listing.contact_phone.present? %>
+              <div>
+                <div class="text-sm text-gray-600 mb-1">Téléphone</div>
+                <div class="font-semibold text-gray-900"><%= @listing.contact_phone %></div>
+              </div>
+            <% end %>
+          </div>
+
+          <% if @listing.description_confidential.present? %>
+            <div>
+              <div class="text-sm text-gray-600 mb-2">Description détaillée</div>
+              <div class="text-gray-700 leading-relaxed whitespace-pre-wrap bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <%= @listing.description_confidential %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Documents section would go here -->
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p class="text-sm text-green-800">
+                Vous avez accès à toutes les informations confidentielles de cette annonce. 
+                Rappel : Ces informations sont protégées par l'accord de confidentialité que vous avez signé.
+              </p>
+            </div>
+          </div>
+        </div>
+      <% elsif !platform_nda_signed %>
+        <!-- Need to sign platform NDA first -->
+        <div class="text-center py-8">
+          <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <h3 class="text-lg font-semibold text-gray-900 mb-2">Accord de confidentialité requis</h3>
+          <p class="text-gray-600 mb-6 max-w-md mx-auto">
+            Pour accéder aux informations confidentielles (nom, adresse, contacts, documents), 
+            vous devez d'abord signer l'accord de confidentialité plateforme.
+          </p>
+          <%= link_to buyer_nda_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            Signer l'accord de confidentialité
+          <% end %>
+        </div>
+      <% else %>
+        <!-- Platform NDA signed, need listing-specific NDA -->
+        <div class="space-y-6">
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div class="flex-1">
+                <p class="text-sm font-semibold text-blue-900 mb-1">Une dernière étape</p>
+                <p class="text-sm text-blue-800">
+                  Vous devez signer un accord de confidentialité spécifique pour cette annonce afin d'accéder 
+                  aux informations confidentielles (nom exact, adresse, contacts).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <%= form_with url: buyer_listing_listing_ndas_path(@listing), method: :post, local: true do |f| %>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-4">
+              <h4 class="font-semibold text-gray-900 mb-3">Accord de confidentialité - Annonce #<%= @listing.id %></h4>
+              <p class="text-sm text-gray-700 mb-4">
+                En signant cet accord, vous vous engagez à préserver la confidentialité de toutes les informations 
+                relatives à l'annonce "<%= @listing.title %>", conformément à l'accord de confidentialité plateforme 
+                que vous avez déjà accepté.
+              </p>
+              
+              <div class="text-xs text-gray-600 mb-4">
+                <p><strong>Signature enregistrée avec :</strong></p>
+                <ul class="list-disc pl-5 mt-1 space-y-1">
+                  <li>Date : <%= Time.current.strftime("%d/%m/%Y à %H:%M") %></li>
+                  <li>IP : <%= request.remote_ip %></li>
+                  <li>Utilisateur : <%= current_user.email %></li>
+                </ul>
+              </div>
+
+              <label class="flex items-start gap-3 cursor-pointer group mb-4">
+                <%= f.check_box :accepted_terms, 
+                    { class: "mt-1 w-5 h-5 text-buyer-600 border-gray-300 rounded focus:ring-2 focus:ring-buyer-500", required: true }, 
+                    '1', '0' %>
+                <span class="text-sm text-gray-700 group-hover:text-gray-900">
+                  Je m'engage à respecter l'accord de confidentialité pour cette annonce et à ne divulguer aucune 
+                  information confidentielle à des tiers sans autorisation préalable.
+                </span>
+              </label>
+
+              <%= f.submit "✍️ Signer et accéder aux informations confidentielles", 
+                  class: "w-full px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium" %>
+            </div>
+          <% end %>
+
+          <div class="text-center py-4">
+            <svg class="w-12 h-12 text-gray-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <p class="text-sm text-gray-500">
+              Les informations confidentielles seront visibles après signature
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
   <!-- Actions -->
   <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
     <h3 class="text-lg font-bold text-gray-900 mb-4">Actions</h3>

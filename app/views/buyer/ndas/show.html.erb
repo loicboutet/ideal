@@ -1,0 +1,140 @@
+<% content_for :title, "Accord de confidentialité - Idéal Reprise" %>
+<% content_for :page_title, "Accord de confidentialité" %>
+
+<div class="max-w-4xl mx-auto">
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 mb-6 border border-gray-200">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 bg-buyer-100 rounded-full flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Accord de confidentialité plateforme</h1>
+        <p class="text-gray-600">
+          Pour accéder aux informations confidentielles des annonces sur Idéal Reprise, vous devez d'abord signer cet accord de confidentialité.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NDA Text -->
+  <div class="bg-white rounded-xl shadow-sm p-8 mb-6 border border-gray-200">
+    <div class="prose max-w-none">
+      <h2 class="text-xl font-bold text-gray-900 mb-4">Accord de confidentialité</h2>
+      
+      <div class="space-y-4 text-gray-700 leading-relaxed">
+        <p>
+          <strong>Entre :</strong><br>
+          La société <strong>IDÉAL REPRISE</strong>, plateforme de mise en relation pour la transmission d'entreprises, 
+          ci-après dénommée "la Plateforme",
+        </p>
+
+        <p>
+          <strong>Et :</strong><br>
+          L'utilisateur inscrit en tant que repreneur, ci-après dénommé "le Repreneur",
+        </p>
+
+        <h3 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Article 1 - Objet</h3>
+        <p>
+          Le présent accord a pour objet de définir les conditions dans lesquelles le Repreneur s'engage à préserver 
+          la confidentialité des informations sensibles concernant les entreprises présentées sur la Plateforme.
+        </p>
+
+        <h3 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Article 2 - Informations confidentielles</h3>
+        <p>
+          Sont considérées comme confidentielles toutes les informations relatives aux entreprises à céder, notamment :
+        </p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>Le nom exact de l'entreprise</li>
+          <li>L'adresse précise de l'établissement</li>
+          <li>Les coordonnées des dirigeants</li>
+          <li>Les informations financières détaillées</li>
+          <li>Les documents commerciaux et juridiques</li>
+          <li>Toute information non publique relative à l'activité</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Article 3 - Obligations du Repreneur</h3>
+        <p>Le Repreneur s'engage à :</p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>Préserver la stricte confidentialité des informations communiquées</li>
+          <li>Ne pas divulguer ces informations à des tiers sans autorisation écrite préalable</li>
+          <li>Utiliser ces informations uniquement dans le cadre de son projet d'acquisition</li>
+          <li>Ne pas utiliser ces informations à des fins concurrentielles</li>
+          <li>Restituer ou détruire toutes les informations en cas de non-aboutissement du projet</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Article 4 - Durée</h3>
+        <p>
+          Le présent accord prend effet à la date de signature électronique et reste en vigueur pendant une durée 
+          de 3 ans, même après la fin de l'utilisation de la Plateforme.
+        </p>
+
+        <h3 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Article 5 - Sanctions</h3>
+        <p>
+          Toute violation du présent accord pourra entraîner :
+        </p>
+        <ul class="list-disc pl-6 space-y-1">
+          <li>La suspension immédiate de l'accès à la Plateforme</li>
+          <li>Des poursuites judiciaires pour rupture de confidentialité</li>
+          <li>Le versement de dommages et intérêts</li>
+        </ul>
+
+        <h3 class="text-lg font-semibold text-gray-900 mt-6 mb-3">Article 6 - Preuve électronique</h3>
+        <p>
+          La signature électronique du présent accord a la même valeur juridique qu'une signature manuscrite. 
+          L'horodatage et l'adresse IP de signature sont conservés comme preuve.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signature Section -->
+  <%= form_with url: buyer_nda_path, method: :post, local: true, class: "bg-white rounded-xl shadow-sm p-6 border border-gray-200" do |f| %>
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Signature électronique</h3>
+    
+    <!-- Legal Info -->
+    <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div class="text-sm text-gray-700">
+          <p class="font-semibold mb-1">Informations de signature :</p>
+          <ul class="space-y-1">
+            <li><strong>Date :</strong> <%= Time.current.strftime("%d/%m/%Y à %H:%M") %></li>
+            <li><strong>Adresse IP :</strong> <%= request.remote_ip %></li>
+            <li><strong>Signataire :</strong> <%= current_user.email %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acceptance Checkbox -->
+    <div class="mb-6">
+      <label class="flex items-start gap-3 cursor-pointer group">
+        <%= f.check_box :accepted_terms, 
+            { class: "mt-1 w-5 h-5 text-buyer-600 border-gray-300 rounded focus:ring-2 focus:ring-buyer-500", required: true }, 
+            '1', '0' %>
+        <span class="text-gray-700 group-hover:text-gray-900">
+          Je déclare avoir lu et compris l'accord de confidentialité ci-dessus et m'engage à respecter l'ensemble 
+          de ses dispositions. Je reconnais que ma signature électronique a la même valeur juridique qu'une signature manuscrite.
+        </span>
+      </label>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-3">
+      <%= f.submit "✍️ Signer l'accord de confidentialité", 
+          class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium text-center" %>
+      
+      <%= link_to "Annuler", buyer_root_path, 
+          class: "px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" %>
+    </div>
+
+    <p class="text-sm text-gray-500 mt-4 text-center">
+      En signant cet accord, vous pourrez accéder aux informations confidentielles des annonces.
+    </p>
+  <% end %>
+</div>

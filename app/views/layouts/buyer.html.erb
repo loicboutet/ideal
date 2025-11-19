@@ -60,7 +60,7 @@
             </svg>
             <span class="font-medium">Parcourir</span>
           <% end %>
-          <%= link_to "#", class: "flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-gray-50 mt-1" do %>
+          <%= link_to buyer_favorites_path, class: "flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-gray-50 mt-1" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
@@ -119,6 +119,22 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
             <span class="font-medium">Profil</span>
+          <% end %>
+          <% 
+            platform_nda_signed = current_user&.nda_signatures&.exists?(signature_type: :platform_wide) || false
+          %>
+          <%= link_to buyer_nda_path, class: "flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-gray-50 mt-1" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <span class="font-medium">Accord de confidentialité</span>
+            <% if platform_nda_signed %>
+              <span class="ml-auto">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+              </span>
+            <% end %>
           <% end %>
           <%= link_to "#", class: "flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-gray-50 mt-1" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
