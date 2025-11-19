@@ -1,0 +1,179 @@
+<% content_for :title, "#{@listing.title} - Détail de l'annonce - Idéal Reprise" %>
+<% content_for :page_title, "Détail de l'annonce" %>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <%= link_to buyer_listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour aux annonces
+  <% end %>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-start justify-between mb-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <h1 class="text-3xl font-bold text-gray-900"><%= @listing.title %></h1>
+          <% case @listing.deal_type %>
+          <% when 'direct' %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-buyer-100 text-buyer-700">⚡ Deal Direct</span>
+          <% when 'ideal_mandate' %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-700">🏆 Mandat Idéal</span>
+          <% when 'partner_mandate' %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-700">🤝 Mandat Partenaire</span>
+          <% end %>
+          
+          <% if @is_exclusive %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">✨ Exclusif</span>
+          <% end %>
+        </div>
+        <p class="text-gray-600">
+          <%= @listing.location_department %> (<%= @listing.location_department&.first(2) %>) • <%= @listing.industry_sector&.humanize %>
+        </p>
+        
+        <!-- Scorecard Stars -->
+        <% if @listing.show_scorecard_stars && @listing.scorecard_stars %>
+          <div class="flex items-center gap-2 mt-3">
+            <% @listing.scorecard_stars.times do %>
+              <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            <% end %>
+            <% (5 - @listing.scorecard_stars).times do %>
+              <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+            <% end %>
+            <span class="text-sm text-gray-600 ml-2">Score Scorecard: <%= @listing.scorecard_stars %>/5</span>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- Completeness -->
+      <div class="text-right">
+        <div class="text-sm text-gray-600 mb-1">Complétude</div>
+        <div class="text-3xl font-bold <%= @listing.completeness_score >= 85 ? 'text-green-600' : 'text-orange-600' %>">
+          <%= @listing.completeness_score %>%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">CA annuel</div>
+      <div class="text-xl font-bold text-gray-900">
+        <%= @listing.annual_revenue ? number_to_currency(@listing.annual_revenue, unit: "€", precision: 0, format: "%n %u") : 'N/A' %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Effectif</div>
+      <div class="text-xl font-bold text-gray-900"><%= @listing.employee_count || 'N/A' %></div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Prix</div>
+      <div class="text-xl font-bold text-buyer-600">
+        <% if @listing.asking_price %>
+          <%= number_to_currency(@listing.asking_price, unit: "€", precision: 0, format: "%n %u") %>
+        <% elsif @listing.price_min && @listing.price_max %>
+          <%= number_to_currency(@listing.price_min, unit: "€", precision: 0, format: "%n %u") %> - <%= number_to_currency(@listing.price_max, unit: "€", precision: 0, format: "%n %u") %>
+        <% else %>
+          Sur demande
+        <% end %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Résultat Net</div>
+      <div class="text-xl font-bold text-gray-900">
+        <%= @listing.net_profit ? number_to_currency(@listing.net_profit, unit: "€", precision: 0, format: "%n %u") : 'N/A' %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Information -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Informations détaillées</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <div class="text-sm text-gray-600">Secteur</div>
+        <div class="font-medium text-gray-900"><%= @listing.industry_sector&.humanize || 'N/A' %></div>
+      </div>
+      <% if @listing.legal_form %>
+        <div>
+          <div class="text-sm text-gray-600">Forme juridique</div>
+          <div class="font-medium text-gray-900"><%= @listing.legal_form %></div>
+        </div>
+      <% end %>
+      <% if @listing.transfer_horizon %>
+        <div>
+          <div class="text-sm text-gray-600">Horizon transmission</div>
+          <div class="font-medium text-gray-900"><%= @listing.transfer_horizon %></div>
+        </div>
+      <% end %>
+      <% if @listing.transfer_type %>
+        <div>
+          <div class="text-sm text-gray-600">Type transmission</div>
+          <div class="font-medium text-gray-900"><%= @listing.transfer_type&.humanize %></div>
+        </div>
+      <% end %>
+      <% if @listing.company_age %>
+        <div>
+          <div class="text-sm text-gray-600">Ancienneté</div>
+          <div class="font-medium text-gray-900"><%= @listing.company_age %> ans</div>
+        </div>
+      <% end %>
+      <% if @listing.customer_type %>
+        <div>
+          <div class="text-sm text-gray-600">Clientèle</div>
+          <div class="font-medium text-gray-900"><%= @listing.customer_type&.upcase %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Public Description -->
+  <% if @listing.description_public.present? %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Description</h2>
+      <p class="text-gray-700 leading-relaxed whitespace-pre-wrap"><%= @listing.description_public %></p>
+    </div>
+  <% end %>
+
+  <!-- Actions -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Actions</h3>
+    <div class="flex flex-wrap gap-3">
+      <% if @is_favorited %>
+        <%= button_to unfavorite_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium" do %>
+          💔 Retirer des favoris
+        <% end %>
+      <% else %>
+        <%= button_to favorite_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-medium" do %>
+          ❤️ Ajouter aux favoris
+        <% end %>
+      <% end %>
+      
+      <% if @active_deal %>
+        <div class="flex-1 px-6 py-3 bg-green-100 border-2 border-green-500 text-green-800 rounded-lg font-medium text-center">
+          ✅ Dans votre CRM
+        </div>
+      <% elsif @listing.status == 'reserved' %>
+        <div class="flex-1 px-6 py-3 bg-gray-100 border-2 border-gray-400 text-gray-600 rounded-lg font-medium text-center">
+          🔒 Réservé par un autre repreneur
+        </div>
+      <% else %>
+        <%= button_to reserve_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium" do %>
+          🔒 Signer le NDA et réserver
+        <% end %>
+      <% end %>
+    </div>
+    
+    <div class="mt-4 p-4 bg-buyer-50 border border-buyer-200 rounded-lg">
+      <p class="text-sm text-buyer-800">
+        <strong>Note:</strong> Après signature du NDA et réservation, vous accéderez aux informations confidentielles (nom exact, adresse, contacts, documents) et l'annonce entrera automatiquement dans votre pipeline CRM.
+      </p>
+    </div>
+  </div>
+</div>
