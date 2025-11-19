@@ -5,51 +5,60 @@ class Admin::DashboardController < ApplicationController
   before_action :authorize_admin!
 
   def index
-    # Initialize analytics service with period filter
-    @period = params[:period] || 'month'
-    @analytics = Admin::DashboardAnalyticsService.new(
-      period: @period,
-      start_date: params[:start_date],
-      end_date: params[:end_date]
-    )
+    # Get date range from params or default to 30 days
+    date_range = get_date_range(params[:date_range])
     
-    # Alert KPIs (clickable)
-    @alerts = {
-      zero_view_listings: @analytics.zero_view_listings_count,
-      pending_validations: @analytics.pending_validations_count,
-      pending_reports: @analytics.pending_reports_count,
-      expired_timers: @analytics.expired_timers_count
+    # Key Metrics with evolution
+    total_users = User.where('created_at >= ?', date_range[:start]).count
+    prev_period_users = User.where('created_at >= ? AND created_at < ?', date_range[:prev_start], date_range[:start]).count
+    user_evolution = prev_period_users > 0 ? (((total_users - prev_period_users).to_f / prev_period_users) * 100).round : 0
+    
+    active_listings = Listing.where(validation_status: :approved, status: :published)
+                             .where('created_at >= ?', date_range[:start]).count
+    prev_period_listings = Listing.where(validation_status: :approved, status: :published)
+                                  .where('created_at >= ? AND created_at < ?', date_range[:prev_start], date_range[:start]).count
+    listing_evolution = prev_period_listings > 0 ? (((active_listings - prev_period_listings).to_f / prev_period_listings) * 100).round : 0
+    
+    pending_validations = Listing.where(validation_status: :pending).count
+    
+    # Calculate revenue for selected period
+    monthly_revenue = calculate_revenue_for_period(date_range[:start], date_range[:end])
+    prev_period_revenue = calculate_revenue_for_period(date_range[:prev_start], date_range[:start])
+    revenue_evolution = prev_period_revenue > 0 ? (((monthly_revenue - prev_period_revenue).to_f / prev_period_revenue) * 100).round : 0
+    
+    @metrics = {
+      total_users: {
+        count: total_users,
+        evolution: user_evolution
+      },
+      active_listings: {
+        count: active_listings,
+        evolution: listing_evolution
+      },
+      pending_validations: {
+        count: pending_validations,
+        evolution: nil
+      },
+      monthly_revenue: {
+        amount: monthly_revenue,
+        evolution: revenue_evolution
+      }
     }
     
-    # Key Ratios
-    @listings_per_buyer_ratio = @analytics.listings_per_buyer_ratio
+    # User Growth Chart based on selected range
+    @user_growth_chart = build_user_growth_chart(date_range)
     
-    # Satisfaction
-    @satisfaction = {
-      current: @analytics.satisfaction_percentage,
-      evolution: @analytics.satisfaction_evolution
-    }
+    # User Distribution by Role
+    @user_distribution = build_user_distribution
     
-    # Growth Metrics (with evolution)
-    @growth_metrics = @analytics.growth_metrics
+    # Recent Users based on selected range
+    @recent_users = build_recent_users(date_range)
     
-    # Charts Data
-    @deals_by_status = @analytics.deals_by_status
-    @abandoned_deals = @analytics.abandoned_deals_breakdown
+    # Recent Listings based on selected range
+    @recent_listings = build_recent_listings(date_range)
     
-    # User Distribution
-    @user_distribution = @analytics.user_distribution_with_evolution
-    
-    # Spending by Category
-    @spending_by_category = @analytics.spending_by_category
-    
-    # Partner Usage
-    @partner_usage = @analytics.partner_usage_stats
-    @partner_usage_trend = @analytics.partner_usage_trend(months: 6)
-    
-    # Basic stats (kept for backward compatibility)
-    @pending_listings = Listing.where(validation_status: :pending).count
-    @pending_partners = PartnerProfile.where(validation_status: :pending).count
+    # Recent Activities (last 3)
+    @recent_activities = build_recent_activities
   end
   
   def zero_views
@@ -70,11 +79,355 @@ class Admin::DashboardController < ApplicationController
                  .page(params[:page]).per(20)
   end
 
+  def analytics
+    # Initialize analytics service with period parameters
+    period = params[:period] || '30_days'
+    start_date, end_date = parse_period(period)
+    
+    @analytics = Admin::DashboardAnalyticsService.new(
+      period: period,
+      start_date: start_date,
+      end_date: end_date
+    )
+    
+    # Get all analytics data
+    @crm_time_stats = @analytics.average_time_by_crm_status
+    @sector_data = @analytics.listings_by_sector_with_evolution
+    @revenue_data = @analytics.listings_by_revenue_range
+    @geography_data = @analytics.listings_by_geography
+    @employee_data = @analytics.listings_by_employee_count
+    
+    # Time series for charts
+    @listings_series = @analytics.time_series_data(metric: :listings, periods: 8)
+    @reservations_series = @analytics.time_series_data(metric: :reservations, periods: 8)
+    @transactions_series = @analytics.time_series_data(metric: :transactions, periods: 8)
+    @revenue_series = @analytics.time_series_data(metric: :revenue, periods: 8)
+    
+    # Store period for view
+    @period = period
+    @start_date = start_date
+    @end_date = end_date
+
+    respond_to do |format|
+      format.html
+      format.csv { send_analytics_csv }
+    end
+  end
+
   private
 
   def authorize_admin!
     unless current_user&.admin? && current_user&.active?
       redirect_to root_path, alert: 'Access denied. Admin privileges required.'
     end
+  end
+  
+  def get_date_range(range_param)
+    case range_param
+    when '7_days'
+      {
+        start: 7.days.ago.beginning_of_day,
+        end: Time.current,
+        prev_start: 14.days.ago.beginning_of_day,
+        duration_days: 7
+      }
+    when 'current_month'
+      {
+        start: Time.current.beginning_of_month,
+        end: Time.current,
+        prev_start: 1.month.ago.beginning_of_month,
+        duration_days: Time.current.day
+      }
+    when 'previous_month'
+      {
+        start: 1.month.ago.beginning_of_month,
+        end: 1.month.ago.end_of_month,
+        prev_start: 2.months.ago.beginning_of_month,
+        duration_days: 1.month.ago.end_of_month.day
+      }
+    else # default to 30_days
+      {
+        start: 30.days.ago.beginning_of_day,
+        end: Time.current,
+        prev_start: 60.days.ago.beginning_of_day,
+        duration_days: 30
+      }
+    end
+  end
+  
+  def calculate_revenue_for_period(start_date, end_date)
+    # Calculate active subscriptions revenue from buyers during this period
+    BuyerProfile.where(subscription_status: :active)
+                .where('created_at >= ? AND created_at <= ?', start_date, end_date)
+                .count * 49 # Assuming 49€ per buyer subscription
+  end
+  
+  def build_user_growth_chart(date_range)
+    periods = []
+    period_count = [date_range[:duration_days] / 5, 6].min # Up to 6 periods
+    days_per_period = date_range[:duration_days] / period_count
+    
+    max_count = 1
+    
+    # First pass: collect data
+    period_count.times do |i|
+      period_end = date_range[:start] + (i + 1) * days_per_period.days
+      period_start = date_range[:start] + i * days_per_period.days
+      count = User.where(created_at: period_start..period_end).count
+      max_count = [max_count, count].max
+      
+      periods << {
+        start: period_start,
+        end: period_end,
+        count: count
+      }
+    end
+    
+    # Second pass: calculate percentages and format labels
+    periods.map do |period|
+      {
+        month: period[:start].strftime('%d/%m'),
+        count: period[:count],
+        percentage: max_count > 0 ? ((period[:count].to_f / max_count) * 100).round : 20
+      }
+    end
+  end
+  
+  def build_user_distribution
+    sellers_count = User.joins(:seller_profile).count
+    buyers_count = User.joins(:buyer_profile).count
+    partners_count = User.joins(:partner_profile).count
+    total = sellers_count + buyers_count + partners_count
+    
+    [
+      {
+        label: 'Cédants (Vendeurs)',
+        count: sellers_count,
+        percentage: total > 0 ? ((sellers_count.to_f / total) * 100).round : 0,
+        color: 'admin'
+      },
+      {
+        label: 'Repreneurs (Repreneurs)',
+        count: buyers_count,
+        percentage: total > 0 ? ((buyers_count.to_f / total) * 100).round : 0,
+        color: 'green'
+      },
+      {
+        label: 'Partenaires',
+        count: partners_count,
+        percentage: total > 0 ? ((partners_count.to_f / total) * 100).round : 0,
+        color: 'admin'
+      }
+    ]
+  end
+  
+  def build_recent_users(date_range)
+    users = User.where('created_at >= ?', date_range[:start])
+                .order(created_at: :desc)
+                .limit(4)
+    users.map do |user|
+      role = if user.seller_profile.present?
+               'seller'
+             elsif user.buyer_profile.present?
+               'buyer'
+             elsif user.partner_profile.present?
+               'partner'
+             else
+               'user'
+             end
+      
+      role_label = case role
+                   when 'seller' then 'Vendeur'
+                   when 'buyer' then 'Repreneur'
+                   when 'partner' then 'Partenaire'
+                   else 'Utilisateur'
+                   end
+      
+      {
+        name: "#{user.first_name} #{user.last_name}".strip.presence || 'Utilisateur',
+        email: user.email,
+        role: role,
+        role_label: role_label,
+        initials: get_initials(user)
+      }
+    end
+  end
+  
+  def build_recent_listings(date_range)
+    listings = Listing.where('created_at >= ?', date_range[:start])
+                      .order(created_at: :desc)
+                      .limit(4)
+    colors = ['admin', 'green', 'purple', 'orange']
+    
+    listings.map.with_index do |listing, index|
+      location = if listing.location_city && listing.location_department
+                   "#{listing.location_city} (#{listing.location_department})"
+                 else
+                   'Non spécifié'
+                 end
+      
+      {
+        title: listing.title || 'Sans titre',
+        location: location,
+        price: listing.asking_price ? (listing.asking_price / 1000).round : 0,
+        status: listing.validation_status,
+        status_label: listing.validation_status == 'approved' ? 'Validée' : 'En attente',
+        color: colors[index % colors.length]
+      }
+    end
+  end
+  
+  def build_recent_activities
+    activities = []
+    
+    # Recent validated listings
+    recent_approved = Listing.where(validation_status: :approved)
+                             .order(updated_at: :desc)
+                             .limit(1)
+                             .first
+    
+    if recent_approved
+      activities << {
+        icon: '<svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>',
+        color: 'green',
+        message: "Annonce <span class=\"font-medium text-gray-900\">\"#{recent_approved.title}\"</span> validée",
+        time: time_ago_in_words(recent_approved.updated_at)
+      }
+    end
+    
+    # Recent user registrations
+    recent_user = User.order(created_at: :desc).limit(1).first
+    if recent_user
+      role = if recent_user.seller_profile.present?
+               'Vendeur'
+             elsif recent_user.buyer_profile.present?
+               'Repreneur'
+             elsif recent_user.partner_profile.present?
+               'Partenaire'
+             else
+               'Utilisateur'
+             end
+      
+      activities << {
+        icon: '<svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>',
+        color: 'admin',
+        message: "Nouvel utilisateur <span class=\"font-medium text-gray-900\">#{recent_user.first_name} #{recent_user.last_name}</span> inscrit (#{role})",
+        time: time_ago_in_words(recent_user.created_at)
+      }
+    end
+    
+    # Recent pending listings
+    recent_pending = Listing.where(validation_status: :pending)
+                            .order(created_at: :desc)
+                            .limit(1)
+                            .first
+    
+    if recent_pending
+      activities << {
+        icon: '<svg class="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
+        color: 'orange',
+        message: "Annonce <span class=\"font-medium text-gray-900\">\"#{recent_pending.title}\"</span> en attente de validation",
+        time: time_ago_in_words(recent_pending.created_at)
+      }
+    end
+    
+    activities
+  end
+  
+  def get_initials(user)
+    if user.first_name.present? && user.last_name.present?
+      "#{user.first_name[0]}#{user.last_name[0]}".upcase
+    elsif user.first_name.present?
+      user.first_name[0..1].upcase
+    elsif user.email.present?
+      user.email[0..1].upcase
+    else
+      'U'
+    end
+  end
+  
+  def time_ago_in_words(time)
+    seconds = (Time.current - time).to_i
+    
+    if seconds < 60
+      "Il y a #{seconds}s"
+    elsif seconds < 3600
+      minutes = (seconds / 60).round
+      "Il y a #{minutes}min"
+    elsif seconds < 86400
+      hours = (seconds / 3600).round
+      "Il y a #{hours}h"
+    else
+      days = (seconds / 86400).round
+      "Il y a #{days}j"
+    end
+  end
+
+  def parse_period(period)
+    case period
+    when '7_days'
+      [7.days.ago.beginning_of_day, Time.current]
+    when '30_days'
+      [30.days.ago.beginning_of_day, Time.current]
+    when 'current_month'
+      [Time.current.beginning_of_month, Time.current]
+    when 'previous_month'
+      [1.month.ago.beginning_of_month, 1.month.ago.end_of_month]
+    when '3_months'
+      [3.months.ago.beginning_of_day, Time.current]
+    when '6_months'
+      [6.months.ago.beginning_of_day, Time.current]
+    when '1_year'
+      [1.year.ago.beginning_of_day, Time.current]
+    else
+      [30.days.ago.beginning_of_day, Time.current]
+    end
+  end
+
+  def send_analytics_csv
+    require 'csv'
+    
+    csv_data = CSV.generate(headers: true) do |csv|
+      # Sector Analysis
+      csv << ['ANALYSE PAR SECTEUR']
+      csv << ['Secteur', 'Annonces', 'Réservations', 'Transactions', 'Taux conversion', 'Évolution']
+      @sector_data.each do |row|
+        csv << [row[:sector], row[:listings], row[:reservations], row[:transactions], row[:conversion], row[:evolution]]
+      end
+      csv << []
+      
+      # Revenue Analysis
+      csv << ['ANALYSE PAR CHIFFRE D\'AFFAIRES']
+      csv << ['Tranche CA', 'Annonces', 'Réservations', 'Transactions', 'Évolution']
+      @revenue_data.each do |row|
+        csv << [row[:range], row[:listings], row[:reservations], row[:transactions], row[:evolution]]
+      end
+      csv << []
+      
+      # Geography Analysis
+      csv << ['ANALYSE PAR GÉOGRAPHIE']
+      csv << ['Département', 'Annonces', 'Réservations', 'Transactions', 'Évolution']
+      @geography_data.each do |row|
+        csv << [row[:department], row[:listings], row[:reservations], row[:transactions], row[:evolution]]
+      end
+      csv << []
+      
+      # Employee Count Analysis
+      csv << ['ANALYSE PAR EFFECTIF']
+      csv << ['Tranche effectif', 'Annonces', 'Réservations', 'Transactions', 'Évolution']
+      @employee_data.each do |row|
+        csv << [row[:range], row[:listings], row[:reservations], row[:transactions], row[:evolution]]
+      end
+      csv << []
+      
+      # CRM Time Analysis
+      csv << ['TEMPS MOYEN PAR STATUT CRM']
+      csv << ['Statut', 'Temps moyen (jours)', 'Temps maximum (jours)']
+      @crm_time_stats.each do |stat|
+        csv << [stat[:name], stat[:avg], stat[:max] || 'N/A']
+      end
+    end
+    
+    send_data csv_data, filename: "analytics_#{@start_date.strftime('%Y%m%d')}_#{@end_date.strftime('%Y%m%d')}.csv"
   end
 end
