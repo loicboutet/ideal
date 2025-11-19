@@ -131,6 +131,13 @@ Rails.application.routes.draw do
   namespace :seller do
     root 'dashboard#index'
     
+    # Partner Directory Access (free first 6 months, 5 credits after)
+    resources :partners, only: [:index, :show] do
+      member do
+        post :contact  # Contact partner (5 credits)
+      end
+    end
+    
     # My Listings Management
     resources :listings do
       resources :documents, except: [:index]
@@ -176,6 +183,13 @@ Rails.application.routes.draw do
   # Buyer Routes (role: buyer, status: active)
   namespace :buyer do
     root 'dashboard#index'
+    
+    # Partner Directory Access (free for subscribers)
+    resources :partners, only: [:index, :show] do
+      member do
+        post :contact  # Contact partner
+      end
+    end
     
     # Browse & Search Listings
     resources :listings, only: [:index, :show] do
