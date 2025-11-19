@@ -1,0 +1,239 @@
+<% content_for :title, "Mon abonnement - Partenaire - Idéal Reprise" %>
+<% content_for :page_title, "Mon abonnement" %>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <!-- Current Status -->
+  <div class="bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl shadow-lg p-6 text-white">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-purple-100 mb-2">Annuaire Partenaire Professionnel</p>
+        <div class="text-3xl font-bold mb-2">Annuel - 499€/an HT</div>
+        <% if @subscription %>
+          <p class="text-purple-100">
+            <%= @subscription.status == 'active' ? 'Actif' : @subscription.status.capitalize %>
+            <% if @subscription.end_date %>
+              jusqu'au <%= l(@subscription.end_date, format: :long) rescue @subscription.end_date %>
+            <% end %>
+          </p>
+        <% else %>
+          <p class="text-purple-100">Aucun abonnement actif</p>
+        <% end %>
+      </div>
+      <div class="text-right">
+        <% if @subscription&.status == 'active' %>
+          <div class="text-5xl">✓</div>
+          <p class="text-sm text-purple-100 mt-2">Actif</p>
+        <% else %>
+          <div class="text-5xl">⚠</div>
+          <p class="text-sm text-purple-100 mt-2">Inactif</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-2">Vues profil (30j)</div>
+      <div class="text-3xl font-bold text-gray-900"><%= @stats[:views_30d] %></div>
+      <% if @stats[:views_evolution] != 0 %>
+        <div class="text-xs <%= @stats[:views_evolution] > 0 ? 'text-green-600' : 'text-red-600' %> mt-1">
+          <%= @stats[:views_evolution] > 0 ? '+' : '' %><%= @stats[:views_evolution] %>% vs mois précédent
+        </div>
+      <% end %>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-2">Demandes contact (30j)</div>
+      <div class="text-3xl font-bold text-gray-900"><%= @stats[:contacts_30d] %></div>
+      <% if @stats[:contacts_evolution] != 0 %>
+        <div class="text-xs <%= @stats[:contacts_evolution] > 0 ? 'text-green-600' : 'text-red-600' %> mt-1">
+          <%= @stats[:contacts_evolution] > 0 ? '+' : '' %><%= @stats[:contacts_evolution] %>% vs mois précédent
+        </div>
+      <% end %>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-2">Taux conversion</div>
+      <div class="text-3xl font-bold text-gray-900"><%= number_to_percentage(@stats[:conversion_rate], precision: 1) %></div>
+      <% if @stats[:conversion_evolution] != 0 %>
+        <div class="text-xs <%= @stats[:conversion_evolution] > 0 ? 'text-green-600' : 'text-red-600' %> mt-1">
+          <%= @stats[:conversion_evolution] > 0 ? '+' : '' %><%= @stats[:conversion_evolution] %>% vs mois précédent
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- What's Included -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Tout ce qui est inclus dans votre abonnement</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Profil visible dans l'annuaire</div>
+          <div class="text-sm text-gray-600">Exposition maximale auprès des cédants et repreneurs</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Demandes de contact illimitées</div>
+          <div class="text-sm text-gray-600">Sans restriction sur le nombre de leads</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Badge "Partenaire vérifié"</div>
+          <div class="text-sm text-gray-600">Renforce votre crédibilité et confiance</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Statistiques détaillées</div>
+          <div class="text-sm text-gray-600">Analytics complets : vues, contacts, conversions</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Ciblage par zone géographique</div>
+          <div class="text-sm text-gray-600">Ville, département(s), région(s) ou toute la France</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Mise en avant par stade d'intervention</div>
+          <div class="text-sm text-gray-600">CRM: favoris, contact, analyse, négociation, LOI, etc.</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Spécialisation sectorielle</div>
+          <div class="text-sm text-gray-600">Affichez vos secteurs d'expertise</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Intégration calendrier</div>
+          <div class="text-sm text-gray-600">Lien Google Calendar pour prise de RDV directe</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Profil enrichi</div>
+          <div class="text-sm text-gray-600">Présentation complète de vos services et expertises</div>
+        </div>
+      </div>
+      <div class="flex items-start gap-3">
+        <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Aucune commission</div>
+          <div class="text-sm text-gray-600">Pas de commission sur les mandats conclus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Value Demonstration -->
+  <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Pourquoi l'annuaire est rentable</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="text-center">
+        <div class="text-3xl font-bold text-purple-600 mb-2">~40€</div>
+        <div class="text-sm text-gray-700">Coût moyen par lead qualifié (basé sur 28 contacts/mois)</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-purple-600 mb-2">8.2%</div>
+        <div class="text-sm text-gray-700">Taux de conversion moyen des demandes en mandats</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl font-bold text-purple-600 mb-2">2-3</div>
+        <div class="text-sm text-gray-700">Mandats suffisent pour rentabiliser l'abonnement annuel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Stories -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Ce que disent nos partenaires</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="border-l-4 border-purple-500 pl-4">
+        <p class="text-gray-700 italic mb-3">"L'annuaire m'a permis de tripler mes contacts qualifiés en 6 mois. Le ROI est exceptionnel."</p>
+        <p class="text-sm text-gray-600">— Sophie M., Avocate d'affaires, Paris</p>
+      </div>
+      <div class="border-l-4 border-purple-500 pl-4">
+        <p class="text-gray-700 italic mb-3">"En tant qu'expert-comptable, je reçois maintenant 15-20 demandes par mois. Le badge vérifié fait toute la différence."</p>
+        <p class="text-sm text-gray-600">— Marc L., Expert-comptable, Lyon</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Questions fréquentes</h2>
+    <div class="space-y-4">
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-2">Puis-je modifier mon profil à tout moment ?</h3>
+        <p class="text-sm text-gray-600">Oui, vous pouvez modifier votre profil, vos zones d'intervention, et vos spécialisations à tout moment depuis votre espace partenaire.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-2">Comment sont comptabilisés les contacts ?</h3>
+        <p class="text-sm text-gray-600">Un contact est comptabilisé lorsqu'un utilisateur (cédant ou repreneur) clique pour accéder à vos coordonnées complètes.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-2">Y a-t-il des frais supplémentaires ?</h3>
+        <p class="text-sm text-gray-600">Non, l'abonnement de 499€/an est tout compris. Aucune commission n'est prélevée sur vos mandats ou prestations.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-2">Puis-je annuler mon abonnement ?</h3>
+        <p class="text-sm text-gray-600">Oui, sans engagement. Votre profil restera actif jusqu'à la fin de la période payée.</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-900 mb-2">Comment obtenir le badge "Partenaire vérifié" ?</h3>
+        <p class="text-sm text-gray-600">Le badge est attribué automatiquement après validation de votre profil par notre équipe (vérification des certifications professionnelles).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Renewal -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="font-semibold text-gray-900">Renouvellement automatique</h3>
+        <% if @subscription&.end_date %>
+          <p class="text-sm text-gray-600 mt-1">Le <%= l(@subscription.end_date, format: :long) rescue @subscription.end_date %> • 499€/an HT</p>
+        <% else %>
+          <p class="text-sm text-gray-600 mt-1">499€/an HT</p>
+        <% end %>
+      </div>
+      <%= link_to renew_form_partner_subscription_path, class: "px-4 py-2 border border-purple-600 text-purple-600 rounded-lg hover:bg-purple-50 transition" do %>
+        Gérer le renouvellement
+      <% end %>
+    </div>
+  </div>
+</div>
