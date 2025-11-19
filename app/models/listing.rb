@@ -74,6 +74,31 @@ class Listing < ApplicationRecord
     ((listing_score * 0.6) + (doc_score * 0.4)).round
   end
   
+  # Reservation methods
+  def can_be_reserved_by?(buyer_profile)
+    return false unless buyer_profile
+    
+    # Must be approved and published
+    return false unless approved? && published?
+    
+    # Must not be reserved by another buyer
+    return false if reserved? && !reserved_by?(buyer_profile)
+    
+    # If exclusively attributed, must be attributed to this buyer
+    return false if attributed_buyer_id.present? && attributed_buyer_id != buyer_profile.id
+    
+    true
+  end
+  
+  def reserved_by?(buyer_profile)
+    return false unless buyer_profile
+    deals.exists?(buyer_profile_id: buyer_profile.id, reserved: true, released_at: nil)
+  end
+  
+  def current_reservation
+    deals.find_by(reserved: true, released_at: nil)
+  end
+  
   private
   
   def calculate_listing_fields_score

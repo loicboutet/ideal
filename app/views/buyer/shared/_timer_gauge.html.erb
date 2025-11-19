@@ -1,0 +1,114 @@
+<%# Timer gauge component for deals
+  Parameters:
+  - deal: The Deal object
+  - size: 'small', 'medium', 'large' (default: 'medium')
+%>
+
+<% size ||= 'medium' %>
+<% color = timer_color_class(deal) %>
+
+<% if deal.reserved_until.present? %>
+  <% 
+    percentage = deal.timer_percentage || 0
+    days = deal.days_remaining || 0
+    
+    # Size configurations
+    case size
+    when 'small'
+      container_size = 'w-16 h-16'
+      stroke_width = 4
+      text_size = 'text-xs'
+    when 'large'
+      container_size = 'w-32 h-32'
+      stroke_width = 8
+      text_size = 'text-xl'
+    else # medium
+      container_size = 'w-24 h-24'
+      stroke_width = 6
+      text_size = 'text-base'
+    end
+    
+    # Color configurations
+    case color
+    when 'red'
+      stroke_color = '#DC2626'  # red-600
+      bg_color = '#FEE2E2'      # red-100
+      text_color = 'text-red-600'
+    when 'yellow'
+      stroke_color = '#D97706'  # yellow-600
+      bg_color = '#FEF3C7'      # yellow-100
+      text_color = 'text-yellow-600'
+    else # green
+      stroke_color = '#059669'  # green-600
+      bg_color = '#D1FAE5'      # green-100
+      text_color = 'text-green-600'
+    end
+    
+    # Circle calculations
+    radius = 40
+    circumference = 2 * Math::PI * radius
+    offset = circumference - (percentage / 100.0 * circumference)
+  %>
+
+  <div class="inline-flex flex-col items-center gap-2">
+    <!-- Circular Progress -->
+    <div class="relative <%= container_size %>">
+      <svg class="transform -rotate-90 <%= container_size %>" viewBox="0 0 100 100">
+        <!-- Background circle -->
+        <circle
+          cx="50"
+          cy="50"
+          r="<%= radius %>"
+          stroke="<%= bg_color %>"
+          stroke-width="<%= stroke_width %>"
+          fill="none"
+        />
+        <!-- Progress circle -->
+        <circle
+          cx="50"
+          cy="50"
+          r="<%= radius %>"
+          stroke="<%= stroke_color %>"
+          stroke-width="<%= stroke_width %>"
+          fill="none"
+          stroke-dasharray="<%= circumference %>"
+          stroke-dashoffset="<%= offset %>"
+          stroke-linecap="round"
+          class="transition-all duration-300"
+        />
+      </svg>
+      
+      <!-- Center text -->
+      <div class="absolute inset-0 flex flex-col items-center justify-center">
+        <div class="<%= text_size %> font-bold <%= text_color %>">
+          <%= days %>
+        </div>
+        <div class="text-xs text-gray-600">
+          <%= days == 1 ? 'jour' : 'jours' %>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Warning icon for critical time -->
+    <% if deal.time_extending? %>
+      <div class="flex items-center gap-1 text-xs font-semibold text-red-600">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+        Urgent
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <!-- No timer for this stage -->
+  <div class="inline-flex flex-col items-center gap-2 <%= container_size %>">
+    <div class="flex items-center justify-center h-full text-gray-400">
+      <svg class="<%= size == 'small' ? 'w-8 h-8' : size == 'large' ? 'w-16 h-16' : 'w-12 h-12' %>" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+    </div>
+    <div class="text-xs text-gray-500 text-center">
+      Pas de limite
+    </div>
+  </div>
+<% end %>

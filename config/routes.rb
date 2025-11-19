@@ -196,6 +196,7 @@ Rails.application.routes.draw do
       member do
         post :favorite, :unfavorite
         post :reserve    # Start timer & enter CRM pipeline
+        get :release_confirm  # Confirmation page before release
         delete :release  # Release reservation (+credits)
       end
       collection do
