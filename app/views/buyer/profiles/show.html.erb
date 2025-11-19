@@ -1,0 +1,179 @@
+<% content_for :title, "Mon profil - Repreneur - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-900">Mon profil repreneur</h1>
+    <%= link_to edit_buyer_profile_path, class: "px-4 py-2 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700" do %>
+      Modifier mon profil
+    <% end %>
+  </div>
+
+  <!-- Header Card with Badge -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-start justify-between mb-4">
+      <div class="flex items-center gap-4">
+        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+          <%= current_user.first_name&.first&.upcase || 'U' %><%= current_user.last_name&.first&.upcase || 'U' %>
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900"><%= current_user.full_name %></h2>
+          <p class="text-gray-600">
+            <%= @profile.buyer_type.present? ? t("buyer_profile.buyer_types.#{@profile.buyer_type}") : 'Repreneur' %>
+          </p>
+          <div class="flex items-center gap-2 mt-2">
+            <% if @profile.subscription_plan.present? && @profile.subscription_plan != 'free' %>
+              <span class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-800 font-medium">
+                <%= @profile.subscription_plan.titleize %>
+              </span>
+            <% end %>
+            <% if @profile.verified_buyer %>
+              <span class="px-3 py-1 text-sm rounded-full bg-buyer-100 text-buyer-800 font-medium">✓ Repreneur vérifié</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+        <div class="text-sm text-gray-600 mb-1">Complétude</div>
+        <div class="text-3xl font-bold text-green-600"><%= @profile.completeness_score %>%</div>
+      </div>
+    </div>
+
+    <% if @profile.verified_buyer %>
+      <div class="bg-buyer-50 border border-buyer-200 rounded-lg p-4">
+        <div class="flex gap-3">
+          <svg class="w-5 h-5 text-buyer-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          <div class="text-sm text-buyer-800">
+            <p><strong>Badge "Repreneur vérifié"</strong> obtenu après audit 30 min (offre Premium)</p>
+            <p class="mt-1">Ce badge atteste de votre sérieux auprès des cédants.</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Thèse de reprise -->
+  <% if @profile.investment_thesis.present? %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Thèse de reprise</h3>
+      <p class="text-gray-700 leading-relaxed"><%= @profile.investment_thesis %></p>
+    </div>
+  <% end %>
+
+  <!-- Critères recherche -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Entreprise recherchée</h3>
+    <div class="grid grid-cols-2 gap-4 text-sm">
+      <div>
+        <div class="text-gray-600 mb-1">Secteurs</div>
+        <div class="font-medium text-gray-900">
+          <%= @profile.target_sectors.present? ? @profile.target_sectors.join(', ') : 'Non renseigné' %>
+        </div>
+      </div>
+      <div>
+        <div class="text-gray-600 mb-1">Localisation</div>
+        <div class="font-medium text-gray-900">
+          <%= @profile.target_locations.present? ? @profile.target_locations.join(', ') : 'Non renseigné' %>
+        </div>
+      </div>
+      <div>
+        <div class="text-gray-600 mb-1">CA recherché</div>
+        <div class="font-medium text-gray-900">
+          <% if @profile.target_revenue_min.present? || @profile.target_revenue_max.present? %>
+            <%= number_to_currency(@profile.target_revenue_min || 0, unit: '', precision: 0) %>k - 
+            <%= number_to_currency(@profile.target_revenue_max || 0, unit: '', precision: 0) %>k €
+          <% else %>
+            Non renseigné
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <div class="text-gray-600 mb-1">Effectif</div>
+        <div class="font-medium text-gray-900">
+          <% if @profile.target_employees_min.present? || @profile.target_employees_max.present? %>
+            <%= @profile.target_employees_min || 0 %> - <%= @profile.target_employees_max || 0 %>
+          <% else %>
+            Non renseigné
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expérience -->
+  <% if @profile.experience.present? %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Expérience</h3>
+      <p class="text-gray-700"><%= @profile.experience %></p>
+    </div>
+  <% end %>
+
+  <!-- Formation -->
+  <% if @profile.formation.present? %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Formation</h3>
+      <p class="text-gray-700"><%= @profile.formation %></p>
+    </div>
+  <% end %>
+
+  <!-- Compétences -->
+  <% if @profile.skills.present? %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Compétences</h3>
+      <p class="text-gray-700"><%= @profile.skills %></p>
+    </div>
+  <% end %>
+
+  <!-- Données financières (privées) -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-center gap-2 mb-4">
+      <h3 class="text-lg font-bold text-gray-900">Données financières</h3>
+      <span class="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">Privé</span>
+    </div>
+    <div class="grid grid-cols-2 gap-4 text-sm">
+      <div>
+        <div class="text-gray-600 mb-1">Capacité d'investissement</div>
+        <div class="font-medium text-gray-900">
+          <%= @profile.investment_capacity.present? ? number_to_currency(@profile.investment_capacity, unit: '', precision: 0) + ' €' : 'Non renseigné' %>
+        </div>
+      </div>
+      <div>
+        <div class="text-gray-600 mb-1">Sources de financement</div>
+        <div class="font-medium text-gray-900">
+          <%= @profile.funding_sources.present? ? @profile.funding_sources : 'Non renseigné' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LinkedIn -->
+  <% if @profile.linkedin_url.present? %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Profil professionnel</h3>
+      <%= link_to @profile.linkedin_url, target: '_blank', class: 'text-buyer-600 hover:text-buyer-800 flex items-center gap-2' do %>
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+        </svg>
+        Voir mon profil LinkedIn
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @profile.completeness_score < 100 %>
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+      <div class="flex gap-3">
+        <svg class="w-5 h-5 text-yellow-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+        <div class="flex-1">
+          <div class="font-medium text-yellow-900">Complétez votre profil</div>
+          <div class="text-sm text-yellow-700 mt-1">
+            Un profil complet augmente vos chances d'être contacté par des cédants sérieux. Complétez toutes les informations pour atteindre 100%.
+          </div>
+          <%= link_to 'Compléter mon profil', edit_buyer_profile_path, class: 'inline-flex items-center gap-1 mt-2 text-sm font-medium text-yellow-700 hover:text-yellow-900' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
