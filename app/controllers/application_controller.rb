@@ -74,12 +74,26 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError, 'Not Found'
   end
 
-  # Custom layout for Devise
+  # Custom layout for Devise and namespaced controllers
   def layout_by_resource
     if devise_controller?
       "devise"
     else
-      "application"
+      # Detect namespace and use corresponding layout
+      controller_namespace = self.class.name.split('::').first
+      
+      case controller_namespace
+      when 'Admin'
+        'admin'
+      when 'Buyer'
+        'buyer'
+      when 'Seller'
+        'seller'
+      when 'Partner'
+        'partner'
+      else
+        'application'
+      end
     end
   end
 end
