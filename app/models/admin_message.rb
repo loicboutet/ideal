@@ -5,7 +5,7 @@ class AdminMessage < ApplicationRecord
   has_one :survey, dependent: :destroy
   
   enum :message_type, { broadcast: 0, direct: 1, survey: 2, questionnaire: 3 }
-  enum :target_role, { all: 0, seller: 1, buyer: 2, partner: 3 }
+  enum :target_role, { all_roles: 0, seller: 1, buyer: 2, partner: 3 }
   
   validates :subject, :body, presence: true
   

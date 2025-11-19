@@ -4,7 +4,7 @@ class Questionnaire < ApplicationRecord
   has_many :questionnaire_responses, dependent: :destroy
   
   enum :questionnaire_type, { satisfaction: 0, development: 1 }
-  enum :target_role, { all: 0, seller: 1, buyer: 2, partner: 3 }
+  enum :target_role, { all_roles: 0, seller: 1, buyer: 2, partner: 3 }
   
   serialize :questions, type: Array, coder: JSON
   
