@@ -14,7 +14,7 @@ module Admin
         # Log the activity
         Activity.create(
           user: current_user,
-          action_type: :platform_settings_updated,
+          action_type: :settings_updated,
           metadata: { updated_settings: setting_params.keys },
           ip_address: request.remote_ip
         )
