@@ -30,6 +30,9 @@ class User < ApplicationRecord
   # Callbacks
   after_create :create_profile
   
+  # Virtual attributes for registration
+  attr_accessor :buyer_type, :company_name, :partner_type
+  
   # Scopes
   scope :admins, -> { where(role: :admin) }
   scope :sellers, -> { where(role: :seller) }
@@ -62,9 +65,13 @@ class User < ApplicationRecord
     when 'seller'
       create_seller_profile! unless seller_profile
     when 'buyer'
-      create_buyer_profile! unless buyer_profile
+      profile_attrs = {}
+      profile_attrs[:buyer_type] = @buyer_type if @buyer_type.present?
+      create_buyer_profile!(profile_attrs) unless buyer_profile
     when 'partner'
-      create_partner_profile! unless partner_profile
+      profile_attrs = {}
+      profile_attrs[:partner_type] = @partner_type if @partner_type.present?
+      create_partner_profile!(profile_attrs) unless partner_profile
     end
   end
 end
