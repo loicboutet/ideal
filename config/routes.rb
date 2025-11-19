@@ -296,8 +296,9 @@ Rails.application.routes.draw do
   # =========================================================================
   
   # Notifications System
-  resources :notifications, only: [:index, :show, :update] do
+  resources :notifications, only: [:index, :show] do
     collection do
+      post :mark_all_as_read
       patch :mark_all_read
     end
   end

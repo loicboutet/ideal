@@ -64,6 +64,10 @@ class User < ApplicationRecord
     end
   end
   
+  def unread_admin_messages_count
+    message_recipients.unread.count
+  end
+  
   private
   
   def create_profile
