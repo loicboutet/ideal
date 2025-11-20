@@ -22,6 +22,18 @@ class Message < ApplicationRecord
   end
   
   def broadcast_message
-    # Broadcast via Turbo Streams for real-time updates
+    # Broadcast raw message data for real-time updates
+    ActionCable.server.broadcast(
+      "conversation_#{conversation.id}",
+      {
+        id: id,
+        body: body,
+        conversation_id: conversation.id,
+        sender_id: sender.id,
+        sender_name: sender.full_name,
+        sender_initial: sender.first_name&.first&.upcase || 'U',
+        created_at: created_at.iso8601
+      }
+    )
   end
 end

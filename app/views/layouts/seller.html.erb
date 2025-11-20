@@ -6,6 +6,7 @@
   <title><%= content_for(:title) || "Cédant - Idéal Reprise" %></title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <%= action_cable_meta_tag %>
   <%= yield :head %>
   <link rel="icon" href="/icon.png" type="image/png">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
