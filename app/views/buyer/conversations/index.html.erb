@@ -1,0 +1,156 @@
+<% content_for :page_title, "Messages" %>
+
+<div class="flex h-[calc(100vh-8rem)] bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+  <!-- Conversations List -->
+  <div class="w-80 border-r border-gray-200 flex flex-col">
+    <!-- Header -->
+    <div class="p-4 border-b border-gray-200">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-gray-900">Messages</h2>
+        <%= link_to new_buyer_conversation_path, class: "p-2 hover:bg-gray-100 rounded-lg transition", title: "Nouvelle conversation" do %>
+          <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+          </svg>
+        <% end %>
+      </div>
+      <%= form_with url: buyer_conversations_path, method: :get, local: true, class: "relative" do |f| %>
+        <%= f.text_field :search, 
+                         value: params[:search],
+                         placeholder: "Rechercher...", 
+                         class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm",
+                         data: { action: "input->conversation-search#search" } %>
+      <% end %>
+    </div>
+
+    <!-- Conversations -->
+    <div class="flex-1 overflow-y-auto">
+      <% if @conversations.any? %>
+        <% @conversations.each do |conversation| %>
+          <%= link_to buyer_conversations_path(conversation_id: conversation.id, search: params[:search]), 
+                      class: "block p-4 hover:bg-gray-50 border-b border-gray-100 transition #{@selected_conversation&.id == conversation.id ? 'bg-blue-50' : ''}" do %>
+            <div class="flex items-start gap-3">
+              <% other_user = conversation.other_participant(current_user) %>
+              <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                <%= other_user&.first_name&.first&.upcase || 'U' %>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-medium text-gray-900 truncate">
+                    <%= other_user&.full_name || 'Utilisateur' %>
+                  </h3>
+                  <% if conversation.latest_message %>
+                    <span class="text-xs text-gray-500">
+                      <%= time_ago_in_words(conversation.latest_message.created_at) %>
+                    </span>
+                  <% end %>
+                </div>
+                <% if conversation.listing %>
+                  <p class="text-sm text-gray-600 truncate mb-1">Re: <%= conversation.listing.title %></p>
+                <% end %>
+                <% if conversation.latest_message %>
+                  <p class="text-sm text-gray-500 truncate"><%= conversation.latest_message.body %></p>
+                <% end %>
+                <% if conversation.has_unread_for?(current_user) %>
+                  <span class="inline-block mt-1 px-2 py-0.5 bg-blue-500 text-white text-xs rounded-full">
+                    <%= pluralize(conversation.unread_count_for(current_user), 'nouveau') %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="p-8 text-center text-gray-500">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <p class="text-sm">Aucune conversation</p>
+          <p class="text-xs mt-2">Réservez une annonce pour commencer à échanger avec le vendeur</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Message Thread -->
+  <div class="flex-1 flex flex-col">
+    <% if @selected_conversation %>
+      <!-- Thread Header -->
+      <div class="p-4 border-b border-gray-200 bg-gray-50">
+        <div class="flex items-center gap-3">
+          <% other_user = @selected_conversation.other_participant(current_user) %>
+          <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
+            <%= other_user&.first_name&.first&.upcase || 'U' %>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-900"><%= other_user&.full_name || 'Utilisateur' %></h3>
+            <% if @selected_conversation.listing %>
+              <p class="text-xs text-gray-500"><%= @selected_conversation.listing.title %></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4" id="messages-container">
+        <% @messages.each do |message| %>
+          <% is_sender = message.sender == current_user %>
+          <div class="flex items-start gap-3 <%= is_sender ? 'justify-end' : '' %>">
+            <% unless is_sender %>
+              <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                <%= message.sender.first_name&.first&.upcase || 'U' %>
+              </div>
+            <% end %>
+            <div class="flex-1 <%= is_sender ? 'flex flex-col items-end' : '' %>">
+              <div class="<%= is_sender ? 'bg-blue-600 text-white' : 'bg-gray-100' %> rounded-lg p-3 max-w-lg">
+                <p class="text-sm <%= is_sender ? 'text-white' : 'text-gray-900' %>"><%= simple_format(message.body, {}, sanitize: true) %></p>
+              </div>
+              <span class="text-xs text-gray-500 mt-1 block">
+                <%= l(message.created_at, format: :short) %>
+              </span>
+            </div>
+            <% if is_sender %>
+              <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                <%= current_user.first_name&.first&.upcase || 'M' %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Message Input -->
+      <div class="p-4 border-t border-gray-200">
+        <%= form_with model: [@selected_conversation, @message], url: buyer_conversation_messages_path(@selected_conversation), class: "flex gap-2" do |f| %>
+          <%= f.text_field :body, 
+                           class: "flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500", 
+                           placeholder: "Votre message..." %>
+          <%= f.button type: 'submit', class: "px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            </svg>
+          <% end %>
+        <% end %>
+      </div>
+    <% else %>
+      <!-- Empty State / Instructions -->
+      <div class="flex-1 flex items-center justify-center bg-gray-50">
+        <div class="text-center px-8">
+          <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Sélectionnez une conversation</h3>
+          <p class="text-gray-600">Choisissez une conversation dans la liste pour commencer à échanger.</p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  // Auto-scroll to bottom of messages when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    const messagesContainer = document.getElementById('messages-container');
+    if (messagesContainer) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+  });
+</script>
