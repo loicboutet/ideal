@@ -1,0 +1,21 @@
+<% if deal.reserved_until %>
+  <div class="mb-2">
+    <div class="flex items-center justify-between mb-1">
+      <span class="text-xs text-gray-500">Temps restant</span>
+      <span class="text-xs font-semibold <%= deal.timer_expired? ? 'text-red-600' : 'text-gray-900' %>">
+        <%= format_timer_display(deal) %>
+      </span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-1.5">
+      <% percentage = deal.timer_percentage || 0 %>
+      <div class="<%= timer_badge_class(deal) %> h-1.5 rounded-full transition-all" style="width: <%= [percentage, 100].min %>%"></div>
+    </div>
+  </div>
+<% elsif deal.status == 'loi' %>
+  <div class="mb-2">
+    <div class="flex items-center gap-2 px-2 py-1 bg-yellow-50 border border-yellow-200 rounded text-xs">
+      <span>⏸</span>
+      <span class="text-yellow-700 font-medium">En attente validation cédant</span>
+    </div>
+  </div>
+<% end %>

@@ -1,77 +1,209 @@
-module Buyer
-  module DealsHelper
-    # Returns CSS class for timer based on time remaining
-    def timer_color_class(deal)
-      return 'gray' unless deal.timer_percentage
-      
-      percentage = deal.timer_percentage
-      if percentage >= 80
-        'red'      # Less than 20% time remaining - critical
-      elsif percentage >= 50
-        'yellow'   # 20-50% time remaining - warning
-      else
-        'green'    # More than 50% time remaining - good
-      end
-    end
+module Buyer::DealsHelper
+  # Stage configuration
+  STAGE_CONFIG = {
+    'favorited' => {
+      label: 'Favoris',
+      color: 'gray',
+      icon: '❤️',
+      timer: false
+    },
+    'to_contact' => {
+      label: 'À contacter',
+      color: 'blue',
+      icon: '📞',
+      timer: '7j'
+    },
+    'info_exchange' => {
+      label: "Échange d'infos",
+      color: 'blue',
+      icon: '💬',
+      timer: '33j',
+      time_extending: true
+    },
+    'analysis' => {
+      label: 'Analyse',
+      color: 'blue',
+      icon: '📊',
+      timer: '33j',
+      time_extending: true
+    },
+    'project_alignment' => {
+      label: 'Alignement projets',
+      color: 'blue',
+      icon: '🎯',
+      timer: '33j',
+      time_extending: true
+    },
+    'negotiation' => {
+      label: 'Négociation',
+      color: 'green',
+      icon: '🤝',
+      timer: '20j'
+    },
+    'loi' => {
+      label: 'LOI',
+      color: 'green',
+      icon: '📝',
+      timer: 'Validation'
+    },
+    'audits' => {
+      label: 'Audits',
+      color: 'green',
+      icon: '🔍',
+      timer: false
+    },
+    'financing' => {
+      label: 'Financement',
+      color: 'green',
+      icon: '💰',
+      timer: false
+    },
+    'signed' => {
+      label: 'Deal signé',
+      color: 'purple',
+      icon: '✅',
+      timer: false
+    },
+    'released' => {
+      label: 'Deals libérés',
+      color: 'red',
+      icon: '🔓',
+      timer: false
+    }
+  }.freeze
+
+  def stage_label(status)
+    STAGE_CONFIG.dig(status.to_s, :label) || status.to_s.humanize
+  end
+
+  def stage_color(status)
+    STAGE_CONFIG.dig(status.to_s, :color) || 'gray'
+  end
+
+  def stage_icon(status)
+    STAGE_CONFIG.dig(status.to_s, :icon) || '📋'
+  end
+
+  def stage_timer_label(status)
+    STAGE_CONFIG.dig(status.to_s, :timer) || false
+  end
+
+  def stage_has_shared_timer?(status)
+    STAGE_CONFIG.dig(status.to_s, :time_extending) || false
+  end
+
+  # Timer-related helpers
+  def timer_color_class(deal)
+    return 'gray' unless deal.timer_percentage
+
+    percentage = deal.timer_percentage
     
-    # Returns formatted timer percentage for display
-    def timer_percentage_display(deal)
-      return 'N/A' unless deal.timer_percentage
-      "#{deal.timer_percentage}%"
+    if percentage >= 80
+      'red' # Less than 20% time remaining
+    elsif percentage >= 50
+      'yellow' # 20-50% remaining
+    else
+      'green' # More than 50% remaining
     end
+  end
+
+  def timer_badge_class(deal)
+    color = timer_color_class(deal)
     
-    # Returns friendly text for days remaining
-    def days_remaining_text(deal)
-      return 'Aucune limite' unless deal.days_remaining
-      
+    case color
+    when 'red'
+      'bg-red-500'
+    when 'yellow'
+      'bg-yellow-500'
+    when 'green'
+      'bg-green-500'
+    else
+      'bg-gray-500'
+    end
+  end
+
+  def format_timer_display(deal)
+    return nil unless deal.reserved_until
+
+    if deal.timer_expired?
+      '⚠️ Expiré'
+    elsif deal.status == 'loi'
+      '⏸ En attente validation'
+    else
       days = deal.days_remaining
-      
-      if days <= 0
-        '<span class="text-red-600 font-bold">⏰ Expiré</span>'.html_safe
-      elsif days == 1
-        '<span class="text-orange-600 font-semibold">⚠️ 1 jour restant</span>'.html_safe
-      elsif days <= 3
-        "<span class=\"text-orange-600 font-semibold\">⚠️ #{days} jours restants</span>".html_safe
-      elsif days <= 7
-        "<span class=\"text-yellow-600\">#{days} jours restants</span>".html_safe
-      else
-        "<span class=\"text-gray-700\">#{days} jours restants</span>".html_safe
-      end
+      "#{days}j"
     end
+  end
+
+  def deal_type_badge_class(listing)
+    case listing.deal_type
+    when 'direct'
+      'bg-buyer-100 text-buyer-700'
+    when 'ideal_mandate'
+      'bg-purple-100 text-purple-700'
+    when 'partner_mandate'
+      'bg-orange-100 text-orange-700'
+    else
+      'bg-gray-100 text-gray-700'
+    end
+  end
+
+  def deal_type_label(listing)
+    case listing.deal_type
+    when 'direct'
+      'Direct'
+    when 'ideal_mandate'
+      'Mandat Idéal'
+    when 'partner_mandate'
+      'Partenaire'
+    else
+      listing.deal_type&.humanize
+    end
+  end
+
+  def stage_count_badge_class(status, count)
+    color = stage_color(status)
     
-    # Returns stage display name in French
-    def deal_stage_name(status)
-      case status.to_sym
-      when :favorited then 'Favoris'
-      when :to_contact then 'À contacter'
-      when :info_exchange then 'Échange d\'infos'
-      when :analysis then 'Analyse'
-      when :project_alignment then 'Alignement projet'
-      when :negotiation then 'Négociation'
-      when :loi then 'LOI'
-      when :audits then 'Audits'
-      when :financing then 'Financement'
-      when :signed then 'Signé'
-      when :released then 'Libéré'
-      when :abandoned then 'Abandonné'
-      else status.to_s.humanize
-      end
+    case color
+    when 'blue'
+      'bg-blue-100 text-blue-600'
+    when 'green'
+      'bg-green-100 text-green-600'
+    when 'purple'
+      'bg-purple-100 text-purple-600'
+    when 'red'
+      'bg-red-100 text-red-600'
+    else
+      'bg-gray-100 text-gray-600'
     end
+  end
+
+  def stage_border_class(status)
+    color = stage_color(status)
+    "border-#{color}-200"
+  end
+
+  # Deal history event formatting
+  def format_deal_event(event)
+    case event.event_type
+    when 'status_change'
+      from = stage_label(event.from_status)
+      to = stage_label(event.to_status)
+      "Déplacé de #{from} vers #{to}"
+    when 'timer_extended'
+      "Timer prolongé"
+    when 'released'
+      "Deal libéré"
+    when 'note_added'
+      "Note ajoutée"
+    else
+      event.event_type.humanize
+    end
+  end
+
+  def format_time_ago(time)
+    return unless time
     
-    # Returns badge color for deal status
-    def deal_status_badge_class(status)
-      case status.to_sym
-      when :favorited then 'bg-pink-100 text-pink-800'
-      when :to_contact then 'bg-blue-100 text-blue-800'
-      when :info_exchange, :analysis, :project_alignment then 'bg-purple-100 text-purple-800'
-      when :negotiation then 'bg-orange-100 text-orange-800'
-      when :loi then 'bg-yellow-100 text-yellow-800'
-      when :audits, :financing then 'bg-indigo-100 text-indigo-800'
-      when :signed then 'bg-green-100 text-green-800'
-      when :released then 'bg-gray-100 text-gray-800'
-      when :abandoned then 'bg-red-100 text-red-800'
-      else 'bg-gray-100 text-gray-800'
-      end
-    end
+    distance_of_time_in_words_to_now(time) + ' ago'
   end
 end

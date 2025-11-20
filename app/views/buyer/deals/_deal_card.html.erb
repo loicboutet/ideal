@@ -1,0 +1,22 @@
+<div id="deal_<%= deal.id %>" class="bg-gray-50 rounded-lg p-3 border border-gray-200 hover:shadow-md transition cursor-move" data-deal-id="<%= deal.id %>" data-deal-status="<%= deal.status %>">
+  <div class="flex items-start justify-between mb-2">
+    <h4 class="font-semibold text-gray-900 text-sm flex-1">
+      <%= deal.listing.title || 'Entreprise' %>
+    </h4>
+    <% if deal.listing.deal_type %>
+      <span class="px-2 py-0.5 text-xs rounded-full <%= deal_type_badge_class(deal.listing) %>">
+        <%= deal_type_label(deal.listing) %>
+      </span>
+    <% end %>
+  </div>
+  
+  <p class="text-xs text-gray-600 mb-2">
+    CA: <%= number_to_currency(deal.listing.annual_revenue, unit: '€', precision: 0) %>
+  </p>
+  
+  <%= render 'buyer/deals/timer_gauge', deal: deal %>
+  
+  <%= link_to buyer_deal_path(deal), class: "block text-xs text-buyer-600 hover:text-buyer-700 transition" do %>
+    Voir le dossier →
+  <% end %>
+</div>
