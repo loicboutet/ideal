@@ -136,6 +136,14 @@ Rails.application.routes.draw do
   namespace :seller do
     root 'dashboard#index'
     
+    # Seller Messaging
+    resources :conversations, only: [:index, :show, :new, :create] do
+      resources :messages, only: [:create]
+      collection do
+        post :create_partner_conversation
+      end
+    end
+    
     # Partner Directory Access (free first 6 months, 5 credits after)
     resources :partners, only: [:index, :show] do
       member do
@@ -196,6 +204,14 @@ Rails.application.routes.draw do
   # Buyer Routes (role: buyer, status: active)
   namespace :buyer do
     root 'dashboard#index'
+    
+    # Buyer Messaging
+    resources :conversations, only: [:index, :show, :new, :create] do
+      resources :messages, only: [:create]
+      collection do
+        post :create_partner_conversation
+      end
+    end
     
     # Partner Directory Access (free for subscribers)
     resources :partners, only: [:index, :show] do
@@ -283,6 +299,11 @@ Rails.application.routes.draw do
   # Partner Routes (role: partner, status: active)
   namespace :partner do
     root 'dashboard#index'
+    
+    # Partner Messaging
+    resources :conversations, only: [:index, :show] do
+      resources :messages, only: [:create]
+    end
     
     # Directory Profile Management
     resource :profile do
