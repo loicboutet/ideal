@@ -1,0 +1,148 @@
+<% content_for :title, "My Subscription - Idéal Reprise" %>
+<% content_for :page_title, "My Subscription" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <% if @subscription %>
+    <!-- Current Subscription Card -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div class="bg-gradient-to-r from-buyer-500 to-buyer-600 px-6 py-8 text-white">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-3xl font-bold mb-2"><%= @summary[:plan_name] %></h2>
+            <p class="text-buyer-100">Active Subscription</p>
+          </div>
+          <div class="text-right">
+            <div class="text-4xl font-bold"><%= @summary[:price_display] %></div>
+            <div class="text-buyer-100">per <%= @summary[:interval] %></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6">
+        <!-- Subscription Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-1">Status</h3>
+            <p class="text-lg font-semibold">
+              <% if @subscription.active? %>
+                <span class="text-green-600">● Active</span>
+              <% elsif @subscription.cancelled? %>
+                <span class="text-orange-600">● Cancelled</span>
+              <% elsif @subscription.past_due? %>
+                <span class="text-red-600">● Past Due</span>
+              <% else %>
+                <span class="text-gray-600">● <%= @subscription.status.capitalize %></span>
+              <% end %>
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-1">Next Billing Date</h3>
+            <p class="text-lg font-semibold text-gray-900">
+              <%= @subscription.current_period_end&.strftime('%B %d, %Y') || 'N/A' %>
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-1">Current Period</h3>
+            <p class="text-gray-900">
+              <%= @subscription.current_period_start&.strftime('%b %d') %>  - <%= @subscription.current_period_end&.strftime('%b %d, %Y') %>
+            </p>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-1">Amount</h3>
+            <p class="text-lg font-semibold text-gray-900">
+              <%= number_to_currency(@subscription.amount / 100.0, unit: '€', separator: ',', delimiter: ' ', format: '%n %u') %>
+            </p>
+          </div>
+        </div>
+
+        <% if @subscription.cancel_at_period_end %>
+          <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-4 mb-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-orange-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <div class="flex-1">
+                <p class="font-semibold text-orange-900">Subscription Ends <%= @subscription.current_period_end&.strftime('%B %d, %Y') %></p>
+                <p class="text-sm text-orange-700 mt-1">Your subscription is scheduled to be cancelled. You'll retain access until the end of your current billing period.</p>
+                <%= button_to 'Reactivate Subscription', reactivate_buyer_subscription_path, method: :post, class: "mt-3 inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition font-medium" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-3">
+          <%= link_to edit_buyer_subscription_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-buyer-600 text-white rounded-lg font-medium hover:bg-buyer-700 transition" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+            </svg>
+            Change Plan
+          <% end %>
+
+          <% unless @subscription.cancel_at_period_end %>
+            <%= link_to cancel_confirm_buyer_subscription_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:border-red-500 hover:text-red-600 transition" do %>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              Cancel Subscription
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features & Benefits -->
+    <div class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-xl font-bold text-gray-900 mb-4">Your Plan Features</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <% @summary[:features].each do |feature| %>
+          <div class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-gray-700"><%= feature %></span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  <% else %>
+    <!-- No Active Subscription -->
+    <div class="bg-white rounded-xl shadow-lg p-12 text-center">
+      <div class="max-w-md mx-auto">
+        <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h2 class="text-2xl font-bold text-gray-900 mb-3">No Active Subscription</h2>
+        <p class="text-gray-600 mb-8">You're currently on the Free plan. Upgrade to unlock premium features and grow your business faster.</p>
+        
+        <%= link_to new_buyer_subscription_path, class: "inline-flex items-center gap-2 px-8 py-4 bg-buyer-600 text-white rounded-lg font-medium hover:bg-buyer-700 transition shadow-lg" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+          View Subscription Plans
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Payment History (Future) -->
+  <div class="bg-white rounded-xl shadow p-6">
+    <h3 class="text-xl font-bold text-gray-900 mb-4">Payment History</h3>
+    <p class="text-gray-500 text-center py-8">Payment history will appear here</p>
+  </div>
+
+  <!-- Return to Dashboard -->
+  <div class="text-center">
+    <%= link_to buyer_root_path, class: "inline-flex items-center gap-2 text-buyer-600 hover:text-buyer-700 font-medium transition" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Back to Dashboard
+    <% end %>
+  </div>
+</div>
+</div>

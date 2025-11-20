@@ -1,9 +1,67 @@
 # Payment System Implementation - Brick 1
 ## Idéal Reprise Platform
 
-**Last Updated:** November 21, 2025  
+**Last Updated:** November 21, 2025 - 3:27 AM  
 **Status:** Phases 1, 2 & 5 Complete ✅ - Subscriptions & Webhooks Operational  
-**Next Phase:** Phase 3 - Credits System
+**Next Phase:** Phase 3 - Credits System 🎯
+
+---
+
+## 🎯 CURRENT STATUS SUMMARY
+
+### ✅ Completed Phases (3/10)
+- **Phase 1:** Foundation & Setup - Database, models, Stripe configuration ✅
+- **Phase 2:** Subscription System - All 3 role subscriptions working with Stripe Checkout ✅
+- **Phase 5:** Webhooks & Event Handling - Real-time payment processing operational ✅
+
+### 🎯 Next Priority: Phase 3 - Credits System (3 days)
+**What's Needed:**
+- Credit earning logic (deal releases, enrichments)
+- Credit spending logic (listing pushes, partner access)
+- Credit purchase flow with Stripe Checkout
+- Credit management service
+
+### 📊 Overall Progress: 30% Complete
+
+---
+
+## 🔄 SUBSCRIPTION USER FLOW
+
+### Where Do Users Subscribe?
+
+**Buyers:**
+1. Navigate to `/buyer/subscription/new` (Plan Selection Page)
+2. Choose from 4 paid tiers: Starter (€89/mo), Standard (€199/mo), Premium (€249/mo), Club (€1200/yr)
+3. Click "Subscribe" button → Redirects to Stripe Checkout
+4. Complete payment on Stripe's secure checkout page
+5. Redirected back to `/buyer/subscription` (Success page)
+6. Webhook activates subscription automatically in background
+7. Can manage subscription at `/buyer/subscription` (view, upgrade, cancel)
+
+**Sellers:**
+1. Navigate to `/seller/subscription/new` (Premium Package page)
+2. Click "Subscribe to Premium" → Redirects to Stripe Checkout
+3. Complete payment and return to `/seller/subscription`
+4. Unlock unlimited listings + 5 monthly pushes + partner access
+
+**Partners:**
+1. Navigate to `/partner/subscription/new` (Annual Directory page)
+2. Click "Subscribe" → Redirects to Stripe Checkout
+3. Complete payment and return to `/partner/subscription`
+4. Profile appears in partner directory for 1 year
+
+### Access Points in UI
+
+**Navigation Links:**
+- Buyer Dashboard: "Subscription" or "Upgrade Plan" button
+- Seller Dashboard: "Go Premium" or "Subscription" link
+- Partner Dashboard: "Subscription" or "Renew" link
+- Settings page: "Billing & Subscription" section
+
+**Upgrade Prompts:**
+- Free users see upgrade CTAs when accessing premium features
+- Limited feature access triggers "Upgrade to unlock" modals
+- Email notifications about subscription benefits
 
 ---
 

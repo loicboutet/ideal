@@ -1,0 +1,58 @@
+<% content_for :title, "Upgrade Plan - Idéal Reprise" %>
+<% content_for :page_title, "Upgrade Your Plan" %>
+
+<div class="max-w-7xl mx-auto">
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Unlock More With an Upgrade</h1>
+    <p class="text-xl text-gray-600">Get access to advanced features and grow faster</p>
+  </div>
+
+  <% if @upgrade_plans.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-<%= [3, @upgrade_plans.count].min %> gap-6">
+      <% @upgrade_plans.each do |plan_key, plan| %>
+        <div class="bg-white rounded-xl shadow-lg border-2 border-buyer-400 p-6 hover:shadow-xl transition">
+          <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2"><%= plan[:name] %></h3>
+            <div class="text-4xl font-bold text-buyer-600 mb-1"><%= plan[:price_display] %></div>
+            <div class="text-sm text-gray-500">per <%= plan[:interval] %></div>
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            <% plan[:features].each do |feature| %>
+              <li class="flex items-start gap-2">
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-sm text-gray-700"><%= feature %></span>
+              </li>
+            <% end %>
+          </ul>
+
+          <%= button_to buyer_subscription_path, method: :patch, params: { plan_type: "buyer_#{plan_key}" }, class: "w-full px-6 py-3 bg-buyer-600 text-white rounded-lg font-medium hover:bg-buyer-700 transition shadow-md" do %>
+            Upgrade to <%= plan[:name] %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="text-center py-12 bg-white rounded-xl shadow">
+      <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">You're on the Best Plan!</h2>
+      <p class="text-gray-600 mb-6">You're already enjoying all our premium features.</p>
+      <%= link_to buyer_subscription_path, class: "inline-flex items-center gap-2 text-buyer-600 hover:text-buyer-700 font-medium" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to Subscription
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="mt-8 text-center">
+    <%= link_to buyer_subscription_path, class: "text-gray-600 hover:text-gray-900" do %>
+      ← Return to Subscription
+    <% end %>
+  </div>
+</div>
