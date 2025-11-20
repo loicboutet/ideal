@@ -186,9 +186,11 @@ Rails.application.routes.draw do
     
     # Credits & Subscription Management
     resources :credits, only: [:index]
-    resource :subscription, only: [:show, :update, :destroy] do
+    resource :subscription, only: [:show, :new, :create, :destroy] do
       member do
         get :upgrade
+        get :cancel_confirm
+        post :reactivate
       end
     end
     
@@ -274,9 +276,11 @@ Rails.application.routes.draw do
       end
     end
     
-    resource :subscription do
+    resource :subscription, only: [:show, :new, :create, :edit, :update, :destroy] do
       member do
-        get :upgrade, :cancel_confirm
+        get :upgrade
+        get :cancel_confirm
+        post :reactivate
       end
     end
     
@@ -325,10 +329,12 @@ Rails.application.routes.draw do
     end
     
     # Annual Directory Subscription
-    resource :subscription, only: [:show, :update, :destroy] do
+    resource :subscription, only: [:show, :new, :create, :destroy] do
       member do
-        post :renew
+        get :cancel_confirm
+        post :reactivate
         get :renew_form
+        post :renew
       end
     end
     
@@ -374,6 +380,9 @@ Rails.application.routes.draw do
     get :success
     get :cancel
   end
+  
+  # Stripe Webhooks (public endpoint - no authentication required)
+  post '/webhooks/stripe', to: 'webhooks#stripe'
   
   # =========================================================================
   # MOCKUP ROUTES (KEEP FOR REFERENCE/DEVELOPMENT)

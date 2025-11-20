@@ -12,7 +12,7 @@ Stripe.api_key = Rails.configuration.stripe[:secret_key]
 # Set API version for consistency
 Stripe.api_version = '2024-11-20.acacia'
 
-# Configure webhook signature verification
-Stripe.webhook_secret = Rails.configuration.stripe[:webhook_secret]
+# Note: Webhook secret is stored in Rails.configuration.stripe[:webhook_secret]
+# and will be used for signature verification in the webhook controller
 
 Rails.logger.info "Stripe initialized with publishable key: #{Rails.configuration.stripe[:publishable_key]&.truncate(20)}..."

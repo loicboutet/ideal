@@ -1,0 +1,7 @@
+Price ID,Product ID,Product Name,Product Statement Descriptor,Product Tax Code,Description,Created (UTC),Amount,Currency,Interval,Interval Count,Usage Type,Aggregate Usage,Billing Scheme,Trial Period Days,Tax Behavior
+price_1SVetVC0TM4Nm4RRUT1lQQqx,prod_TSa3qkOFC1vwq9,Partner Annual,,,,2025-11-20 20:55,499.00,eur,year,1,licensed,,per_unit,,unspecified
+price_1SVesWC0TM4Nm4RRHFvXY0LI,prod_TSa2ZPI69edmLf,Seller Premium,,,,2025-11-20 20:54,299.00,eur,month,1,licensed,,per_unit,,unspecified
+price_1SVes3C0TM4Nm4RRusaus6tx,prod_TSa2EeLIv3QqBr,Buyer Club,,,,2025-11-20 20:54,1200.00,eur,year,1,licensed,,per_unit,,unspecified
+price_1SVeqVC0TM4Nm4RRumraJXFg,prod_TSa0JChFLitQad,Buyer Premium,,,,2025-11-20 20:52,249.00,eur,month,1,licensed,,per_unit,,unspecified
+price_1SVeq3C0TM4Nm4RRpDdh9QNR,prod_TSa0nS4gCDxzGU,Buyer Standard,,,,2025-11-20 20:52,199.00,eur,month,1,licensed,,per_unit,,unspecified
+price_1SVepZC0TM4Nm4RRKCCu73M9,prod_TSZz0XyN34MuDg,Buyer Starter,,,,2025-11-20 20:51,99.00,eur,,,,,per_unit,,unspecified
