@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <%= button_to seller_subscription_path, method: :post, params: { plan_type: 'seller_premium' }, class: "w-full px-8 py-4 bg-seller-600 text-white rounded-lg text-lg font-bold hover:bg-seller-700 transition shadow-lg" do %>
+      <%= button_to seller_subscription_path, method: :post, params: { plan_type: 'seller_premium' }, data: { turbo: false }, class: "w-full px-8 py-4 bg-seller-600 text-white rounded-lg text-lg font-bold hover:bg-seller-700 transition shadow-lg" do %>
         Subscribe to Premium - €299/month
       <% end %>
 

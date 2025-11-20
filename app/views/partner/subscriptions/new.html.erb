@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <%= button_to partner_subscription_path, method: :post, params: { plan_type: 'partner_annual' }, class: "w-full px-8 py-4 bg-partner-600 text-white rounded-lg text-lg font-bold hover:bg-partner-700 transition shadow-lg" do %>
+      <%= button_to partner_subscription_path, method: :post, params: { plan_type: 'partner_annual' }, data: { turbo: false }, class: "w-full px-8 py-4 bg-partner-600 text-white rounded-lg text-lg font-bold hover:bg-partner-700 transition shadow-lg" do %>
         Subscribe - €499/year
       <% end %>
 

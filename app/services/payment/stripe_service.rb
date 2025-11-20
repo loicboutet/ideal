@@ -57,6 +57,7 @@ module Payment
           # Create checkout session
           session = Stripe::Checkout::Session.create(
             customer: customer.id,
+            client_reference_id: user.id.to_s,  # Required for webhook to find user
             mode: 'subscription',
             line_items: [{
               price: plan_config[:stripe_price_id],
@@ -98,6 +99,7 @@ module Payment
           # Create checkout session for one-time payment
           session = Stripe::Checkout::Session.create(
             customer: customer.id,
+            client_reference_id: user.id.to_s,  # Required for webhook to find user
             mode: 'payment',
             line_items: [{
               price_data: {
