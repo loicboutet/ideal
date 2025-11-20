@@ -257,7 +257,12 @@ Rails.application.routes.draw do
     resources :favorites, only: [:index, :destroy]
     
     # Enrichment System (Add documents to listings)
-    resources :enrichments, only: [:index, :show, :new, :create]
+    resources :enrichments, only: [:index, :show]
+    
+    # Nest enrichments under listings for creation
+    resources :listings, only: [] do
+      resources :enrichments, only: [:new, :create]
+    end
     
     # Credits & Subscription Management
     resources :credits, only: [:index] do

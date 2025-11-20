@@ -3,6 +3,9 @@ class Enrichment < ApplicationRecord
   belongs_to :listing
   belongs_to :validated_by, class_name: 'User', optional: true
   
+  # Active Storage attachment for file upload
+  has_one_attached :document
+  
   enum :document_category, {
     balance_n1: 0, balance_n2: 1, balance_n3: 2, org_chart: 3,
     tax_return: 4, income_statement: 5, vehicle_list: 6, lease: 7,
