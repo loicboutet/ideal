@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_191859) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -127,6 +127,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["listing_id"], name: "index_conversations_on_listing_id"
+  end
+
+  create_table "credit_packs", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "credits_amount", null: false
+    t.integer "price_cents", null: false
+    t.text "description"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_credit_packs_on_active"
   end
 
   create_table "credit_transactions", force: :cascade do |t|
@@ -425,6 +436,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
     t.index ["validation_status"], name: "index_partner_profiles_on_validation_status"
   end
 
+  create_table "payment_transactions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.string "currency", default: "EUR", null: false
+    t.string "status", null: false
+    t.string "stripe_payment_intent_id"
+    t.string "transaction_type", null: false
+    t.text "description"
+    t.text "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_payment_transactions_on_created_at"
+    t.index ["status"], name: "index_payment_transactions_on_status"
+    t.index ["stripe_payment_intent_id"], name: "index_payment_transactions_on_stripe_payment_intent_id"
+    t.index ["transaction_type"], name: "index_payment_transactions_on_transaction_type"
+    t.index ["user_id"], name: "index_payment_transactions_on_user_id"
+  end
+
   create_table "platform_settings", force: :cascade do |t|
     t.string "setting_key", null: false
     t.text "setting_value", null: false
@@ -464,27 +493,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
     t.index ["questionnaire_type"], name: "index_questionnaires_on_questionnaire_type"
   end
 
-  create_table "reports", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "reportable_type", null: false
-    t.integer "reportable_id", null: false
-    t.integer "reason", null: false
-    t.text "description"
-    t.integer "status", default: 0, null: false
-    t.integer "reviewed_by_id"
-    t.datetime "reviewed_at"
-    t.text "resolution_notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["created_at"], name: "index_reports_on_created_at"
-    t.index ["reason"], name: "index_reports_on_reason"
-    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable"
-    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable_type_and_reportable_id"
-    t.index ["reviewed_by_id"], name: "index_reports_on_reviewed_by_id"
-    t.index ["status"], name: "index_reports_on_status"
-    t.index ["user_id"], name: "index_reports_on_user_id"
-  end
-
   create_table "seller_profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "is_broker", default: false, null: false
@@ -522,6 +530,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
     t.datetime "cancelled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "cancel_at_period_end"
     t.index ["profile_type", "profile_id"], name: "index_subscriptions_on_profile"
     t.index ["profile_type", "profile_id"], name: "index_subscriptions_on_profile_type_and_profile_id"
     t.index ["status"], name: "index_subscriptions_on_status"
@@ -577,10 +586,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
     t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.string "stripe_customer_id"
+    t.integer "credits_balance", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
     t.index ["status"], name: "index_users_on_status"
+    t.index ["stripe_customer_id"], name: "index_users_on_stripe_customer_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -621,12 +633,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
   add_foreign_key "partner_contacts", "partner_profiles"
   add_foreign_key "partner_contacts", "users"
   add_foreign_key "partner_profiles", "users"
+  add_foreign_key "payment_transactions", "users"
   add_foreign_key "platform_settings", "users", column: "updated_by_id"
   add_foreign_key "questionnaire_responses", "questionnaires"
   add_foreign_key "questionnaire_responses", "users"
   add_foreign_key "questionnaires", "users", column: "created_by_id"
-  add_foreign_key "reports", "users"
-  add_foreign_key "reports", "users", column: "reviewed_by_id"
   add_foreign_key "seller_profiles", "users"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "survey_responses", "surveys"

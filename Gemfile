@@ -70,6 +70,9 @@ end
 gem "devise", "~> 4.9"
 gem "kaminari"
 
+# Payment processing
+gem "stripe", "~> 12.0"
+
 # Analytics and charting
 gem "groupdate"
 

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  credits_amount: 1
+  price_cents: 1
+  description: MyText
+  active: false
+
+two:
+  name: MyString
+  credits_amount: 1
+  price_cents: 1
+  description: MyText
+  active: false
