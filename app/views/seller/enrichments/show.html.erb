@@ -1,0 +1,198 @@
+<% content_for :page_title, "Détails de l'enrichissement" %>
+
+<div class="space-y-6">
+  <!-- Back Link -->
+  <div>
+    <%= link_to seller_enrichments_path, class: "text-blue-600 hover:text-blue-800 flex items-center gap-2" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Retour à la liste
+    <% end %>
+  </div>
+
+  <!-- Main Content -->
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <!-- Header -->
+    <div class="px-6 py-4 border-b border-gray-200 <%= @enrichment.pending? ? 'bg-orange-50' : @enrichment.approved? ? 'bg-green-50' : 'bg-red-50' %>">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900"><%= @enrichment.category_label %></h1>
+          <p class="mt-1 text-sm text-gray-600">
+            Enrichissement #<%= @enrichment.id %>
+          </p>
+        </div>
+        <div>
+          <% if @enrichment.pending? %>
+            <span class="px-4 py-2 text-sm font-medium bg-orange-100 text-orange-800 rounded-full">En attente de validation</span>
+          <% elsif @enrichment.approved? %>
+            <span class="px-4 py-2 text-sm font-medium bg-green-100 text-green-800 rounded-full">✓ Approuvé</span>
+          <% else %>
+            <span class="px-4 py-2 text-sm font-medium bg-red-100 text-red-800 rounded-full">✗ Rejeté</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Details -->
+    <div class="px-6 py-6 space-y-6">
+      <!-- Listing Information -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Annonce concernée</h3>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="flex items-start justify-between">
+            <div>
+              <h4 class="font-medium text-gray-900"><%= @enrichment.listing.title %></h4>
+              <p class="text-sm text-gray-600 mt-1">
+                <%= @enrichment.listing.industry_sector_humanized %> •
+                <%= @enrichment.listing.location_region %>
+              </p>
+            </div>
+            <%= link_to "Voir l'annonce", seller_listing_path(@enrichment.listing), class: "px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg border border-blue-200" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buyer Information -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Repreneur</h3>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-lg">
+              <%= @enrichment.buyer_profile.user.first_name&.first&.upcase || @enrichment.buyer_profile.user.email&.first&.upcase %>
+            </div>
+            <div>
+              <p class="font-medium text-gray-900"><%= @enrichment.buyer_profile.user.full_name %></p>
+              <p class="text-sm text-gray-600"><%= @enrichment.buyer_profile.user.email %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Document Details -->
+      <div>
+        <h3 class="text-lg font-medium text-gray-900 mb-4">Détails du document</h3>
+        <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+          <div>
+            <p class="text-sm font-medium text-gray-600">Catégorie</p>
+            <p class="text-gray-900"><%= @enrichment.category_label %></p>
+          </div>
+          
+          <% if @enrichment.description.present? %>
+            <div>
+              <p class="text-sm font-medium text-gray-600">Description</p>
+              <p class="text-gray-900"><%= @enrichment.description %></p>
+            </div>
+          <% end %>
+
+          <div>
+            <p class="text-sm font-medium text-gray-600">Date d'ajout</p>
+            <p class="text-gray-900"><%= l(@enrichment.created_at, format: :long) %></p>
+          </div>
+
+          <% if @enrichment.file_url.present? %>
+            <div>
+              <p class="text-sm font-medium text-gray-600 mb-2">Fichier</p>
+              <%= link_to @enrichment.file_url, class: "inline-flex items-center gap-2 px-4 py-2 text-sm text-blue-600 hover:bg-blue-50 rounded-lg border border-blue-200" do %>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                </svg>
+                Télécharger le document
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Validation Information -->
+      <% if @enrichment.validated_at %>
+        <div>
+          <h3 class="text-lg font-medium text-gray-900 mb-4">Validation</h3>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-3">
+            <div>
+              <p class="text-sm font-medium text-gray-600">Statut</p>
+              <p class="text-gray-900">
+                <% if @enrichment.approved? %>
+                  <span class="text-green-600">✓ Approuvé</span>
+                <% else %>
+                  <span class="text-red-600">✗ Rejeté</span>
+                <% end %>
+              </p>
+            </div>
+
+            <div>
+              <p class="text-sm font-medium text-gray-600">Date de traitement</p>
+              <p class="text-gray-900"><%= l(@enrichment.validated_at, format: :long) %></p>
+            </div>
+
+            <% if @enrichment.validated_by %>
+              <div>
+                <p class="text-sm font-medium text-gray-600">Validé par</p>
+                <p class="text-gray-900"><%= @enrichment.validated_by.full_name %></p>
+              </div>
+            <% end %>
+
+            <% if @enrichment.rejected? && @enrichment.rejection_reason.present? %>
+              <div>
+                <p class="text-sm font-medium text-gray-600">Raison du rejet</p>
+                <div class="mt-1 p-3 bg-red-50 rounded text-sm text-red-700">
+                  <%= @enrichment.rejection_reason %>
+                </div>
+              </div>
+            <% end %>
+
+            <% if @enrichment.approved? && @enrichment.credits_awarded %>
+              <div>
+                <p class="text-sm font-medium text-gray-600">Crédits gagnés</p>
+                <p class="text-green-600 font-medium">+<%= @enrichment.credits_awarded %> crédit(s)</p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Actions -->
+    <% if @enrichment.pending? %>
+      <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-gray-600">
+            Validez ce document pour gagner <span class="font-medium text-green-600">+1 crédit</span>
+          </p>
+          <div class="flex gap-3">
+            <%= button_to reject_seller_enrichment_path(@enrichment), 
+                method: :patch,
+                params: { rejection_reason: "Document non conforme ou incomplet" },
+                data: { turbo_confirm: "Êtes-vous sûr de vouloir rejeter ce document ?" },
+                class: "px-6 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition" do %>
+              ✗ Rejeter
+            <% end %>
+            
+            <%= button_to approve_seller_enrichment_path(@enrichment), 
+                method: :patch,
+                data: { turbo_confirm: "Approuver ce document ? Vous gagnerez 1 crédit." },
+                class: "px-6 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded-lg transition" do %>
+              ✓ Approuver (+1 crédit)
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Info Box -->
+  <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm text-blue-700">
+          Les enrichissements sont des documents ajoutés par les repreneurs pour compléter votre annonce. En les validant, vous améliorez la qualité de votre annonce et gagnez des crédits.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

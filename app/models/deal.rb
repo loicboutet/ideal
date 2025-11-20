@@ -34,12 +34,27 @@ class Deal < ApplicationRecord
   
   def release!(reason = nil)
     credits_earned = calculate_release_credits
-    update!(
-      released_at: Time.current,
-      release_reason: reason,
-      total_credits_earned: credits_earned
-    )
-    buyer_profile.add_credits(credits_earned)
+    
+    transaction do
+      update!(
+        released_at: Time.current,
+        release_reason: reason,
+        total_credits_earned: credits_earned
+      )
+      
+      # Award credits to buyer for deal release
+      buyer_profile.add_credits(credits_earned)
+      
+      # Award +1 credit to seller when buyer releases deal voluntarily
+      if reason.present? && listing.seller_profile.present?
+        listing.seller_profile.award_credits(
+          1,
+          :deal_release,
+          source: self,
+          description: "Dossier libéré volontairement par #{buyer_profile.user.full_name}"
+        )
+      end
+    end
   end
   
   # Timer expiry is now handled by DealTimer concern
