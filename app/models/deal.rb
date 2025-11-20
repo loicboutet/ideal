@@ -5,7 +5,6 @@ class Deal < ApplicationRecord
   belongs_to :listing
   
   has_many :deal_history_events, dependent: :destroy
-  has_many :enrichments, dependent: :destroy
   
   # Enums
   enum :status, {
@@ -45,13 +44,16 @@ class Deal < ApplicationRecord
   
   # Timer expiry is now handled by DealTimer concern
   
-  private
-  
   def calculate_release_credits
     base_credit = 1
-    doc_credits = enrichments.where(validated: true).count
+    # Count validated enrichments for this listing by this buyer
+    doc_credits = listing.enrichments
+      .where(buyer_profile_id: buyer_profile_id, validated: true)
+      .count
     base_credit + doc_credits
   end
+  
+  private
   
   def track_status_change
     deal_history_events.create!(

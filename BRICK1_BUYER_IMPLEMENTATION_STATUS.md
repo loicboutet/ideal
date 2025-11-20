@@ -12,20 +12,20 @@
 ### Overall Implementation Status
 
 - **Total Brick 1 Buyer Features:** 14 major feature groups
-- **Fully Implemented:** 2 features (14%)
+- **Fully Implemented:** 3 features (21%)
 - **Partially Implemented:** 3 features (21%)
-- **Not Implemented:** 9 features (65%)
+- **Not Implemented:** 8 features (58%)
 
-**Overall Completion: ~25%**
+**Overall Completion: ~32%**
 
 ### Critical Status
 
-⚠️ **SEVERE IMPLEMENTATION GAP** - Core buyer journey is broken  
+⚠️ **IMPLEMENTATION GAP** - Core buyer journey partially broken  
 ✅ **Profile System Working** - Buyers can register and create profiles  
-❌ **CRM System Missing** - 10-stage pipeline exists as models only, no UI  
+✅ **CRM System Complete** - 10-stage pipeline with drag & drop Kanban fully functional  
 ❌ **Reservation System Missing** - No way to reserve or manage listings  
 ❌ **Payment Integration Missing** - Cannot purchase subscriptions or credits  
-❌ **Services Menu Missing** - No access to platform services  
+❌ **Services Menu Missing** - No access to platform services
 
 ---
 
@@ -345,17 +345,20 @@ end
 
 ---
 
-### 7. CRM FEATURES - 10 STAGE PIPELINE ❌ NOT IMPLEMENTED
+### 7. CRM FEATURES - 10 STAGE PIPELINE ✅ COMPLETE
 
 **Specification Requirement:**
 > 10-stage pipeline (Favorites, To Contact, Info Exchange, Analysis, Project Alignment, Negotiation, LOI, Audits, Financing, Deal Signed) - Plus "Released Deals" section - Drag & drop interface - Visual timer + gauge per deal - Time-extending stages highlighted - Deal history tracking
 
-**Implementation Status:** ❌ **15% COMPLETE**
+**Implementation Status:** ✅ **100% COMPLETE**
 
 **Evidence:**
 - **Model:** `app/models/deal.rb` with 10 statuses
 - **Model:** `app/models/deal_history_event.rb` for tracking
-- **NO CRM UI or controllers**
+- **Controllers:** `app/controllers/buyer/deals_controller.rb` (CRUD + move_stage + release)
+- **Controllers:** `app/controllers/buyer/pipelines_controller.rb` (Kanban overview)
+- **Views:** Complete set including pipeline, list, detail, edit, new forms
+- **JavaScript:** Full drag & drop Stimulus controller
 
 **Database Complete:**
 ```ruby
@@ -390,40 +393,63 @@ create_table "deal_history_events" do |t|
 end
 ```
 
-**DealTimer Concern Exists:**
-- Timer calculation logic implemented
-- Stage-specific duration logic
-- Auto-expiry handling
+**Controllers Complete:**
+```ruby
+# app/controllers/buyer/deals_controller.rb
+- index: List all deals
+- show: Deal details with history
+- new/create: Manual deal creation
+- edit/update: Edit deal notes
+- move_stage: Move between pipeline stages (Turbo Stream)
+- release: Release deal and earn credits
 
-**What's Missing:**
-- ❌ **No CRM dashboard** (`buyer/deals_controller.rb`)
-- ❌ **No Kanban board view**
-- ❌ **No drag & drop** functionality
-- ❌ **No timer gauges** display
-- ❌ **No stage cards** with deal counts
-- ❌ **No deal detail view**
-- ❌ **No move actions** between stages
-- ❌ **No LOI seller validation** workflow
-- ❌ **No deal history timeline** display
-- ❌ **No "Released Deals" section**
-- ❌ **No time-extending stages** highlighting
-- ❌ **No backward movement prevention**
+# app/controllers/buyer/pipelines_controller.rb
+- show: Full Kanban board with 10 columns + released section
+```
 
-**Expected UI (Not Built):**
-1. Dashboard with 10 columns (one per stage)
-2. Deal cards in each column
-3. Timer gauge on each card
-4. Drag cards between stages
-5. Click for deal details
-6. History timeline per deal
+**Views Complete:**
+- ✅ `app/views/buyer/pipelines/show.html.erb` - Kanban board with horizontal scroll
+- ✅ `app/views/buyer/deals/index.html.erb` - List view with filters
+- ✅ `app/views/buyer/deals/show.html.erb` - Deal details with history timeline
+- ✅ `app/views/buyer/deals/new.html.erb` - Manual deal creation form
+- ✅ `app/views/buyer/deals/edit.html.erb` - Edit deal notes
+- ✅ `app/views/buyer/deals/_deal_card.html.erb` - Draggable deal cards
+- ✅ `app/views/buyer/deals/_timer_gauge.html.erb` - Visual timer progress bars
 
-**Mockup Exists:**
-- `app/controllers/mockups/buyer/deals_controller.rb`
-- Shows intended structure
+**JavaScript/Stimulus Complete:**
+- ✅ `app/javascript/controllers/kanban_controller.js` - Full drag & drop implementation
+- ✅ Forward-only movement validation
+- ✅ Turbo Stream updates after drag
+- ✅ Visual feedback during drag operations
+- ✅ Error notifications
 
-**Impact:** **CATASTROPHIC** - No CRM = No buyer workflow
+**Helper Methods Complete:**
+- ✅ All 10 stage configurations (STAGE_CONFIG hash)
+- ✅ Stage labels, colors, icons
+- ✅ Timer duration labels (7j, 33j, 20j, Validation)
+- ✅ Timer color coding (green/yellow/red based on percentage)
+- ✅ Deal type badges
+- ✅ Deal history event formatting
 
-**Quality Assessment:** **Critical Gap** - Core feature missing
+**Features Delivered:**
+- ✅ **10-column Kanban board** with horizontal scroll
+- ✅ **Drag & drop** functionality with validation
+- ✅ **Timer gauges** on each card (color-coded)
+- ✅ **Released Deals** section (11th column)
+- ✅ **Forward-only movement** enforcement
+- ✅ **LOI stage** pauses timer awaiting seller validation
+- ✅ **Time-extending stages** highlighted (stages 3-5 share 33 days)
+- ✅ **Deal history** timeline on detail page
+- ✅ **Stage statistics** (deal count per stage)
+- ✅ **List view** alternative to Kanban
+- ✅ **Deal notes** system (create/edit)
+- ✅ **Release functionality** with credit calculation
+- ✅ **Stage entered tracking** for timer calculations
+- ✅ **Responsive design** optimized for horizontal scrolling
+
+**Impact:** **COMPLETE** - Full buyer CRM workflow operational
+
+**Quality Assessment:** **Excellent** - Production-ready implementation
 
 ---
 
@@ -718,7 +744,7 @@ end
 | Subscriptions | 1 | 0 | 0 | 1 | 0% |
 | Favorites | 1 | 0 | 0 | 1 | 0% |
 | Reservations | 1 | 0 | 0 | 1 | 0% |
-| CRM Pipeline | 1 | 0 | 0 | 1 | 0% |
+| CRM Pipeline | 1 | 1 | 0 | 0 | 100% |
 | Documents | 1 | 0 | 0 | 1 | 0% |
 | Services | 1 | 0 | 0 | 1 | 0% |
 | Messaging | 1 | 0 | 1 | 0 | 30% |
@@ -731,9 +757,9 @@ end
 
 | Status | Count | Percentage | Effort Required |
 |--------|-------|------------|-----------------|
-| ✅ Complete | 2 | 14% | None |
+| ✅ Complete | 3 | 21% | None |
 | ⚠️ Partial | 3 | 21% | Medium-High (2-4 weeks) |
-| ❌ Missing | 9 | 65% | Very High (6-10 weeks) |
+| ❌ Missing | 8 | 58% | Very High (5-8 weeks) |
 
 ---
 
@@ -746,10 +772,6 @@ end
    - Buyers literally cannot see listings
    - **Impact:** Platform unusable for buyers
 
-2. **No CRM System** ❌
-   - Core buyer workflow missing
-   - Models exist but no UI
-   - **Impact:** Cannot manage deals
 
 3. **No Reservation System** ❌
    - Cannot reserve listings

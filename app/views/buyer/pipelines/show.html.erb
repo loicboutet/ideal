@@ -1,0 +1,140 @@
+<% content_for :title, "Pipeline CRM - Repreneur - Idéal Reprise" %>
+<% content_for :page_title, "Mon Pipeline CRM" %>
+
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <p class="text-gray-600">
+      <%= @total_active_deals %> dossier<%= 's' if @total_active_deals != 1 %> actif<%= 's' if @total_active_deals != 1 %> • 
+      <%= @deals_with_active_timer %> avec timer actif
+      <% if @time_extending_deals > 0 %>
+        • <span class="text-red-600 font-medium"><%= @time_extending_deals %> en fin de timer</span>
+      <% end %>
+    </p>
+    <%= link_to buyer_deals_path, class: "text-sm text-buyer-600 hover:text-buyer-700 font-medium" do %>
+      Vue liste →
+    <% end %>
+  </div>
+
+  <div class="bg-buyer-50 border border-buyer-200 rounded-lg p-4">
+    <p class="text-sm text-buyer-900">
+      <strong>💡 Timers:</strong> À contacter 7j • Échange/Analyse/Alignement 33j • Négociation 20j • LOI nécessite validation cédant
+    </p>
+  </div>
+
+  <!-- Pipeline - Scroll horizontal -->
+  <div class="overflow-x-auto pb-4" data-controller="kanban">
+    <div class="flex gap-4 min-w-max">
+      <% Deal.statuses.keys[0..9].each do |status| %>
+        <% deals = @deals_by_status[status] || [] %>
+        <% color = stage_color(status) %>
+        <% timer = stage_timer_label(status) %>
+        
+        <div class="w-72 flex-shrink-0">
+          <div class="bg-white rounded-xl border-2 border-<%= color %>-200 p-4 h-full">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex-1">
+                <h3 class="font-bold text-gray-900 text-sm">
+                  <%= stage_icon(status) %> <%= stage_label(status) %>
+                </h3>
+                <% if timer %>
+                  <p class="text-xs text-gray-500 mt-1">
+                    <%= timer == 'Validation' ? '⏸ Pause timer' : "⏱ #{timer}" %>
+                  </p>
+                <% end %>
+                <% if stage_has_shared_timer?(status) %>
+                  <div class="mt-1 px-2 py-0.5 bg-buyer-100 text-buyer-700 text-xs rounded inline-block">
+                    ⏱ Temps partagé 33j
+                  </div>
+                <% end %>
+              </div>
+              <span class="w-7 h-7 <%= stage_count_badge_class(status, deals.count) %> text-xs font-bold rounded-full flex items-center justify-center flex-shrink-0">
+                <%= deals.count %>
+              </span>
+            </div>
+
+            <!-- Deals -->
+            <div id="stage_<%= status %>" class="space-y-3 min-h-[200px]" data-kanban-target="column" data-status="<%= status %>">
+              <% deals.each do |deal| %>
+                <%= render 'buyer/deals/deal_card', deal: deal %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+      <!-- Released Deals Column -->
+      <div class="w-72 flex-shrink-0">
+        <div class="bg-white rounded-xl border-2 border-red-200 p-4 h-full">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex-1">
+              <h3 class="font-bold text-gray-900 text-sm">
+                🔓 Deals libérés
+              </h3>
+              <p class="text-xs text-gray-500 mt-1">
+                Abandonné ou expiré
+              </p>
+            </div>
+            <span class="w-7 h-7 bg-red-100 text-red-600 text-xs font-bold rounded-full flex items-center justify-center flex-shrink-0">
+              <%= @released_deals.count %>
+            </span>
+          </div>
+          
+          <div class="space-y-3 min-h-[200px]">
+            <% @released_deals.each do |deal| %>
+              <div class="bg-gray-50 rounded-lg p-3 border border-gray-200 opacity-75">
+                <h4 class="font-semibold text-gray-900 text-sm mb-2">
+                  <%= deal.listing.title || 'Entreprise' %>
+                </h4>
+                <p class="text-xs text-gray-600 mb-2">
+                  CA: <%= number_to_currency(deal.listing.annual_revenue, unit: '€', precision: 0) %>
+                </p>
+                <% if deal.released_at %>
+                  <p class="text-xs text-gray-500">
+                    Libéré <%= time_ago_in_words(deal.released_at) %>
+                  </p>
+                <% end %>
+                <% if deal.total_credits_earned && deal.total_credits_earned > 0 %>
+                  <p class="text-xs text-green-600 font-medium mt-1">
+                    +<%= deal.total_credits_earned %> crédit<%= 's' if deal.total_credits_earned > 1 %>
+                  </p>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="font-bold text-gray-900 mb-4">Légende</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 bg-buyer-500 rounded"></div>
+        <span class="text-gray-700">Timer actif</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 bg-green-500 rounded"></div>
+        <span class="text-gray-700">Phase avancée</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 bg-purple-500 rounded"></div>
+        <span class="text-gray-700">Finalisé</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="px-2 py-0.5 bg-buyer-100 text-buyer-700 text-xs rounded">33j</div>
+        <span class="text-gray-700">Temps partagé étapes 3-5</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded">Mandat</div>
+        <span class="text-gray-700">Type de deal</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-4 h-4 bg-red-500 rounded"></div>
+        <span class="text-gray-700">Timer critique (&lt;20%)</span>
+      </div>
+    </div>
+  </div>
+</div>
