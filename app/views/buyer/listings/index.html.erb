@@ -1,5 +1,4 @@
 <% content_for :title, "Parcourir les annonces - Repreneur - Idéal Reprise" %>
-<% content_for :page_title, "Parcourir les annonces" %>
 
 <div class="max-w-7xl mx-auto space-y-6">
   <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -10,82 +9,22 @@
   </div>
 
   <!-- Filters -->
-  <%= form_with url: buyer_listings_path, method: :get, class: "bg-white rounded-xl shadow-sm p-6" do |f| %>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Deal Type Filter -->
-      <%= f.select :deal_type, 
-        options_for_select([
-          ['Tous les types de deal', 'all'],
-          ['Deal Direct', 'direct'],
-          ['Mandat Idéal Reprise', 'ideal_mandate'],
-          ['Mandat Partenaire', 'partner_mandate']
-        ], params[:deal_type]), 
-        {}, 
-        class: "px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500",
-        onchange: "this.form.submit()" %>
+  <%= render 'filters' %>
 
-      <!-- Sector Filter -->
-      <%= f.select :sector,
-        options_for_select([
-          ['Tous les secteurs', 'all'],
-          ['Industrie', 'industry'],
-          ['Construction (BTP)', 'construction'],
-          ['Commerce & Distribution', 'commerce'],
-          ['Transport & Logistique', 'transport_logistics'],
-          ['Hôtellerie / Restauration', 'hospitality'],
-          ['Services', 'services'],
-          ['Agri-food & Agriculture', 'agrifood'],
-          ['Santé', 'healthcare'],
-          ['Digital', 'digital'],
-          ['Immobilier', 'real_estate'],
-          ['Autre', 'other']
-        ], params[:sector]),
-        {},
-        class: "px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500",
-        onchange: "this.form.submit()" %>
-
-      <!-- Department Filter -->
-      <%= f.text_field :department,
-        placeholder: "Département (ex: 75, 69, 13)",
-        value: params[:department],
-        class: "px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" %>
-
-      <!-- Revenue Range -->
-      <%= f.number_field :revenue_min,
-        placeholder: "CA min (€)",
-        value: params[:revenue_min],
-        class: "px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" %>
-
-      <%= f.number_field :revenue_max,
-        placeholder: "CA max (€)",
-        value: params[:revenue_max],
-        class: "px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" %>
-
-      <!-- Search -->
-      <%= f.text_field :search,
-        placeholder: "Rechercher...",
-        value: params[:search],
-        class: "px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500" %>
-    </div>
-
-    <div class="flex gap-3 mt-4">
-      <%= f.submit "Filtrer", class: "px-6 py-2 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium" %>
-      <%= link_to "Réinitialiser", buyer_listings_path, class: "px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium" %>
-    </div>
-  <% end %>
-
-  <!-- Exclusive Deals Alert (if any) -->
+  <!-- Exclusive Deals Section (if any) -->
   <% if @exclusive_listings.any? %>
-    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-      <div class="flex items-start gap-3">
-        <svg class="w-6 h-6 text-yellow-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
+    <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 border-2 border-yellow-200">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-3xl">🏆</span>
         <div>
-          <h3 class="font-semibold text-yellow-900">Vous avez <%= @exclusive_listings.count %> annonce(s) exclusive(s)</h3>
-          <p class="text-sm text-yellow-700 mt-1">Ces entreprises ont été attribuées exclusivement à votre profil par notre équipe.</p>
-          <%= link_to "Voir mes annonces exclusives →", exclusive_buyer_listings_path, class: "inline-block mt-2 text-sm font-medium text-yellow-800 hover:text-yellow-900 underline" %>
+          <h3 class="text-xl font-bold text-gray-900">Deals Exclusifs</h3>
+          <p class="text-gray-600">Ces opportunités vous sont réservées</p>
         </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <% @exclusive_listings.each do |listing| %>
+          <%= render 'listing_card', listing: listing, exclusive: true %>
+        <% end %>
       </div>
     </div>
   <% end %>
@@ -94,63 +33,20 @@
   <% if @listings.any? %>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <% @listings.each do |listing| %>
-        <%= render 'listing_card', listing: listing %>
+        <%= render 'listing_card', listing: listing, exclusive: false %>
       <% end %>
     </div>
 
     <!-- Pagination -->
-    <div class="bg-white rounded-xl shadow-sm px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-      <div class="flex-1 flex justify-between sm:hidden">
-        <%= link_to buyer_listings_path(page: @listings.prev_page, **params.except(:page).permit!), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 #{'pointer-events-none opacity-50' unless @listings.prev_page}" do %>
-          Précédent
-        <% end %>
-        <%= link_to buyer_listings_path(page: @listings.next_page, **params.except(:page).permit!), class: "ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 #{'pointer-events-none opacity-50' unless @listings.next_page}" do %>
-          Suivant
-        <% end %>
-      </div>
-      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <div>
-          <p class="text-sm text-gray-700">
-            Affichage de <span class="font-medium"><%= @listings.offset_value + 1 %></span> à <span class="font-medium"><%= [@listings.offset_value + @listings.limit_value, @listings.total_count].min %></span> sur <span class="font-medium"><%= @listings.total_count %></span> résultats
-          </p>
-        </div>
-        <div>
-          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-            <%= link_to buyer_listings_path(page: @listings.prev_page, **params.except(:page).permit!), class: "relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 #{'pointer-events-none opacity-50' unless @listings.prev_page}" do %>
-              <span class="sr-only">Précédent</span>
-              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
-            <% end %>
-            
-            <% @listings.total_pages.times do |i| %>
-              <% page_number = i + 1 %>
-              <% if page_number == 1 || page_number == @listings.total_pages || (page_number - @listings.current_page).abs <= 1 %>
-                <%= link_to buyer_listings_path(page: page_number, **params.except(:page).permit!), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium #{page_number == @listings.current_page ? 'bg-buyer-50 text-buyer-600 z-10' : 'bg-white text-gray-700 hover:bg-gray-50'}" do %>
-                  <%= page_number %>
-                <% end %>
-              <% elsif (page_number - @listings.current_page).abs == 2 %>
-                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
-              <% end %>
-            <% end %>
-            
-            <%= link_to buyer_listings_path(page: @listings.next_page, **params.except(:page).permit!), class: "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 #{'pointer-events-none opacity-50' unless @listings.next_page}" do %>
-              <span class="sr-only">Suivant</span>
-              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            <% end %>
-          </nav>
-        </div>
-      </div>
+    <div class="flex justify-center mt-8">
+      <%= paginate @listings %>
     </div>
   <% else %>
     <div class="bg-white rounded-xl shadow-sm p-12 text-center">
-      <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-      <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucune annonce trouvée</h3>
-      <p class="text-gray-600">Essayez de modifier vos filtres de recherche</p>
+      <div class="text-6xl mb-4">🔍</div>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">Aucune annonce trouvée</h3>
+      <p class="text-gray-600 mb-6">Essayez de modifier vos critères de recherche</p>
+      <%= link_to "Réinitialiser les filtres", buyer_listings_path, class: "inline-block px-6 py-3 bg-buyer-600 text-white rounded-full hover:bg-buyer-700 transition font-medium" %>
     </div>
   <% end %>
 </div>
