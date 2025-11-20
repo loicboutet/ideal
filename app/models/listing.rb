@@ -58,6 +58,19 @@ class Listing < ApplicationRecord
     increment!(:views_count)
   end
   
+  def track_view!(user: nil, ip_address: nil)
+    listing_views.create!(
+      user: user,
+      ip_address: ip_address,
+      viewed_at: Time.current
+    )
+    increment_views!
+  end
+  
+  def analytics
+    @analytics ||= Seller::ListingAnalyticsService.new(self)
+  end
+  
   def pending_validation?
     validation_status == 'pending'
   end
