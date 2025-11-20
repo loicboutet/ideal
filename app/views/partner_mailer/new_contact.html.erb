@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #0d9488 0%, #06b6d4 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 8px 8px 0 0;
+    }
+    .content {
+      background: #ffffff;
+      padding: 30px;
+      border: 1px solid #e5e7eb;
+      border-top: none;
+    }
+    .button {
+      display: inline-block;
+      background: #0d9488;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+    .contact-box {
+      background: #f0fdfa;
+      border: 1px solid #5eead4;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 style="margin: 0; font-size: 28px;">📬 Nouveau contact!</h1>
+  </div>
+
+  <div class="content">
+    <p>Bonjour <%= @user.first_name || @user.company_name %>,</p>
+
+    <p><strong>Bonne nouvelle!</strong> Un utilisateur a consulté votre profil dans l'annuaire partenaire Idéal Reprise.</p>
+
+    <div class="contact-box">
+      <p style="margin: 0 0 10px 0;"><strong>Détails du contact:</strong></p>
+      <table style="width: 100%;">
+        <tr>
+          <td style="padding: 5px 0;"><strong>Type:</strong></td>
+          <td style="padding: 5px 0;"><%= @contact.contact_type.humanize %></td>
+        </tr>
+        <tr>
+          <td style="padding: 5px 0;"><strong>Date:</strong></td>
+          <td style="padding: 5px 0;"><%= l(@contact.created_at, format: :long) %></td>
+        </tr>
+        <% if @contact_user %>
+        <tr>
+          <td style="padding: 5px 0;"><strong>Utilisateur:</strong></td>
+          <td style="padding: 5px 0;"><%= @contact_user.company_name || "#{@contact_user.first_name} #{@contact_user.last_name}" %></td>
+        </tr>
+        <tr>
+          <td style="padding: 5px 0;"><strong>Rôle:</strong></td>
+          <td style="padding: 5px 0;"><%= @contact_user.role.capitalize %></td>
+        </tr>
+        <% end %>
+      </table>
+    </div>
+
+    <p><strong>Que faire maintenant?</strong></p>
+    <ul>
+      <li>Consultez vos statistiques pour voir les tendances</li>
+      <li>Optimisez votre profil si nécessaire</li>
+      <li>Restez disponible pour répondre aux demandes</li>
+    </ul>
+
+    <div style="text-align: center;">
+      <a href="<%= partner_analytics_url %>" class="button">
+        Voir mes statistiques →
+      </a>
+    </div>
+
+    <p style="margin-top: 30px;">Continuez comme ça!</p>
+
+    <p>Cordialement,<br>
+    <strong>L'équipe Idéal Reprise</strong></p>
+  </div>
+
+  <div class="footer">
+    <p>Vous recevez cet email car vous êtes partenaire sur Idéal Reprise.</p>
+    <p>
+      <a href="<%= partner_settings_url %>" style="color: #0d9488;">Gérer mes préférences</a>
+    </p>
+  </div>
+</body>
+</html>

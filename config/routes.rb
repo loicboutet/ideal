@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # Letter Opener Web - for viewing emails in development
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+  
   # Custom Devise routes with role-based registration
   devise_for :users, controllers: {
     registrations: 'users/registrations'
@@ -290,7 +295,7 @@ Rails.application.routes.draw do
     resource :settings, only: [:show, :update]
     
     # Analytics (Views, contacts from directory)
-    get 'analytics', to: 'dashboard#analytics'
+    resources :analytics, only: [:index]
     
     # Contact Management
     resources :contacts, only: [:index, :show] # Track who contacted me

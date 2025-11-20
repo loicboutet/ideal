@@ -48,8 +48,8 @@ module Admin
       @partner.validated_at = Time.current
       
       if @partner.save
-        # Send approval notification email (implement later if needed)
-        # PartnerMailer.approved(@partner).deliver_later
+        # Send approval notification email
+        PartnerMailer.profile_approved(@partner).deliver_later
         
         redirect_to admin_partners_path, notice: "Partenaire #{@partner.user.email} approuvé avec succès."
       else
@@ -60,11 +60,12 @@ module Admin
     def reject
       @partner.validation_status = :rejected
       @partner.validated_at = Time.current
-      @partner.rejection_reason = params[:reason] if params[:reason].present?
+      reason = params[:reason].presence || params[:partner_profile]&.dig(:rejection_reason)
+      @partner.rejection_reason = reason if reason.present?
       
       if @partner.save
-        # Send rejection notification email (implement later if needed)
-        # PartnerMailer.rejected(@partner).deliver_later
+        # Send rejection notification email
+        PartnerMailer.profile_rejected(@partner, reason).deliver_later
         
         redirect_to admin_partners_path, notice: "Partenaire #{@partner.user.email} rejeté."
       else
