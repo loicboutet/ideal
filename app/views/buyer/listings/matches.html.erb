@@ -1,0 +1,130 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Annonces Correspondantes</h1>
+    <p class="mt-2 text-sm text-gray-600">
+      Annonces sélectionnées en fonction de vos critères de recherche
+    </p>
+  </div>
+
+  <% if @matches.empty? %>
+    <!-- Empty State -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">Aucune correspondance trouvée</h3>
+      <p class="mt-2 text-sm text-gray-500">
+        Aucune annonce ne correspond à vos critères de recherche actuels. 
+        <%= link_to "Complétez votre profil", buyer_profile_path, class: "text-blue-600 hover:text-blue-800" %> 
+        pour améliorer les correspondances.
+      </p>
+      <div class="mt-6">
+        <%= link_to buyer_listings_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700" do %>
+          Voir toutes les annonces
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <!-- Stats -->
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+      <div class="flex items-center">
+        <svg class="h-5 w-5 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <p class="text-sm font-medium text-blue-900">
+          <%= @total_matches %> annonce<%= 's' if @total_matches > 1 %> correspondante<%= 's' if @total_matches > 1 %> trouvée<%= 's' if @total_matches > 1 %>
+        </p>
+      </div>
+    </div>
+
+    <!-- Matches Grid -->
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% @matches.each do |match| %>
+        <% listing = match[:listing] %>
+        <% score = match[:match_score] %>
+        
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200">
+          <!-- Match Score Badge -->
+          <div class="px-4 pt-4">
+            <div class="flex items-center justify-between mb-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium <%= score >= 80 ? 'bg-green-100 text-green-800' : score >= 60 ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800' %>">
+                <%= score %>% compatible
+              </span>
+              <% if listing.deal_type == 'ideal_mandate' %>
+                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">
+                  Mandat IDEAL
+                </span>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Listing Card Content -->
+          <div class="px-4 pb-4">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+              <%= link_to listing.title, buyer_listing_path(listing), class: "hover:text-blue-600" %>
+            </h3>
+            
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="h-4 w-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <%= listing.industry_sector&.humanize %>
+              </div>
+              
+              <% if listing.location_department.present? %>
+                <div class="flex items-center text-sm text-gray-600">
+                  <svg class="h-4 w-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <%= listing.location_department %> <%= "(#{listing.location_city})" if listing.location_city.present? %>
+                </div>
+              <% end %>
+              
+              <% if listing.annual_revenue.present? %>
+                <div class="flex items-center text-sm text-gray-600">
+                  <svg class="h-4 w-4 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  CA: <%= number_to_currency(listing.annual_revenue, unit: "€", separator: " ", delimiter: " ", format: "%n %u") %>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Action Button -->
+            <%= link_to buyer_listing_path(listing), class: "w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
+              Voir l'annonce
+              <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Pagination -->
+    <% if @total_pages > 1 %>
+      <div class="mt-8 flex items-center justify-between">
+        <div class="text-sm text-gray-700">
+          Page <%= @current_page %> sur <%= @total_pages %>
+        </div>
+        <div class="flex space-x-2">
+          <% if @current_page > 1 %>
+            <%= link_to matches_buyer_listings_path(page: @current_page - 1), class: "px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+              Précédent
+            <% end %>
+          <% end %>
+          
+          <% if @current_page < @total_pages %>
+            <%= link_to matches_buyer_listings_path(page: @current_page + 1), class: "px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+              Suivant
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

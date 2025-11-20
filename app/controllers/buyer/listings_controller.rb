@@ -63,6 +63,22 @@ module Buyer
       render :index
     end
 
+    def matches
+      # Use matching service to find listings that match buyer's criteria
+      matcher = Buyer::ListingMatcherService.new(@buyer_profile)
+      @matches = matcher.find_matches(limit: params[:limit]&.to_i)
+      
+      # Paginate results (already sorted by score)
+      per_page = 20
+      page = (params[:page] || 1).to_i
+      offset = (page - 1) * per_page
+      
+      @total_matches = @matches.count
+      @matches = @matches[offset, per_page] || []
+      @current_page = page
+      @total_pages = (@total_matches.to_f / per_page).ceil
+    end
+
     def favorite
       # Check if already favorited
       if @buyer_profile.favorites.exists?(listing_id: @listing.id)

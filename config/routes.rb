@@ -237,7 +237,7 @@ Rails.application.routes.draw do
       end
       collection do
         get :search
-        get :matching   # Listings matching my profile
+        get :matches     # Listings matching my profile
         get :exclusive  # Exclusive deals assigned to me
       end
     end
