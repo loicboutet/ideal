@@ -65,15 +65,99 @@ module Admin
       (available.to_f / paying).round(2)
     end
 
-    # Satisfaction (placeholder - requires survey implementation)
+    # Satisfaction tracking from surveys
     def satisfaction_percentage
-      # TODO: Calculate from satisfaction surveys when implemented
-      0
+      # Calculate average satisfaction score from all satisfaction surveys
+      avg_score = SurveyResponse.joins(:survey)
+                                .where(surveys: { survey_type: 'satisfaction', active: true })
+                                .where.not(satisfaction_score: nil)
+                                .average(:satisfaction_score)
+      
+      return 0 if avg_score.nil?
+      
+      # Convert 1-5 scale to percentage (5 stars = 100%)
+      ((avg_score / 5.0) * 100).round(1)
     end
 
     def satisfaction_evolution
-      # TODO: Compare with previous period
-      0
+      # Compare current period with previous period
+      current_avg = SurveyResponse.joins(:survey)
+                                  .where(surveys: { survey_type: 'satisfaction', active: true })
+                                  .where(survey_responses: { created_at: @start_date..@end_date })
+                                  .where.not(satisfaction_score: nil)
+                                  .average(:satisfaction_score)
+      
+      prev_start, prev_end = previous_period_dates
+      previous_avg = SurveyResponse.joins(:survey)
+                                   .where(surveys: { survey_type: 'satisfaction', active: true })
+                                   .where(survey_responses: { created_at: prev_start..prev_end })
+                                   .where.not(satisfaction_score: nil)
+                                   .average(:satisfaction_score)
+      
+      return 0 if current_avg.nil? || previous_avg.nil? || previous_avg.zero?
+      
+      ((current_avg - previous_avg) / previous_avg * 100).round(1)
+    end
+    
+    # Detailed satisfaction metrics
+    def satisfaction_metrics
+      responses = SurveyResponse.joins(:survey)
+                                .where(surveys: { survey_type: 'satisfaction', active: true })
+                                .where.not(satisfaction_score: nil)
+      
+      total_responses = responses.count
+      return default_satisfaction_metrics if total_responses.zero?
+      
+      {
+        average_score: responses.average(:satisfaction_score)&.round(2) || 0,
+        total_responses: total_responses,
+        distribution: responses.group(:satisfaction_score).count,
+        response_rate: calculate_satisfaction_response_rate,
+        recent_comments: recent_satisfaction_comments(5)
+      }
+    end
+    
+    private
+    
+    def default_satisfaction_metrics
+      {
+        average_score: 0,
+        total_responses: 0,
+        distribution: {},
+        response_rate: 0,
+        recent_comments: []
+      }
+    end
+    
+    def calculate_satisfaction_response_rate
+      satisfaction_surveys = Survey.where(survey_type: 'satisfaction', active: true)
+      return 0 if satisfaction_surveys.empty?
+      
+      total_recipients = satisfaction_surveys.sum do |survey|
+        survey.admin_message.recipients_count
+      end
+      
+      total_responses = SurveyResponse.where(survey: satisfaction_surveys).count
+      
+      return 0 if total_recipients.zero?
+      ((total_responses.to_f / total_recipients) * 100).round(1)
+    end
+    
+    def recent_satisfaction_comments(limit = 5)
+      SurveyResponse.joins(:survey)
+                    .where(surveys: { survey_type: 'satisfaction', active: true })
+                    .where.not(answers: nil)
+                    .order(created_at: :desc)
+                    .limit(limit)
+                    .map do |response|
+                      answers = JSON.parse(response.answers || '{}')
+                      {
+                        score: response.satisfaction_score,
+                        comment: answers['comment'],
+                        date: response.created_at
+                      }
+                    end
+                    .select { |r| r[:comment].present? }
     end
 
     # Growth Metrics

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_20_091131) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_104001) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -464,6 +464,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_091131) do
     t.index ["questionnaire_type"], name: "index_questionnaires_on_questionnaire_type"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "reportable_type", null: false
+    t.integer "reportable_id", null: false
+    t.integer "reason", null: false
+    t.text "description"
+    t.integer "status", default: 0, null: false
+    t.integer "reviewed_by_id"
+    t.datetime "reviewed_at"
+    t.text "resolution_notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_reports_on_created_at"
+    t.index ["reason"], name: "index_reports_on_reason"
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable"
+    t.index ["reportable_type", "reportable_id"], name: "index_reports_on_reportable_type_and_reportable_id"
+    t.index ["reviewed_by_id"], name: "index_reports_on_reviewed_by_id"
+    t.index ["status"], name: "index_reports_on_status"
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "seller_profiles", force: :cascade do |t|
     t.integer "user_id", null: false
     t.boolean "is_broker", default: false, null: false
@@ -604,6 +625,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_20_091131) do
   add_foreign_key "questionnaire_responses", "questionnaires"
   add_foreign_key "questionnaire_responses", "users"
   add_foreign_key "questionnaires", "users", column: "created_by_id"
+  add_foreign_key "reports", "users"
+  add_foreign_key "reports", "users", column: "reviewed_by_id"
   add_foreign_key "seller_profiles", "users"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "survey_responses", "surveys"
