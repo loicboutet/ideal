@@ -35,7 +35,7 @@ namespace :db do
         unless buyer_profile.deals.exists?(listing: listing)
           buyer_profile.deals.create!(
             listing: listing,
-            status: 'interested',
+            status: 'info_exchange',
             notes: "Deal créé automatiquement pour les tests"
           )
         end
