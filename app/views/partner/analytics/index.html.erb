@@ -1,0 +1,256 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Statistiques & Performances</h1>
+      <p class="mt-2 text-sm text-gray-600">
+        Suivez les performances de votre profil dans l'annuaire partenaire
+      </p>
+    </div>
+
+    <!-- Period Selector -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+      <div class="flex flex-wrap items-center gap-4">
+        <label class="text-sm font-medium text-gray-700">Période :</label>
+        <div class="flex flex-wrap gap-2">
+          <%= link_to "7 jours", partner_analytics_path(period: '7'), 
+              class: "px-4 py-2 rounded-md text-sm font-medium #{@period == '7' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}" %>
+          <%= link_to "30 jours", partner_analytics_path(period: '30'), 
+              class: "px-4 py-2 rounded-md text-sm font-medium #{@period == '30' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}" %>
+          <%= link_to "90 jours", partner_analytics_path(period: '90'), 
+              class: "px-4 py-2 rounded-md text-sm font-medium #{@period == '90' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}" %>
+        </div>
+        <div class="ml-auto">
+          <%= link_to partner_analytics_path(format: :csv, period: @period), 
+              class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" do %>
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Exporter CSV
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Total Views (All Time) -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Vues totales</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @summary_stats[:total_views] %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Period Views -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Vues (période)</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @summary_stats[:period_views] %></p>
+            <% if @view_analytics[:trend] != 0 %>
+              <p class="text-xs <%= @view_analytics[:trend] > 0 ? 'text-green-600' : 'text-red-600' %>">
+                <%= @view_analytics[:trend] > 0 ? '↑' : '↓' %> <%= @view_analytics[:trend].abs %>%
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Period Contacts -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Contacts (période)</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @summary_stats[:period_contacts] %></p>
+            <% if @contact_analytics[:trend] != 0 %>
+              <p class="text-xs <%= @contact_analytics[:trend] > 0 ? 'text-green-600' : 'text-red-600' %>">
+                <%= @contact_analytics[:trend] > 0 ? '↑' : '↓' %> <%= @contact_analytics[:trend].abs %>%
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversion Rate -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+          </div>
+          <div class="ml-4">
+            <p class="text-sm font-medium text-gray-500">Taux de conversion</p>
+            <p class="text-2xl font-bold text-gray-900"><%= @summary_stats[:conversion_rate] %>%</p>
+            <p class="text-xs text-gray-500">Contacts / Vues</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <!-- Views Chart -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Évolution des vues</h3>
+        <div class="h-64">
+          <canvas id="viewsChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Contacts Chart -->
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Évolution des contacts</h3>
+        <div class="h-64">
+          <canvas id="contactsChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Details Table -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+      <div class="px-6 py-4 border-b border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900">Détails des contacts</h3>
+        <p class="text-sm text-gray-600 mt-1">Liste complète des contacts reçus pendant la période</p>
+      </div>
+      
+      <% if @contact_details.any? %>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Utilisateur</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rôle</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% @contact_details.each do |contact| %>
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <%= l(contact[:created_at], format: :short) %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <%= contact[:user_name] %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                      <%= contact[:user_role].capitalize %>
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <%= contact[:contact_type].humanize %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <div class="px-6 py-12 text-center">
+          <p class="text-gray-500">Aucun contact pour cette période</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Views Chart
+  const viewsCtx = document.getElementById('viewsChart').getContext('2d');
+  const viewsChart = new Chart(viewsCtx, {
+    type: 'line',
+    data: {
+      labels: <%= raw @view_analytics[:by_day].keys.to_json %>,
+      datasets: [{
+        label: 'Vues',
+        data: <%= raw @view_analytics[:by_day].values.to_json %>,
+        borderColor: 'rgb(147, 51, 234)',
+        backgroundColor: 'rgba(147, 51, 234, 0.1)',
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
+          }
+        }
+      }
+    }
+  });
+
+  // Contacts Chart
+  const contactsCtx = document.getElementById('contactsChart').getContext('2d');
+  const contactsChart = new Chart(contactsCtx, {
+    type: 'line',
+    data: {
+      labels: <%= raw @contact_analytics[:by_day].keys.to_json %>,
+      datasets: [{
+        label: 'Contacts',
+        data: <%= raw @contact_analytics[:by_day].values.to_json %>,
+        borderColor: 'rgb(34, 197, 94)',
+        backgroundColor: 'rgba(34, 197, 94, 0.1)',
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            precision: 0
+          }
+        }
+      }
+    }
+  });
+</script>
