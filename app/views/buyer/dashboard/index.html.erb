@@ -5,7 +5,7 @@
   <div class="bg-gradient-to-r from-buyer-500 to-buyer-600 rounded-xl shadow-sm p-6 text-white">
     <div class="flex items-center justify-between mb-3">
       <div>
-        <h2 class="text-2xl font-bold mb-2">Bonjour <%= current_user.full_name.split(' ').first %> 👋</h2>
+        <h2 class="text-2xl font-bold mb-2">Bonjour <%= current_user.full_name&.split(' ')&.first || 'Repreneur' %> 👋</h2>
         <p class="text-buyer-100">Bienvenue sur votre espace repreneur</p>
       </div>
       <div class="hidden md:block">
@@ -17,41 +17,27 @@
         <% end %>
       </div>
     </div>
-    <!-- Auto-Rotating Messages Carousel -->
-    <div class="bg-white/10 rounded-lg py-2 px-3" data-controller="carousel">
-      <div class="flex items-center gap-2">
-        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </div>
+
+  <!-- Expiring Timers Alert -->
+  <% if @expiring_soon.any? %>
+    <div class="bg-orange-50 border-2 border-orange-200 rounded-xl p-6">
+      <div class="flex items-start gap-4">
+        <svg class="w-6 h-6 text-orange-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <div class="flex-1 relative overflow-hidden" style="min-height: 1.5rem;">
-          <!-- Slide 1 -->
-          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0">
-            <p class="text-sm">
-              📢 Nouveauté : Complétez votre profil repreneur pour recevoir des propositions ciblées
-            </p>
-          </div>
-          <!-- Slide 2 -->
-          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
-            <p class="text-sm">
-              💡 Astuce : Libérez vos réservations non abouties pour gagner des crédits
-            </p>
-          </div>
-          <!-- Slide 3 -->
-          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
-            <p class="text-sm">
-              🎯 Promo : -20% sur l'abonnement Premium jusqu'à la fin du mois
-            </p>
-          </div>
-        </div>
-        <!-- Carousel Dots -->
-        <div class="flex items-center gap-1.5 ml-2">
-          <button type="button" data-carousel-dot data-index="0" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white transition-all"></button>
-          <button type="button" data-carousel-dot data-index="1" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
-          <button type="button" data-carousel-dot data-index="2" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
+        <div class="flex-1">
+          <h3 class="text-lg font-bold text-orange-900 mb-2">⏰ Délais qui expirent bientôt!</h3>
+          <p class="text-orange-800 mb-3">
+            <%= @expiring_soon.count %> réservation<%= @expiring_soon.count > 1 ? 's' : '' %> expire<%= @expiring_soon.count > 1 ? 'nt' : '' %> dans moins de 24 heures.
+          </p>
+          <%= link_to buyer_pipeline_path, class: "inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition font-medium" do %>
+            Voir mon pipeline →
+          <% end %>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <!-- Stats Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -65,8 +51,22 @@
         </div>
         <span class="text-sm font-medium text-gray-500">Mes dossiers</span>
       </div>
-      <div class="text-3xl font-bold text-gray-900">0</div>
+      <div class="text-3xl font-bold text-gray-900"><%= @stats[:total_deals] %></div>
       <p class="text-sm text-gray-500 mt-2">Dossiers actifs</p>
+    </div>
+
+    <!-- Active Reservations -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-green-100 rounded-lg">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Réservations</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900"><%= @stats[:active_reservations] %></div>
+      <p class="text-sm text-gray-500 mt-2">Réservations actives</p>
     </div>
 
     <!-- Favorites -->
@@ -79,22 +79,8 @@
         </div>
         <span class="text-sm font-medium text-gray-500">Favoris</span>
       </div>
-      <div class="text-3xl font-bold text-gray-900">0</div>
+      <div class="text-3xl font-bold text-gray-900"><%= @stats[:favorites] %></div>
       <p class="text-sm text-gray-500 mt-2">Annonces favorites</p>
-    </div>
-
-    <!-- New Listings -->
-    <div class="bg-white rounded-lg shadow p-6">
-      <div class="flex items-center justify-between mb-4">
-        <div class="p-3 bg-green-100 rounded-lg">
-          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-          </svg>
-        </div>
-        <span class="text-sm font-medium text-gray-500">Nouvelles</span>
-      </div>
-      <div class="text-3xl font-bold text-gray-900"><%= Listing.count %></div>
-      <p class="text-sm text-gray-500 mt-2">Nouvelles annonces</p>
     </div>
 
     <!-- Credits -->
@@ -107,7 +93,7 @@
         </div>
         <span class="text-sm font-medium text-gray-500">Crédits</span>
       </div>
-      <div class="text-3xl font-bold text-gray-900">0</div>
+      <div class="text-3xl font-bold text-gray-900"><%= @stats[:credits] %></div>
       <p class="text-sm text-gray-500 mt-2">Crédits disponibles</p>
     </div>
   </div>
@@ -116,8 +102,8 @@
   <div class="bg-white rounded-lg shadow p-6">
     <h2 class="text-lg font-semibold text-gray-900 mb-4">Actions rapides</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <%= link_to buyer_listings_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
-        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <%= link_to buyer_listings_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-buyer-500 hover:bg-buyer-50 transition" do %>
+        <svg class="w-8 h-8 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
         <div>
@@ -126,8 +112,8 @@
         </div>
       <% end %>
 
-      <%= link_to buyer_pipeline_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
-        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <%= link_to buyer_pipeline_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-buyer-500 hover:bg-buyer-50 transition" do %>
+        <svg class="w-8 h-8 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
         <div>
@@ -136,8 +122,8 @@
         </div>
       <% end %>
 
-      <%= link_to buyer_favorites_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
-        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <%= link_to buyer_favorites_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-buyer-500 hover:bg-buyer-50 transition" do %>
+        <svg class="w-8 h-8 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
         <div>
@@ -148,25 +134,141 @@
     </div>
   </div>
 
-  <!-- Pipeline Overview -->
-  <div class="bg-white rounded-lg shadow p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-gray-900">Aperçu du pipeline</h2>
-      <%= link_to "Voir le pipeline", buyer_pipeline_path, class: "text-[#4A90E2] hover:text-blue-700 text-sm font-medium" %>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Pipeline Overview Widget -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-900">Aperçu du pipeline</h2>
+        <%= link_to "Voir le pipeline", buyer_pipeline_path, class: "text-buyer-600 hover:text-buyer-700 text-sm font-medium" %>
+      </div>
+      <% if @stages.any? { |stage| stage[:count] > 0 } %>
+        <div class="space-y-3">
+          <% @stages.each do |stage| %>
+            <% if stage[:count] > 0 %>
+              <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-buyer-500"></div>
+                  <span class="font-medium text-gray-900"><%= stage[:label] %></span>
+                </div>
+                <span class="px-3 py-1 bg-buyer-100 text-buyer-700 rounded-full text-sm font-medium">
+                  <%= stage[:count] %>
+                </span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-8">
+          <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+          </svg>
+          <p class="text-gray-500">Aucun dossier en cours</p>
+          <p class="text-sm text-gray-400 mt-1">Parcourez les annonces pour démarrer</p>
+        </div>
+      <% end %>
     </div>
-    <div class="space-y-4">
-      <p class="text-gray-500 text-center py-8">Aucun dossier en cours</p>
+
+    <!-- Active Reservations Widget -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-semibold text-gray-900">Réservations actives</h2>
+        <%= link_to "Tout voir", buyer_deals_path, class: "text-buyer-600 hover:text-buyer-700 text-sm font-medium" %>
+      </div>
+      <% if @active_reservations.any? %>
+        <div class="space-y-3">
+          <% @active_reservations.limit(3).each do |deal| %>
+            <div class="p-4 border border-gray-200 rounded-lg hover:border-buyer-300 transition">
+              <%= link_to buyer_deal_path(deal), class: "block" do %>
+                <div class="flex items-start justify-between mb-2">
+                  <h3 class="font-medium text-gray-900"><%= deal.listing.title %></h3>
+                  <% if deal.expiring_soon? %>
+                    <span class="px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded">Urgent</span>
+                  <% end %>
+                </div>
+                <p class="text-sm text-gray-600 mb-3">
+                  <%= deal.listing.location_city || deal.listing.location_department || 'France' %>
+                </p>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-gray-500">⏱ <%= deal.days_remaining %> jours restants</span>
+                  <div class="flex-1 ml-4">
+                    <%= render 'buyer/deals/timer_gauge', deal: deal, compact: true %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-8">
+          <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <p class="text-gray-500">Aucune réservation active</p>
+          <p class="text-sm text-gray-400 mt-1">Réservez une annonce pour débuter</p>
+        </div>
+      <% end %>
     </div>
   </div>
 
-  <!-- Recommended Listings -->
+  <!-- Favorites Widget -->
   <div class="bg-white rounded-lg shadow p-6">
     <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg font-semibold text-gray-900">Annonces recommandées</h2>
-      <%= link_to "Voir tout", buyer_listings_path, class: "text-[#4A90E2] hover:text-blue-700 text-sm font-medium" %>
+      <h2 class="text-lg font-semibold text-gray-900">Favoris récents</h2>
+      <%= link_to "Voir tout", buyer_favorites_path, class: "text-buyer-600 hover:text-buyer-700 text-sm font-medium" %>
     </div>
-    <div class="space-y-4">
-      <p class="text-gray-500 text-center py-8">Aucune recommandation pour le moment</p>
-    </div>
+    <% if @recent_favorites.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <% @recent_favorites.each do |favorite| %>
+          <%= render 'buyer/listings/listing_card', listing: favorite.listing, is_favorited: true %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-8">
+        <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <p class="text-gray-500">Aucun favori pour le moment</p>
+        <p class="text-sm text-gray-400 mt-1">Ajoutez des annonces à vos favoris</p>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Recent Activity Timeline -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Activité récente</h2>
+    <% if @recent_activity.any? %>
+      <div class="space-y-4">
+        <% @recent_activity.each do |deal| %>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-10 h-10 bg-buyer-100 rounded-full flex items-center justify-center">
+                <svg class="w-5 h-5 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+            </div>
+            <div class="flex-1">
+              <%= link_to buyer_deal_path(deal), class: "block hover:bg-gray-50 -m-2 p-2 rounded-lg transition" do %>
+                <p class="font-medium text-gray-900"><%= deal.listing.title %></p>
+                <p class="text-sm text-gray-600 mt-1">
+                  Déplacé vers "<%= deal.status.humanize %>"
+                </p>
+                <p class="text-xs text-gray-400 mt-1">
+                  <%= time_ago_in_words(deal.updated_at) %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-8">
+        <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-gray-500">Aucune activité récente</p>
+        <p class="text-sm text-gray-400 mt-1">Vos actions apparaîtront ici</p>
+      </div>
+    <% end %>
   </div>
 </div>

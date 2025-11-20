@@ -98,4 +98,10 @@ module DealTimer
     return false unless timer_percentage.present?
     timer_percentage >= 80 # Less than 20% time remaining
   end
+
+  # Check if deal is expiring soon (less than 3 days remaining or > 80% time elapsed)
+  def expiring_soon?
+    return false unless reserved_until.present?
+    days_remaining.present? && (days_remaining <= 3 || timer_percentage.to_i >= 80)
+  end
 end
