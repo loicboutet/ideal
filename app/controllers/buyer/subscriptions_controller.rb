@@ -32,7 +32,7 @@ class Buyer::SubscriptionsController < ApplicationController
     result = Payment::StripeService.create_subscription_checkout_session(
       user: current_user,
       plan_type: plan_type,
-      success_url: buyer_subscription_url(session_id: '{CHECKOUT_SESSION_ID}'),
+      success_url: "#{buyer_subscription_url}?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: new_buyer_subscription_url
     )
     

@@ -6,7 +6,7 @@ class Subscription < ApplicationRecord
     seller_premium: 0, buyer_starter: 1, buyer_standard: 2,
     buyer_premium: 3, buyer_club: 4, partner_directory: 5,
     credit_pack_small: 6, credit_pack_medium: 7, credit_pack_large: 8
-  }
+  }, suffix: true
   enum :status, { pending: 0, active: 1, cancelled: 2, expired: 3, failed: 4 }
   
   validates :user_id, presence: true
@@ -20,6 +20,15 @@ class Subscription < ApplicationRecord
   scope :seller_subscriptions, -> { where(plan_type: :seller_premium) }
   scope :partner_subscriptions, -> { where(plan_type: :partner_directory) }
   scope :expiring_soon, -> { where('period_end < ?', 7.days.from_now).active_subscriptions }
+  
+  # Compatibility methods for views (delegates to actual column names)
+  def current_period_start
+    period_start
+  end
+  
+  def current_period_end
+    period_end
+  end
   
   # Status check methods
   def active?

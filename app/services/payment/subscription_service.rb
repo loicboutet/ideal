@@ -160,8 +160,16 @@ module Payment
         
         return { success: false, error: 'Could not determine plan type' } unless plan_type
         
+        # Get plan configuration to extract amount
+        role = user.role.to_sym
+        plan_key = plan_type_to_key(plan_type)
+        plan_config = SubscriptionPlans.plan_details(role, plan_key)
+        
         # Update user with Stripe customer ID
         user.update(stripe_customer_id: stripe_customer_id) unless user.stripe_customer_id
+        
+        # Get user's profile
+        profile = get_profile_for_user(user)
         
         # Create or update subscription
         subscription = user.subscriptions.find_or_initialize_by(stripe_subscription_id: stripe_subscription_id)
@@ -169,10 +177,10 @@ module Payment
         subscription.assign_attributes(
           plan_type: plan_type,
           status: stripe_subscription.status,
-          stripe_price_id: price_id,
-          stripe_customer_id: stripe_customer_id,
-          current_period_start: Time.at(stripe_subscription.current_period_start),
-          current_period_end: Time.at(stripe_subscription.current_period_end),
+          amount: plan_config[:price_cents],
+          profile: profile,
+          period_start: Time.at(stripe_subscription.current_period_start),
+          period_end: Time.at(stripe_subscription.current_period_end),
           cancel_at_period_end: stripe_subscription.cancel_at_period_end || false
         )
         

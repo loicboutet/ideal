@@ -1,7 +1,6 @@
 class WebhooksController < ApplicationController
   # Skip CSRF verification for Stripe webhooks
-  skip_before_action :verify_authenticity_token
-  skip_before_action :authenticate_user!, if: :devise_controller?
+  skip_forgery_protection
 
   def stripe
     payload = request.body.read
@@ -35,6 +34,10 @@ class WebhooksController < ApplicationController
       handle_invoice_payment_succeeded(event['data']['object'])
     when 'invoice.payment_failed'
       handle_invoice_payment_failed(event['data']['object'])
+    when 'invoice.updated'
+      handle_invoice_updated(event['data']['object'])
+    when 'invoice_payment.paid'
+      handle_invoice_payment_paid(event['data']['object'])
     else
       Rails.logger.info "Unhandled event type: #{event['type']}"
     end
@@ -84,7 +87,7 @@ class WebhooksController < ApplicationController
       amount: session['amount_total'] / 100.0, # Convert from cents
       currency: session['currency'],
       status: 'succeeded',
-      transaction_type: stripe_subscription_id ? 'subscription' : 'credit_pack',
+      transaction_type: stripe_subscription_id ? 'subscription_payment' : 'credit_purchase',
       metadata: {
         session_id: session['id'],
         subscription_id: stripe_subscription_id
@@ -101,17 +104,16 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: subscription['customer'])
     return unless user
 
-    # Update subscription status
-    user_subscription = user.subscription
-    if user_subscription
-      user_subscription.update!(
-        status: subscription['status'],
-        current_period_start: Time.at(subscription['current_period_start']),
-        current_period_end: Time.at(subscription['current_period_end'])
-      )
-    end
+    # Create or update subscription using the service
+    Payment::SubscriptionService.activate_subscription(
+      user: user,
+      stripe_subscription_id: subscription['id'],
+      stripe_customer_id: subscription['customer'],
+      stripe_subscription: subscription
+    )
   rescue => e
     Rails.logger.error "Error processing subscription.created: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def handle_subscription_updated(subscription)
@@ -120,27 +122,31 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: subscription['customer'])
     return unless user
 
-    user_subscription = user.subscription
-    return unless user_subscription
+    # Find or create subscription
+    user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
+    
+    unless user_subscription
+      # Subscription doesn't exist, create it using the service
+      result = Payment::SubscriptionService.activate_subscription(
+        user: user,
+        stripe_subscription_id: subscription['id'],
+        stripe_customer_id: subscription['customer'],
+        stripe_subscription: subscription
+      )
+      return unless result[:success]
+      user_subscription = result[:subscription]
+    end
 
     # Update subscription details
     user_subscription.update!(
       status: subscription['status'],
-      current_period_start: Time.at(subscription['current_period_start']),
-      current_period_end: Time.at(subscription['current_period_end']),
+      period_start: Time.at(subscription['current_period_start']),
+      period_end: Time.at(subscription['current_period_end']),
       cancel_at_period_end: subscription['cancel_at_period_end']
     )
-
-    # Handle plan changes
-    if subscription['items'] && subscription['items']['data'].any?
-      price_id = subscription['items']['data'].first['price']['id']
-      if price_id != user_subscription.stripe_price_id
-        user_subscription.update!(stripe_price_id: price_id)
-        Rails.logger.info "Subscription plan changed for user #{user.id}"
-      end
-    end
   rescue => e
     Rails.logger.error "Error processing subscription.updated: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def handle_subscription_deleted(subscription)
@@ -149,7 +155,7 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: subscription['customer'])
     return unless user
 
-    user_subscription = user.subscription
+    user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
     return unless user_subscription
 
     # Mark subscription as canceled
@@ -176,19 +182,35 @@ class WebhooksController < ApplicationController
       amount: invoice['amount_paid'] / 100.0,
       currency: invoice['currency'],
       status: 'succeeded',
-      transaction_type: 'subscription_renewal',
+      transaction_type: 'subscription_payment',
       metadata: {
         invoice_id: invoice['id'],
         subscription_id: invoice['subscription']
       }
     )
 
+    # Find or create subscription
+    user_subscription = user.subscriptions.find_by(stripe_subscription_id: invoice['subscription'])
+    
+    unless user_subscription
+      # Subscription doesn't exist, retrieve from Stripe and create it
+      stripe_subscription = Stripe::Subscription.retrieve(invoice['subscription'])
+      result = Payment::SubscriptionService.activate_subscription(
+        user: user,
+        stripe_subscription_id: invoice['subscription'],
+        stripe_customer_id: invoice['customer'],
+        stripe_subscription: stripe_subscription
+      )
+      user_subscription = result[:subscription] if result[:success]
+    end
+
     # Ensure subscription is active
-    if user.subscription
-      user.subscription.update!(status: 'active')
+    if user_subscription
+      user_subscription.update!(status: 'active')
     end
   rescue => e
     Rails.logger.error "Error processing invoice.payment_succeeded: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def handle_invoice_payment_failed(invoice)
@@ -204,7 +226,7 @@ class WebhooksController < ApplicationController
       amount: invoice['amount_due'] / 100.0,
       currency: invoice['currency'],
       status: 'failed',
-      transaction_type: 'subscription_renewal',
+      transaction_type: 'subscription_payment',
       metadata: {
         invoice_id: invoice['id'],
         subscription_id: invoice['subscription'],
@@ -213,13 +235,77 @@ class WebhooksController < ApplicationController
     )
 
     # Update subscription status to past_due
-    if user.subscription
-      user.subscription.update!(status: 'past_due')
+    user_subscription = user.subscriptions.find_by(stripe_subscription_id: invoice['subscription'])
+    if user_subscription
+      user_subscription.update!(status: 'past_due')
     end
 
     # TODO: Send notification email to user
     Rails.logger.warn "Payment failed for user #{user.id}"
   rescue => e
     Rails.logger.error "Error processing invoice.payment_failed: #{e.message}"
+  end
+
+  def handle_invoice_updated(invoice)
+    Rails.logger.info "Processing invoice.updated: #{invoice['id']}"
+    
+    # This event is informational - we handle payment status in other events
+    # Just log it for now, no action needed
+  rescue => e
+    Rails.logger.error "Error processing invoice.updated: #{e.message}"
+  end
+
+  def handle_invoice_payment_paid(invoice_payment)
+    Rails.logger.info "Processing invoice_payment.paid: #{invoice_payment['id']}"
+    
+    # Retrieve the full invoice to get customer information
+    invoice_id = invoice_payment['invoice']
+    invoice = Stripe::Invoice.retrieve(invoice_id)
+    
+    user = User.find_by(stripe_customer_id: invoice['customer'])
+    return unless user
+
+    # Get payment intent ID from the payment object
+    payment_intent_id = invoice_payment['payment']['payment_intent']
+
+    # Record successful payment
+    PaymentTransaction.create!(
+      user: user,
+      stripe_payment_intent_id: payment_intent_id,
+      amount: invoice_payment['amount_paid'] / 100.0,
+      currency: invoice_payment['currency'],
+      status: 'succeeded',
+      transaction_type: 'subscription_payment',
+      metadata: {
+        invoice_payment_id: invoice_payment['id'],
+        invoice_id: invoice_id,
+        subscription_id: invoice['subscription']
+      }
+    )
+
+    # Find or create subscription
+    user_subscription = user.subscriptions.find_by(stripe_subscription_id: invoice['subscription'])
+    
+    unless user_subscription
+      # Subscription doesn't exist, retrieve from Stripe and create it
+      stripe_subscription = Stripe::Subscription.retrieve(invoice['subscription'])
+      result = Payment::SubscriptionService.activate_subscription(
+        user: user,
+        stripe_subscription_id: invoice['subscription'],
+        stripe_customer_id: invoice['customer'],
+        stripe_subscription: stripe_subscription
+      )
+      user_subscription = result[:subscription] if result[:success]
+    end
+
+    # Ensure subscription is active
+    if user_subscription
+      user_subscription.update!(status: 'active')
+    end
+
+    Rails.logger.info "Invoice payment recorded for user #{user.id}"
+  rescue => e
+    Rails.logger.error "Error processing invoice_payment.paid: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 end
