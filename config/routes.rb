@@ -129,7 +129,11 @@ Rails.application.routes.draw do
     
     # Admin Communication
     resources :messages, only: [:index, :new, :create, :show]
-    resources :surveys, only: [:new, :create, :show]
+    resources :surveys do
+      member do
+        get :export
+      end
+    end
   end
   
   # Seller Routes (role: seller, status: active)
@@ -333,6 +337,13 @@ Rails.application.routes.draw do
   # =========================================================================
   # SHARED AUTHENTICATED ROUTES (ALL ROLES)
   # =========================================================================
+  
+  # Survey Responses (All Users)
+  resources :surveys, only: [] do
+    resources :survey_responses, only: [:new, :create], path: 'responses'
+  end
+  
+  get 'survey_responses/thank_you', to: 'survey_responses#thank_you', as: :survey_response_thank_you
   
   # Notifications System
   resources :notifications, only: [:index, :show] do
