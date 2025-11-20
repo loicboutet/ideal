@@ -1,0 +1,232 @@
+<% content_for :title, "#{@survey.title} - Questionnaires - Administration - Idéal Reprise" %>
+
+<!-- Survey Show/Results Page -->
+<div class="max-w-6xl mx-auto space-y-6">
+  <!-- Header -->
+  <div class="flex items-center gap-4">
+    <%= link_to admin_surveys_path, class: "text-gray-600 hover:text-gray-900" do %>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    <% end %>
+    <div class="flex-1">
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900"><%= @survey.title %></h1>
+      <p class="text-gray-600 mt-1"><%= @survey.description %></p>
+    </div>
+    <div class="flex items-center gap-2">
+      <%= link_to export_admin_survey_path(@survey, format: :csv), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        Exporter CSV
+      <% end %>
+      <%= link_to edit_admin_survey_path(@survey), class: "inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-admin-600 hover:bg-admin-700" do %>
+        Modifier
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm font-medium text-gray-600 mb-1">Destinataires</div>
+      <div class="text-2xl font-bold text-gray-900"><%= @response_stats[:total_recipients] %></div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm font-medium text-gray-600 mb-1">Réponses</div>
+      <div class="text-2xl font-bold text-gray-900"><%= @response_stats[:total_responses] %></div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm font-medium text-gray-600 mb-1">Taux de réponse</div>
+      <div class="text-2xl font-bold text-gray-900"><%= @response_stats[:response_rate] %>%</div>
+    </div>
+
+    <% if @survey.satisfaction? %>
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+        <div class="text-sm font-medium text-gray-600 mb-1">Satisfaction moyenne</div>
+        <div class="text-2xl font-bold text-yellow-600">
+          <%= @response_stats[:average_satisfaction] || 0 %> / 5
+          <span class="text-base ml-2">⭐</span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Results -->
+  <% if @survey.satisfaction? %>
+    <!-- Satisfaction Results -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-lg font-bold text-gray-900">Répartition des notes</h2>
+      </div>
+      <div class="p-6">
+        <% if @survey.survey_responses.any? %>
+          <% distribution = @survey.survey_responses.group(:satisfaction_score).count %>
+          <div class="space-y-3">
+            <% (1..5).reverse_each do |score| %>
+              <% count = distribution[score] || 0 %>
+              <% percentage = @response_stats[:total_responses] > 0 ? (count.to_f / @response_stats[:total_responses] * 100).round(1) : 0 %>
+              <div class="flex items-center gap-4">
+                <div class="w-24 text-sm font-medium text-gray-700"><%= score %> étoile<%= score > 1 ? 's' : '' %></div>
+                <div class="flex-1">
+                  <div class="w-full bg-gray-200 rounded-full h-6">
+                    <div class="bg-yellow-500 h-6 rounded-full flex items-center justify-end pr-2" style="width: <%= percentage %>%">
+                      <span class="text-xs font-medium text-white"><%= count %></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-16 text-sm text-gray-600 text-right"><%= percentage %>%</div>
+              </div>
+            <% end %>
+          </div>
+
+          <!-- Comments Section -->
+          <% comments = @survey.survey_responses.where.not(answers: nil).map { |r| JSON.parse(r.answers || '{}')['comment'] }.compact.reject(&:blank?) %>
+          <% if comments.any? %>
+            <div class="mt-8">
+              <h3 class="text-md font-bold text-gray-900 mb-4">Commentaires (<%= comments.count %>)</h3>
+              <div class="space-y-3 max-h-96 overflow-y-auto">
+                <% comments.each do |comment| %>
+                  <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    <p class="text-sm text-gray-700"><%= comment %></p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="text-center py-8 text-gray-500">
+            Aucune réponse pour le moment
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  <% elsif @survey.development? && @question_results.present? %>
+    <!-- Development Survey Results -->
+    <div class="space-y-6">
+      <% @question_results.each_with_index do |result, index| %>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+          <div class="p-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-gray-900">Question <%= index + 1 %>: <%= result[:question] %></h3>
+            <div class="text-sm text-gray-600 mt-1">
+              <%= result[:total_responses] %> réponse<%= result[:total_responses] > 1 ? 's' : '' %>
+            </div>
+          </div>
+          <div class="p-6">
+            <% case result[:type] %>
+            <% when 'multiple_choice', 'yes_no' %>
+              <% if result[:distribution].present? %>
+                <div class="space-y-3">
+                  <% result[:distribution].each do |answer, count| %>
+                    <% percentage = result[:total_responses] > 0 ? (count.to_f / result[:total_responses] * 100).round(1) : 0 %>
+                    <div class="flex items-center gap-4">
+                      <div class="w-32 text-sm font-medium text-gray-700 truncate"><%= answer %></div>
+                      <div class="flex-1">
+                        <div class="w-full bg-gray-200 rounded-full h-6">
+                          <div class="bg-admin-500 h-6 rounded-full flex items-center justify-end pr-2" style="width: <%= percentage %>%">
+                            <span class="text-xs font-medium text-white"><%= count %></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="w-16 text-sm text-gray-600 text-right"><%= percentage %>%</div>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+
+            <% when 'rating' %>
+              <div class="text-center mb-4">
+                <div class="text-3xl font-bold text-admin-600"><%= result[:average] %> / 5</div>
+                <div class="text-sm text-gray-600">Note moyenne</div>
+              </div>
+              <% if result[:distribution].present? %>
+                <div class="space-y-2">
+                  <% (1..5).reverse_each do |score| %>
+                    <% count = result[:distribution][score] || 0 %>
+                    <% percentage = result[:total_responses] > 0 ? (count.to_f / result[:total_responses] * 100).round(1) : 0 %>
+                    <div class="flex items-center gap-4">
+                      <div class="w-16 text-sm font-medium text-gray-700"><%= score %> ⭐</div>
+                      <div class="flex-1">
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                          <div class="bg-admin-500 h-4 rounded-full" style="width: <%= percentage %>%"></div>
+                        </div>
+                      </div>
+                      <div class="w-12 text-sm text-gray-600 text-right"><%= count %></div>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+
+            <% when 'checkbox' %>
+              <% if result[:distribution].present? %>
+                <div class="space-y-2">
+                  <% result[:distribution].sort_by { |_, count| -count }.each do |answer, count| %>
+                    <% percentage = result[:total_responses] > 0 ? (count.to_f / result[:total_responses] * 100).round(1) : 0 %>
+                    <div class="flex items-center gap-4">
+                      <div class="w-48 text-sm font-medium text-gray-700 truncate"><%= answer %></div>
+                      <div class="flex-1">
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                          <div class="bg-admin-500 h-4 rounded-full" style="width: <%= percentage %>%"></div>
+                        </div>
+                      </div>
+                      <div class="w-20 text-sm text-gray-600 text-right"><%= count %> (<%= percentage %>%)</div>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+
+            <% when 'text', 'textarea' %>
+              <% if result[:responses].present? %>
+                <div class="space-y-3 max-h-96 overflow-y-auto">
+                  <% result[:responses].each do |response| %>
+                    <div class="bg-gray-50 rounded-lg p-3 border border-gray-200">
+                      <p class="text-sm text-gray-700"><%= response %></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <!-- Survey Info -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Informations du questionnaire</h3>
+    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <dt class="text-sm font-medium text-gray-600">Type</dt>
+        <dd class="text-sm text-gray-900 mt-1">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= @survey.satisfaction? ? 'bg-yellow-100 text-yellow-800' : 'bg-admin-100 text-admin-800' %>">
+            <%= @survey.satisfaction? ? 'Satisfaction' : 'Développement' %>
+          </span>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-600">Statut</dt>
+        <dd class="text-sm text-gray-900 mt-1">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= @survey.active? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+            <%= @survey.active? ? 'Actif' : 'Inactif' %>
+          </span>
+        </dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-600">Date de création</dt>
+        <dd class="text-sm text-gray-900 mt-1"><%= @survey.created_at.strftime('%d/%m/%Y à %H:%M') %></dd>
+      </div>
+      <% if @survey.starts_at || @survey.ends_at %>
+        <div>
+          <dt class="text-sm font-medium text-gray-600">Période</dt>
+          <dd class="text-sm text-gray-900 mt-1">
+            <%= @survey.starts_at&.strftime('%d/%m/%Y') || 'N/A' %> - <%= @survey.ends_at&.strftime('%d/%m/%Y') || 'N/A' %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  </div>
+</div>
