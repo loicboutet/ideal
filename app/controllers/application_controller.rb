@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
 
   # Use custom layout for Devise controllers
   layout :layout_by_resource
+  
+  # Set user cookie for Action Cable authentication
+  before_action :set_action_cable_identifier
 
   # Redirect to role-based dashboard after sign in
   def after_sign_in_path_for(resource)
@@ -72,6 +75,11 @@ class ApplicationController < ActionController::Base
   # Helper method to raise 404 manually when needed
   def not_found!
     raise ActionController::RoutingError, 'Not Found'
+  end
+  
+  # Set user ID in cookies for Action Cable authentication
+  def set_action_cable_identifier
+    cookies.encrypted[:user_id] = current_user&.id
   end
 
   # Custom layout for Devise and namespaced controllers
