@@ -1,169 +1,101 @@
-<% content_for :title, "Libérer l'annonce - #{@listing.title} - Idéal Reprise" %>
-<% content_for :page_title, "Confirmer la libération" %>
+<% content_for :title, "Libérer la réservation - #{@listing.title}" %>
 
-<div class="max-w-3xl mx-auto">
-  <%= link_to buyer_listing_path(@listing), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-6" do %>
+<div class="max-w-3xl mx-auto space-y-6">
+  <%= link_to buyer_listing_path(@listing), class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>
     Retour à l'annonce
   <% end %>
 
-  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-    <!-- Header -->
-    <div class="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-4">
-      <div class="flex items-center gap-3">
-        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+  <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
-        <h1 class="text-2xl font-bold text-white">Libérer cette réservation</h1>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900 mb-2">Libérer cette réservation ?</h1>
+      <p class="text-gray-600">Vous êtes sur le point de libérer votre réservation pour :</p>
+      <p class="text-lg font-semibold text-gray-900 mt-2"><%= @listing.title %></p>
+    </div>
+
+    <!-- Deal Info -->
+    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+      <h3 class="font-bold text-gray-900 mb-4">Informations sur votre réservation</h3>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span class="text-gray-600">Réservé le :</span>
+          <span class="font-medium text-gray-900"><%= @deal.created_at.strftime('%d/%m/%Y') %></span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Temps restant :</span>
+          <span class="font-medium text-gray-900"><%= @deal.days_remaining %> jours</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Étape actuelle :</span>
+          <span class="font-medium text-gray-900"><%= @deal.status&.humanize %></span>
+        </div>
       </div>
     </div>
 
-    <div class="p-6 space-y-6">
-      <!-- Listing Summary -->
-      <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
-        <h2 class="font-semibold text-gray-900 mb-3">Annonce à libérer</h2>
-        <div class="space-y-2">
-          <div>
-            <span class="text-sm text-gray-600">Titre:</span>
-            <span class="ml-2 font-medium text-gray-900"><%= @listing.title %></span>
-          </div>
-          <div>
-            <span class="text-sm text-gray-600">Secteur:</span>
-            <span class="ml-2 font-medium text-gray-900"><%= @listing.industry_sector&.humanize %></span>
-          </div>
-          <div>
-            <span class="text-sm text-gray-600">Localisation:</span>
-            <span class="ml-2 font-medium text-gray-900"><%= @listing.location_department %></span>
-          </div>
+    <!-- Credits Info -->
+    <div class="bg-green-50 rounded-lg p-6 mb-6 border-2 border-green-200">
+      <div class="flex items-start gap-3">
+        <svg class="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div class="flex-1">
+          <h3 class="font-bold text-green-900 mb-2">💰 Crédits à gagner</h3>
+          <p class="text-green-800 mb-2">
+            En libérant cette réservation, vous gagnerez <strong><%= @credits_to_earn %> crédit(s)</strong>.
+          </p>
+          <p class="text-sm text-green-700">
+            Base : 1 crédit + <%= @deal.enrichments.where(validated: true).count %> document(s) validé(s)
+          </p>
         </div>
       </div>
+    </div>
 
-      <!-- Deal Progress -->
-      <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
-        <h2 class="font-semibold text-gray-900 mb-3">Progression du dossier</h2>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <span class="text-sm text-gray-600">Étape actuelle:</span>
-            <div class="mt-1">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium <%= deal_status_badge_class(@deal.status) %>">
-                <%= deal_stage_name(@deal.status) %>
-              </span>
-            </div>
-          </div>
-          <div>
-            <span class="text-sm text-gray-600">Temps passé:</span>
-            <div class="mt-1 font-medium text-gray-900">
-              <%= (@deal.time_in_stage / 1.day).to_i %> jours
-            </div>
-          </div>
-          <% if @deal.reserved_until %>
-            <div>
-              <span class="text-sm text-gray-600">Temps restant:</span>
-              <div class="mt-1">
-                <%= days_remaining_text(@deal) %>
-              </div>
-            </div>
-            <div>
-              <span class="text-sm text-gray-600">Progression:</span>
-              <div class="mt-1 font-medium text-gray-900">
-                <%= @deal.timer_percentage %>%
-              </div>
-            </div>
-          <% end %>
-        </div>
+    <!-- Reason -->
+    <%= form_with url: release_buyer_listing_path(@listing), method: :delete, class: "space-y-6" do |f| %>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Raison de la libération (optionnel)
+        </label>
+        <%= f.text_area :release_reason, 
+          rows: 4,
+          placeholder: "Ex: Projet abandonné, dossier incomplet, prix trop élevé...",
+          class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500" %>
+        <p class="text-xs text-gray-500 mt-1">
+          Cette information nous aide à améliorer nos services et peut être partagée avec le vendeur de manière anonyme.
+        </p>
       </div>
 
-      <!-- Credits to Earn -->
-      <div class="bg-green-50 rounded-lg p-4 border-2 border-green-300">
-        <h2 class="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-          <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
+      <!-- Warning -->
+      <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+        <div class="flex gap-3">
+          <svg class="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
-          Crédits à gagner
-        </h2>
-        
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-sm text-gray-700">Crédit de base (libération volontaire):</span>
-            <span class="text-lg font-bold text-green-600">+1 crédit</span>
-          </div>
-          
-          <% doc_credits = @deal.enrichments.where(validated: true).count %>
-          <% if doc_credits > 0 %>
-            <div class="flex items-center justify-between border-t border-green-200 pt-3">
-              <span class="text-sm text-gray-700">Documents ajoutés et validés:</span>
-              <span class="text-lg font-bold text-green-600">+<%= doc_credits %> crédit<%= doc_credits > 1 ? 's' : '' %></span>
-            </div>
-          <% else %>
-            <div class="text-sm text-gray-600 italic">
-              Aucun document validé pour cette annonce
-            </div>
-          <% end %>
-          
-          <div class="flex items-center justify-between border-t-2 border-green-300 pt-3 mt-3">
-            <span class="font-semibold text-gray-900">Total:</span>
-            <div class="flex items-center gap-2">
-              <span class="text-3xl font-bold text-green-600">+<%= @credits_to_earn %></span>
-              <span class="text-lg text-gray-600">crédit<%= @credits_to_earn > 1 ? 's' : '' %></span>
-            </div>
+          <div class="text-sm text-orange-800">
+            <p class="font-medium mb-1">⚠️ Attention</p>
+            <ul class="list-disc list-inside space-y-1 text-orange-700">
+              <li>Cette annonce redeviendra disponible pour tous les repreneurs</li>
+              <li>Vous perdrez l'accès exclusif aux informations confidentielles</li>
+              <li>Vous pourrez toujours la réserver à nouveau si elle est disponible</li>
+            </ul>
           </div>
         </div>
       </div>
 
-      <!-- Release Reason -->
-      <%= form_with url: release_buyer_listing_path(@listing), method: :delete, local: true, class: "space-y-4" do |f| %>
-        <div>
-          <label for="release_reason" class="block text-sm font-medium text-gray-700 mb-2">
-            Raison de la libération (optionnel)
-          </label>
-          <%= f.select :release_reason, 
-              options_for_select([
-                ['Sélectionnez une raison...', ''],
-                ['Ne correspond plus à mon projet', 'not_matching'],
-                ['Trop cher pour mon budget', 'too_expensive'],
-                ['Localisation non adaptée', 'bad_location'],
-                ['Informations insuffisantes', 'insufficient_info'],
-                ['Vendeur non réactif', 'seller_unresponsive'],
-                ['Autre opportunité trouvée', 'found_other'],
-                ['Autre raison', 'other']
-              ]),
-              {},
-              class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500 focus:border-buyer-500"
-          %>
-        </div>
-
-        <!-- Warning Notice -->
-        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-          <div class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-            </svg>
-            <div class="flex-1">
-              <h3 class="text-sm font-semibold text-yellow-900 mb-1">Attention</h3>
-              <p class="text-sm text-yellow-800">
-                En libérant cette annonce, vous perdrez l'accès aux informations confidentielles et l'annonce 
-                redeviendra disponible pour d'autres repreneurs. Cette action est irréversible.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Actions -->
-        <div class="flex items-center gap-3 pt-4">
-          <%= link_to buyer_listing_path(@listing), 
-              class: "flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" do %>
-            Annuler
-          <% end %>
-          
-          <%= f.submit "✅ Confirmer la libération", 
-              class: "flex-1 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition font-medium",
-              data: { confirm: "Êtes-vous sûr de vouloir libérer cette annonce ? Cette action est irréversible." }
-          %>
-        </div>
-      <% end %>
-    </div>
+      <!-- Actions -->
+      <div class="flex gap-4">
+        <%= link_to buyer_listing_path(@listing), class: "flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium text-center" do %>
+          Annuler
+        <% end %>
+        <%= f.submit "Confirmer la libération", class: "flex-1 px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition font-medium cursor-pointer" %>
+      </div>
+    <% end %>
   </div>
 </div>
