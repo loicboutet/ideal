@@ -1,6 +1,9 @@
 <% content_for :page_title, "Messages" %>
 
-<div class="flex h-[calc(100vh-8rem)] bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+<div class="flex h-[calc(100vh-8rem)] bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden" 
+     data-controller="conversation"
+     data-conversation-conversation-id-value="<%= @conversation.id %>"
+     data-conversation-current-user-id-value="<%= current_user.id %>">
   <!-- Conversations List -->
   <div class="w-80 border-r border-gray-200 flex flex-col">
     <!-- Header -->
@@ -53,30 +56,27 @@
     </div>
 
     <!-- Messages -->
-    <div class="flex-1 overflow-y-auto p-4 bg-gray-50">
+    <div class="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-4" data-conversation-target="messages">
       <% @messages.each do |message| %>
-        <div class="mb-4 <%= message.sender == current_user ? 'text-right' : 'text-left' %>">
-          <div class="inline-block max-w-md">
-            <% if message.sender != current_user %>
-              <div class="text-xs text-gray-500 mb-1 px-2">
-                <%= message.sender.full_name %>
-              </div>
-            <% end %>
-            <div class="<%= message.sender == current_user ? 'bg-orange-500 text-white' : 'bg-white text-gray-900' %> rounded-lg px-4 py-2 shadow-sm">
-              <p class="text-sm whitespace-pre-wrap"><%= message.body %></p>
-            </div>
-            <div class="text-xs text-gray-500 mt-1 px-2">
-              <%= l(message.created_at, format: :short) %>
-            </div>
-          </div>
-        </div>
+        <%= render 'messages/message', message: message, current_user: current_user %>
       <% end %>
     </div>
 
     <!-- Message Input -->
     <div class="p-4 border-t border-gray-200 bg-white">
-      <%= form_with model: [@conversation, @message], url: seller_conversation_messages_path(@conversation), class: "flex gap-2" do |f| %>
-        <%= f.text_area :body, rows: 2, class: "flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none", placeholder: "Écrivez votre message..." %>
+      <%= form_with model: [@conversation, @message], 
+                    url: seller_conversation_messages_path(@conversation), 
+                    class: "flex gap-2",
+                    data: { 
+                      conversation_target: "form",
+                      action: "submit->conversation#submitMessage",
+                      turbo: false
+                    } do |f| %>
+        <%= f.text_area :body, 
+                        rows: 2, 
+                        class: "flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none", 
+                        placeholder: "Écrivez votre message...",
+                        data: { conversation_target: "input" } %>
         <%= f.submit "Envoyer", class: "px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition font-medium" %>
       <% end %>
     </div>
