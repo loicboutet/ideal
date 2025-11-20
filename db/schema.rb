@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_144421) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_20_091131) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -129,6 +129,22 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_144421) do
     t.index ["listing_id"], name: "index_conversations_on_listing_id"
   end
 
+  create_table "credit_transactions", force: :cascade do |t|
+    t.integer "seller_profile_id", null: false
+    t.integer "amount", null: false
+    t.integer "transaction_type", null: false
+    t.string "source_type"
+    t.integer "source_id"
+    t.text "description"
+    t.integer "balance_after", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_credit_transactions_on_created_at"
+    t.index ["seller_profile_id"], name: "index_credit_transactions_on_seller_profile_id"
+    t.index ["source_type", "source_id"], name: "index_credit_transactions_on_source_type_and_source_id"
+    t.index ["transaction_type"], name: "index_credit_transactions_on_transaction_type"
+  end
+
   create_table "deal_history_events", force: :cascade do |t|
     t.integer "deal_id", null: false
     t.integer "user_id"
@@ -179,11 +195,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_144421) do
     t.datetime "validated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "validation_status", default: 0, null: false
+    t.text "rejection_reason"
     t.index ["buyer_profile_id"], name: "index_enrichments_on_buyer_profile_id"
     t.index ["listing_id", "buyer_profile_id"], name: "index_enrichments_on_listing_id_and_buyer_profile_id"
     t.index ["listing_id"], name: "index_enrichments_on_listing_id"
     t.index ["validated"], name: "index_enrichments_on_validated"
     t.index ["validated_by_id"], name: "index_enrichments_on_validated_by_id"
+    t.index ["validation_status"], name: "index_enrichments_on_validation_status"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -551,6 +570,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_144421) do
   add_foreign_key "conversation_participants", "conversations"
   add_foreign_key "conversation_participants", "users"
   add_foreign_key "conversations", "listings"
+  add_foreign_key "credit_transactions", "seller_profiles"
   add_foreign_key "deal_history_events", "deals"
   add_foreign_key "deal_history_events", "users"
   add_foreign_key "deals", "buyer_profiles"

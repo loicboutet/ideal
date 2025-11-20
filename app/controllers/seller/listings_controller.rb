@@ -144,14 +144,23 @@ class Seller::ListingsController < ApplicationController
     )
     
     if listing_push.save
-      # Deduct credit
-      seller_profile.deduct_credits(1)
-      
-      # Create notification for buyer
-      create_push_notification(buyer_profile, @listing)
-      
-      redirect_to seller_buyer_path(buyer_profile), 
-                  notice: "Annonce \"#{@listing.title}\" proposée à #{buyer_profile.user.first_name}. 1 crédit déduit."
+      # Deduct credit with transaction tracking
+      if seller_profile.spend_credits(
+        1, 
+        :push_to_buyer, 
+        source: listing_push,
+        description: "Annonce poussée à #{buyer_profile.user.full_name}"
+      )
+        # Create notification for buyer
+        create_push_notification(buyer_profile, @listing)
+        
+        redirect_to seller_buyer_path(buyer_profile), 
+                    notice: "Annonce \"#{@listing.title}\" proposée à #{buyer_profile.user.first_name}. 1 crédit déduit."
+      else
+        listing_push.destroy
+        redirect_to seller_buyer_path(buyer_profile), 
+                    alert: 'Erreur lors de la déduction des crédits.'
+      end
     else
       redirect_to seller_buyer_path(buyer_profile), 
                   alert: listing_push.errors.full_messages.first || 'Une erreur est survenue.'

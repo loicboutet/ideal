@@ -161,6 +161,14 @@ Rails.application.routes.draw do
     
     resources :interests, only: [:index, :show] # Buyers who favorited my listings
     
+    # Enrichment Validation
+    resources :enrichments, only: [:index, :show] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
+    
     # Credits & Subscription Management
     resources :credits, only: [:index]
     resource :subscription, only: [:show, :update, :destroy] do
