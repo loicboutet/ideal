@@ -1,0 +1,73 @@
+<% content_for :page_title, "Messages" %>
+
+<div class="flex h-[calc(100vh-8rem)] bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+  <!-- Conversations List -->
+  <div class="w-80 border-r border-gray-200 flex flex-col">
+    <!-- Header -->
+    <div class="p-4 border-b border-gray-200">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg font-bold text-gray-900">Messages</h2>
+      </div>
+      <input type="text" 
+             placeholder="Rechercher..." 
+             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 text-sm">
+    </div>
+
+    <!-- Conversations -->
+    <div class="flex-1 overflow-y-auto">
+      <% if @conversations.any? %>
+        <% @conversations.each do |conversation| %>
+          <%= link_to partner_conversation_path(conversation), class: "block p-4 hover:bg-gray-50 border-b border-gray-100 transition" do %>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                <%= conversation.other_participant(current_user)&.first_name&.first&.upcase || 'U' %>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-1">
+                  <h3 class="font-medium text-gray-900 truncate">
+                    <%= conversation.other_participant(current_user)&.full_name || 'Utilisateur' %>
+                  </h3>
+                  <% if conversation.latest_message %>
+                    <span class="text-xs text-gray-500">
+                      <%= time_ago_in_words(conversation.latest_message.created_at) %>
+                    </span>
+                  <% end %>
+                </div>
+                <% if conversation.listing %>
+                  <p class="text-sm text-gray-600 truncate mb-1">Re: <%= conversation.listing.title %></p>
+                <% end %>
+                <% if conversation.latest_message %>
+                  <p class="text-sm text-gray-500 truncate"><%= conversation.latest_message.body %></p>
+                <% end %>
+                <% if conversation.has_unread_for?(current_user) %>
+                  <span class="inline-block mt-1 px-2 py-0.5 bg-purple-500 text-white text-xs rounded-full">
+                    <%= pluralize(conversation.unread_count_for(current_user), 'nouveau message') %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="p-8 text-center text-gray-500">
+          <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          <p class="text-sm">Aucune conversation</p>
+          <p class="text-xs mt-2">Les utilisateurs vous contacteront depuis l'annuaire partenaires</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Empty State / Instructions -->
+  <div class="flex-1 flex items-center justify-center bg-gray-50">
+    <div class="text-center px-8">
+      <svg class="w-24 h-24 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+      <h3 class="text-xl font-semibold text-gray-900 mb-2">Sélectionnez une conversation</h3>
+      <p class="text-gray-600">Choisissez une conversation dans la liste pour commencer à échanger.</p>
+    </div>
+  </div>
+</div>

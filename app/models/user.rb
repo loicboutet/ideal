@@ -68,6 +68,10 @@ class User < ApplicationRecord
     message_recipients.unread.count
   end
   
+  def unread_conversations_count
+    conversations.sum { |c| c.unread_count_for(self) }
+  end
+  
   private
   
   def create_profile
