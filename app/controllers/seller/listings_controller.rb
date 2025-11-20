@@ -35,6 +35,13 @@ class Seller::ListingsController < ApplicationController
   def show
     # Show individual listing details
     @listing_id = @listing.id
+    
+    # Get listing analytics
+    @analytics = @listing.analytics
+    @views_count = @listing.views_count
+    @interested_count = @analytics.interested_buyers_count
+    @crm_stage = @analytics.current_crm_stage
+    @crm_progress = @analytics.crm_progress_percentage
   end
 
   def new

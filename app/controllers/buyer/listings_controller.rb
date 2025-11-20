@@ -38,8 +38,8 @@ module Buyer
         return
       end
 
-      # Track view
-      @listing.increment_views!
+      # Track view with user and IP information
+      @listing.track_view!(user: current_user, ip_address: request.remote_ip)
       
       # Check if buyer has favorited this listing
       @is_favorited = @buyer_profile.favorites.exists?(listing_id: @listing.id)
