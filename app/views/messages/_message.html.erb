@@ -1,0 +1,21 @@
+<% is_sender = message.sender == current_user %>
+<div class="flex items-start gap-3 <%= is_sender ? 'justify-end' : '' %>" data-message-id="<%= message.id %>">
+  <% unless is_sender %>
+    <div class="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+      <%= message.sender.first_name&.first&.upcase || 'U' %>
+    </div>
+  <% end %>
+  <div class="flex-1 <%= is_sender ? 'flex flex-col items-end' : '' %>">
+    <div class="<%= is_sender ? 'bg-orange-600 text-white' : 'bg-gray-100' %> rounded-lg p-3 max-w-lg">
+      <p class="text-sm <%= is_sender ? 'text-white' : 'text-gray-900' %>"><%= simple_format(message.body, {}, sanitize: true) %></p>
+    </div>
+    <span class="text-xs text-gray-500 mt-1 block">
+      <%= l(message.created_at, format: :short) %>
+    </span>
+  </div>
+  <% if is_sender %>
+    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+      <%= current_user.first_name&.first&.upcase || 'C' %>
+    </div>
+  <% end %>
+</div>

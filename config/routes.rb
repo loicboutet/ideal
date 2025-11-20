@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Action Cable for real-time features
+  mount ActionCable.server => '/cable'
+  
   # Letter Opener Web - for viewing emails in development
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
