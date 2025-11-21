@@ -275,7 +275,7 @@ module Payment
       Activity.create!(
         user: user,
         trackable: source,
-        action_type: transaction_type.to_s.include?('purchase') ? :payment : :credit_transaction,
+        action_type: :payment_processed,
         metadata: {
           amount: amount,
           transaction_type: transaction_type,

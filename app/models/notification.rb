@@ -6,7 +6,7 @@ class Notification < ApplicationRecord
     favorite_available: 3, reservation_expiring: 4, subscription_expiring: 5,
     enrichment_validated: 6, new_message: 7, deal_status_changed: 8,
     document_validation_request: 9, listing_pushed: 10, buyer_interested: 11,
-    timer_expired: 12, loi_validation_request: 13
+    timer_expired: 12, loi_validation_request: 13, credit_earned: 14
   }
   
   validates :user_id, presence: true
