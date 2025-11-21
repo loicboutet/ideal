@@ -8,7 +8,7 @@ The `.env` file has been successfully removed from your GitHub repository histor
 
 ### 1. Rotate Stripe Webhook Secret (CRITICAL - Do This First)
 
-**Why:** The webhook secret `REDACTED` was publicly exposed and could allow attackers to send fake webhook events to your application.
+**Why:** The webhook secret was publicly exposed and could allow attackers to send fake webhook events to your application.
 
 **Steps:**
 
