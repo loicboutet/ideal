@@ -57,24 +57,40 @@ class Buyer::SubscriptionsController < ApplicationController
   def update
     new_plan_type = params[:plan_type]
     
+    # Debug logging
+    Rails.logger.info "=== Subscription Update Request ==="
+    Rails.logger.info "Current subscription ID: #{@subscription&.id}"
+    Rails.logger.info "Current plan: #{@subscription&.plan_type}"
+    Rails.logger.info "New plan type: #{new_plan_type}"
+    Rails.logger.info "Valid plan check: #{valid_buyer_plan?(new_plan_type)}"
+    
     unless valid_buyer_plan?(new_plan_type)
+      Rails.logger.error "Invalid plan type: #{new_plan_type}"
       redirect_to edit_buyer_subscription_path, alert: 'Invalid plan selected'
       return
     end
     
     # Update in Stripe first
+    Rails.logger.info "Calling Stripe update for subscription: #{@subscription.stripe_subscription_id}"
     stripe_result = Payment::StripeService.update_stripe_subscription(@subscription, new_plan_type)
+    
+    Rails.logger.info "Stripe result: #{stripe_result.inspect}"
     
     if stripe_result[:success]
       # Update local subscription
+      Rails.logger.info "Updating local subscription..."
       result = Payment::SubscriptionService.update_subscription_plan(@subscription, new_plan_type)
+      
+      Rails.logger.info "Local update result: #{result.inspect}"
       
       if result[:success]
         redirect_to buyer_subscription_path, notice: 'Your subscription has been updated successfully!'
       else
+        Rails.logger.error "Failed to update local subscription: #{result[:error]}"
         redirect_to edit_buyer_subscription_path, alert: "Unable to update subscription: #{result[:error]}"
       end
     else
+      Rails.logger.error "Stripe update failed: #{stripe_result[:error]}"
       redirect_to edit_buyer_subscription_path, alert: "Unable to update subscription: #{stripe_result[:error]}"
     end
   end

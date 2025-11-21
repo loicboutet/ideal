@@ -42,7 +42,7 @@
               Current Plan
             </div>
           <% else %>
-            <%= button_to buyer_subscription_path, method: :patch, params: { plan_type: "buyer_#{plan_key}" }, class: "w-full px-4 py-2 bg-buyer-600 text-white rounded-lg font-medium hover:bg-buyer-700 transition", data: { confirm: "Switch to #{plan[:name]} plan?" } do %>
+            <%= button_to buyer_subscription_path, method: :patch, params: { plan_type: "buyer_#{plan_key}" }, class: "w-full px-4 py-2 bg-buyer-600 text-white rounded-lg font-medium hover:bg-buyer-700 transition", data: { turbo_confirm: "Switch to #{plan[:name]} plan?" } do %>
               Switch to <%= plan[:name] %>
             <% end %>
           <% end %>

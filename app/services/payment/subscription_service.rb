@@ -70,20 +70,36 @@ module Payment
       
       # Update subscription plan (upgrade/downgrade)
       def update_subscription_plan(subscription, new_plan_type)
+        Rails.logger.info "=== SubscriptionService.update_subscription_plan ==="
+        Rails.logger.info "Subscription: #{subscription.inspect}"
+        Rails.logger.info "New plan type: #{new_plan_type}"
+        
         return { success: false, error: 'Subscription not found' } unless subscription
         
         role = subscription.user.role.to_sym
         plan_key = plan_type_to_key(new_plan_type)
+        
+        Rails.logger.info "Role: #{role}, Plan key: #{plan_key}"
+        
         plan_config = SubscriptionPlans.plan_details(role, plan_key)
         
-        return { success: false, error: 'Invalid plan type' } unless plan_config
+        Rails.logger.info "Plan config: #{plan_config.inspect}"
+        
+        unless plan_config
+          Rails.logger.error "Invalid plan type - no config found"
+          return { success: false, error: 'Invalid plan type' }
+        end
+        
+        Rails.logger.info "Updating subscription #{subscription.id} to plan_type: #{new_plan_type}, amount: #{plan_config[:price_cents]}"
         
         if subscription.update(
           plan_type: new_plan_type,
           amount: plan_config[:price_cents]
         )
-          { success: true, subscription: subscription }
+          Rails.logger.info "Subscription updated successfully in database"
+          { success: true, subscription: subscription.reload }
         else
+          Rails.logger.error "Failed to update subscription: #{subscription.errors.full_messages.join(', ')}"
           { success: false, error: subscription.errors.full_messages.join(', ') }
         end
       end

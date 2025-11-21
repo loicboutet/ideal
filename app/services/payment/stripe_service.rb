@@ -131,19 +131,44 @@ module Payment
       
       # Update subscription in Stripe
       def update_stripe_subscription(subscription, new_plan_type)
+        Rails.logger.info "=== StripeService.update_stripe_subscription ==="
+        Rails.logger.info "Subscription ID: #{subscription&.id}"
+        Rails.logger.info "Stripe Subscription ID: #{subscription&.stripe_subscription_id}"
+        Rails.logger.info "New plan type: #{new_plan_type}"
+        
         return { success: false, error: 'No Stripe subscription ID' } unless subscription.stripe_subscription_id
         
         role = subscription.user.role.to_sym
         plan_key = plan_type_to_key(new_plan_type)
+        
+        Rails.logger.info "Role: #{role}"
+        Rails.logger.info "Plan key: #{plan_key}"
+        
         plan_config = SubscriptionPlans.plan_details(role, plan_key)
         
-        return { success: false, error: 'Invalid plan type' } unless plan_config
-        return { success: false, error: 'No Stripe price ID configured' } unless plan_config[:stripe_price_id]
+        Rails.logger.info "Plan config: #{plan_config.inspect}"
+        
+        unless plan_config
+          Rails.logger.error "Invalid plan type - no config found for #{role}/#{plan_key}"
+          return { success: false, error: 'Invalid plan type' }
+        end
+        
+        unless plan_config[:stripe_price_id]
+          Rails.logger.error "No Stripe price ID configured for #{new_plan_type}"
+          return { success: false, error: 'No Stripe price ID configured' }
+        end
+        
+        Rails.logger.info "Stripe Price ID: #{plan_config[:stripe_price_id]}"
         
         begin
+          Rails.logger.info "Retrieving Stripe subscription..."
           stripe_subscription = Stripe::Subscription.retrieve(subscription.stripe_subscription_id)
           
+          Rails.logger.info "Current Stripe subscription status: #{stripe_subscription.status}"
+          Rails.logger.info "Current price: #{stripe_subscription.items.data[0].price.id}"
+          
           # Update subscription to new price
+          Rails.logger.info "Updating to new price: #{plan_config[:stripe_price_id]}"
           updated_subscription = Stripe::Subscription.update(
             stripe_subscription.id,
             items: [{
@@ -153,10 +178,18 @@ module Payment
             proration_behavior: 'create_prorations'
           )
           
+          Rails.logger.info "Stripe subscription updated successfully"
+          Rails.logger.info "New price: #{updated_subscription.items.data[0].price.id}"
+          
           { success: true, subscription: updated_subscription }
         rescue Stripe::StripeError => e
-          Rails.logger.error("Stripe subscription update failed: #{e.message}")
+          Rails.logger.error("Stripe subscription update failed: #{e.class.name} - #{e.message}")
+          Rails.logger.error("Error details: #{e.inspect}")
           { success: false, error: e.message }
+        rescue => e
+          Rails.logger.error("Unexpected error during subscription update: #{e.class.name} - #{e.message}")
+          Rails.logger.error("Backtrace: #{e.backtrace.first(5).join("\n")}")
+          { success: false, error: "Unexpected error: #{e.message}" }
         end
       end
       
