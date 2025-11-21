@@ -21,6 +21,7 @@ module Seller
         # Create Stripe checkout session
         session = Stripe::Checkout::Session.create(
           customer: get_or_create_stripe_customer,
+          client_reference_id: current_user.id.to_s,
           payment_method_types: ['card'],
           line_items: [{
             price_data: {
@@ -34,7 +35,7 @@ module Seller
             quantity: 1
           }],
           mode: 'payment',
-          success_url: seller_credits_success_url(session_id: '{CHECKOUT_SESSION_ID}'),
+          success_url: success_seller_credits_url(session_id: '{CHECKOUT_SESSION_ID}'),
           cancel_url: seller_credits_url,
           metadata: {
             user_id: current_user.id,
@@ -52,25 +53,22 @@ module Seller
     end
     
     def success
+      # Check if we have a valid session_id (not the placeholder)
       session_id = params[:session_id]
       
-      begin
-        session = Stripe::Checkout::Session.retrieve(session_id)
-        
-        if session.payment_status == 'paid'
-          @message = "Paiement réussi ! Vos crédits ont été ajoutés à votre compte."
-          @success = true
-        else
-          @message = "Le paiement est en cours de traitement. Vos crédits seront ajoutés sous peu."
-          @success = false
-        end
-      rescue Stripe::StripeError => e
-        Rails.logger.error "Error retrieving checkout session: #{e.message}"
-        @message = "Erreur lors de la vérification du paiement."
-        @success = false
+      if session_id.blank? || session_id.include?('CHECKOUT_SESSION_ID')
+        # Invalid or placeholder session_id - likely accessed directly
+        redirect_to seller_credits_path, alert: "Session invalide. Veuillez effectuer un nouvel achat."
+        return
       end
       
+      # Payment successful - credits will be added via webhook
+      @message = "Paiement réussi ! Vos crédits seront ajoutés à votre compte dans quelques instants."
+      @success = true
       @current_balance = Payment::CreditService.get_balance(current_user)
+      
+      # Log the session_id for debugging
+      Rails.logger.info "Credit purchase success page accessed by user #{current_user.id}, session: #{session_id}"
     end
     
     private
