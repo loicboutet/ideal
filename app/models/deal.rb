@@ -42,18 +42,8 @@ class Deal < ApplicationRecord
         total_credits_earned: credits_earned
       )
       
-      # Award credits to buyer for deal release
-      buyer_profile.add_credits(credits_earned)
-      
-      # Award +1 credit to seller when buyer releases deal voluntarily
-      if reason.present? && listing.seller_profile.present?
-        listing.seller_profile.award_credits(
-          1,
-          :deal_release,
-          source: self,
-          description: "Dossier libéré volontairement par #{buyer_profile.user.full_name}"
-        )
-      end
+      # Award credits using the centralized credit service
+      Payment::CreditService.award_deal_release_credits(self)
     end
   end
   

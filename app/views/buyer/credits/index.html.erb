@@ -1,0 +1,159 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Mes Crédits</h1>
+    <p class="mt-2 text-gray-600">Gérez vos crédits et achetez des packs pour accéder aux fonctionnalités premium</p>
+  </div>
+
+  <!-- Current Balance Card -->
+  <div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-lg p-8 mb-8 text-white">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-blue-100 text-sm font-medium">Solde Actuel</p>
+        <p class="text-5xl font-bold mt-2"><%= @current_balance %></p>
+        <p class="text-blue-100 mt-1">crédit<%= @current_balance > 1 ? 's' : '' %></p>
+      </div>
+      <div class="text-right">
+        <div class="bg-white bg-opacity-20 rounded-lg p-4">
+          <p class="text-sm">Total gagné</p>
+          <p class="text-2xl font-bold"><%= @total_earned %></p>
+        </div>
+        <div class="bg-white bg-opacity-20 rounded-lg p-4 mt-2">
+          <p class="text-sm">Total dépensé</p>
+          <p class="text-2xl font-bold"><%= @total_spent %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credit Packs -->
+  <div class="mb-12">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Acheter des Crédits</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <% @credit_packs.each do |pack| %>
+        <div class="bg-white rounded-lg shadow-md border-2 border-gray-200 hover:border-blue-500 transition-colors duration-200">
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900 mb-2"><%= pack.name %></h3>
+            <div class="mb-4">
+              <span class="text-4xl font-bold text-blue-600"><%= pack.credits_amount %></span>
+              <span class="text-gray-600 ml-1">crédits</span>
+            </div>
+            <div class="mb-4">
+              <span class="text-2xl font-bold text-gray-900"><%= pack.price_formatted %></span>
+            </div>
+            <p class="text-sm text-gray-600 mb-4"><%= pack.description %></p>
+            <div class="text-sm text-gray-500 mb-6">
+              <%= number_to_currency(pack.credits_per_euro, unit: '', precision: 2) %> crédits/€
+            </div>
+            <%= button_to "Acheter", 
+                checkout_buyer_credits_path(pack_id: pack.id), 
+                method: :post,
+                class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200",
+                data: { turbo: false } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- How Credits Work -->
+  <div class="bg-blue-50 rounded-lg p-6 mb-8">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Comment fonctionnent les crédits ?</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <h4 class="font-semibold text-gray-900 mb-2">💰 Gagner des crédits</h4>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span>+1 crédit en libérant un dossier</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-green-600 mr-2">✓</span>
+            <span>+1 crédit par document validé</span>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-gray-900 mb-2">💳 Dépenser des crédits</h4>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start">
+            <span class="text-blue-600 mr-2">•</span>
+            <span>Fonctionnalités premium à venir</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transaction History -->
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">Historique des Transactions</h2>
+    
+    <% if @transaction_history.any? %>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Solde</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @transaction_history.each do |transaction| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <%= l(transaction.created_at, format: :short) %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <% if transaction.is_a?(CreditTransaction) %>
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <%= transaction.earned? ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
+                      <%= transaction.transaction_type.humanize %>
+                    </span>
+                  <% else %>
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                      Achat
+                    </span>
+                  <% end %>
+                </td>
+                <td class="px-6 py-4 text-sm text-gray-700">
+                  <% if transaction.is_a?(CreditTransaction) %>
+                    <%= transaction.source_description %>
+                  <% else %>
+                    <%= transaction.description %>
+                  <% end %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-medium">
+                  <% if transaction.is_a?(CreditTransaction) %>
+                    <span class="<%= transaction.earned? ? 'text-green-600' : 'text-red-600' %>">
+                      <%= transaction.earned? ? '+' : '' %><%= transaction.amount %>
+                    </span>
+                  <% else %>
+                    <span class="text-green-600">-</span>
+                  <% end %>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-medium">
+                  <% if transaction.is_a?(CreditTransaction) %>
+                    <%= transaction.balance_after %>
+                  <% else %>
+                    -
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <div class="text-center py-12">
+        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <h3 class="mt-2 text-sm font-medium text-gray-900">Aucune transaction</h3>
+        <p class="mt-1 text-sm text-gray-500">Commencez par acheter des crédits ou gagnez-en en libérant des dossiers.</p>
+      </div>
+    <% end %>
+  </div>
+</div>

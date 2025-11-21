@@ -1,0 +1,61 @@
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+    <% if @success %>
+      <!-- Success State -->
+      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-6">
+        <svg class="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">Paiement Réussi !</h1>
+      <p class="text-lg text-gray-600 mb-8"><%= @message %></p>
+      
+      <div class="bg-blue-50 rounded-lg p-6 mb-8">
+        <p class="text-sm text-gray-600 mb-2">Votre nouveau solde</p>
+        <p class="text-5xl font-bold text-blue-600"><%= @current_balance %></p>
+        <p class="text-gray-600 mt-1">crédit<%= @current_balance > 1 ? 's' : '' %></p>
+      </div>
+    <% else %>
+      <!-- Processing State -->
+      <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 mb-6">
+        <svg class="h-10 w-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">Paiement en Cours</h1>
+      <p class="text-lg text-gray-600 mb-8"><%= @message %></p>
+    <% end %>
+    
+    <div class="flex justify-center space-x-4">
+      <%= link_to "Voir mes crédits", 
+          buyer_credits_path, 
+          class: "inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      
+      <%= link_to "Retour au tableau de bord", 
+          buyer_root_path, 
+          class: "inline-flex items-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+    </div>
+  </div>
+  
+  <% if @success %>
+    <div class="mt-8 bg-blue-50 rounded-lg p-6">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Que faire ensuite ?</h3>
+      <ul class="space-y-3 text-gray-700">
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-2">→</span>
+          <span>Continuez à parcourir les annonces et enrichissez vos dossiers pour gagner plus de crédits</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-2">→</span>
+          <span>Libérez vos dossiers non pertinents pour récupérer des crédits</span>
+        </li>
+        <li class="flex items-start">
+          <span class="text-blue-600 mr-2">→</span>
+          <span>Consultez votre historique de transactions pour suivre vos crédits</span>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+</div>

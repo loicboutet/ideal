@@ -76,8 +76,25 @@ class WebhooksController < ApplicationController
       Rails.logger.info "Subscription activated for user #{user.id}"
     else
       # One-time payment (credit pack purchase)
-      # This will be handled in Phase 4
-      Rails.logger.info "One-time payment completed for user #{user.id}"
+      metadata = session['metadata']
+      if metadata && metadata['transaction_type'] == 'credit_purchase'
+        credit_pack_id = metadata['credit_pack_id']
+        credit_pack = CreditPack.find_by(id: credit_pack_id)
+        
+        if credit_pack
+          # Process credit purchase using the credit service
+          Payment::CreditService.process_credit_purchase(
+            user,
+            credit_pack,
+            stripe_payment_intent_id: session['payment_intent']
+          )
+          Rails.logger.info "Credit purchase processed for user #{user.id}: #{credit_pack.credits_amount} credits"
+        else
+          Rails.logger.error "Credit pack not found for ID: #{credit_pack_id}"
+        end
+      else
+        Rails.logger.info "One-time payment completed for user #{user.id}"
+      end
     end
 
     # Create payment transaction record

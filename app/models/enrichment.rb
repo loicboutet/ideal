@@ -39,15 +39,10 @@ class Enrichment < ApplicationRecord
   private
   
   def award_credits_on_approval
-    return unless approved? && listing.seller_profile.present?
+    return unless approved?
     
-    # Award +1 credit to seller for validated enrichment
-    listing.seller_profile.award_credits(
-      1,
-      :enrichment_validated,
-      source: self,
-      description: "Document enrichi validé : #{category_label}"
-    )
+    # Award +1 credit to buyer for validated enrichment using centralized service
+    Payment::CreditService.award_enrichment_credits(self)
     
     # Update credits_awarded field
     update_column(:credits_awarded, 1)

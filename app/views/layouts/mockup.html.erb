@@ -37,7 +37,7 @@
           <!-- Desktop CTA Buttons -->
           <div class="hidden md:flex md:items-center md:space-x-4">
             <% if user_signed_in? %>
-              <%= link_to current_user.first_name || "Utilisateur", "#", class: "text-gray-700 hover:text-[#4A90E2] px-4 py-2 text-sm font-medium transition" %>
+              <%= link_to current_user.first_name || "Utilisateur", user_dashboard_path(current_user), class: "text-gray-700 hover:text-[#4A90E2] px-4 py-2 text-sm font-medium transition" %>
               <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-gray-700 hover:text-[#4A90E2] px-4 py-2 text-sm font-medium transition" %>
             <% else %>
               <%= link_to "Se connecter", new_user_session_path, class: "text-gray-700 hover:text-[#4A90E2] px-4 py-2 text-sm font-medium transition" %>
@@ -99,7 +99,7 @@
             <!-- Mobile menu CTA buttons -->
             <div class="border-t px-4 py-6 space-y-3">
               <% if user_signed_in? %>
-                <%= link_to current_user.first_name || "Utilisateur", "#", data: { action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-[#4A90E2] px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>
+                <%= link_to current_user.first_name || "Utilisateur", user_dashboard_path(current_user), data: { action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-[#4A90E2] px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>
                 <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete, action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-[#4A90E2] px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>
               <% else %>
                 <%= link_to "Se connecter", new_user_session_path, data: { action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-[#4A90E2] px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>

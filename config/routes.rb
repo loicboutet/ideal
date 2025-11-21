@@ -185,7 +185,12 @@ Rails.application.routes.draw do
     end
     
     # Credits & Subscription Management
-    resources :credits, only: [:index]
+    resources :credits, only: [:index] do
+      collection do
+        post :checkout
+        get :success
+      end
+    end
     resource :subscription, only: [:show, :new, :create, :destroy] do
       member do
         get :upgrade
@@ -272,7 +277,8 @@ Rails.application.routes.draw do
     # Credits & Subscription Management
     resources :credits, only: [:index] do
       collection do
-        post :purchase # Buy credit packs
+        post :checkout # Buy credit packs
+        get :success
       end
     end
     
