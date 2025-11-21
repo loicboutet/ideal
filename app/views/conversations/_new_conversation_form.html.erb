@@ -1,0 +1,146 @@
+<div class="max-w-2xl mx-auto">
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Démarrer une nouvelle conversation</h1>
+    
+    <%= form_with url: form_url, method: :post, class: "space-y-6" do |f| %>
+      <!-- Searchable Listing Select -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          <%= label_text %>
+        </label>
+        <div class="relative">
+          <input type="text" 
+                 id="listing-search" 
+                 placeholder="<%= search_placeholder %>"
+                 autocomplete="off"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-<%= color %>-500 focus:border-transparent">
+          <select name="<%= select_name %>" id="listing-select" required class="hidden">
+            <option value="">-- <%= select_prompt %> --</option>
+            <% options.each do |option| %>
+              <option value="<%= option[:value] %>" data-text="<%= option[:text] %>">
+                <%= option[:text] %>
+              </option>
+            <% end %>
+          </select>
+          <div id="listing-dropdown" class="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto hidden">
+            <!-- Dropdown items will be populated by JavaScript -->
+          </div>
+        </div>
+        <p class="mt-2 text-sm text-gray-500">
+          <%= help_text %>
+        </p>
+        <p class="mt-1 text-xs text-gray-500" id="search-results-count"></p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-4 pt-4">
+        <%= f.submit "Démarrer la conversation", class: "px-6 py-2 bg-#{color}-#{color == 'blue' ? '600' : '500'} text-white rounded-lg hover:bg-#{color}-#{color == 'blue' ? '700' : '600'} transition font-medium" %>
+        <%= link_to "Annuler", cancel_url, class: "px-6 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('listing-search');
+  const listingSelect = document.getElementById('listing-select');
+  const dropdown = document.getElementById('listing-dropdown');
+  const resultsCount = document.getElementById('search-results-count');
+  
+  // Store all options for filtering
+  const allOptions = Array.from(listingSelect.options).slice(1); // Skip placeholder
+  let selectedListing = null;
+  
+  function updateResultsCount(count) {
+    if (searchInput.value.trim() === '' || selectedListing) {
+      resultsCount.textContent = '';
+    } else {
+      resultsCount.textContent = count === 1 ? '1 résultat trouvé' : `${count} résultats trouvés`;
+    }
+  }
+  
+  function showDropdown(options) {
+    dropdown.innerHTML = '';
+    
+    if (options.length === 0) {
+      dropdown.innerHTML = '<div class="px-4 py-2 text-gray-500">Aucun résultat trouvé</div>';
+    } else {
+      options.forEach(option => {
+        const item = document.createElement('div');
+        item.className = 'px-4 py-2 cursor-pointer hover:bg-<%= color %>-50 transition';
+        item.textContent = option.dataset.text;
+        item.dataset.value = option.value;
+        
+        item.addEventListener('click', function() {
+          selectListing(option);
+        });
+        
+        dropdown.appendChild(item);
+      });
+    }
+    
+    dropdown.classList.remove('hidden');
+    updateResultsCount(options.length);
+  }
+  
+  function hideDropdown() {
+    setTimeout(() => {
+      dropdown.classList.add('hidden');
+    }, 200);
+  }
+  
+  function selectListing(option) {
+    selectedListing = option;
+    searchInput.value = option.dataset.text;
+    listingSelect.value = option.value;
+    dropdown.classList.add('hidden');
+    resultsCount.textContent = '';
+  }
+  
+  // Show all listings on focus
+  searchInput.addEventListener('focus', function() {
+    if (!selectedListing) {
+      const searchTerm = this.value.toLowerCase().trim();
+      if (searchTerm === '') {
+        showDropdown(allOptions);
+      } else {
+        const filteredOptions = allOptions.filter(option => {
+          return option.dataset.text.toLowerCase().includes(searchTerm);
+        });
+        showDropdown(filteredOptions);
+      }
+    }
+  });
+  
+  // Filter on input
+  searchInput.addEventListener('input', function() {
+    selectedListing = null; // Clear selection when typing
+    listingSelect.value = ''; // Reset hidden select
+    
+    const searchTerm = this.value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+      showDropdown(allOptions);
+    } else {
+      const filteredOptions = allOptions.filter(option => {
+        return option.dataset.text.toLowerCase().includes(searchTerm);
+      });
+      showDropdown(filteredOptions);
+    }
+  });
+  
+  // Hide dropdown when clicking outside
+  searchInput.addEventListener('blur', hideDropdown);
+  
+  // Clear search on click if listing already selected
+  searchInput.addEventListener('click', function() {
+    if (selectedListing) {
+      this.value = '';
+      selectedListing = null;
+      listingSelect.value = '';
+      showDropdown(allOptions);
+    }
+  });
+});
+</script>
