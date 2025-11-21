@@ -31,23 +31,56 @@ class Seller::SubscriptionsController < ApplicationController
   end
   
   # POST /seller/subscription
-  # Create Stripe Checkout session for premium package
+  # Create subscription with payment method (JavaScript flow)
   def create
     plan_type = 'seller_premium'
+    payment_method_id = params[:payment_method_id]
     
-    # Create Stripe Checkout session
-    result = Payment::StripeService.create_subscription_checkout_session(
-      user: current_user,
-      plan_type: plan_type,
-      success_url: seller_subscription_url(session_id: '{CHECKOUT_SESSION_ID}'),
-      cancel_url: new_seller_subscription_url
-    )
-    
-    if result[:success]
-      # Redirect to Stripe Checkout
-      redirect_to result[:checkout_url], allow_other_host: true
+    if payment_method_id.present?
+      # JavaScript flow - create subscription with payment method
+      result = Payment::StripeService.create_subscription_with_payment_method(
+        user: current_user,
+        plan_type: plan_type,
+        payment_method_id: payment_method_id
+      )
+      
+      respond_to do |format|
+        format.json do
+          if result[:success]
+            render json: { 
+              success: true,
+              subscription: result[:subscription],
+              requires_action: result[:requires_action],
+              client_secret: result[:client_secret]
+            }
+          else
+            Rails.logger.error "Subscription creation failed: #{result[:error]}"
+            render json: { success: false, error: result[:error] }, status: :unprocessable_entity
+          end
+        end
+        format.html do
+          if result[:success]
+            redirect_to seller_subscription_path, notice: 'Premium subscription activated successfully!'
+          else
+            redirect_to new_seller_subscription_path, alert: "Unable to create subscription: #{result[:error]}"
+          end
+        end
+      end
     else
-      redirect_to new_seller_subscription_path, alert: "Unable to start checkout: #{result[:error]}"
+      # Fallback to Stripe Checkout session (redirect flow)
+      result = Payment::StripeService.create_subscription_checkout_session(
+        user: current_user,
+        plan_type: plan_type,
+        success_url: seller_subscription_url(session_id: '{CHECKOUT_SESSION_ID}'),
+        cancel_url: new_seller_subscription_url
+      )
+      
+      if result[:success]
+        # Redirect to Stripe Checkout
+        redirect_to result[:checkout_url], allow_other_host: true
+      else
+        redirect_to new_seller_subscription_path, alert: "Unable to start checkout: #{result[:error]}"
+      end
     end
   end
   

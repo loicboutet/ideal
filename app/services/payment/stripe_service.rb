@@ -37,6 +37,80 @@ module Payment
         end
       end
       
+      # Create subscription with payment method (JavaScript flow)
+      def create_subscription_with_payment_method(user:, plan_type:, payment_method_id:)
+        # Get or create customer
+        customer_result = get_or_create_customer(user)
+        return customer_result unless customer_result[:success]
+        
+        customer = customer_result[:customer]
+        
+        # Get plan configuration
+        role = user.role.to_sym
+        plan_key = plan_type_to_key(plan_type)
+        plan_config = SubscriptionPlans.plan_details(role, plan_key)
+        
+        return { success: false, error: 'Invalid plan type' } unless plan_config
+        return { success: false, error: 'No Stripe price ID configured' } unless plan_config[:stripe_price_id]
+        
+        begin
+          # Attach payment method to customer
+          Stripe::PaymentMethod.attach(
+            payment_method_id,
+            { customer: customer.id }
+          )
+          
+          # Set as default payment method
+          Stripe::Customer.update(
+            customer.id,
+            invoice_settings: {
+              default_payment_method: payment_method_id
+            }
+          )
+          
+          # Create subscription
+          subscription = Stripe::Subscription.create(
+            customer: customer.id,
+            items: [{
+              price: plan_config[:stripe_price_id]
+            }],
+            expand: ['latest_invoice.payment_intent'],
+            metadata: {
+              user_id: user.id,
+              plan_type: plan_type
+            }
+          )
+          
+          # Create local subscription record
+          local_subscription_result = Payment::SubscriptionService.create_subscription(
+            user: user,
+            plan_type: plan_type,
+            stripe_subscription_id: subscription.id,
+            stripe_customer_id: customer.id
+          )
+          
+          unless local_subscription_result[:success]
+            return { success: false, error: local_subscription_result[:error] }
+          end
+          
+          # Check if payment requires action (3D Secure)
+          payment_intent = subscription.latest_invoice.payment_intent
+          requires_action = payment_intent&.status == 'requires_action'
+          client_secret = requires_action ? payment_intent.client_secret : nil
+          
+          {
+            success: true,
+            subscription: local_subscription_result[:subscription],
+            stripe_subscription: subscription,
+            requires_action: requires_action,
+            client_secret: client_secret
+          }
+        rescue Stripe::StripeError => e
+          Rails.logger.error("Stripe subscription creation failed: #{e.message}")
+          { success: false, error: e.message }
+        end
+      end
+      
       # Create Stripe Checkout session for subscription
       def create_subscription_checkout_session(user:, plan_type:, success_url:, cancel_url:)
         # Get or create customer

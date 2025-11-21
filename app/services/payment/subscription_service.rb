@@ -43,6 +43,9 @@ module Payment
         
         return { success: false, error: 'Invalid plan type' } unless plan_config
         
+        # Update user with Stripe customer ID if provided
+        user.update(stripe_customer_id: stripe_customer_id) if stripe_customer_id && !user.stripe_customer_id
+        
         # Cancel any existing active subscriptions
         cancel_existing_subscriptions(user)
         
@@ -55,7 +58,6 @@ module Payment
           status: :active,
           amount: plan_config[:price_cents],
           stripe_subscription_id: stripe_subscription_id,
-          stripe_customer_id: stripe_customer_id,
           profile: profile,
           period_start: Time.current,
           period_end: calculate_period_end(plan_config[:interval])

@@ -56,44 +56,60 @@ export default class extends Controller {
     this.clearError()
 
     try {
+      console.log('Starting payment process...')
+      
       // Create payment method
       const { error, paymentMethod } = await this.stripe.createPaymentMethod({
         type: 'card',
         card: this.cardElement
       })
 
+      console.log('Payment method created:', { error, paymentMethod })
+
       if (error) {
+        console.error('Payment method error:', error)
         this.showError(error.message)
         this.setLoading(false)
         return
       }
 
       // Submit to backend
+      console.log('Submitting to backend...')
       const response = await this.createSubscription(paymentMethod.id)
       
+      console.log('Backend response:', response)
+      
       if (response.success) {
+        console.log('Subscription successful!')
         // Handle successful subscription
-        if (response.requiresAction) {
+        if (response.requires_action) {
+          console.log('Requires 3D Secure authentication')
           // Handle 3D Secure
           const { error: confirmError } = await this.stripe.confirmCardPayment(
-            response.clientSecret
+            response.client_secret
           )
           
           if (confirmError) {
+            console.error('3D Secure error:', confirmError)
             this.showError(confirmError.message)
             this.setLoading(false)
           } else {
+            console.log('Redirecting to:', this.returnUrlValue)
             window.location.href = this.returnUrlValue
           }
         } else {
+          console.log('Redirecting to:', this.returnUrlValue)
           window.location.href = this.returnUrlValue
         }
       } else {
+        console.error('Backend error:', response.error)
         this.showError(response.error || 'An error occurred processing your payment')
         this.setLoading(false)
       }
     } catch (err) {
-      this.showError('An unexpected error occurred. Please try again.')
+      console.error('Caught exception:', err)
+      console.error('Stack trace:', err.stack)
+      this.showError(`Error: ${err.message}`)
       this.setLoading(false)
     }
   }

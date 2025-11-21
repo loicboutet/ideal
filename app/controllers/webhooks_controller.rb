@@ -36,6 +36,8 @@ class WebhooksController < ApplicationController
       handle_invoice_payment_failed(event['data']['object'])
     when 'invoice.updated'
       handle_invoice_updated(event['data']['object'])
+    when 'invoice.paid'
+      handle_invoice_paid(event['data']['object'])
     when 'invoice_payment.paid'
       handle_invoice_payment_paid(event['data']['object'])
     else
@@ -270,6 +272,16 @@ class WebhooksController < ApplicationController
     # Just log it for now, no action needed
   rescue => e
     Rails.logger.error "Error processing invoice.updated: #{e.message}"
+  end
+
+  def handle_invoice_paid(invoice)
+    Rails.logger.info "Processing invoice.paid: #{invoice['id']}"
+    
+    # Same as invoice.payment_succeeded - just an alias
+    handle_invoice_payment_succeeded(invoice)
+  rescue => e
+    Rails.logger.error "Error processing invoice.paid: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def handle_invoice_payment_paid(invoice_payment)
