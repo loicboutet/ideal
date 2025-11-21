@@ -1,5 +1,5 @@
-<% content_for :title, "My Subscription - Idéal Reprise" %>
-<% content_for :page_title, "My Subscription" %>
+<% content_for :title, "Mon Abonnement - Idéal Reprise" %>
+<% content_for :page_title, "Mon Abonnement" %>
 
 <div class="max-w-4xl mx-auto space-y-6">
   <% if @subscription %>
@@ -7,8 +7,8 @@
       <!-- Cancelled Subscription - Active Until Period End -->
       <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-8 text-white">
-          <h2 class="text-3xl font-bold mb-2">Premium Broker Plan</h2>
-          <p class="text-orange-100">Cancelled - Active Until <%= @subscription.current_period_end&.strftime('%B %d, %Y') %></p>
+          <h2 class="text-3xl font-bold mb-2">Forfait Courtier Premium</h2>
+          <p class="text-orange-100">Annulé - Actif Jusqu'au <%= @subscription.current_period_end&.strftime('%d %B %Y') %></p>
         </div>
 
         <div class="p-6 space-y-6">
@@ -18,28 +18,28 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
               <div>
-                <p class="font-semibold text-orange-900 mb-1">Your subscription has been cancelled</p>
-                <p class="text-sm text-orange-800">You'll continue to have access to premium features until <%= @subscription.current_period_end&.strftime('%B %d, %Y') %>. After that, your account will revert to the free plan.</p>
+                <p class="font-semibold text-orange-900 mb-1">Votre abonnement a été annulé</p>
+                <p class="text-sm text-orange-800">Vous continuerez à avoir accès aux fonctionnalités premium jusqu'au <%= @subscription.current_period_end&.strftime('%d %B %Y') %>. Après cela, votre compte reviendra au forfait gratuit.</p>
               </div>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-6">
             <div>
-              <h3 class="text-sm font-medium text-gray-500 mb-1">Status</h3>
-              <p class="text-lg font-semibold text-orange-600">● Cancelled</p>
+              <h3 class="text-sm font-medium text-gray-500 mb-1">Statut</h3>
+              <p class="text-lg font-semibold text-orange-600">● Annulé</p>
             </div>
             <div>
-              <h3 class="text-sm font-medium text-gray-500 mb-1">Access Until</h3>
+              <h3 class="text-sm font-medium text-gray-500 mb-1">Accès Jusqu'au</h3>
               <p class="text-lg font-semibold text-gray-900">
-                <%= @subscription.current_period_end&.strftime('%B %d, %Y') %>
+                <%= @subscription.current_period_end&.strftime('%d %B %Y') %>
               </p>
             </div>
           </div>
 
           <div class="flex gap-3">
             <%= button_to reactivate_seller_subscription_path, method: :post, class: "px-6 py-3 bg-seller-600 text-white rounded-lg font-medium hover:bg-seller-700 transition shadow-lg" do %>
-              Reactivate Subscription
+              Réactiver l'Abonnement
             <% end %>
           </div>
         </div>
@@ -48,27 +48,27 @@
       <!-- Active Subscription -->
       <div class="bg-white rounded-xl shadow-lg overflow-hidden">
         <div class="bg-gradient-to-r from-seller-500 to-seller-600 px-6 py-8 text-white">
-          <h2 class="text-3xl font-bold mb-2">Premium Broker Plan</h2>
-          <p class="text-seller-100">Active Subscription</p>
+          <h2 class="text-3xl font-bold mb-2">Forfait Courtier Premium</h2>
+          <p class="text-seller-100">Abonnement Actif</p>
         </div>
 
         <div class="p-6 space-y-6">
           <div class="grid grid-cols-2 gap-6">
             <div>
-              <h3 class="text-sm font-medium text-gray-500 mb-1">Status</h3>
-              <p class="text-lg font-semibold text-green-600">● Active</p>
+              <h3 class="text-sm font-medium text-gray-500 mb-1">Statut</h3>
+              <p class="text-lg font-semibold text-green-600">● Actif</p>
             </div>
             <div>
-              <h3 class="text-sm font-medium text-gray-500 mb-1">Next Billing</h3>
+              <h3 class="text-sm font-medium text-gray-500 mb-1">Prochaine Facturation</h3>
               <p class="text-lg font-semibold text-gray-900">
-                <%= @subscription.current_period_end&.strftime('%B %d, %Y') %>
+                <%= @subscription.current_period_end&.strftime('%d %B %Y') %>
               </p>
             </div>
           </div>
 
           <div class="flex gap-3">
             <%= link_to cancel_confirm_seller_subscription_path, class: "px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:border-red-500 transition" do %>
-              Cancel Subscription
+              Annuler l'Abonnement
             <% end %>
           </div>
         </div>
@@ -76,15 +76,15 @@
     <% end %>
   <% else %>
     <div class="bg-white rounded-xl shadow-lg p-12 text-center">
-      <h2 class="text-2xl font-bold text-gray-900 mb-3">No Active Subscription</h2>
-      <p class="text-gray-600 mb-8">Upgrade to Premium to unlock unlimited listings and premium features.</p>
-      <%= link_to "Go Premium", new_seller_subscription_path, class: "inline-flex items-center gap-2 px-8 py-4 bg-seller-600 text-white rounded-lg font-medium hover:bg-seller-700 transition shadow-lg" %>
+      <h2 class="text-2xl font-bold text-gray-900 mb-3">Aucun Abonnement Actif</h2>
+      <p class="text-gray-600 mb-8">Passez au Premium pour débloquer des annonces illimitées et des fonctionnalités premium.</p>
+      <%= link_to "Passer au Premium", new_seller_subscription_path, class: "inline-flex items-center gap-2 px-8 py-4 bg-seller-600 text-white rounded-lg font-medium hover:bg-seller-700 transition shadow-lg" %>
     </div>
   <% end %>
 
   <div class="text-center">
     <%= link_to seller_root_path, class: "text-seller-600 hover:text-seller-700 font-medium" do %>
-      ← Back to Dashboard
+      ← Retour au Tableau de Bord
     <% end %>
   </div>
 </div>
