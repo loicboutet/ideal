@@ -1,0 +1,41 @@
+<div class="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+  <div class="max-w-md w-full">
+    <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+      <!-- Icon -->
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-6">
+        <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Crédits Insuffisants</h2>
+      
+      <!-- Message -->
+      <p class="text-gray-600 mb-6">
+        <%= yield :message %>
+      </p>
+
+      <!-- Credit Balance -->
+      <div class="bg-gray-50 rounded-lg p-4 mb-6">
+        <div class="text-sm text-gray-500 mb-1">Votre solde actuel</div>
+        <div class="text-3xl font-bold text-gray-900">
+          <%= current_user.credits_balance %>
+          <span class="text-lg text-gray-500">crédit<%= 's' if current_user.credits_balance != 1 %></span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="space-y-3">
+        <%= yield :actions %>
+      </div>
+
+      <!-- Help Text -->
+      <div class="mt-6 pt-6 border-t border-gray-200">
+        <p class="text-sm text-gray-500">
+          <%= yield :help_text %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

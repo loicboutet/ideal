@@ -1,9 +1,13 @@
 class Seller::ListingsController < ApplicationController
+  include SubscriptionGate
+  
   layout 'seller'
   
   before_action :authenticate_user!
   before_action :authorize_seller!
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :analytics, :push_to_buyer]
+  before_action :check_listing_limit, only: [:new, :create]
+  before_action :check_push_ability, only: [:push_to_buyer]
 
   def index
     @filter = params[:filter] || 'all'
@@ -129,13 +133,6 @@ class Seller::ListingsController < ApplicationController
     buyer_profile = BuyerProfile.find(params[:buyer_profile_id])
     seller_profile = current_user.seller_profile
     
-    # Check if seller has enough credits
-    unless seller_profile.credits >= 1
-      redirect_to seller_buyer_path(buyer_profile), 
-                  alert: 'Crédits insuffisants. Vous avez besoin de 1 crédit pour proposer une annonce.'
-      return
-    end
-    
     # Check if listing is approved
     unless @listing.validation_status == 'approved'
       redirect_to seller_buyer_path(buyer_profile), 
@@ -151,22 +148,19 @@ class Seller::ListingsController < ApplicationController
     )
     
     if listing_push.save
-      # Deduct credit with transaction tracking
-      if seller_profile.spend_credits(
-        1, 
-        :push_to_buyer, 
-        source: listing_push,
-        description: "Annonce poussée à #{buyer_profile.user.full_name}"
-      )
+      # Deduct credit using the credit service
+      begin
+        Payment::CreditService.deduct_push_credits(current_user, listing_push)
+        
         # Create notification for buyer
         create_push_notification(buyer_profile, @listing)
         
         redirect_to seller_buyer_path(buyer_profile), 
                     notice: "Annonce \"#{@listing.title}\" proposée à #{buyer_profile.user.first_name}. 1 crédit déduit."
-      else
+      rescue Payment::CreditService::InsufficientCreditsError => e
         listing_push.destroy
-        redirect_to seller_buyer_path(buyer_profile), 
-                    alert: 'Erreur lors de la déduction des crédits.'
+        redirect_to seller_credits_path, 
+                    alert: e.message
       end
     else
       redirect_to seller_buyer_path(buyer_profile), 
@@ -211,5 +205,34 @@ class Seller::ListingsController < ApplicationController
     )
   rescue => e
     Rails.logger.error "Failed to create push notification: #{e.message}"
+  end
+  
+  def check_listing_limit
+    # Premium sellers have unlimited listings
+    return if current_user.has_plan?(:premium)
+    
+    # Free sellers limited to 3 listings
+    current_count = current_user.seller_profile.listings.count
+    max_listings = current_user.feature_limit(:max_listings) || 3
+    
+    if current_count >= max_listings
+      redirect_to seller_listings_path,
+                  alert: "Vous avez atteint la limite de #{max_listings} annonces. Passez au forfait Premium pour des annonces illimitées."
+    end
+  end
+  
+  def check_push_ability
+    # Check if user can push (either has premium with quota or has credits)
+    unless current_user.can_push_listing?
+      if current_user.has_plan?(:premium)
+        # Premium user exceeded monthly quota
+        redirect_to seller_buyer_path(params[:buyer_profile_id]),
+                    alert: "Vous avez atteint votre quota mensuel de 5 mises en avant."
+      else
+        # Free user needs credits
+        redirect_to seller_credits_path,
+                    alert: "Vous avez besoin de 1 crédit pour proposer cette annonce."
+      end
+    end
   end
 end

@@ -51,6 +51,89 @@ class User < ApplicationRecord
     [first_name, last_name].compact.join(' ').presence || email
   end
   
+  # Subscription & Payment Methods
+  def current_subscription
+    @current_subscription ||= subscriptions.where(status: ['active', 'trialing'])
+                                          .order(created_at: :desc)
+                                          .first
+  end
+  
+  def subscription_active?
+    current_subscription.present? && 
+      ['active', 'trialing'].include?(current_subscription.status)
+  end
+  
+  def subscription_plan
+    return :free unless subscription_active?
+    current_subscription.plan_type.to_sym
+  end
+  
+  def has_plan?(plan_name)
+    subscription_plan == plan_name.to_sym
+  end
+  
+  def can_access_feature?(feature_name)
+    plan = subscription_plan
+    SubscriptionPlans.plan_has_feature?(role, plan, feature_name)
+  end
+  
+  def subscription_level
+    return 'free' unless subscription_active?
+    current_subscription.plan_type
+  end
+  
+  def feature_limit(feature_name)
+    plan = subscription_plan
+    SubscriptionPlans.plan_feature_limit(role, plan, feature_name)
+  end
+  
+  def within_limit?(feature_name, current_count)
+    limit = feature_limit(feature_name)
+    return true if limit.nil? || limit == 999 # Unlimited
+    return false if limit == 0
+    
+    current_count < limit
+  end
+  
+  # Credit Methods
+  def credits_balance
+    read_attribute(:credits_balance) || 0
+  end
+  
+  def has_sufficient_credits?(amount)
+    credits_balance >= amount
+  end
+  
+  def can_push_listing?
+    return true if seller? && has_plan?(:premium)
+    
+    # Check monthly quota for premium sellers
+    if seller? && has_plan?(:premium)
+      monthly_pushes = listing_pushes.where('created_at >= ?', Time.current.beginning_of_month).count
+      limit = feature_limit(:push_quota_per_month)
+      return monthly_pushes < limit if limit
+    end
+    
+    # Otherwise check credits
+    has_sufficient_credits?(1)
+  end
+  
+  def can_contact_partner?
+    # Free for first 6 months if premium seller
+    if seller? && has_plan?(:premium)
+      subscription_age_months = (Time.current - current_subscription.period_start) / 1.month
+      return true if subscription_age_months < 6
+    end
+    
+    # Otherwise requires 5 credits
+    has_sufficient_credits?(5)
+  end
+  
+  def listing_pushes
+    return ListingPush.none unless seller?
+    ListingPush.joins(:listing).where(listings: { user_id: id })
+  end
+  
   def profile
     case role
     when 'seller'

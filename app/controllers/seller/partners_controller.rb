@@ -1,6 +1,9 @@
 class Seller::PartnersController < ApplicationController
+  include SubscriptionGate
+  
   before_action :authenticate_user!
   before_action :require_seller!
+  before_action :check_partner_contact_ability, only: [:contact]
   layout 'seller'
 
   def index
@@ -38,28 +41,24 @@ class Seller::PartnersController < ApplicationController
   def contact
     @partner = PartnerProfile.approved.find(params[:id])
     
-    # Check access and deduct credits if needed
-    unless can_contact_partner?
-      redirect_to seller_partners_path, alert: "Vous devez avoir #{@credits_required} crédits pour contacter un partenaire."
-      return
-    end
-
-    # Deduct credits if not in free period
-    unless has_free_directory_access?
-      if current_user.seller_profile.credits >= 5
-        current_user.seller_profile.update!(credits: current_user.seller_profile.credits - 5)
-      else
-        redirect_to seller_partners_path, alert: "Crédits insuffisants. Il vous faut 5 crédits pour contacter un partenaire."
-        return
-      end
-    end
-
     # Create contact record
     contact = PartnerContact.create!(
       partner_profile: @partner,
       user: current_user,
       contact_type: :directory_contact
     )
+
+    # Deduct credits if not in free period (using credit service)
+    unless has_free_directory_access?
+      begin
+        Payment::CreditService.deduct_partner_contact_credits(current_user, contact)
+      rescue Payment::CreditService::InsufficientCreditsError => e
+        contact.destroy
+        redirect_to seller_credits_path, 
+                    alert: "Crédits insuffisants. Il vous faut 5 crédits pour contacter un partenaire."
+        return
+      end
+    end
 
     # Increment contact counter
     @partner.increment_contacts!
@@ -124,10 +123,14 @@ class Seller::PartnersController < ApplicationController
   end
 
   def can_contact_partner?
-    # Free access for first 6 months
-    return true if has_free_directory_access?
-    
-    # Otherwise requires 5 credits
-    current_user.seller_profile&.credits.to_i >= 5
+    # Use the User model method
+    current_user.can_contact_partner?
+  end
+  
+  def check_partner_contact_ability
+    unless can_contact_partner?
+      redirect_to seller_credits_path,
+                  alert: "Vous avez besoin de 5 crédits pour contacter un partenaire."
+    end
   end
 end
