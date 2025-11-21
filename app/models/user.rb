@@ -69,7 +69,14 @@ class User < ApplicationRecord
   end
   
   def unread_conversations_count
-    conversations.sum { |c| c.unread_count_for(self) }
+    # Force a fresh query to get accurate unread count
+    # Don't rely on potentially cached associations
+    Message.joins(conversation: :conversation_participants)
+           .where(conversation_participants: { user_id: id })
+           .where.not(sender_id: id)
+           .where(read: false)
+           .distinct
+           .count
   end
   
   private
