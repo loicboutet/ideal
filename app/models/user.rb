@@ -14,10 +14,9 @@ class User < ApplicationRecord
   has_one :partner_profile, dependent: :destroy
   
   has_many :nda_signatures, dependent: :destroy
-  has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
-  has_many :received_messages, class_name: 'Message', foreign_key: 'recipient_id', dependent: :destroy
   has_many :conversation_participants, dependent: :destroy
   has_many :conversations, through: :conversation_participants
+  has_many :messages, through: :conversations
   has_many :notifications, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
   has_many :activities, dependent: :nullify

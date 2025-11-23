@@ -44,7 +44,10 @@ module Admin
         @views_count = @user.partner_profile&.views_count || 0
       end
 
-      @messages_count = @user.sent_messages.count + @user.received_messages.count
+      @messages_count = Message.joins(conversation: :conversation_participants)
+                                .where(conversation_participants: { user_id: @user.id })
+                                .distinct
+                                .count
     end
 
     def new
