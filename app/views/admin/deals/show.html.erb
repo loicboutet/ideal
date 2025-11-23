@@ -1,0 +1,226 @@
+<div class="min-h-screen bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Flash Messages -->
+    <%= render 'shared/flash_messages' %>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center">
+        <div>
+          <div class="flex items-center gap-2 text-sm text-gray-500 mb-2">
+            <%= link_to "Affaires", admin_deals_path, class: "hover:text-purple-600" %>
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            <span>Détails</span>
+          </div>
+          <h1 class="text-3xl font-bold text-gray-900">Détails de l'affaire</h1>
+        </div>
+        <%= link_to assign_form_admin_deal_path(@deal), class: "inline-flex items-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" do %>
+          <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          Assigner à un repreneur
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Left Column - Deal & Listing Info -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Deal Status Card -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-lg font-semibold text-gray-900 mb-4">Statut de l'affaire</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Statut actuel</label>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                <%= @deal.status.humanize %>
+              </span>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Réservation</label>
+              <% if @deal.reserved %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                  Réservée
+                </span>
+              <% else %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                  Non réservée
+                </span>
+              <% end %>
+            </div>
+            <% if @deal.reserved_at %>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Réservée le</label>
+                <p class="text-sm text-gray-900"><%= l(@deal.reserved_at, format: :long) %></p>
+              </div>
+            <% end %>
+            <% if @deal.reserved_until %>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Réservée jusqu'au</label>
+                <p class="text-sm text-gray-900"><%= l(@deal.reserved_until, format: :long) %></p>
+              </div>
+            <% end %>
+            <% if @deal.released_at %>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Relâchée le</label>
+                <p class="text-sm text-gray-900"><%= l(@deal.released_at, format: :long) %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Listing Information -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-900">Annonce</h2>
+            <%= link_to "Voir l'annonce", admin_listing_path(@listing), class: "text-sm text-purple-600 hover:text-purple-700" %>
+          </div>
+          <div class="space-y-3">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Titre</label>
+              <p class="text-sm text-gray-900"><%= @listing.title %></p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Secteur</label>
+                <p class="text-sm text-gray-900"><%= @listing.industry_sector.humanize %></p>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Département</label>
+                <p class="text-sm text-gray-900"><%= @listing.location_department %></p>
+              </div>
+              <% if @listing.annual_revenue %>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Chiffre d'affaires</label>
+                  <p class="text-sm text-gray-900"><%= number_to_currency(@listing.annual_revenue, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
+                </div>
+              <% end %>
+              <% if @listing.employee_count %>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Employés</label>
+                  <p class="text-sm text-gray-900"><%= @listing.employee_count %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deal History -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-lg font-semibold text-gray-900 mb-4">Historique</h2>
+          <% if @deal_history.any? %>
+            <div class="space-y-4">
+              <% @deal_history.each do |event| %>
+                <div class="flex gap-3">
+                  <div class="flex-shrink-0">
+                    <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                      <svg class="w-4 h-4 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm text-gray-900">
+                      Changement de statut: <strong><%= event.from_status %></strong> → <strong><%= event.to_status %></strong>
+                    </p>
+                    <p class="text-xs text-gray-500"><%= l(event.created_at, format: :long) %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-sm text-gray-500">Aucun historique disponible</p>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Right Column - Buyer & Seller Info -->
+      <div class="space-y-6">
+        <!-- Buyer Information -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-900">Repreneur</h2>
+            <%= link_to "Voir le profil", admin_user_path(@buyer), class: "text-sm text-purple-600 hover:text-purple-700" %>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="flex-shrink-0">
+                <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold">
+                  <%= @buyer.first_name&.first&.upcase %><%= @buyer.last_name&.first&.upcase %>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-900"><%= @buyer.full_name %></p>
+                <p class="text-xs text-gray-500"><%= @buyer.email %></p>
+              </div>
+            </div>
+            <% if @buyer.phone %>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+                <p class="text-sm text-gray-900"><%= @buyer.phone %></p>
+              </div>
+            <% end %>
+            <% if @deal.buyer_profile.buyer_type %>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <p class="text-sm text-gray-900"><%= @deal.buyer_profile.buyer_type %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Seller Information -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-900">Vendeur</h2>
+            <%= link_to "Voir le profil", admin_user_path(@seller), class: "text-sm text-purple-600 hover:text-purple-700" %>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="flex-shrink-0">
+                <div class="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-semibold">
+                  <%= @seller.first_name&.first&.upcase %><%= @seller.last_name&.first&.upcase %>
+                </div>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-gray-900"><%= @seller.full_name %></p>
+                <p class="text-xs text-gray-500"><%= @seller.email %></p>
+              </div>
+            </div>
+            <% if @seller.phone %>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+                <p class="text-sm text-gray-900"><%= @seller.phone %></p>
+              </div>
+            <% end %>
+            <% if @seller.company_name %>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Entreprise</label>
+                <p class="text-sm text-gray-900"><%= @seller.company_name %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h2 class="text-lg font-semibold text-gray-900 mb-4">Actions rapides</h2>
+          <div class="space-y-2">
+            <%= link_to assign_form_admin_deal_path(@deal), class: "w-full flex items-center justify-center px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors" do %>
+              <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              Assigner à un repreneur
+            <% end %>
+            <%= link_to admin_deals_path, class: "w-full flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors" do %>
+              Retour à la liste
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
