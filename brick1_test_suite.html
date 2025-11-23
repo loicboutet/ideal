@@ -400,6 +400,65 @@
                     <td class="description">1. Trigger various notification types<br>2. Check in-app notification bell<br>3. Verify email sent<br>4. Test notification preferences<br>5. Check read/unread status<br>6. Verify real-time updates</td>
                     <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
                 </tr>
+
+                <!-- EMAIL NOTIFICATIONS -->
+                <tr><td colspan="6" style="background: #e3f2fd; font-weight: bold; padding: 8px;">EMAIL NOTIFICATIONS (Brick 1)</td></tr>
+                <tr>
+                    <td>39a</td>
+                    <td class="category">Email - New Deal Available</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Buyer receives email when new listing matches their profile criteria</td>
+                    <td class="description">1. Create buyer profile with criteria<br>2. Admin approves matching listing<br>3. Check buyer email inbox<br>4. Verify email received with listing details<br>5. Click link to view listing<br>6. Test email formatting (HTML + text)</td>
+                    <td>DONE</td>
+                </tr>
+                <tr>
+                    <td>39b</td>
+                    <td class="category">Email - Favorited Deal Available</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Buyer receives email when a favorited listing becomes available again</td>
+                    <td class="description">1. Buyer favorites a listing<br>2. Another buyer reserves it<br>3. That buyer releases it<br>4. Check buyer email inbox<br>5. Verify urgency in email<br>6. Click to reserve quickly</td>
+                    <td>DONE</td>
+                </tr>
+                <tr>
+                    <td>39c</td>
+                    <td class="category">Email - Reservation Expiring</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Buyer receives warning email when reservation timer is about to expire</td>
+                    <td class="description">1. Reserve a listing<br>2. Wait for expiry warning (24h or 1h before)<br>3. Check buyer email inbox<br>4. Verify time remaining shown<br>5. Verify red urgent styling<br>6. Click to manage reservation</td>
+                    <td>DONE</td>
+                </tr>
+                <tr>
+                    <td>39d</td>
+                    <td class="category">Email - Document Validation Request</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Seller receives email when buyer adds documents needing validation</td>
+                    <td class="description">1. Buyer adds enrichment document<br>2. Check seller email inbox<br>3. Verify document details shown<br>4. Verify buyer name included<br>5. Click to validate document<br>6. Test approval workflow</td>
+                    <td>DONE</td>
+                </tr>
+                <tr>
+                    <td>39e</td>
+                    <td class="category">Email - New Message Notification</td>
+                    <td class="url">N/A</td>
+                    <td class="description">User receives email when they get new internal message</td>
+                    <td class="description">1. User A sends message to User B<br>2. Check User B email inbox<br>3. Verify sender name shown<br>4. Verify message preview included<br>5. Click to view full conversation<br>6. Test across all roles</td>
+                    <td>DONE</td>
+                </tr>
+                <tr>
+                    <td>39f</td>
+                    <td class="category">Email - Listing Approved/Rejected</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Seller receives email when listing is validated by admin</td>
+                    <td class="description">1. Seller submits listing<br>2. Admin approves or rejects<br>3. Check seller email inbox<br>4. Verify validation status shown<br>5. For approval, check validated_at set<br>6. Test both approval and rejection emails</td>
+                    <td>DONE</td>
+                </tr>
+                <tr>
+                    <td>39g</td>
+                    <td class="category">Email - Admin Broadcast Messages</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Users receive admin broadcast messages and surveys</td>
+                    <td class="description">1. Admin creates broadcast message<br>2. Select target user group<br>3. Send message<br>4. Check users' email inboxes<br>5. Verify message content<br>6. Test survey invitations separately</td>
+                    <td>DONE</td>
+                </tr>
                 <tr>
                     <td>40</td>
                     <td class="category">Timer & Gauge System</td>
