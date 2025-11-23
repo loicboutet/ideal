@@ -19,11 +19,11 @@
     <%= form_with model: @message, url: admin_messages_path, class: "space-y-6" do |f| %>
       
       <!-- Message Type -->
-      <div>
+      <div data-controller="message-type">
         <label class="block text-sm font-medium text-gray-700 mb-2">Type de message</label>
         <div class="grid grid-cols-2 gap-4">
-          <label class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition <%= @message.message_type == 'broadcast' ? 'border-admin-600 bg-admin-50' : 'border-gray-200' %>">
-            <%= f.radio_button :message_type, 'broadcast', class: 'sr-only' %>
+          <label class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition <%= @message.message_type == 'broadcast' ? 'border-admin-600 bg-admin-50' : 'border-gray-200' %>" data-message-type-target="option" data-action="click->message-type#select">
+            <%= f.radio_button :message_type, 'broadcast', class: 'sr-only', data: { action: "change->message-type#select" } %>
             <div class="flex-1">
               <div class="flex items-center gap-3">
                 <svg class="w-6 h-6 text-admin-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,8 +37,8 @@
             </div>
           </label>
 
-          <label class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition <%= @message.message_type == 'survey' ? 'border-admin-600 bg-admin-50' : 'border-gray-200' %>">
-            <%= f.radio_button :message_type, 'survey', class: 'sr-only' %>
+          <label class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition <%= @message.message_type == 'survey' ? 'border-admin-600 bg-admin-50' : 'border-gray-200' %>" data-message-type-target="option" data-action="click->message-type#select">
+            <%= f.radio_button :message_type, 'survey', class: 'sr-only', data: { action: "change->message-type#select" } %>
             <div class="flex-1">
               <div class="flex items-center gap-3">
                 <svg class="w-6 h-6 text-admin-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

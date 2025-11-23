@@ -6,7 +6,7 @@ class Seller::ListingsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_seller!
   before_action :set_listing, only: [:show, :edit, :update, :destroy, :analytics, :push_to_buyer]
-  before_action :check_listing_limit, only: [:new, :create]
+  before_action :check_listing_limit, only: [:create]
   before_action :check_push_ability, only: [:push_to_buyer]
 
   def index
@@ -50,6 +50,11 @@ class Seller::ListingsController < ApplicationController
 
   def new
     @listing = current_user.seller_profile.listings.build
+    
+    # Check if user is at listing limit and set a flag for the view
+    current_count = current_user.seller_profile.listings.count
+    max_listings = current_user.feature_limit(:max_listings) || 3
+    @at_listing_limit = !current_user.has_plan?(:premium) && current_count >= max_listings
   end
 
   def create
