@@ -18,7 +18,15 @@ class Message < ApplicationRecord
   private
   
   def send_notification
-    # Send email notification to recipient
+    # Send email notification to all conversation participants except sender
+    recipients = conversation.conversation_participants
+                            .where.not(user_id: sender_id)
+                            .includes(:user)
+                            .map(&:user)
+    
+    recipients.each do |recipient|
+      MessageMailer.new_message_notification(self, recipient).deliver_later
+    end
   end
   
   def broadcast_message

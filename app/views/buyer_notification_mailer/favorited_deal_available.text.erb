@@ -1,0 +1,28 @@
+Bonne nouvelle !
+===============
+
+Une annonce que vous avez mise en favoris est à nouveau disponible !
+
+<%= @listing.title %>
+
+Détails :
+---------
+Secteur : <%= @listing.industry_sector&.humanize %>
+<% if @listing.location_department.present? %>
+Localisation : <%= @listing.location_department %>
+<% end %>
+<% if @listing.annual_revenue.present? %>
+Chiffre d'affaires : <%= number_to_currency(@listing.annual_revenue, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+<% end %>
+<% if @listing.asking_price.present? %>
+Prix demandé : <%= number_to_currency(@listing.asking_price, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+<% end %>
+
+Ne manquez pas cette opportunité ! Réservez-la dès maintenant.
+
+Voir l'annonce et réserver :
+<%= @listing_url %>
+
+---
+Vous recevez cet email car vous aviez ajouté cette annonce à vos favoris sur Idéal Reprise.
+Connectez-vous rapidement pour saisir cette opportunité avant qu'un autre repreneur ne la réserve.

@@ -1,0 +1,26 @@
+Nouvelle opportunité correspondant à vos critères
+==================================================
+
+Cette annonce correspond à votre profil d'investissement !
+
+<%= @listing.title %>
+
+Détails :
+---------
+Secteur : <%= @listing.industry_sector&.humanize %>
+<% if @listing.location_department.present? %>
+Localisation : <%= @listing.location_department %>
+<% end %>
+<% if @listing.annual_revenue.present? %>
+Chiffre d'affaires : <%= number_to_currency(@listing.annual_revenue, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+<% end %>
+<% if @listing.asking_price.present? %>
+Prix demandé : <%= number_to_currency(@listing.asking_price, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+<% end %>
+
+Voir l'annonce complète :
+<%= @listing_url %>
+
+---
+Vous recevez cet email car cette opportunité correspond à vos critères de recherche sur Idéal Reprise.
+Connectez-vous pour consulter tous les détails et réserver cette opportunité.
