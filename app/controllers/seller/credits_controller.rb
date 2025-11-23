@@ -18,7 +18,13 @@ module Seller
       @credit_pack = CreditPack.find(params[:pack_id])
       
       begin
-        # Create Stripe checkout session
+        # Build success URL manually to avoid URL encoding the Stripe placeholder
+        base_success_url = success_seller_credits_url(host: request.host_with_port, protocol: request.protocol.sub('://', ''))
+        # Remove any existing query params and add the placeholder manually
+        success_url = "#{base_success_url.split('?').first}?session_id={CHECKOUT_SESSION_ID}"
+        cancel_url = seller_credits_url(host: request.host_with_port, protocol: request.protocol.sub('://', ''))
+        
+        # Create Stripe checkout session with absolute URLs
         session = Stripe::Checkout::Session.create(
           customer: get_or_create_stripe_customer,
           client_reference_id: current_user.id.to_s,
@@ -35,8 +41,8 @@ module Seller
             quantity: 1
           }],
           mode: 'payment',
-          success_url: success_seller_credits_url(session_id: '{CHECKOUT_SESSION_ID}'),
-          cancel_url: seller_credits_url,
+          success_url: success_url,
+          cancel_url: cancel_url,
           metadata: {
             user_id: current_user.id,
             credit_pack_id: @credit_pack.id,
@@ -44,6 +50,9 @@ module Seller
             transaction_type: 'credit_purchase'
           }
         )
+        
+        Rails.logger.info "Created Stripe checkout session #{session.id} for seller #{current_user.id}"
+        Rails.logger.info "Success URL sent to Stripe: #{success_url}"
         
         redirect_to session.url, allow_other_host: true
       rescue Stripe::StripeError => e
@@ -56,8 +65,11 @@ module Seller
       # Check if we have a valid session_id (not the placeholder)
       session_id = params[:session_id]
       
+      Rails.logger.info "Seller credit success page accessed - User: #{current_user.id}, Session ID: #{session_id.inspect}, Full params: #{params.inspect}"
+      
       if session_id.blank? || session_id.include?('CHECKOUT_SESSION_ID')
         # Invalid or placeholder session_id - likely accessed directly
+        Rails.logger.warn "Invalid session_id for seller #{current_user.id}: #{session_id.inspect}"
         redirect_to seller_credits_path, alert: "Session invalide. Veuillez effectuer un nouvel achat."
         return
       end
@@ -68,7 +80,7 @@ module Seller
       @current_balance = Payment::CreditService.get_balance(current_user)
       
       # Log the session_id for debugging
-      Rails.logger.info "Credit purchase success page accessed by user #{current_user.id}, session: #{session_id}"
+      Rails.logger.info "Credit purchase success page confirmed for user #{current_user.id}, session: #{session_id}"
     end
     
     private
