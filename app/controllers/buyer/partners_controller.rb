@@ -52,7 +52,7 @@ class Buyer::PartnersController < ApplicationController
     # Create notification for partner
     Notification.create!(
       user: @partner.user,
-      notification_type: :partner_contacted,
+      notification_type: :buyer_interested,
       title: "Nouveau contact",
       message: "#{current_user.full_name} souhaite vous contacter",
       link_url: partner_profile_path

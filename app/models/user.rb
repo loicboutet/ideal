@@ -36,7 +36,7 @@ class User < ApplicationRecord
   after_create :create_profile
   
   # Virtual attributes for registration
-  attr_accessor :buyer_type, :company_name, :partner_type
+  attr_accessor :buyer_type, :partner_type
   
   # Scopes
   scope :admins, -> { where(role: :admin) }
