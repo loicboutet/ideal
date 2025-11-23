@@ -249,7 +249,7 @@
             </div>
           <% end %>
 
-          <%= link_to push_to_buyer_seller_listing_path(@listing), method: :post, class: "flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition" do %>
+          <%= link_to seller_buyers_path(listing_id: @listing.id), class: "flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition" do %>
             <svg class="w-5 h-5 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>

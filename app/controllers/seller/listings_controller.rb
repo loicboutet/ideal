@@ -145,7 +145,7 @@ class Seller::ListingsController < ApplicationController
       return
     end
     
-    # Try to create the push
+    # Try to create the push (credit deduction handled by model callback)
     listing_push = ListingPush.new(
       listing: @listing,
       buyer_profile: buyer_profile,
@@ -153,20 +153,11 @@ class Seller::ListingsController < ApplicationController
     )
     
     if listing_push.save
-      # Deduct credit using the credit service
-      begin
-        Payment::CreditService.deduct_push_credits(current_user, listing_push)
-        
-        # Create notification for buyer
-        create_push_notification(buyer_profile, @listing)
-        
-        redirect_to seller_buyer_path(buyer_profile), 
-                    notice: "Annonce \"#{@listing.title}\" proposée à #{buyer_profile.user.first_name}. 1 crédit déduit."
-      rescue Payment::CreditService::InsufficientCreditsError => e
-        listing_push.destroy
-        redirect_to seller_credits_path, 
-                    alert: e.message
-      end
+      # Create notification for buyer
+      create_push_notification(buyer_profile, @listing)
+      
+      redirect_to seller_buyer_path(buyer_profile), 
+                  notice: "Annonce \"#{@listing.title}\" proposée à #{buyer_profile.user.first_name}. 1 crédit déduit."
     else
       redirect_to seller_buyer_path(buyer_profile), 
                   alert: listing_push.errors.full_messages.first || 'Une erreur est survenue.'
