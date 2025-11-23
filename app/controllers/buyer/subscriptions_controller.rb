@@ -96,9 +96,10 @@ class Buyer::SubscriptionsController < ApplicationController
   end
   
   # DELETE /buyer/subscription
-  # Cancel subscription
+  # Cancel subscription (always immediate)
   def destroy
-    immediate = params[:immediate] == 'true'
+    # Always cancel immediately
+    immediate = true
     
     # Cancel in Stripe first
     stripe_result = Payment::StripeService.cancel_stripe_subscription(@subscription, immediate: immediate)
@@ -108,11 +109,7 @@ class Buyer::SubscriptionsController < ApplicationController
       result = Payment::SubscriptionService.cancel_subscription(@subscription, immediate: immediate)
       
       if result[:success]
-        if immediate
-          redirect_to buyer_subscription_path, notice: 'Your subscription has been cancelled immediately.'
-        else
-          redirect_to buyer_subscription_path, notice: 'Your subscription will be cancelled at the end of the current billing period.'
-        end
+        redirect_to buyer_subscription_path, notice: 'Your subscription has been cancelled immediately.'
       else
         redirect_to buyer_subscription_path, alert: "Unable to cancel subscription: #{result[:error]}"
       end

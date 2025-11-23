@@ -192,9 +192,12 @@ module Payment
         # Create or update subscription
         subscription = user.subscriptions.find_or_initialize_by(stripe_subscription_id: stripe_subscription_id)
         
+        # Map Stripe status to our enum values (Stripe uses 'canceled', we use 'cancelled')
+        mapped_status = map_stripe_status_to_enum(stripe_subscription.status)
+        
         subscription.assign_attributes(
           plan_type: plan_type,
-          status: stripe_subscription.status,
+          status: mapped_status,
           amount: plan_config[:price_cents],
           profile: profile,
           period_start: Time.at(stripe_subscription.current_period_start),
@@ -203,7 +206,7 @@ module Payment
         )
         
         if subscription.save
-          Rails.logger.info "Subscription activated: #{subscription.id} for user #{user.id}"
+          Rails.logger.info "Subscription activated: #{subscription.id} for user #{user.id} with status #{mapped_status}"
           { success: true, subscription: subscription }
         else
           Rails.logger.error "Failed to activate subscription: #{subscription.errors.full_messages.join(', ')}"
@@ -298,6 +301,23 @@ module Payment
         }
         
         price_mapping[price_id]
+      end
+      
+      # Map Stripe status values to our database enum values
+      # Stripe uses 'canceled' (one L), we use 'cancelled' (two L's)
+      def map_stripe_status_to_enum(stripe_status)
+        case stripe_status
+        when 'canceled'
+          'cancelled'
+        when 'active', 'trialing'
+          'active'
+        when 'past_due', 'unpaid'
+          'failed'
+        when 'incomplete', 'incomplete_expired'
+          'pending'
+        else
+          stripe_status
+        end
       end
     end
   end

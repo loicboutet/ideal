@@ -137,14 +137,19 @@ class WebhooksController < ApplicationController
 
   def handle_subscription_updated(subscription)
     Rails.logger.info "Processing customer.subscription.updated: #{subscription['id']}"
+    Rails.logger.info "Stripe data: status=#{subscription['status']}, cancel_at_period_end=#{subscription['cancel_at_period_end']}"
     
     user = User.find_by(stripe_customer_id: subscription['customer'])
-    return unless user
+    unless user
+      Rails.logger.error "User not found for customer: #{subscription['customer']}"
+      return
+    end
 
     # Find or create subscription
     user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
     
     unless user_subscription
+      Rails.logger.info "Subscription not found, creating new one..."
       # Subscription doesn't exist, create it using the service
       result = Payment::SubscriptionService.activate_subscription(
         user: user,
@@ -156,13 +161,29 @@ class WebhooksController < ApplicationController
       user_subscription = result[:subscription]
     end
 
+    Rails.logger.info "Found subscription ID #{user_subscription.id} - current values: status=#{user_subscription.status}, cancel_at_period_end=#{user_subscription.cancel_at_period_end}"
+
+    # Map Stripe status to our enum values
+    mapped_status = map_stripe_status_to_enum(subscription['status'])
+    
+    Rails.logger.info "Mapped status: #{subscription['status']} -> #{mapped_status}"
+
     # Update subscription details
-    user_subscription.update!(
-      status: subscription['status'],
+    update_result = user_subscription.update(
+      status: mapped_status,
       period_start: Time.at(subscription['current_period_start']),
       period_end: Time.at(subscription['current_period_end']),
       cancel_at_period_end: subscription['cancel_at_period_end']
     )
+    
+    if update_result
+      user_subscription.reload
+      Rails.logger.info "Subscription #{subscription['id']} SAVED successfully"
+      Rails.logger.info "New values in DB: status=#{user_subscription.status}, cancel_at_period_end=#{user_subscription.cancel_at_period_end}"
+    else
+      Rails.logger.error "Subscription #{subscription['id']} FAILED to save!"
+      Rails.logger.error "Validation errors: #{user_subscription.errors.full_messages.join(', ')}"
+    end
   rescue => e
     Rails.logger.error "Error processing subscription.updated: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
@@ -177,15 +198,16 @@ class WebhooksController < ApplicationController
     user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
     return unless user_subscription
 
-    # Mark subscription as canceled
+    # Mark subscription as cancelled (using our enum spelling)
     user_subscription.update!(
-      status: 'canceled',
+      status: 'cancelled',
       ends_at: Time.at(subscription['ended_at'] || Time.now.to_i)
     )
 
-    Rails.logger.info "Subscription canceled for user #{user.id}"
+    Rails.logger.info "Subscription cancelled for user #{user.id}"
   rescue => e
     Rails.logger.error "Error processing subscription.deleted: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
   end
 
   def handle_invoice_payment_succeeded(invoice)
@@ -336,5 +358,22 @@ class WebhooksController < ApplicationController
   rescue => e
     Rails.logger.error "Error processing invoice_payment.paid: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
+  end
+
+  # Map Stripe status values to our database enum values
+  # Stripe uses 'canceled' (one L), we use 'cancelled' (two L's)
+  def map_stripe_status_to_enum(stripe_status)
+    case stripe_status
+    when 'canceled'
+      'cancelled'
+    when 'active', 'trialing'
+      'active'
+    when 'past_due', 'unpaid'
+      'failed'
+    when 'incomplete', 'incomplete_expired'
+      'pending'
+    else
+      stripe_status
+    end
   end
 end
