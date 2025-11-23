@@ -96,7 +96,14 @@ class User < ApplicationRecord
   
   # Credit Methods
   def credits_balance
-    read_attribute(:credits_balance) || 0
+    case role
+    when 'seller'
+      seller_profile&.credits || 0
+    when 'buyer'
+      buyer_profile&.credits || 0
+    else
+      0
+    end
   end
   
   def has_sufficient_credits?(amount)

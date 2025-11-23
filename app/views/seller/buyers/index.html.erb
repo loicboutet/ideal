@@ -1,12 +1,26 @@
 <% content_for :title, "Annuaire Repreneurs - Cédant - Idéal Reprise" %>
 <% content_for :page_title, "Annuaire des Repreneurs" %>
 
+<% if params[:listing_id].present? %>
+  <% @listing = current_user.seller_profile.listings.find_by(id: params[:listing_id]) %>
+<% end %>
+
 <div class="space-y-6">
   <!-- Page Header -->
   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
     <div>
       <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Annuaire des Repreneurs</h1>
-      <p class="text-gray-600 mt-1">Trouvez des repreneurs correspondant à vos annonces</p>
+      <% if @listing %>
+        <p class="text-gray-600 mt-1">Sélectionnez un repreneur pour pousser l'annonce : <strong><%= @listing.title %></strong></p>
+        <%= link_to seller_listing_path(@listing), class: "inline-flex items-center gap-1 text-sm text-seller-600 hover:text-seller-700 mt-1" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Retour à l'annonce
+        <% end %>
+      <% else %>
+        <p class="text-gray-600 mt-1">Trouvez des repreneurs correspondant à vos annonces</p>
+      <% end %>
     </div>
   </div>
 
@@ -133,9 +147,17 @@
               <%= link_to seller_buyer_path(buyer_profile), class: "flex-1 px-3 py-2 text-sm text-center border border-gray-300 rounded-lg hover:bg-gray-50 transition" do %>
                 Voir le profil
               <% end %>
-              <%= link_to "#", class: "flex-1 px-3 py-2 text-sm text-center bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition", 
-                  data: { buyer_id: buyer_profile.id } do %>
-                Pousser (1 ⭐)
+              <% if @listing %>
+                <%= button_to push_to_buyer_seller_listing_path(@listing, buyer_profile_id: buyer_profile.id), 
+                    method: :post,
+                    data: { turbo_confirm: "Confirmer l'envoi de l'annonce \"#{@listing.title}\" à #{user.first_name} ? (Coût : 1 crédit)" },
+                    class: "flex-1 px-3 py-2 text-sm text-center bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" do %>
+                  Pousser (1 ⭐)
+                <% end %>
+              <% else %>
+                <%= link_to seller_listings_path, class: "flex-1 px-3 py-2 text-sm text-center bg-gray-300 text-gray-600 rounded-lg cursor-not-allowed", title: "Sélectionnez d'abord une annonce" do %>
+                  Pousser (1 ⭐)
+                <% end %>
               <% end %>
             </div>
           </div>
