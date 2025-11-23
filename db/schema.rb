@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_21_114904) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_23_071905) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -429,6 +429,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_21_114904) do
     t.string "stripe_customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "validated_at"
+    t.text "rejection_reason"
     t.index ["coverage_area"], name: "index_partner_profiles_on_coverage_area"
     t.index ["partner_type"], name: "index_partner_profiles_on_partner_type"
     t.index ["stripe_customer_id"], name: "index_partner_profiles_on_stripe_customer_id"
