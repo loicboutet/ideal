@@ -54,32 +54,45 @@ module Admin
     end
 
     def assign_exclusive
-      buyer_profile = BuyerProfile.find(params[:buyer_profile_id])
+      new_buyer_profile = BuyerProfile.find(params[:buyer_profile_id])
       
-      # Create or find existing deal for this buyer and listing
-      deal = Deal.find_or_initialize_by(
-        buyer_profile: buyer_profile,
-        listing: @deal.listing
-      )
-      
-      if deal.new_record?
-        deal.status = :to_contact
-        deal.reserved = true
-        deal.reserved_at = Time.current
-        deal.reserved_until = 7.days.from_now
+      # Check if reassigning to the same buyer
+      if @deal.buyer_profile_id == new_buyer_profile.id
+        redirect_to admin_deal_path(@deal), alert: "L'affaire est déjà assignée à ce repreneur."
+        return
       end
       
-      if deal.save
-        # Create notification for buyer
+      # Check if the new buyer already has a deal for this listing
+      existing_deal = Deal.find_by(
+        buyer_profile: new_buyer_profile,
+        listing: @deal.listing,
+        released_at: nil
+      )
+      
+      if existing_deal && existing_deal.id != @deal.id
+        redirect_to assign_form_admin_deal_path(@deal), 
+                    alert: "Ce repreneur a déjà une affaire active pour cette annonce (Deal ##{existing_deal.id})."
+        return
+      end
+      
+      # Update the existing deal with the new buyer
+      if @deal.update(
+        buyer_profile: new_buyer_profile,
+        status: :to_contact,
+        reserved: true,
+        reserved_at: Time.current,
+        reserved_until: 7.days.from_now
+      )
+        # Create notification for new buyer
         Notification.create!(
-          user: buyer_profile.user,
+          user: new_buyer_profile.user,
           notification_type: :exclusive_deal_assigned,
           title: "Affaire exclusive assignée",
           message: "Une affaire exclusive vous a été assignée par l'administrateur: #{@deal.listing.title}",
-          link_url: "/buyer/deals/#{deal.id}"
+          link_url: "/buyer/deals/#{@deal.id}"
         )
         
-        redirect_to admin_deal_path(@deal), notice: "Affaire assignée avec succès à #{buyer_profile.user.full_name}."
+        redirect_to admin_deal_path(@deal), notice: "Affaire réassignée avec succès à #{new_buyer_profile.user.full_name}."
       else
         redirect_to assign_form_admin_deal_path(@deal), alert: "Erreur lors de l'assignation de l'affaire."
       end
