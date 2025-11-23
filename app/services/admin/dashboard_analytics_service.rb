@@ -117,7 +117,7 @@ module Admin
       }
     end
     
-    private
+  
     
     def default_satisfaction_metrics
       {
@@ -222,41 +222,6 @@ module Admin
       end
       
       result.reverse
-    end
-
-    # Analytics Dashboard Methods
-
-    # Average time spent in each CRM status with max limits
-    def average_time_by_crm_status
-      statuses = {
-        'favorites' => { max: nil, unit: 'jours' },
-        'to_contact' => { max: 7, unit: 'jours' },
-        'info_exchange' => { max: 33, unit: 'jours' },
-        'analysis' => { max: 33, unit: 'jours' },
-        'project_alignment' => { max: 33, unit: 'jours' },
-        'negotiation' => { max: 20, unit: 'jours' },
-        'loi' => { max: nil, unit: 'jours' },
-        'audits' => { max: nil, unit: 'jours' },
-        'financing' => { max: nil, unit: 'jours' },
-        'deal_signed' => { max: nil, unit: 'jours' }
-      }
-
-      statuses.map do |status, config|
-        deals = Deal.where(status: status).where.not(stage_entered_at: nil)
-        
-        avg_days = if deals.any?
-                     deals.average(:time_in_stage).to_f / 86400 # Convert seconds to days
-                   else
-                     0
-                   end
-
-        {
-          name: I18n.t("deal.statuses.#{status}", default: status.humanize),
-          avg: avg_days.round(1),
-          max: config[:max],
-          unit: config[:unit]
-        }
-      end
     end
 
     # Listings breakdown by sector with evolution
@@ -531,6 +496,41 @@ module Admin
       end
 
       result
+    end
+
+    # Analytics Dashboard Methods
+
+    # Average time spent in each CRM status with max limits
+    def average_time_by_crm_status
+      statuses = {
+        'favorites' => { max: nil, unit: 'jours' },
+        'to_contact' => { max: 7, unit: 'jours' },
+        'info_exchange' => { max: 33, unit: 'jours' },
+        'analysis' => { max: 33, unit: 'jours' },
+        'project_alignment' => { max: 33, unit: 'jours' },
+        'negotiation' => { max: 20, unit: 'jours' },
+        'loi' => { max: nil, unit: 'jours' },
+        'audits' => { max: nil, unit: 'jours' },
+        'financing' => { max: nil, unit: 'jours' },
+        'deal_signed' => { max: nil, unit: 'jours' }
+      }
+
+      statuses.map do |status, config|
+        deals = Deal.where(status: status).where.not(stage_entered_at: nil)
+        
+        avg_days = if deals.any?
+                     deals.average(:time_in_stage).to_f / 86400 # Convert seconds to days
+                   else
+                     0
+                   end
+
+        {
+          name: I18n.t("deal.statuses.#{status}", default: status.humanize),
+          avg: avg_days.round(1),
+          max: config[:max],
+          unit: config[:unit]
+        }
+      end
     end
 
     private
