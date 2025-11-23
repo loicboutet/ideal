@@ -5,6 +5,20 @@ export default class extends Controller {
 
   connect() {
     this.initializeDragAndDrop()
+    
+    // Re-initialize draggable cards after Turbo Stream updates
+    this.turboRenderHandler = this.handleTurboRender.bind(this)
+    document.addEventListener('turbo:render', this.turboRenderHandler)
+  }
+
+  disconnect() {
+    // Clean up event listener to prevent memory leaks
+    document.removeEventListener('turbo:render', this.turboRenderHandler)
+  }
+
+  handleTurboRender() {
+    // Re-attach drag listeners to all cards after DOM updates
+    this.updateDraggableCards()
   }
 
   initializeDragAndDrop() {
