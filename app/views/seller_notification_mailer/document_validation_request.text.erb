@@ -1,0 +1,27 @@
+Nouveau document à valider
+============================
+
+Un repreneur a enrichi votre annonce avec un nouveau document !
+
+Annonce concernée :
+<%= @listing.title %>
+
+Détails :
+---------
+Ajouté par : <%= @buyer.full_name %>
+Catégorie : <%= @enrichment.document_category&.humanize %>
+<% if @enrichment.notes.present? %>
+
+Notes :
+<%= @enrichment.notes %>
+<% end %>
+
+💡 IMPORTANT : 
+Vous devez valider ce document avant qu'il ne soit visible et que le repreneur puisse gagner des crédits lors de la libération de l'annonce.
+
+Voir et valider le document :
+<%= @listing_url %>
+
+---
+La validation des documents enrichis par les repreneurs améliore la qualité de votre annonce et facilite le processus de transaction.
+Connectez-vous pour examiner et valider ce nouveau document.
