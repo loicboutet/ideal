@@ -255,11 +255,11 @@ module Payment
       def get_profile_for_user(user)
         case user.role.to_sym
         when :buyer
-          user.buyer_profile
+          user.buyer_profile || user.create_buyer_profile!
         when :seller
-          user.seller_profile
+          user.seller_profile || user.create_seller_profile!
         when :partner
-          user.partner_profile
+          user.partner_profile || user.create_partner_profile!
         else
           nil
         end
