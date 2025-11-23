@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brick 1 Test Suite - Idéal Reprise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #366092;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th {
+            background: #366092;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+        tr:hover {
+            background: #f9f9f9;
+        }
+        .category {
+            font-weight: bold;
+            color: #366092;
+        }
+        .feature {
+            color: #333;
+        }
+        .url {
+            color: #0066cc;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .description {
+            color: #666;
+            line-height: 1.6;
+        }
+        select {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        select.pending { background: #f8f9fa; }
+        select.done { background: #d4edda; color: #155724; }
+        select.failed { background: #f8d7da; color: #721c24; }
+        select.not-developed { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Brick 1 Test Suite - Idéal Reprise</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25%">Feature</th>
+                    <th style="width: 20%">URL</th>
+                    <th style="width: 40%">Description</th>
+                    <th style="width: 15%">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ADMIN FEATURES -->
+                <tr>
+                    <td class="category">Admin - Create User Accounts</td>
+                    <td class="url">/admin/users</td>
+                    <td class="description">Create and manage accounts for sellers (with listings), buyers, and partners</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Validate Listings</td>
+                    <td class="url">/admin/listings</td>
+                    <td class="description">Manually validate seller listings and attribute deals during validation</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Validate Partners</td>
+                    <td class="url">/admin/partners</td>
+                    <td class="description">Validate partner profiles for directory</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Bulk Import Leads</td>
+                    <td class="url">/admin/leads/import</td>
+                    <td class="description">Import 800+ existing contacts via Excel</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Assign Exclusive Deals</td>
+                    <td class="url">/admin/deals</td>
+                    <td class="description">Assign specific deals to buyers</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Operations Dashboard</td>
+                    <td class="url">/admin/dashboard</td>
+                    <td class="description">4 alert KPIs, charts for deals by status, growth metrics, user distribution</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Analytics Dashboard</td>
+                    <td class="url">/admin/analytics</td>
+                    <td class="description">Time per CRM status, listings/reservations by sector, revenue, geography</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Platform Settings</td>
+                    <td class="url">/admin/settings</td>
+                    <td class="description">Update pricing texts, adjust pipeline timers (7, 33, 20 days)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Admin - Send Messages</td>
+                    <td class="url">/admin/messages</td>
+                    <td class="description">Send messages/surveys to users</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+
+                <!-- SELLER FEATURES -->
+                <tr><td colspan="4" style="background: #f8f9fa; font-weight: bold; padding: 8px;">SELLER FEATURES</td></tr>
+                <tr>
+                    <td class="category">Seller - Free Registration</td>
+                    <td class="url">/users/sign_up</td>
+                    <td class="description">Register as seller with basic information</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Create Business Listing</td>
+                    <td class="url">/seller/listings/new</td>
+                    <td class="description">Create listing with public data (generic type, department, sector, revenue, employees) and confidential data (name, location, website)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Upload Documents</td>
+                    <td class="url">/seller/listings/:id/documents</td>
+                    <td class="description">Upload documents in 11 categories (balance sheets, tax returns, etc.)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - View Performance</td>
+                    <td class="url">/seller/listings/:id</td>
+                    <td class="description">Track views, interested buyers, CRM stages, favorites</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Browse Buyer Directory</td>
+                    <td class="url">/seller/buyers</td>
+                    <td class="description">View buyer profiles with formation, experience, investment thesis</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Push Listing to Buyer</td>
+                    <td class="url">/seller/listings/:id/push</td>
+                    <td class="description">Push listing to specific buyer (1 credit)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Buy Credits</td>
+                    <td class="url">/seller/credits</td>
+                    <td class="description">Purchase credit packs via Stripe</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Premium Package</td>
+                    <td class="url">/seller/subscriptions</td>
+                    <td class="description">Subscribe to premium (unlimited listings, priority support, partner access)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Validate Enrichments</td>
+                    <td class="url">/seller/listings/:id/enrichments</td>
+                    <td class="description">Approve/reject documents added by buyers</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Seller - Messaging</td>
+                    <td class="url">/conversations</td>
+                    <td class="description">Internal messaging with buyers (async, email notifications)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+
+                <!-- BUYER FEATURES -->
+                <tr><td colspan="4" style="background: #f8f9fa; font-weight: bold; padding: 8px;">BUYER FEATURES</td></tr>
+                <tr>
+                    <td class="category">Buyer - Registration with Profile</td>
+                    <td class="url">/users/sign_up</td>
+                    <td class="description">Register with public/private profile (type, formation, thesis, target criteria)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Browse Listings</td>
+                    <td class="url">/buyer/listings</td>
+                    <td class="description">Browse with advanced filters (sector, revenue, location, deal type)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Sign Platform NDA</td>
+                    <td class="url">/buyer/nda</td>
+                    <td class="description">Sign mandatory NDA before accessing confidential data</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Subscribe to Plan</td>
+                    <td class="url">/buyer/subscriptions</td>
+                    <td class="description">Choose plan: Free, €89, €199, €249/month, €1200/year</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Buy Credits</td>
+                    <td class="url">/buyer/credits</td>
+                    <td class="description">Purchase credit packs</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Favorite Listings</td>
+                    <td class="url">/buyer/listings/:id</td>
+                    <td class="description">Add listings to favorites (CRM stage 1)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Reserve Listing</td>
+                    <td class="url">/buyer/listings/:id/reserve</td>
+                    <td class="description">Reserve with automatic timer (7 days To Contact)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - CRM Pipeline (10 Stages)</td>
+                    <td class="url">/buyer/deals</td>
+                    <td class="description">Manage deals through 10-stage pipeline with drag & drop, timers, gauges</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Enrich Listings</td>
+                    <td class="url">/buyer/deals/:id/enrich</td>
+                    <td class="description">Add documents to listings (seller validates, earn credits)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Release Listings</td>
+                    <td class="url">/buyer/deals/:id/release</td>
+                    <td class="description">Release listing (+1 credit + 1 per document)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Partner Directory</td>
+                    <td class="url">/buyer/partners</td>
+                    <td class="description">Access partner directory (free for subscribers)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Buyer - Messaging</td>
+                    <td class="url">/conversations</td>
+                    <td class="description">Message sellers after reservation</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+
+                <!-- PARTNER FEATURES -->
+                <tr><td colspan="4" style="background: #f8f9fa; font-weight: bold; padding: 8px;">PARTNER FEATURES</td></tr>
+                <tr>
+                    <td class="category">Partner - Registration</td>
+                    <td class="url">/users/sign_up</td>
+                    <td class="description">Register with profile (company, services, coverage, specialization)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Partner - Profile Management</td>
+                    <td class="url">/partner/profile</td>
+                    <td class="description">Edit profile, track views and contacts</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Partner - Directory Subscription</td>
+                    <td class="url">/partner/subscriptions</td>
+                    <td class="description">Pay annual directory subscription</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+
+                <!-- CORE SYSTEM FEATURES -->
+                <tr><td colspan="4" style="background: #f8f9fa; font-weight: bold; padding: 8px;">CORE SYSTEM FEATURES</td></tr>
+                <tr>
+                    <td class="category">Authentication & Authorization</td>
+                    <td class="url">/users/sign_in</td>
+                    <td class="description">Multi-profile system with role-based access (Admin, Seller, Buyer, Partner)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Payment System (Stripe)</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Integrated Stripe for subscriptions and credit packs</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Document System (11 Categories)</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Balance sheets, org chart, tax returns, lease, property, scorecard, other</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">NDA System</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Electronic NDA signing with IP tracking and proof</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Notification System</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Email + in-app notifications for deals, validations, messages, timers</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Timer & Gauge System</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Stage-specific timers with visual gauges (7, 33, 20 days)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Completeness Scoring</td>
+                    <td class="url">N/A</td>
+                    <td class="description">60% listing data + 40% documents with percentage display</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Search & Filters</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Advanced filters by sector (11), revenue, location, deal type (3)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Real-time Updates (Turbo Streams)</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Real-time messaging and notifications via Turbo Streams</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+                <tr>
+                    <td class="category">Responsive Design</td>
+                    <td class="url">N/A</td>
+                    <td class="description">Mobile-first responsive web app (no native apps)</td>
+                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top: 30px; text-align: center; color: #666;">
+            <strong>Total Features:</strong> 40+ | <strong>Created:</strong> November 23, 2025
+        </p>
+    </div>
+
+    <script>
+        // Save status to localStorage
+        document.querySelectorAll('select').forEach(select => {
+            const row = select.closest('tr');
+            const featureName = row.querySelector('.category')?.textContent || '';
+            
+            // Load saved status
+            const saved = localStorage.getItem('status_' + featureName);
+            if (saved) {
+                select.value = saved;
+                select.className = saved.toLowerCase().replace(' ', '-');
+            }
+            
+            // Save on change
+            select.addEventListener('change', function() {
+                localStorage.setItem('status_' + featureName, this.value);
+                this.className = this.value.toLowerCase().replace(' ', '-');
+            });
+        });
+    </script>
+</body>
+</html>
