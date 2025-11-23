@@ -8,6 +8,7 @@ class Partner::ProfilesController < ApplicationController
   end
   
   def edit
+    current_user.reload
     @profile = current_user.partner_profile
   end
   
@@ -18,9 +19,9 @@ class Partner::ProfilesController < ApplicationController
     end
     
     if @profile.update(profile_params)
-      flash.now[:notice] = 'Votre profil a été mis à jour avec succès.'
-      render :edit
+      redirect_to edit_partner_profile_path, notice: 'Votre profil a été mis à jour avec succès.'
     else
+      @profile.reload
       flash.now[:alert] = 'Erreur lors de la mise à jour du profil. Veuillez vérifier les champs.'
       render :edit, status: :unprocessable_entity
     end
