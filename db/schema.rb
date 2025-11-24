@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_23_071905) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_24_174833) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -413,7 +413,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_23_071905) do
 
   create_table "partner_profiles", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "partner_type", null: false
+    t.integer "partner_type"
     t.text "description"
     t.text "services_offered"
     t.string "calendar_link"
