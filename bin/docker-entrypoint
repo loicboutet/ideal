@@ -13,9 +13,10 @@ if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
     echo "Database exists, running migrations..."
     ./bin/rails db:migrate
   else
-    echo "Fresh database detected, running migrations..."
-    # In production, we use migrations instead of schema:load to avoid the protection error
-    DISABLE_DATABASE_ENVIRONMENT_CHECK=1 ./bin/rails db:migrate db:seed
+    echo "Fresh database detected, loading schema..."
+    # For fresh databases, we must use schema:load as the schema.rb contains tables
+    # that don't have corresponding migrations
+    DISABLE_DATABASE_ENVIRONMENT_CHECK=1 ./bin/rails db:schema:load db:seed
   fi
 fi
 
