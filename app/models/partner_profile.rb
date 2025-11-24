@@ -10,7 +10,6 @@ class PartnerProfile < ApplicationRecord
   
   # Validations
   validates :user_id, presence: true, uniqueness: true
-  validates :partner_type, presence: true
   validates :website, format: { with: URI::regexp(%w[http https]), allow_blank: true }
   validates :calendar_link, format: { with: URI::regexp(%w[http https]), allow_blank: true }
   
