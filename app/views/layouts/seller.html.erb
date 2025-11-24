@@ -191,6 +191,7 @@
             <div class="flex-1 min-w-0">
               <div class="text-sm font-medium text-gray-900 truncate"><%= current_user.first_name || current_user.email %></div>
               <div class="text-xs text-gray-500">Cédant</div>
+              <div class="text-xs text-gray-500 truncate"><%= current_user.email %></div>
             </div>
           <% else %>
             <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">

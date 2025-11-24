@@ -121,6 +121,7 @@
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium text-white truncate"><%= current_user.first_name || current_user.email %></p>
               <p class="text-xs text-teal-200 truncate">Partenaire</p>
+              <p class="text-xs text-teal-200 truncate"><%= current_user.email %></p>
             </div>
           <% else %>
             <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center text-white font-semibold">

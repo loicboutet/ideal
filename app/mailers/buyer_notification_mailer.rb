@@ -39,6 +39,18 @@ class BuyerNotificationMailer < ApplicationMailer
     )
   end
 
+  def exclusive_deal_assigned(buyer, deal, listing)
+    @buyer = buyer
+    @deal = deal
+    @listing = listing
+    @deal_url = buyer_deal_url(deal)
+    
+    mail(
+      to: @buyer.email,
+      subject: "🎯 Affaire exclusive assignée - #{@listing.title}"
+    )
+  end
+
   private
 
   def time_remaining_text(deal)

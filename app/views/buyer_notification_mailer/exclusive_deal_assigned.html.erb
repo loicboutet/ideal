@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #10b981 0%, #14b8a6 100%);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 8px 8px 0 0;
+    }
+    .content {
+      background: #f9fafb;
+      padding: 30px 20px;
+      border-left: 1px solid #e5e7eb;
+      border-right: 1px solid #e5e7eb;
+    }
+    .listing-info {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid #10b981;
+    }
+    .listing-info h3 {
+      margin-top: 0;
+      color: #10b981;
+    }
+    .info-item {
+      margin: 10px 0;
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .info-item:last-child {
+      border-bottom: none;
+    }
+    .info-label {
+      font-weight: bold;
+      color: #6b7280;
+      font-size: 14px;
+    }
+    .info-value {
+      color: #111827;
+      font-size: 16px;
+    }
+    .cta-button {
+      display: inline-block;
+      background: #10b981;
+      color: white;
+      padding: 15px 40px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin: 20px 0;
+      text-align: center;
+    }
+    .footer {
+      background: #f9fafb;
+      padding: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #6b7280;
+      border-radius: 0 0 8px 8px;
+      border: 1px solid #e5e7eb;
+      border-top: none;
+    }
+    .highlight {
+      background: #fef3c7;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid #f59e0b;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 style="margin: 0; font-size: 28px;">🎯 Affaire Exclusive Assignée</h1>
+    <p style="margin: 10px 0 0 0; font-size: 16px; opacity: 0.9;">Par l'administrateur IDÉAL</p>
+  </div>
+
+  <div class="content">
+    <p>Bonjour <%= @buyer.first_name || 'Repreneur' %>,</p>
+
+    <p>L'équipe IDÉAL Reprise vous a assigné une <strong>affaire exclusive</strong> qui correspond parfaitement à vos critères de recherche.</p>
+
+    <div class="highlight">
+      <p style="margin: 0;"><strong>⚡ Action requise :</strong> Cette opportunité vous est réservée. Vous disposez de <strong>7 jours</strong> pour prendre contact avec le cédant.</p>
+    </div>
+
+    <div class="listing-info">
+      <h3><%= @listing.title %></h3>
+      
+      <div class="info-item">
+        <div class="info-label">Secteur d'activité</div>
+        <div class="info-value"><%= @listing.industry_sector_display %></div>
+      </div>
+
+      <% if @listing.annual_revenue.present? %>
+      <div class="info-item">
+        <div class="info-label">Chiffre d'affaires</div>
+        <div class="info-value"><%= number_to_currency(@listing.annual_revenue, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></div>
+      </div>
+      <% end %>
+
+      <% if @listing.asking_price.present? %>
+      <div class="info-item">
+        <div class="info-label">Prix demandé</div>
+        <div class="info-value"><%= number_to_currency(@listing.asking_price, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></div>
+      </div>
+      <% end %>
+
+      <div class="info-item">
+        <div class="info-label">Localisation</div>
+        <div class="info-value"><%= @listing.department %></div>
+      </div>
+
+      <% if @listing.employee_count.present? %>
+      <div class="info-item">
+        <div class="info-label">Effectif</div>
+        <div class="info-value"><%= @listing.employee_count %> employés</div>
+      </div>
+      <% end %>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="<%= @deal_url %>" class="cta-button">
+        Voir l'affaire →
+      </a>
+    </div>
+
+    <p><strong>Pourquoi cette opportunité ?</strong></p>
+    <p>Notre équipe a identifié cette affaire comme particulièrement adaptée à votre profil et à vos objectifs d'acquisition. Nous vous recommandons de la consulter rapidement.</p>
+
+    <p><strong>Prochaines étapes :</strong></p>
+    <ol>
+      <li>Consultez les informations détaillées de l'affaire</li>
+      <li>Prenez contact avec le cédant via la plateforme</li>
+      <li>Planifiez un premier échange pour en savoir plus</li>
+    </ol>
+
+    <p>Notre équipe reste à votre disposition pour vous accompagner dans cette démarche.</p>
+
+    <p>Bonne acquisition,<br>
+    <strong>L'équipe IDÉAL Reprise</strong></p>
+  </div>
+
+  <div class="footer">
+    <p>Vous recevez cet email car une affaire exclusive vous a été assignée sur IDÉAL Reprise.</p>
+    <p style="margin: 10px 0;">
+      <a href="<%= buyer_root_url %>" style="color: #10b981; text-decoration: none;">Accéder à mon tableau de bord</a>
+    </p>
+  </div>
+</body>
