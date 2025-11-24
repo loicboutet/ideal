@@ -50,7 +50,7 @@ bin/kamal app logs | grep -i stripe
 1. Kamal reads RAILS_MASTER_KEY from environment
 2. Rails decrypts credentials.yml.enc
 3. Stripe initializer loads keys from decrypted credentials  
-4. Checkout works properly
+4. Checkout works properly....
 
 ## Note
 Webhook secret not included yet (not blocking for basic checkout).
