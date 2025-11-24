@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background: linear-gradient(135deg, #0d9488 0%, #06b6d4 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+      border-radius: 8px 8px 0 0;
+    }
+    .content {
+      background: #ffffff;
+      padding: 30px;
+      border: 1px solid #e5e7eb;
+      border-top: none;
+    }
+    .button {
+      display: inline-block;
+      background: #0d9488;
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+    .info-box {
+      background: #f0fdfa;
+      border-left: 4px solid #0d9488;
+      padding: 15px;
+      margin: 20px 0;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      color: #6b7280;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 style="margin: 0; font-size: 28px;">✅ Profil Approuvé!</h1>
+  </div>
+
+  <div class="content">
+    <p>Bonjour <%= @user.first_name || @user.company_name %>,</p>
+
+    <p><strong>Félicitations!</strong> Votre profil partenaire a été approuvé par notre équipe et est maintenant visible dans l'annuaire Idéal Reprise.</p>
+
+    <div class="info-box">
+      <p style="margin: 0;"><strong>Votre profil est maintenant:</strong></p>
+      <ul style="margin: 10px 0;">
+        <li>Visible par tous les repreneurs et cédants</li>
+        <li>Accessible via la recherche dans l'annuaire</li>
+        <li>Prêt à recevoir des contacts</li>
+      </ul>
+    </div>
+
+    <p><strong>Prochaines étapes:</strong></p>
+    <ol>
+      <li>Consultez votre profil public pour vérifier les informations</li>
+      <li>Partagez votre lien d'annuaire avec vos clients</li>
+      <li>Suivez vos statistiques dans votre tableau de bord</li>
+    </ol>
+
+    <div style="text-align: center;">
+      <a href="<%= partner_profile_url %>" class="button">
+        Voir mon profil →
+      </a>
+    </div>
+
+    <p style="margin-top: 30px;">Nous vous souhaitons beaucoup de succès sur Idéal Reprise!</p>
+
+    <p>Cordialement,<br>
+    <strong>L'équipe Idéal Reprise</strong></p>
+  </div>
+
+  <div class="footer">
+    <p>Vous recevez cet email car vous êtes partenaire sur Idéal Reprise.</p>
+    <p>
+      <a href="<%= partner_settings_url %>" style="color: #0d9488;">Gérer mes préférences</a> | 
+      <a href="mailto:support@ideal-reprise.fr" style="color: #0d9488;">Contact</a>
+    </p>
+  </div>
+</body>
+</html>

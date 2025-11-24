@@ -7,3 +7,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Seed Credit Packs
+puts "Seeding credit packs..."
+CreditPack.seed_default_packs
+puts "Credit packs seeded: #{CreditPack.count} packs available"

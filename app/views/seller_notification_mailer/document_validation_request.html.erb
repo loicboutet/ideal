@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .document-container {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .listing-title {
+      font-weight: bold;
+      color: #2563eb;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .enrichment-info {
+      background-color: #f0fdf4;
+      border-left: 4px solid #10b981;
+      padding: 15px;
+      margin: 15px 0;
+    }
+    .detail-item {
+      margin: 8px 0;
+      color: #555;
+    }
+    .detail-label {
+      font-weight: bold;
+      color: #333;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #2563eb;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .button:hover {
+      background-color: #1d4ed8;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #666;
+    }
+    .info-box {
+      background-color: #eff6ff;
+      border: 1px solid #3b82f6;
+      border-radius: 6px;
+      padding: 12px;
+      margin: 15px 0;
+      color: #1e3a8a;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2 style="margin: 0; color: #1f2937;">📄 Nouveau document à valider</h2>
+  </div>
+
+  <div class="document-container">
+    <div class="listing-title">
+      <%= @listing.title %>
+    </div>
+
+    <div class="enrichment-info">
+      <strong>Un repreneur a enrichi votre annonce avec un nouveau document !</strong>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">Ajouté par :</span>
+      <%= @buyer.full_name %>
+    </div>
+
+    <div class="detail-item">
+      <span class="detail-label">Catégorie :</span>
+      <%= @enrichment.document_category&.humanize %>
+    </div>
+
+    <% if @enrichment.notes.present? %>
+      <div class="detail-item" style="margin-top: 15px;">
+        <span class="detail-label">Notes :</span>
+        <div style="background-color: #f8f9fa; padding: 10px; margin-top: 5px; border-radius: 4px;">
+          <%= @enrichment.notes %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="info-box">
+      <strong>💡 Important :</strong> Vous devez valider ce document avant qu'il ne soit visible et que le repreneur puisse gagner des crédits lors de la libération de l'annonce.
+    </div>
+
+    <a href="<%= @listing_url %>" class="button">
+      Voir et valider le document
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>
+      La validation des documents enrichis par les repreneurs améliore la qualité de votre annonce et facilite le processus de transaction.
+    </p>
+    <p>
+      Connectez-vous pour examiner et valider ce nouveau document.
+    </p>
+  </div>
+</body>
+</html>

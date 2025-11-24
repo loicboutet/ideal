@@ -1,0 +1,346 @@
+<% content_for :title, "Nouvel import - Administration" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <%= link_to admin_lead_imports_path, class: "text-admin-600 hover:text-admin-700 flex items-center gap-2" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Retour aux imports
+  <% end %>
+
+  <h1 class="text-3xl font-bold text-gray-900">Importer des repreneurs</h1>
+
+  <!-- Template Downloads -->
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+    <h3 class="text-lg font-semibold text-blue-900 mb-3 flex items-center gap-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+      </svg>
+      Télécharger un modèle
+    </h3>
+    <p class="text-blue-700 mb-4">
+      Choisissez le modèle adapté à vos besoins
+    </p>
+    <div class="grid md:grid-cols-2 gap-4">
+      <!-- Simple Template -->
+      <div class="bg-white rounded-lg p-4 border border-blue-200">
+        <h4 class="font-semibold text-gray-900 mb-2">Modèle Simple</h4>
+        <p class="text-sm text-gray-600 mb-3">Import basique avec champs essentiels uniquement (7 colonnes)</p>
+        <ul class="text-xs text-gray-600 mb-4 space-y-1">
+          <li>• Email, Nom, Prénom</li>
+          <li>• Téléphone, Entreprise</li>
+          <li>• Type, Abonnement</li>
+        </ul>
+        <%= link_to simple_template_admin_lead_imports_path, 
+            data: { turbo: false },
+            class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition gap-2 text-sm" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Télécharger (Simple)
+        <% end %>
+      </div>
+      
+      <!-- Complete Template -->
+      <div class="bg-white rounded-lg p-4 border border-blue-200">
+        <h4 class="font-semibold text-gray-900 mb-2">Modèle Complet</h4>
+        <p class="text-sm text-gray-600 mb-3">Import complet avec profil repreneur détaillé (21 colonnes)</p>
+        <ul class="text-xs text-gray-600 mb-4 space-y-1">
+          <li>• Tous les champs du modèle simple</li>
+          <li>• Formation, Expérience, Compétences</li>
+          <li>• Thèse d'investissement, Critères cibles</li>
+        </ul>
+        <%= link_to complete_template_admin_lead_imports_path, 
+            data: { turbo: false },
+            class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition gap-2 text-sm" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Télécharger (Complet)
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload Form -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <%= form_with url: admin_lead_imports_path, multipart: true, data: { turbo: false }, class: "space-y-6", id: "import-form" do |f| %>
+      
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Type d'import
+        </label>
+        <%= select_tag :import_type, 
+            options_for_select([
+              ['Repreneurs (leads)', 'buyers']
+            ], 'buyers'),
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500 focus:border-admin-500" %>
+        <p class="mt-1 text-sm text-gray-500">Import de listings pas encore disponible</p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Fichier (.xlsx ou .csv) *
+        </label>
+        <%= file_field_tag :file, 
+            accept: '.xlsx,.csv',
+            required: true,
+            class: "block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-admin-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-admin-50 file:text-admin-700 hover:file:bg-admin-100" %>
+        <p class="mt-1 text-sm text-gray-500">
+          Formats acceptés: CSV, Excel (.xlsx)
+        </p>
+      </div>
+
+      <!-- Instructions -->
+      <div class="bg-gray-50 rounded-lg p-4">
+        <h4 class="text-sm font-semibold text-gray-900 mb-2">Instructions:</h4>
+        <ul class="text-sm text-gray-600 space-y-1 list-disc list-inside">
+          <li>Le champ <strong>Email</strong> est obligatoire</li>
+          <li>Les emails en double seront ignorés</li>
+          <li>Les mots de passe seront générés automatiquement</li>
+          <li>Types acceptés: Individual, Holding, Fund, Investor</li>
+          <li>Plans: Free, Starter, Standard, Premium, Club</li>
+        </ul>
+      </div>
+
+      <div class="flex gap-4">
+        <%= f.submit "Lancer l'import", 
+            class: "px-6 py-3 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition font-medium",
+            id: "submit-button" %>
+        <%= link_to "Annuler", admin_lead_imports_path, 
+            class: "px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div id="import-loading" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 z-50 flex items-center justify-center">
+    <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md mx-4">
+      <div class="text-center">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-admin-100 rounded-full mb-4">
+          <svg class="animate-spin h-8 w-8 text-admin-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Import en cours...</h3>
+        <p class="text-gray-600">
+          Veuillez patienter pendant que nous traitons votre fichier.<br>
+          <span class="text-sm">Cette opération peut prendre quelques instants.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('import-form');
+      const loading = document.getElementById('import-loading');
+      const submitBtn = document.getElementById('submit-button');
+      
+      form.addEventListener('submit', function(e) {
+        // Show loading overlay
+        loading.classList.remove('hidden');
+        
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+      });
+    });
+  </script>
+
+  <!-- Field Documentation -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Documentation des champs</h3>
+    
+    <!-- Basic Fields -->
+    <div class="mb-6">
+      <h4 class="font-semibold text-gray-900 mb-3 text-sm">Champs de base (modèle simple)</h4>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-700">Champ</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-700">Obligatoire</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-700">Type</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-700">Description / Valeurs acceptées</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Email*</td>
+              <td class="px-4 py-2"><span class="text-red-600 font-semibold">Oui</span></td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Email valide, sera utilisé comme identifiant de connexion</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Prénom</td>
+              <td class="px-4 py-2 text-gray-600">Non</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Prénom de l'utilisateur</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Nom</td>
+              <td class="px-4 py-2 text-gray-600">Non</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Nom de famille de l'utilisateur</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Téléphone</td>
+              <td class="px-4 py-2 text-gray-600">Non</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Numéro de téléphone</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Entreprise</td>
+              <td class="px-4 py-2 text-gray-600">Non</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Nom de l'entreprise ou société</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Type</td>
+              <td class="px-4 py-2 text-gray-600">Non</td>
+              <td class="px-4 py-2 text-gray-600">Énumération</td>
+              <td class="px-4 py-2 text-gray-600"><code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Individual</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Holding</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Fund</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Investor</code></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Abonnement</td>
+              <td class="px-4 py-2 text-gray-600">Non</td>
+              <td class="px-4 py-2 text-gray-600">Énumération</td>
+              <td class="px-4 py-2 text-gray-600"><code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Free</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Starter</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Standard</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Premium</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Club</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Advanced Fields -->
+    <div>
+      <h4 class="font-semibold text-gray-900 mb-3 text-sm">Champs avancés (modèle complet uniquement)</h4>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-700">Champ</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-700">Type</th>
+              <th class="px-4 py-2 text-left text-xs font-medium text-gray-700">Description / Format</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Formation</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Parcours de formation incluant reprise d'entreprise</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Experience</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Expérience professionnelle pertinente</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Compétences</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Compétences clés (max 200 caractères)</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Thèse d'investissement</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Vision et stratégie d'investissement (max 500 caractères)</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Secteurs cibles</td>
+              <td class="px-4 py-2 text-gray-600">Liste</td>
+              <td class="px-4 py-2 text-gray-600">Secteurs d'intérêt, séparés par virgule. Ex: <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Industry,Commerce,Services</code></td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Localisations cibles</td>
+              <td class="px-4 py-2 text-gray-600">Liste</td>
+              <td class="px-4 py-2 text-gray-600">Régions d'intérêt, séparées par virgule. Ex: <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">Île-de-France,Provence-Alpes-Côte d'Azur</code></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">CA minimum / CA maximum</td>
+              <td class="px-4 py-2 text-gray-600">Nombre</td>
+              <td class="px-4 py-2 text-gray-600">Fourchette de chiffre d'affaires cible en euros. Ex: <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">1000000</code></td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Employés minimum / maximum</td>
+              <td class="px-4 py-2 text-gray-600">Nombre</td>
+              <td class="px-4 py-2 text-gray-600">Nombre d'employés cible. Ex: <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">10</code></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Santé financière cible</td>
+              <td class="px-4 py-2 text-gray-600">Énumération</td>
+              <td class="px-4 py-2 text-gray-600"><code class="text-xs bg-gray-100 px-1 py-0.5 rounded">in_bonis</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">in_difficulty</code>, <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">both</code></td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Horizon de transfert</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Délai souhaité pour la reprise. Ex: <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">3-6 mois</code></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-2 font-medium text-gray-900">Capacité d'investissement</td>
+              <td class="px-4 py-2 text-gray-600">Nombre</td>
+              <td class="px-4 py-2 text-gray-600">Montant disponible pour investissement en euros</td>
+            </tr>
+            <tr class="bg-gray-50">
+              <td class="px-4 py-2 font-medium text-gray-900">Sources de financement</td>
+              <td class="px-4 py-2 text-gray-600">Texte</td>
+              <td class="px-4 py-2 text-gray-600">Description des sources de financement (max 200 caractères)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+      <h5 class="font-medium text-yellow-900 mb-2 text-sm">💡 Conseils d'import</h5>
+      <ul class="text-sm text-yellow-800 space-y-1">
+        <li>• Utilisez le modèle simple pour un import rapide de contacts basiques</li>
+        <li>• Le modèle complet permet d'enrichir les profils repreneurs dès l'import</li>
+        <li>• Les champs vides sont permis (sauf Email)</li>
+        <li>• Pour les listes (secteurs, localisations), utilisez la virgule comme séparateur</li>
+        <li>• Les mots de passe seront générés automatiquement et envoyés par email</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Example Data -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Exemple de données (modèle simple)</h3>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200 text-sm">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Email*</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Prénom</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Nom</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Téléphone</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Entreprise</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Type</th>
+            <th class="px-4 py-2 text-left font-medium text-gray-900">Abonnement</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-4 py-2 text-gray-600">jean.dupont@example.com</td>
+            <td class="px-4 py-2 text-gray-600">Jean</td>
+            <td class="px-4 py-2 text-gray-600">Dupont</td>
+            <td class="px-4 py-2 text-gray-600">0612345678</td>
+            <td class="px-4 py-2 text-gray-600">Dupont Holding</td>
+            <td class="px-4 py-2 text-gray-600">Holding</td>
+            <td class="px-4 py-2 text-gray-600">Standard</td>
+          </tr>
+          <tr class="bg-gray-50">
+            <td class="px-4 py-2 text-gray-600">marie.martin@example.com</td>
+            <td class="px-4 py-2 text-gray-600">Marie</td>
+            <td class="px-4 py-2 text-gray-600">Martin</td>
+            <td class="px-4 py-2 text-gray-600">0687654321</td>
+            <td class="px-4 py-2 text-gray-600">-</td>
+            <td class="px-4 py-2 text-gray-600">Individual</td>
+            <td class="px-4 py-2 text-gray-600">Free</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

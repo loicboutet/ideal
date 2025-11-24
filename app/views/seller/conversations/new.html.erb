@@ -1,0 +1,18 @@
+<% content_for :page_title, "Nouvelle conversation" %>
+
+<%= render 'conversations/new_conversation_form',
+  form_url: seller_conversations_path,
+  label_text: "Sélectionnez un repreneur",
+  search_placeholder: "Rechercher et sélectionner un repreneur...",
+  color: "orange",
+  select_name: "buyer_id",
+  select_prompt: "Choisir un repreneur",
+  options: @buyers.map { |buyer| 
+    { 
+      value: buyer.id, 
+      text: "#{buyer.full_name} - #{buyer.email}" 
+    } 
+  },
+  help_text: "Tapez pour rechercher par nom ou email, puis sélectionnez le repreneur avec qui vous souhaitez échanger.",
+  cancel_url: seller_conversations_path
+%>

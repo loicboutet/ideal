@@ -1,0 +1,41 @@
+[
+  {
+    "id": 2,
+    "imported_by_id": 1,
+    "file_name": "sample_lead_import_complete.csv",
+    "total_rows": 10,
+    "successful_imports": 8,
+    "failed_imports": 2,
+    "import_status": 2,
+    "error_log": "[{\"row\":10,\"error\":\"Email invalide ou manquant\"},{\"row\":11,\"error\":\"Email invalide ou manquant\"}]",
+    "completed_at": "2025-11-19 13:54:14 UTC",
+    "created_at": "2025-11-19 13:54:12 UTC",
+    "updated_at": "2025-11-19 13:54:14 UTC"
+  },
+  {
+    "id": 3,
+    "imported_by_id": 1,
+    "file_name": "sample_lead_import_complete.csv",
+    "total_rows": 10,
+    "successful_imports": 8,
+    "failed_imports": 2,
+    "import_status": 2,
+    "error_log": "[{\"row\":10,\"error\":\"Email is invalid\"},{\"row\":11,\"error\":\"Email is invalid\"}]",
+    "completed_at": "2025-11-19 14:10:10 UTC",
+    "created_at": "2025-11-19 14:10:08 UTC",
+    "updated_at": "2025-11-19 14:10:10 UTC"
+  },
+  {
+    "id": 4,
+    "imported_by_id": 1,
+    "file_name": "template_simple_import_repreneurs (1).csv",
+    "total_rows": 2,
+    "successful_imports": 2,
+    "failed_imports": 0,
+    "import_status": 2,
+    "error_log": "[]",
+    "completed_at": "2025-11-19 14:11:06 UTC",
+    "created_at": "2025-11-19 14:11:06 UTC",
+    "updated_at": "2025-11-19 14:11:06 UTC"
+  }
+]

@@ -1,0 +1,174 @@
+<% content_for :title, "Modifier mon profil - Cédant - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-gray-900">Modifier mon profil</h1>
+    <%= link_to seller_profile_path, class: "text-gray-600 hover:text-gray-900" do %>
+      ← Retour au profil
+    <% end %>
+  </div>
+
+  <!-- Flash Messages -->
+  <% if flash[:notice] %>
+    <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-start gap-3">
+      <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <p class="font-medium"><%= flash[:notice] %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg flex items-start gap-3">
+      <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <p class="font-medium"><%= flash[:alert] %></p>
+        <% if defined?(@errors) && @errors.any? %>
+          <ul class="mt-2 list-disc list-inside text-sm">
+            <% @errors.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= form_with model: @profile, url: seller_profile_path, method: :patch, local: true, data: { turbo: false }, class: "space-y-6" do |f| %>
+    
+    <!-- Personal Information -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Informations personnelles</h3>
+      
+      <%= f.fields_for :user_attributes, current_user do |user_form| %>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <%= user_form.label :first_name, "Prénom", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= user_form.text_field :first_name, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500 focus:border-seller-500" %>
+          </div>
+          
+          <div>
+            <%= user_form.label :last_name, "Nom", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= user_form.text_field :last_name, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500 focus:border-seller-500" %>
+          </div>
+          
+          <div>
+            <%= user_form.label :phone, "Téléphone", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= user_form.telephone_field :phone, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500 focus:border-seller-500", placeholder: "+33 6 12 34 56 78" %>
+            <p class="mt-1 text-xs text-gray-500">Format: +33 6 12 34 56 78</p>
+          </div>
+          
+          <div>
+            <%= user_form.label :company_name, @profile.is_broker ? "Cabinet / Société" : "Entreprise", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= user_form.text_field :company_name, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500 focus:border-seller-500" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @profile.is_broker %>
+      <!-- Broker Professional Information -->
+      <div class="bg-gradient-to-br from-purple-50 to-seller-50 rounded-xl shadow-sm p-6 border border-purple-200">
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+          <h3 class="text-lg font-bold text-gray-900">Informations professionnelles</h3>
+        </div>
+        
+        <div class="space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <%= f.label :siret_number, "Numéro SIRET", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.text_field :siret_number, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500 focus:border-seller-500 bg-white", placeholder: "123 456 789 00012" %>
+              <p class="mt-1 text-xs text-gray-500">14 chiffres sans espaces</p>
+            </div>
+            
+            <div>
+              <%= f.label :specialization, "Spécialisation", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.text_field :specialization, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500 focus:border-seller-500 bg-white", placeholder: "Ex: Transmission PME/ETI" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :calendar_link, "Lien de réservation (Google Calendar/Calendly)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.url_field :calendar_link, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500 focus:border-seller-500 bg-white", placeholder: "https://calendly.com/votre-lien" %>
+            <p class="mt-1 text-xs text-gray-500">Les repreneurs pourront prendre rendez-vous directement via ce lien</p>
+          </div>
+
+          <div>
+            <%= f.label :intervention_zones, "Zones d'intervention", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+              <% intervention_zone_options = ['Île-de-France', 'Hauts-de-France', 'Grand Est', 'Bourgogne-Franche-Comté', 'Normandie', 'Bretagne', 'Pays de la Loire', 'Centre-Val de Loire', 'Nouvelle-Aquitaine', 'Occitanie', 'Auvergne-Rhône-Alpes', "Provence-Alpes-Côte d'Azur", 'Corse', 'National', 'International'] %>
+              <% intervention_zone_options.each do |zone| %>
+                <label class="flex items-center gap-2 p-2 bg-white rounded border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                  <%= check_box_tag 'seller_profile[intervention_zones][]', zone, @profile.intervention_zones&.include?(zone), class: "rounded border-gray-300 text-seller-600 focus:ring-seller-500" %>
+                  <span class="text-sm text-gray-700"><%= zone %></span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :specialization_sectors, "Secteurs de spécialisation", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+              <% sector_options = ['Industrie', 'BTP', 'Commerce & Distribution', 'Transport & Logistique', 'Hôtellerie / Restauration', 'Services', 'Agroalimentaire & Agriculture', 'Santé', 'Digital', 'Immobilier', 'Tous secteurs'] %>
+              <% sector_options.each do |sector| %>
+                <label class="flex items-center gap-2 p-2 bg-white rounded border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                  <%= check_box_tag 'seller_profile[specialization_sectors][]', sector, @profile.specialization_sectors&.include?(sector), class: "rounded border-gray-300 text-seller-600 focus:ring-seller-500" %>
+                  <span class="text-sm text-gray-700"><%= sector %></span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :intervention_stages, "Stades d'intervention (privé)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <p class="text-xs text-gray-500 mb-2">Ces informations ne seront pas visibles publiquement</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+              <% stage_options = ['Évaluation', 'Préparation cession', 'Recherche repreneur', 'Négociation', 'LOI', 'Due diligence', 'Financement', 'Finalisation acte', 'Accompagnement post-cession'] %>
+              <% stage_options.each do |stage| %>
+                <label class="flex items-center gap-2 p-2 bg-white rounded border border-gray-200 hover:bg-gray-50 cursor-pointer">
+                  <%= check_box_tag 'seller_profile[intervention_stages][]', stage, @profile.intervention_stages&.include?(stage), class: "rounded border-gray-300 text-seller-600 focus:ring-seller-500" %>
+                  <span class="text-sm text-gray-700"><%= stage %></span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Privacy Settings -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Paramètres de confidentialité</h3>
+      
+      <div class="space-y-4">
+        <div class="flex items-start gap-3">
+          <%= f.check_box :receive_signed_nda, class: "mt-1 h-4 w-4 rounded border-gray-300 text-seller-600 focus:ring-seller-500" %>
+          <div class="flex-1">
+            <%= f.label :receive_signed_nda, class: "text-sm font-medium text-gray-700" do %>
+              Recevoir une copie des accords de confidentialité signés
+            <% end %>
+            <p class="text-sm text-gray-500 mt-1">
+              Lorsqu'un repreneur signe l'accord de confidentialité pour accéder à vos informations confidentielles, vous recevrez une copie par email.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-between bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <%= link_to seller_profile_path, class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
+        Annuler
+      <% end %>
+      
+      <%= f.submit "Enregistrer les modifications", class: "px-6 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 font-medium cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

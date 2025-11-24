@@ -1,0 +1,352 @@
+[
+  {
+    "id": 1,
+    "survey_id": 1,
+    "user_id": 50,
+    "answers": "{\"comment\":\"Excellente plateforme !\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 2,
+    "survey_id": 1,
+    "user_id": 37,
+    "answers": "{\"comment\":\"Excellente plateforme !\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 3,
+    "survey_id": 1,
+    "user_id": 40,
+    "answers": "{\"comment\":\"Très satisfait du service\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 4,
+    "survey_id": 1,
+    "user_id": 17,
+    "answers": null,
+    "satisfaction_score": 4,
+    "submitted_at": null,
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 5,
+    "survey_id": 1,
+    "user_id": 48,
+    "answers": "{\"comment\":\"Très satisfait du service\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 6,
+    "survey_id": 1,
+    "user_id": 29,
+    "answers": "{\"comment\":\"Bonne expérience globale\"}",
+    "satisfaction_score": 4,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 7,
+    "survey_id": 1,
+    "user_id": 46,
+    "answers": "{\"comment\":\"Très satisfait du service\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 8,
+    "survey_id": 1,
+    "user_id": 25,
+    "answers": "{\"comment\":\"Quelques bugs à corriger\"}",
+    "satisfaction_score": 3,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 9,
+    "survey_id": 1,
+    "user_id": 23,
+    "answers": "{\"comment\":\"Très satisfait du service\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 10,
+    "survey_id": 1,
+    "user_id": 41,
+    "answers": null,
+    "satisfaction_score": 4,
+    "submitted_at": null,
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 11,
+    "survey_id": 1,
+    "user_id": 5,
+    "answers": "{\"comment\":\"Quelques bugs à corriger\"}",
+    "satisfaction_score": 3,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 12,
+    "survey_id": 1,
+    "user_id": 49,
+    "answers": "{\"comment\":\"Quelques bugs à corriger\"}",
+    "satisfaction_score": 3,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 13,
+    "survey_id": 1,
+    "user_id": 44,
+    "answers": "{\"comment\":\"Interface intuitive et efficace\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 14,
+    "survey_id": 1,
+    "user_id": 16,
+    "answers": "{\"comment\":\"Très satisfait du service\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 15,
+    "survey_id": 1,
+    "user_id": 28,
+    "answers": "{\"comment\":\"Bonne expérience globale\"}",
+    "satisfaction_score": 4,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 16,
+    "survey_id": 1,
+    "user_id": 22,
+    "answers": "{\"comment\":\"Correcte mais peut mieux faire\"}",
+    "satisfaction_score": 3,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 17,
+    "survey_id": 1,
+    "user_id": 8,
+    "answers": "{\"comment\":\"Quelques bugs à corriger\"}",
+    "satisfaction_score": 3,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 18,
+    "survey_id": 1,
+    "user_id": 20,
+    "answers": null,
+    "satisfaction_score": 5,
+    "submitted_at": null,
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 19,
+    "survey_id": 1,
+    "user_id": 24,
+    "answers": "{\"comment\":\"Excellente plateforme !\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 20,
+    "survey_id": 1,
+    "user_id": 26,
+    "answers": "{\"comment\":\"Quelques améliorations possibles\"}",
+    "satisfaction_score": 4,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 21,
+    "survey_id": 1,
+    "user_id": 36,
+    "answers": "{\"comment\":\"Excellente plateforme !\"}",
+    "satisfaction_score": 5,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 22,
+    "survey_id": 2,
+    "user_id": 29,
+    "answers": "{\"q0\":\"Recommandations de repreneurs\",\"q1\":\"3\",\"q2\":\"Oui\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 23,
+    "survey_id": 2,
+    "user_id": 43,
+    "answers": "{\"q0\":\"Recommandations de repreneurs\",\"q1\":\"3\",\"q2\":\"Oui\",\"q3\":\"Interface plus moderne\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 24,
+    "survey_id": 2,
+    "user_id": 4,
+    "answers": "{\"q0\":\"Recommandations de repreneurs\",\"q1\":\"4\",\"q2\":\"Oui\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 25,
+    "survey_id": 2,
+    "user_id": 20,
+    "answers": "{\"q0\":\"Formation en ligne\",\"q1\":\"3\",\"q2\":\"Oui\",\"q3\":\"Plus de statistiques\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 26,
+    "survey_id": 2,
+    "user_id": 30,
+    "answers": "{\"q0\":\"Outils de valorisation d'entreprise\",\"q1\":\"5\",\"q2\":\"Oui\",\"q3\":\"Notifications améliorées\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 27,
+    "survey_id": 2,
+    "user_id": 8,
+    "answers": "{\"q0\":\"Outils de valorisation d'entreprise\",\"q1\":\"5\",\"q2\":\"Oui\",\"q3\":\"Plus de statistiques\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 28,
+    "survey_id": 2,
+    "user_id": 37,
+    "answers": "{\"q0\":\"Analyse de marché automatisée\",\"q1\":\"3\",\"q2\":\"Non\",\"q3\":\"Interface plus moderne\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 29,
+    "survey_id": 2,
+    "user_id": 41,
+    "answers": "{\"q0\":\"Analyse de marché automatisée\",\"q1\":\"5\",\"q2\":\"Non\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 30,
+    "survey_id": 2,
+    "user_id": 46,
+    "answers": "{\"q0\":\"Analyse de marché automatisée\",\"q1\":\"4\",\"q2\":\"Non\",\"q3\":\"Interface plus moderne\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 31,
+    "survey_id": 2,
+    "user_id": 12,
+    "answers": "{\"q0\":\"Outils de valorisation d'entreprise\",\"q1\":\"4\",\"q2\":\"Non\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 32,
+    "survey_id": 2,
+    "user_id": 27,
+    "answers": "{\"q0\":\"Recommandations de repreneurs\",\"q1\":\"4\",\"q2\":\"Non\",\"q3\":\"Plus de statistiques\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 33,
+    "survey_id": 2,
+    "user_id": 25,
+    "answers": "{\"q0\":\"Formation en ligne\",\"q1\":\"3\",\"q2\":\"Non\",\"q3\":\"Interface plus moderne\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 34,
+    "survey_id": 2,
+    "user_id": 35,
+    "answers": "{\"q0\":\"Formation en ligne\",\"q1\":\"3\",\"q2\":\"Oui\",\"q3\":\"Notifications améliorées\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  },
+  {
+    "id": 35,
+    "survey_id": 2,
+    "user_id": 32,
+    "answers": "{\"q0\":\"Outils de valorisation d'entreprise\",\"q1\":\"4\",\"q2\":\"Non\",\"q3\":\"Plus de statistiques\"}",
+    "satisfaction_score": null,
+    "submitted_at": "2025-11-20 11:32:20 UTC",
+    "created_at": "2025-11-20 11:32:20 UTC",
+    "updated_at": "2025-11-20 11:32:20 UTC"
+  }
+]

@@ -1,0 +1,219 @@
+<% content_for :page_title, "Mes documents enrichis" %>
+
+<div class="space-y-6">
+  <!-- Header with Stats -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Mes documents enrichis</h1>
+      <p class="mt-1 text-sm text-gray-600">
+        Documents que vous avez ajoutés aux annonces
+      </p>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Total</p>
+          <p class="text-2xl font-bold text-gray-900"><%= @stats[:total] %></p>
+        </div>
+        <div class="p-3 bg-gray-100 rounded-lg">
+          <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">En attente</p>
+          <p class="text-2xl font-bold text-orange-600"><%= @stats[:pending] %></p>
+        </div>
+        <div class="p-3 bg-orange-100 rounded-lg">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Validés</p>
+          <p class="text-2xl font-bold text-green-600"><%= @stats[:approved] %></p>
+        </div>
+        <div class="p-3 bg-green-100 rounded-lg">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-gray-600">Rejetés</p>
+          <p class="text-2xl font-bold text-red-600"><%= @stats[:rejected] %></p>
+        </div>
+        <div class="p-3 bg-red-100 rounded-lg">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="bg-white rounded-lg shadow">
+    <div class="border-b border-gray-200">
+      <nav class="flex -mb-px">
+        <%= link_to buyer_enrichments_path(filter: 'pending'), 
+            class: "px-6 py-3 text-sm font-medium border-b-2 #{@filter == 'pending' ? 'border-buyer-500 text-buyer-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+          En attente
+          <% if @stats[:pending] > 0 %>
+            <span class="ml-2 px-2 py-0.5 text-xs rounded-full <%= @filter == 'pending' ? 'bg-buyer-100 text-buyer-600' : 'bg-gray-100 text-gray-600' %>">
+              <%= @stats[:pending] %>
+            </span>
+          <% end %>
+        <% end %>
+        <%= link_to buyer_enrichments_path(filter: 'approved'), 
+            class: "px-6 py-3 text-sm font-medium border-b-2 #{@filter == 'approved' ? 'border-buyer-500 text-buyer-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+          Validés
+        <% end %>
+        <%= link_to buyer_enrichments_path(filter: 'rejected'), 
+            class: "px-6 py-3 text-sm font-medium border-b-2 #{@filter == 'rejected' ? 'border-buyer-500 text-buyer-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+          Rejetés
+        <% end %>
+        <%= link_to buyer_enrichments_path(filter: 'all'), 
+            class: "px-6 py-3 text-sm font-medium border-b-2 #{@filter == 'all' ? 'border-buyer-500 text-buyer-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}" do %>
+          Tous
+        <% end %>
+      </nav>
+    </div>
+
+    <!-- Enrichments List -->
+    <div class="p-6">
+      <% if @enrichments.any? %>
+        <div class="space-y-4">
+          <% @enrichments.each do |enrichment| %>
+            <div class="bg-gray-50 rounded-lg p-4 border-l-4 <%= enrichment.pending? ? 'border-orange-500' : enrichment.approved? ? 'border-green-500' : 'border-red-500' %>">
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <div class="flex items-center gap-3 mb-2">
+                    <!-- Status Badge -->
+                    <% if enrichment.pending? %>
+                      <span class="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded">⏳ En attente de validation</span>
+                    <% elsif enrichment.approved? %>
+                      <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded">✓ Validé</span>
+                    <% else %>
+                      <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded">✗ Rejeté</span>
+                    <% end %>
+
+                    <!-- Document Category -->
+                    <h3 class="text-sm font-semibold text-gray-900">
+                      <%= enrichment.category_label %>
+                    </h3>
+                  </div>
+
+                  <!-- Listing Info -->
+                  <p class="text-sm text-gray-600 mb-1">
+                    <span class="font-medium">Annonce:</span> 
+                    <%= link_to enrichment.listing.title, buyer_listing_path(enrichment.listing), class: "text-buyer-600 hover:underline" %>
+                  </p>
+
+                  <!-- Description -->
+                  <% if enrichment.description.present? %>
+                    <p class="text-sm text-gray-700 mt-2">
+                      <%= enrichment.description %>
+                    </p>
+                  <% end %>
+
+                  <!-- Rejection Reason -->
+                  <% if enrichment.rejected? && enrichment.rejection_reason.present? %>
+                    <div class="mt-2 p-2 bg-red-50 rounded text-sm text-red-700">
+                      <span class="font-medium">Raison du rejet:</span> <%= enrichment.rejection_reason %>
+                    </div>
+                  <% end %>
+
+                  <!-- Approval Message -->
+                  <% if enrichment.approved? %>
+                    <div class="mt-2 p-2 bg-green-50 rounded text-sm text-green-700">
+                      <span class="font-medium">✓ Document validé !</span> Ce document contribuera à la complétude de l'annonce.
+                    </div>
+                  <% end %>
+
+                  <!-- Date -->
+                  <p class="text-xs text-gray-500 mt-2">
+                    Ajouté le <%= l(enrichment.created_at, format: :long) %>
+                    <% if enrichment.validated_at %>
+                      • Traité le <%= l(enrichment.validated_at, format: :long) %>
+                    <% end %>
+                  </p>
+                </div>
+
+                <!-- Actions -->
+                <div class="ml-4 flex flex-col gap-2">
+                  <%= link_to "Voir détails", buyer_enrichment_path(enrichment), class: "px-4 py-2 text-sm text-buyer-600 hover:bg-buyer-50 rounded-lg border border-buyer-200 text-center" %>
+                  
+                  <% if enrichment.document.attached? %>
+                    <%= link_to rails_blob_path(enrichment.document, disposition: "attachment"), class: "px-4 py-2 text-sm text-gray-600 hover:bg-gray-100 rounded-lg border border-gray-200 text-center" do %>
+                      <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                      </svg>
+                      Télécharger
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <!-- Empty State -->
+        <div class="text-center py-12">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <h3 class="mt-2 text-sm font-medium text-gray-900">Aucun document enrichi</h3>
+          <p class="mt-1 text-sm text-gray-500">
+            <% if @filter == 'pending' %>
+              Vous n'avez aucun document en attente de validation.
+            <% elsif @filter == 'approved' %>
+              Vous n'avez aucun document validé.
+            <% elsif @filter == 'rejected' %>
+              Vous n'avez aucun document rejeté.
+            <% else %>
+              Vous n'avez encore ajouté aucun document enrichi aux annonces.
+            <% end %>
+          </p>
+          <p class="mt-4">
+            <%= link_to "Parcourir les annonces", buyer_listings_path, class: "text-buyer-600 hover:text-buyer-700 font-medium" %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Info Box -->
+  <div class="bg-buyer-50 border-l-4 border-buyer-400 p-4 rounded-lg">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-buyer-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm text-buyer-700">
+          <span class="font-medium">💡 Enrichissement de dossiers :</span> Vous pouvez ajouter des documents manquants aux annonces que vous avez mises dans votre CRM. Les documents validés par le cédant enrichiront le dossier et amélioreront sa complétude.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

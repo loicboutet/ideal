@@ -1,0 +1,125 @@
+<% content_for :title, "Parcourir les annonces - Repreneur - Idéal Reprise" %>
+
+<div class="max-w-7xl mx-auto space-y-6">
+  <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900">Toutes les annonces</h2>
+      <p class="text-gray-600 mt-1"><%= @listings.total_count %> entreprises disponibles</p>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <%= render 'filters' %>
+
+  <!-- Exclusive Deals Section (if any) -->
+  <% if @exclusive_listings.any? %>
+    <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 border-2 border-yellow-200">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-3xl">🏆</span>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900">Deals Exclusifs</h3>
+          <p class="text-gray-600">Ces opportunités vous sont réservées</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <% @exclusive_listings.each do |listing| %>
+          <%= render 'listing_card', listing: listing, exclusive: true %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Listings Grid -->
+  <% if @listings.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @listings.each do |listing| %>
+        <%= render 'listing_card', listing: listing, exclusive: false %>
+      <% end %>
+    </div>
+
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-6 rounded-lg shadow">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <% if @listings.prev_page %>
+          <%= link_to buyer_listings_path(page: @listings.prev_page, deal_type: params[:deal_type], sector: params[:sector], department: params[:department], price_min: params[:price_min], price_max: params[:price_max], revenue_min: params[:revenue_min], revenue_max: params[:revenue_max], search: params[:search], sort: params[:sort]), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+            Précédent
+          <% end %>
+        <% else %>
+          <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-50 cursor-not-allowed">
+            Précédent
+          </span>
+        <% end %>
+        <% if @listings.next_page %>
+          <%= link_to buyer_listings_path(page: @listings.next_page, deal_type: params[:deal_type], sector: params[:sector], department: params[:department], price_min: params[:price_min], price_max: params[:price_max], revenue_min: params[:revenue_min], revenue_max: params[:revenue_max], search: params[:search], sort: params[:sort]), class: "ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50" do %>
+            Suivant
+          <% end %>
+        <% else %>
+          <span class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-50 cursor-not-allowed">
+            Suivant
+          </span>
+        <% end %>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Affichage de <span class="font-medium"><%= @listings.offset_value + 1 %></span> à <span class="font-medium"><%= [@listings.offset_value + @listings.count, @listings.total_count].min %></span> sur <span class="font-medium"><%= @listings.total_count %></span> résultats
+          </p>
+        </div>
+        <div>
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+            <% if @listings.prev_page %>
+              <%= link_to buyer_listings_path(page: @listings.prev_page, deal_type: params[:deal_type], sector: params[:sector], department: params[:department], price_min: params[:price_min], price_max: params[:price_max], revenue_min: params[:revenue_min], revenue_max: params[:revenue_max], search: params[:search], sort: params[:sort]), class: "relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
+                <span class="sr-only">Précédent</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              <% end %>
+            <% else %>
+              <span class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-gray-50 text-sm font-medium text-gray-300 cursor-not-allowed">
+                <span class="sr-only">Précédent</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </span>
+            <% end %>
+            
+            <% page_start = [1, @listings.current_page - 1].max %>
+            <% page_end = [page_start + 2, @listings.total_pages].min %>
+            <% page_start = [page_end - 2, 1].max if page_end - page_start < 2 %>
+            
+            <% (page_start..page_end).each do |page| %>
+              <% if page == @listings.current_page %>
+                <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-buyer-50 text-sm font-medium text-buyer-600"><%= page %></span>
+              <% else %>
+                <%= link_to page, buyer_listings_path(page: page, deal_type: params[:deal_type], sector: params[:sector], department: params[:department], price_min: params[:price_min], price_max: params[:price_max], revenue_min: params[:revenue_min], revenue_max: params[:revenue_max], search: params[:search], sort: params[:sort]), class: "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50" %>
+              <% end %>
+            <% end %>
+            
+            <% if @listings.next_page %>
+              <%= link_to buyer_listings_path(page: @listings.next_page, deal_type: params[:deal_type], sector: params[:sector], department: params[:department], price_min: params[:price_min], price_max: params[:price_max], revenue_min: params[:revenue_min], revenue_max: params[:revenue_max], search: params[:search], sort: params[:sort]), class: "relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50" do %>
+                <span class="sr-only">Suivant</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              <% end %>
+            <% else %>
+              <span class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-gray-50 text-sm font-medium text-gray-300 cursor-not-allowed">
+                <span class="sr-only">Suivant</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </span>
+            <% end %>
+          </nav>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+      <div class="text-6xl mb-4">🔍</div>
+      <h3 class="text-xl font-bold text-gray-900 mb-2">Aucune annonce trouvée</h3>
+      <p class="text-gray-600 mb-6">Essayez de modifier vos critères de recherche</p>
+      <%= link_to "Réinitialiser les filtres", buyer_listings_path, class: "inline-block px-6 py-3 bg-buyer-600 text-white rounded-full hover:bg-buyer-700 transition font-medium" %>
+    </div>
+  <% end %>
+</div>

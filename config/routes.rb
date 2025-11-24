@@ -1,7 +1,399 @@
 Rails.application.routes.draw do
-  get "home/index"
-  devise_for :users
-
+  # Action Cable for real-time features
+  mount ActionCable.server => '/cable'
+  
+  # Letter Opener Web - for viewing emails in development
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+  
+  # Custom Devise routes with role-based registration
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
+  
+  # Additional registration routes
+  devise_scope :user do
+    get '/inscription', to: 'devise/registrations#new', as: :inscription
+    get '/inscription/en-attente', to: 'users/registrations#pending_approval', as: :pending_approval_users_registrations
+  end
+  
+  # Health check
+  get "up" => "rails/health#show", as: :rails_health_check
+  
+  # =========================================================================
+  # PUBLIC ROUTES (NO AUTHENTICATION REQUIRED)
+  # =========================================================================
+  
+  # Landing & Marketing Pages
+  get 'about', to: 'pages#about'
+  get 'how-it-works', to: 'pages#how_it_works'
+  get 'pricing', to: 'pages#pricing'
+  get 'contact', to: 'pages#contact'
+  
+  # Public Listing Browse (Freemium - Limited Access)
+  resources :listings, only: [:index, :show] do
+    collection do
+      get :search
+    end
+  end
+  
+  # Public Partner Directory
+  resources :directory, only: [:index, :show], path: 'partners', as: :partners do
+    collection do
+      get :search
+    end
+  end
+  
+  # Legal & Support Pages
+  get 'terms', to: 'legal#terms'
+  get 'privacy', to: 'legal#privacy'
+  get 'support', to: 'pages#support'
+  
+  # =========================================================================
+  # AUTHENTICATED ROUTES (ROLE-BASED ACCESS)
+  # =========================================================================
+  
+  # Admin Routes (role: admin, status: active)
+  namespace :admin do
+    root 'dashboard#index'
+    
+    # Analytics & Operations
+    get 'analytics', to: 'dashboard#analytics'
+    get 'operations', to: 'dashboard#operations'
+    
+    # Dashboard drill-down actions
+    get 'dashboard/zero_views', to: 'dashboard#zero_views', as: :dashboard_zero_views
+    get 'dashboard/expired_timers', to: 'dashboard#expired_timers', as: :dashboard_expired_timers
+    
+    # User Management
+    resources :users do
+      member do
+        patch :activate, :suspend, :change_role
+        get :suspend_confirm
+      end
+      collection do
+        get :sellers, :buyers, :partners
+        get :import
+        post :bulk_import
+      end
+    end
+    
+    # Listing Management & Validation
+    resources :listings do
+      member do
+        patch :validate, :reject
+      end
+      collection do
+        get :pending
+      end
+    end
+    
+    # Partner Validation
+    resources :partners, only: [:index, :show] do
+      member do
+        patch :approve, :reject
+        get :approve_form, :reject_form
+      end
+      collection do
+        get :pending
+      end
+    end
+    
+    # Deal Management
+    resources :deals, only: [:index, :show, :update] do
+      member do
+        post :assign_exclusive # Assign to specific buyer
+        get :assign_form
+      end
+    end
+    
+    # Bulk Import System (Lead Imports)
+    resources :lead_imports, only: [:index, :show, :new, :create] do
+      member do
+        get :download_errors
+      end
+      collection do
+        get :simple_template
+        get :complete_template
+      end
+    end
+    
+    # Enrichment Validation
+    resources :enrichments, only: [:index, :show] do
+      member do
+        patch :approve, :reject
+        get :approve_form
+      end
+    end
+    
+    # Platform Settings
+    resource :settings, only: [:show, :update]
+    
+    # Admin Communication
+    resources :messages, only: [:index, :new, :create, :show]
+    resources :surveys do
+      member do
+        get :export
+      end
+    end
+  end
+  
+  # Seller Routes (role: seller, status: active)
+  namespace :seller do
+    root 'dashboard#index'
+    
+    # Seller Messaging
+    resources :conversations, only: [:index, :show, :new, :create] do
+      resources :messages, only: [:create]
+      collection do
+        post :create_partner_conversation
+      end
+    end
+    
+    # Partner Directory Access (free first 6 months, 5 credits after)
+    resources :partners, only: [:index, :show] do
+      member do
+        post :contact  # Contact partner (5 credits)
+      end
+    end
+    
+    # My Listings Management
+    resources :listings do
+      resources :documents, except: [:index]
+      member do
+        get :analytics # views, favorites, interested buyers
+        post :push_to_buyer # Push listing to specific buyer (costs credits)
+      end
+    end
+    
+    # Buyer Discovery & Interaction
+    resources :buyers, only: [:index, :show] do
+      collection do
+        get :search
+      end
+    end
+    
+    resources :interests, only: [:index, :show] # Buyers who favorited my listings
+    
+    # Enrichment Validation
+    resources :enrichments, only: [:index, :show] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
+    
+    # Credits & Subscription Management
+    resources :credits, only: [:index] do
+      collection do
+        post :checkout
+        get :success
+      end
+    end
+    resource :subscription, only: [:show, :new, :create, :destroy] do
+      member do
+        get :upgrade
+        get :cancel_confirm
+        post :reactivate
+      end
+    end
+    
+    # Profile & Settings
+    resource :profile, except: [:destroy]
+    resource :settings, only: [:show, :update]
+    
+    # Assistance Menu
+    get 'assistance/support', to: 'assistance#support', as: :assistance_support
+    get 'assistance/partners', to: 'assistance#partners', as: :assistance_partners
+    get 'assistance/tools', to: 'assistance#tools', as: :assistance_tools
+    
+    # Communication
+    resources :messages, only: [:index, :show, :new, :create]
+    
+    # NDA Management
+    resource :nda, only: [:show, :create]
+  end
+  
+  # Buyer Routes (role: buyer, status: active)
+  namespace :buyer do
+    root 'dashboard#index'
+    
+    # Buyer Messaging
+    resources :conversations, only: [:index, :show, :new, :create] do
+      resources :messages, only: [:create]
+      collection do
+        post :create_partner_conversation
+      end
+    end
+    
+    # Partner Directory Access (free for subscribers)
+    resources :partners, only: [:index, :show] do
+      member do
+        post :contact  # Contact partner
+      end
+    end
+    
+    # Browse & Search Listings
+    resources :listings, only: [:index, :show] do
+      member do
+        post :favorite, :unfavorite
+        post :reserve    # Start timer & enter CRM pipeline
+        get :release_confirm  # Confirmation page before release
+        delete :release  # Release reservation (+credits)
+      end
+      collection do
+        get :search
+        get :matches     # Listings matching my profile
+        get :exclusive  # Exclusive deals assigned to me
+      end
+    end
+    
+    # 10-Stage CRM Pipeline Management
+    resource :pipeline, only: [:show] # Drag & drop Kanban interface
+    
+    resources :deals do
+      resources :documents, except: [:index] # Enrichment documents
+      resources :notes, except: [:index]     # Deal notes & history
+      
+      member do
+        patch :move_stage    # Move to next/previous CRM stage
+        post :extend_timer   # Request timer extension (if allowed)
+        delete :release     # Release deal (+credits)
+      end
+    end
+    
+    # Favorites Management
+    resources :favorites, only: [:index, :destroy]
+    
+    # Enrichment System (Add documents to listings)
+    resources :enrichments, only: [:index, :show]
+    
+    # Nest enrichments under listings for creation
+    resources :listings, only: [] do
+      resources :enrichments, only: [:new, :create]
+    end
+    
+    # Credits & Subscription Management
+    resources :credits, only: [:index] do
+      collection do
+        post :checkout # Buy credit packs
+        get :success
+      end
+    end
+    
+    resource :subscription, only: [:show, :new, :create, :edit, :update, :destroy] do
+      member do
+        get :upgrade
+        get :cancel_confirm
+        post :reactivate
+      end
+    end
+    
+    # Profile Management (Public/Private profiles)
+    resource :profile do
+      member do
+        get :completeness # Profile completeness score
+      end
+    end
+    
+    resource :settings, only: [:show, :update]
+    
+    # Services Menu
+    namespace :services do
+      get :sourcing   # Personalized sourcing
+      get :partners   # Partner directory access (free for subscribers)
+      get :tools      # Access tools
+    end
+    
+    # Communication
+    resources :messages, only: [:index, :show, :new, :create]
+    
+    # NDA Management
+    resource :nda, only: [:show, :create]
+    
+    # Listing-specific NDAs (nested under listings)
+    resources :listings, only: [] do
+      resources :listing_ndas, only: [:create], path: 'ndas'
+    end
+  end
+  
+  # Partner Routes (role: partner, status: active)
+  namespace :partner do
+    root 'dashboard#index'
+    
+    # Partner Messaging
+    resources :conversations, only: [:index, :show] do
+      resources :messages, only: [:create]
+    end
+    
+    # Directory Profile Management
+    resource :profile do
+      member do
+        get :preview # Preview public profile
+      end
+    end
+    
+    # Annual Directory Subscription
+    resource :subscription, only: [:show, :new, :create, :destroy] do
+      member do
+        get :cancel_confirm
+        post :reactivate
+        get :renew_form
+        post :renew
+      end
+    end
+    
+    # Settings
+    resource :settings, only: [:show, :update]
+    
+    # Analytics (Views, contacts from directory)
+    resources :analytics, only: [:index]
+    
+    # Contact Management
+    resources :contacts, only: [:index, :show] # Track who contacted me
+  end
+  
+  # =========================================================================
+  # SHARED AUTHENTICATED ROUTES (ALL ROLES)
+  # =========================================================================
+  
+  # Survey Responses (All Users)
+  resources :surveys, only: [] do
+    resources :survey_responses, only: [:new, :create], path: 'responses'
+  end
+  
+  get 'survey_responses/thank_you', to: 'survey_responses#thank_you', as: :survey_response_thank_you
+  
+  # Notifications System
+  resources :notifications, only: [:index, :show] do
+    collection do
+      post :mark_all_as_read
+      patch :mark_all_read
+    end
+  end
+  
+  # Internal Messaging System
+  resources :conversations, only: [:index, :show, :create] do
+    resources :messages, only: [:create]
+  end
+  
+  # Payment & Checkout System (Stripe Integration)
+  namespace :checkout do
+    get :select_plan
+    get :payment_form, as: :payment
+    post :process_payment
+    get :success
+    get :cancel
+  end
+  
+  # Stripe Webhooks (public endpoint - no authentication required)
+  post '/webhooks/stripe', to: 'webhooks#stripe'
+  
+  # =========================================================================
+  # MOCKUP ROUTES (KEEP FOR REFERENCE/DEVELOPMENT)
+  # =========================================================================
+  
   # Mockups routes - Public Pages
   get "mockups", to: "mockups#index", as: :mockups
   get "mockups/about", to: "mockups#about", as: :mockups_about
@@ -201,15 +593,21 @@ Rails.application.routes.draw do
   get "mockups/403", to: "mockups/errors#forbidden", as: :mockups_error_403
   get "mockups/500", to: "mockups/errors#server_error", as: :mockups_error_500
 
-  # Health check
-  get "up" => "rails/health#show", as: :rails_health_check
-
   # Mockups overview - root route
   get "mockups/overview", to: "mockups#overview", as: :mockups_overview
 
+  # =========================================================================
+  # ERROR HANDLING & CATCH-ALL
+  # =========================================================================
+  
   # Root
   root "mockups#overview"
-
+  
+  # Custom error pages
+  get '404', to: 'errors#not_found'
+  get '403', to: 'errors#forbidden'
+  get '500', to: 'errors#server_error'
+  
   # Catch-all route for 404 errors - MUST BE LAST
   match '*unmatched', to: 'application#render_404', via: :all, constraints: lambda { |req|
     !req.path.starts_with?('/rails/') && 

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .message-container {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .sender-info {
+      font-weight: bold;
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+    .message-preview {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-left: 4px solid #2563eb;
+      margin: 15px 0;
+      color: #555;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #2563eb;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .button:hover {
+      background-color: #1d4ed8;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #666;
+    }
+    .conversation-subject {
+      color: #666;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2 style="margin: 0; color: #1f2937;">Nouveau message reçu</h2>
+  </div>
+
+  <div class="message-container">
+    <div class="sender-info">
+      <%= @sender.full_name %>
+    </div>
+    
+    <% if @conversation.subject.present? %>
+      <div class="conversation-subject">
+        Conversation: <%= @conversation.subject %>
+      </div>
+    <% end %>
+
+    <div class="message-preview">
+      <%= truncate(@message.body, length: 200) %>
+    </div>
+
+    <a href="<%= @conversation_url %>" class="button">
+      Voir le message complet
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>
+      Vous recevez cet email car vous participez à une conversation sur Idéal Reprise.
+    </p>
+    <p>
+      Pour répondre à ce message, veuillez vous connecter à la plateforme.
+    </p>
+  </div>
+</body>
+</html>

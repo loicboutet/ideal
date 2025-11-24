@@ -9,7 +9,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
+      fontFamily: { 
         sans: ['Inter', 'Inter var', ...defaultTheme.fontFamily.sans],
       },
       colors: {

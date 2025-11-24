@@ -1,0 +1,20 @@
+Nouveau message reçu
+=====================================
+
+De: <%= @sender.full_name %>
+<% if @conversation.subject.present? %>
+Conversation: <%= @conversation.subject %>
+<% end %>
+
+Message:
+-------------------------------------
+<%= @message.body %>
+-------------------------------------
+
+Pour répondre à ce message, veuillez cliquer sur le lien ci-dessous :
+<%= @conversation_url %>
+
+---
+
+Vous recevez cet email car vous participez à une conversation sur Idéal Reprise.
+Pour répondre à ce message, veuillez vous connecter à la plateforme.

@@ -2,6 +2,28 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   # allow_browser versions: :modern
 
+  # Use custom layout for Devise controllers
+  layout :layout_by_resource
+  
+  # Set user cookie for Action Cable authentication
+  before_action :set_action_cable_identifier
+
+  # Redirect to role-based dashboard after sign in
+  def after_sign_in_path_for(resource)
+    case resource.role
+    when 'admin'
+      admin_root_path
+    when 'seller'
+      seller_root_path
+    when 'buyer'
+      buyer_root_path
+    when 'partner'
+      partner_root_path
+    else
+      root_path
+    end
+  end
+
   # Global error handling
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
   rescue_from ActionController::RoutingError, with: :handle_not_found
@@ -53,5 +75,33 @@ class ApplicationController < ActionController::Base
   # Helper method to raise 404 manually when needed
   def not_found!
     raise ActionController::RoutingError, 'Not Found'
+  end
+  
+  # Set user ID in cookies for Action Cable authentication
+  def set_action_cable_identifier
+    cookies.encrypted[:user_id] = current_user&.id
+  end
+
+  # Custom layout for Devise and namespaced controllers
+  def layout_by_resource
+    if devise_controller?
+      "devise"
+    else
+      # Detect namespace and use corresponding layout
+      controller_namespace = self.class.name.split('::').first
+      
+      case controller_namespace
+      when 'Admin'
+        'admin'
+      when 'Buyer'
+        'buyer'
+      when 'Seller'
+        'seller'
+      when 'Partner'
+        'partner'
+      else
+        'application'
+      end
+    end
   end
 end

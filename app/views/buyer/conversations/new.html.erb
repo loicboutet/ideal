@@ -1,0 +1,18 @@
+<% content_for :page_title, "Nouvelle conversation" %>
+
+<%= render 'conversations/new_conversation_form',
+  form_url: buyer_conversations_path,
+  label_text: "Sélectionnez une annonce",
+  search_placeholder: "Rechercher et sélectionner une annonce...",
+  color: "blue",
+  select_name: "listing_id",
+  select_prompt: "Choisir une annonce",
+  options: @listings.map { |listing| 
+    { 
+      value: listing.id, 
+      text: "#{listing.title} - #{listing.seller_profile.user.full_name}" 
+    } 
+  },
+  help_text: "Tapez pour rechercher par titre, vendeur ou ville, puis sélectionnez une annonce.",
+  cancel_url: buyer_conversations_path
+%>

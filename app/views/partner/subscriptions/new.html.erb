@@ -1,0 +1,94 @@
+<% content_for :title, "Directory Subscription - Idéal Reprise" %>
+<% content_for :page_title, "Join Partner Directory" %>
+
+<div class="max-w-4xl mx-auto">
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 mb-4">Get Listed in Our Partner Directory</h1>
+    <p class="text-xl text-gray-600">Connect with buyers and sellers looking for your services</p>
+  </div>
+
+  <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-partner-500">
+    <div class="bg-gradient-to-r from-partner-500 to-partner-600 px-8 py-12 text-white text-center">
+      <h2 class="text-3xl font-bold mb-3">Annual Directory Listing</h2>
+      <div class="text-5xl font-bold mb-2">€499</div>
+      <div class="text-partner-100">per year</div>
+    </div>
+
+    <div class="p-8">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6">What's Included</h3>
+      
+      <div class="space-y-4 mb-8">
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-gray-900">Visible in Partner Directory</h4>
+            <p class="text-sm text-gray-600">Your profile appears in our searchable partner directory for one full year</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-gray-900">Featured Profile</h4>
+            <p class="text-sm text-gray-600">Stand out with a professional profile showcasing your expertise</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-gray-900">Unlimited Contact Requests</h4>
+            <p class="text-sm text-gray-600">Receive unlimited inquiries from buyers and sellers</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-gray-900">Advanced Analytics</h4>
+            <p class="text-sm text-gray-600">Track profile views and contact requests</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-gray-900">Logo & Branding</h4>
+            <p class="text-sm text-gray-600">Showcase your brand with logo and custom description</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <svg class="w-6 h-6 text-green-500 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <div>
+            <h4 class="font-semibold text-gray-900">Direct Messaging</h4>
+            <p class="text-sm text-gray-600">Communicate directly with potential clients</p>
+          </div>
+        </div>
+      </div>
+
+      <%= button_to partner_subscription_path, method: :post, params: { plan_type: 'partner_annual' }, data: { turbo: false }, class: "w-full px-8 py-4 bg-partner-600 text-white rounded-lg text-lg font-bold hover:bg-partner-700 transition shadow-lg" do %>
+        Subscribe - €499/year
+      <% end %>
+
+      <p class="text-sm text-gray-500 text-center mt-4">Annual subscription. Auto-renews unless cancelled.</p>
+    </div>
+  </div>
+
+  <div class="mt-8 text-center">
+    <%= link_to partner_root_path, class: "text-gray-600 hover:text-gray-900" do %>
+      ← Return to Dashboard
+    <% end %>
+  </div>

@@ -1,0 +1,293 @@
+<% content_for :title, "#{@listing.title} - Repreneur - Idéal Reprise" %>
+
+<%
+  completeness = @listing.calculate_completeness
+  star_rating = (completeness / 20.0).round
+  has_platform_nda = current_user.nda_signatures.exists?(signature_type: :platform_wide)
+  has_listing_nda = current_user.nda_signatures.exists?(signature_type: :listing_specific, listing_id: @listing.id)
+  can_view_confidential = has_platform_nda && has_listing_nda
+  can_reserve = @listing.can_be_reserved_by?(@buyer_profile)
+%>
+
+<div class="max-w-5xl mx-auto space-y-6">
+  <%= link_to buyer_listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour aux annonces
+  <% end %>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-start justify-between mb-4">
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-3">
+          <h1 class="text-3xl font-bold text-gray-900"><%= @listing.title %></h1>
+          <% case @listing.deal_type %>
+          <% when 'direct' %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-buyer-100 text-buyer-700">⚡ Deal Direct</span>
+          <% when 'ideal_mandate' %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-700">🏆 Mandat Idéal</span>
+          <% when 'partner_mandate' %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-partner-100 text-partner-700">🤝 Mandat Partenaire</span>
+          <% end %>
+          
+          <% if @is_exclusive %>
+            <span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-400 text-gray-900">⭐ Exclusif</span>
+          <% end %>
+        </div>
+        
+        <p class="text-gray-600">
+          <%= @listing.location_city || @listing.location_department || 'Localisation confidentielle' %> • 
+          <%= @listing.industry_sector&.humanize || 'Non spécifié' %>
+        </p>
+        
+        <!-- Star rating -->
+        <div class="flex items-center gap-2 mt-3">
+          <% star_rating.times do %>
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          <% end %>
+          <% (5 - star_rating).times do %>
+            <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+          <% end %>
+          <span class="text-sm text-gray-600 ml-2">Score: <%= star_rating %>/5</span>
+        </div>
+      </div>
+      
+      <!-- Completeness -->
+      <div class="text-right">
+        <div class="text-sm text-gray-600 mb-1">Complétude</div>
+        <div class="text-3xl font-bold <%= completeness >= 85 ? 'text-green-600' : 'text-orange-600' %>">
+          <%= completeness %>%
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Reservation Alert -->
+  <% if @active_deal&.reserved? %>
+    <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0">
+          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-lg font-bold text-green-900 mb-2">✅ Cette annonce est réservée par vous</h3>
+          <p class="text-green-800 mb-3">
+            Vous avez accès aux informations confidentielles. 
+            Il vous reste <strong><%= @active_deal.days_remaining %> jours</strong> pour cette étape.
+          </p>
+          <%= link_to buyer_deal_path(@active_deal), class: "inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium" do %>
+            Voir dans mon CRM →
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Key Metrics -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">CA annuel</div>
+      <div class="text-xl font-bold text-gray-900">
+        <% if @listing.annual_revenue %>
+          <%= number_to_currency(@listing.annual_revenue, unit: "€", separator: " ", delimiter: " ", format: "%n%u", precision: 0) %>
+        <% else %>
+          <span class="text-gray-400">Non communiqué</span>
+        <% end %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Effectif</div>
+      <div class="text-xl font-bold text-gray-900">
+        <%= @listing.employee_count || 'N/A' %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Prix estimé</div>
+      <div class="text-xl font-bold text-buyer-600">
+        <% if @listing.asking_price %>
+          <%= number_to_currency(@listing.asking_price, unit: "€", separator: " ", delimiter: " ", format: "%n%u", precision: 0) %>
+        <% else %>
+          <span class="text-gray-400">Sur demande</span>
+        <% end %>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Résultat Net</div>
+      <div class="text-xl font-bold text-gray-900">
+        <% if can_view_confidential && @listing.net_profit %>
+          <%= number_to_currency(@listing.net_profit, unit: "€", separator: " ", delimiter: " ", format: "%n%u", precision: 0) %>
+        <% else %>
+          <span class="text-sm text-gray-400">🔒 Confidentiel</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Information -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Informations détaillées</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <div class="text-sm text-gray-600">Secteur</div>
+        <div class="font-medium text-gray-900"><%= @listing.industry_sector&.humanize || 'Non spécifié' %></div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-600">Forme juridique</div>
+        <div class="font-medium text-gray-900">
+          <% if can_view_confidential && @listing.legal_form.present? %>
+            <%= @listing.legal_form %>
+          <% else %>
+            <span class="text-sm text-gray-400">🔒 Confidentiel</span>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-600">Horizon transmission</div>
+        <div class="font-medium text-gray-900"><%= @listing.transfer_horizon || 'Non spécifié' %></div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-600">Type transmission</div>
+        <div class="font-medium text-gray-900"><%= @listing.transfer_type&.humanize || 'Non spécifié' %></div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-600">Ancienneté</div>
+        <div class="font-medium text-gray-900">
+          <% if @listing.company_age.present? %>
+            <%= @listing.company_age %> ans
+          <% else %>
+            Non spécifié
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <div class="text-sm text-gray-600">Clientèle</div>
+        <div class="font-medium text-gray-900"><%= @listing.customer_type&.humanize || 'Non spécifié' %></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Public Description -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Description</h2>
+    <% if @listing.description_public.present? %>
+      <p class="text-gray-700 leading-relaxed whitespace-pre-line"><%= @listing.description_public %></p>
+    <% else %>
+      <p class="text-gray-400 italic">Aucune description publique disponible.</p>
+    <% end %>
+  </div>
+
+  <!-- Confidential Description (NDA required) -->
+  <% if can_view_confidential %>
+    <% if @listing.description_confidential.present? %>
+      <div class="bg-green-50 rounded-xl shadow-sm p-6 border-2 border-green-200">
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+          <h2 class="text-lg font-bold text-green-900">Description confidentielle</h2>
+          <span class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded-full">NDA signé</span>
+        </div>
+        <p class="text-gray-700 leading-relaxed whitespace-pre-line"><%= @listing.description_confidential %></p>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="bg-gray-50 rounded-xl shadow-sm p-6 border-2 border-gray-200">
+      <div class="flex items-center gap-2 mb-4">
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <h2 class="text-lg font-bold text-gray-700">Description confidentielle</h2>
+      </div>
+      <p class="text-gray-600 mb-4">
+        Les informations confidentielles (description détaillée, nom exact, adresse précise, contacts) sont disponibles après signature du NDA et réservation.
+      </p>
+    </div>
+  <% end %>
+
+  <!-- Actions -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h3 class="text-lg font-bold text-gray-900 mb-4">Actions</h3>
+    <div class="flex flex-wrap gap-3">
+      <!-- Favorite/Unfavorite -->
+      <% if @is_favorited %>
+        <%= button_to unfavorite_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-gray-100 text-gray-700 border-2 border-gray-300 rounded-lg hover:bg-gray-200 transition font-medium" do %>
+          💔 Retirer des favoris
+        <% end %>
+      <% else %>
+        <%= button_to favorite_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition font-medium" do %>
+          ❤️ Ajouter aux favoris
+        <% end %>
+      <% end %>
+
+      <!-- Reserve -->
+      <% if @active_deal&.reserved? %>
+        <%= link_to release_confirm_buyer_listing_path(@listing), class: "flex-1 px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition font-medium text-center" do %>
+          🔓 Libérer la réservation
+        <% end %>
+      <% elsif can_reserve %>
+        <%= button_to reserve_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium" do %>
+          🔒 Réserver cette annonce
+        <% end %>
+      <% else %>
+        <button disabled class="flex-1 px-6 py-3 bg-gray-300 text-gray-500 rounded-lg cursor-not-allowed font-medium">
+          Non disponible
+        </button>
+      <% end %>
+    </div>
+    
+    <!-- NDA Information -->
+    <% unless can_view_confidential %>
+      <div class="mt-4 p-4 bg-buyer-50 border border-buyer-200 rounded-lg space-y-4">
+        <p class="text-sm text-buyer-800">
+          <strong>Note:</strong> Après signature du NDA et réservation, vous accéderez aux informations confidentielles (nom exact, adresse, contacts, documents).
+        </p>
+        
+        <% unless has_platform_nda %>
+          <div class="flex items-start gap-3 p-3 bg-yellow-50 border-2 border-yellow-200 rounded-lg">
+            <svg class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+            <div class="flex-1">
+              <p class="text-sm text-yellow-800 font-medium mb-2">
+                ⚠️ Vous devez d'abord signer l'<strong>accord de confidentialité plateforme</strong>
+              </p>
+              <%= link_to buyer_nda_path, class: "inline-flex items-center px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition font-medium text-sm" do %>
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Signer le NDA plateforme
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        
+        <% if has_platform_nda && !has_listing_nda %>
+          <div class="flex items-start gap-3 p-3 bg-blue-50 border-2 border-blue-200 rounded-lg">
+            <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div class="flex-1">
+              <p class="text-sm text-blue-800 font-medium mb-2">
+                Vous devez maintenant signer le <strong>NDA spécifique à cette annonce</strong> pour pouvoir la réserver
+              </p>
+              <%= button_to buyer_listing_listing_ndas_path(@listing), method: :post, class: "inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-sm" do %>
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                Signer le NDA de cette annonce
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

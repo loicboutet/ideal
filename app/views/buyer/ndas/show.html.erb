@@ -1,0 +1,248 @@
+<% content_for :title, "Accord de Confidentialité - Repreneur - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <%= link_to buyer_root_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour au tableau de bord
+  <% end %>
+
+  <!-- Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0">
+        <div class="w-12 h-12 bg-buyer-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+      </div>
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Accord de Confidentialité Plateforme</h1>
+        <p class="text-gray-600">
+          Avant d'accéder aux informations confidentielles des annonces, vous devez signer l'accord de confidentialité de la plateforme Idéal Reprise.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Information Notice -->
+  <div class="bg-buyer-50 border-2 border-buyer-200 rounded-xl p-6">
+    <div class="flex items-start gap-3">
+      <svg class="w-6 h-6 text-buyer-600 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <div>
+        <h3 class="font-bold text-buyer-900 mb-2">Informations importantes</h3>
+        <ul class="space-y-2 text-sm text-buyer-800">
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Votre signature sera enregistrée avec votre adresse IP pour des raisons légales
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Après signature, vous devrez également signer un NDA spécifique pour chaque annonce
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            Une copie de cet accord vous sera envoyée par email après signature
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- NDA Document -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900">Accord de Confidentialité - Plateforme Idéal Reprise</h2>
+    </div>
+    
+    <div class="p-6 max-h-[600px] overflow-y-auto prose prose-sm max-w-none">
+      <h3>ACCORD DE CONFIDENTIALITÉ</h3>
+      
+      <p><strong>Entre les soussignés :</strong></p>
+      
+      <p>
+        <strong>IDÉAL REPRISE</strong>, société par actions simplifiée au capital de [XXXXX] euros, 
+        immatriculée au Registre du Commerce et des Sociétés de [VILLE] sous le numéro [SIRET], 
+        dont le siège social est situé [ADRESSE], représentée par [NOM], en qualité de [FONCTION],
+      </p>
+      
+      <p><strong>Ci-après dénommée "la Plateforme"</strong></p>
+      
+      <p><strong>D'une part,</strong></p>
+      
+      <p><strong>Et :</strong></p>
+      
+      <p>
+        <strong><%= current_user.full_name || current_user.email %></strong>, 
+        utilisateur de la plateforme Idéal Reprise en qualité de Repreneur,
+      </p>
+      
+      <p><strong>Ci-après dénommé "le Repreneur"</strong></p>
+      
+      <p><strong>D'autre part,</strong></p>
+      
+      <h3>IL A ÉTÉ CONVENU CE QUI SUIT :</h3>
+      
+      <h4>Article 1 - Objet</h4>
+      <p>
+        Le présent accord a pour objet de définir les conditions dans lesquelles le Repreneur 
+        s'engage à conserver la confidentialité des informations qui lui seront communiquées 
+        par la Plateforme concernant les entreprises à céder présentées sur le site Idéal Reprise.
+      </p>
+      
+      <h4>Article 2 - Définition des Informations Confidentielles</h4>
+      <p>
+        Sont considérées comme "Informations Confidentielles" au sens du présent accord, 
+        toutes informations, de quelque nature qu'elles soient, communiquées par la Plateforme 
+        au Repreneur, notamment :
+      </p>
+      <ul>
+        <li>La raison sociale exacte et l'identité des entreprises</li>
+        <li>Les coordonnées précises (adresse exacte, contacts)</li>
+        <li>Les données financières détaillées (bilans, comptes de résultats)</li>
+        <li>Les informations commerciales (clients, fournisseurs, contrats)</li>
+        <li>Les documents stratégiques et opérationnels</li>
+        <li>Toute autre information marquée comme confidentielle</li>
+      </ul>
+      
+      <h4>Article 3 - Obligations du Repreneur</h4>
+      <p>Le Repreneur s'engage à :</p>
+      <ul>
+        <li>
+          Traiter les Informations Confidentielles avec le même degré de précaution qu'il 
+          applique à ses propres informations confidentielles
+        </li>
+        <li>
+          Ne pas divulguer les Informations Confidentielles à des tiers sans l'autorisation 
+          écrite préalable de la Plateforme et du Cédant concerné
+        </li>
+        <li>
+          N'utiliser les Informations Confidentielles que dans le cadre de l'étude et de 
+          l'évaluation d'un projet de reprise
+        </li>
+        <li>
+          Ne pas reproduire ou copier les Informations Confidentielles sauf nécessité stricte 
+          liée à l'évaluation du projet
+        </li>
+        <li>
+          Restituer ou détruire toutes les Informations Confidentielles sur demande de la Plateforme
+        </li>
+      </ul>
+      
+      <h4>Article 4 - Exceptions</h4>
+      <p>
+        Ne sont pas considérées comme Informations Confidentielles les informations qui :
+      </p>
+      <ul>
+        <li>Sont ou deviennent publiques sans violation du présent accord</li>
+        <li>Étaient déjà connues du Repreneur avant leur communication</li>
+        <li>Sont légitimement reçues d'un tiers sans obligation de confidentialité</li>
+        <li>Doivent être divulguées en vertu d'une obligation légale ou judiciaire</li>
+      </ul>
+      
+      <h4>Article 5 - Durée</h4>
+      <p>
+        Le présent accord prend effet à la date de signature électronique et demeure 
+        en vigueur pour une durée de <strong>5 (cinq) ans</strong>.
+      </p>
+      
+      <h4>Article 6 - Sanctions</h4>
+      <p>
+        Toute violation du présent accord pourra donner lieu à :
+      </p>
+      <ul>
+        <li>La suspension immédiate de l'accès du Repreneur à la plateforme</li>
+        <li>Des dommages et intérêts au profit de la partie lésée</li>
+        <li>Toute action en justice appropriée</li>
+      </ul>
+      
+      <h4>Article 7 - Loi Applicable et Juridiction</h4>
+      <p>
+        Le présent accord est régi par le droit français. Tout litige relatif à son 
+        interprétation ou à son exécution sera soumis aux tribunaux compétents de [VILLE].
+      </p>
+      
+      <div class="mt-8 p-4 bg-gray-50 rounded-lg border border-gray-300">
+        <p class="text-sm text-gray-600 mb-2">
+          <strong>Date de signature :</strong> <%= Time.current.strftime("%d/%m/%Y à %H:%M") %>
+        </p>
+        <p class="text-sm text-gray-600">
+          <strong>Signataire :</strong> <%= current_user.full_name || current_user.email %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signature Form -->
+  <%= form_with url: buyer_nda_path, method: :post, class: "bg-white rounded-xl shadow-sm p-6 border border-gray-200" do |f| %>
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Signature électronique</h2>
+    
+    <div class="space-y-6">
+      <!-- Agreement Checkbox -->
+      <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <input type="checkbox" id="agreement" name="agreement" required 
+               class="mt-1 h-5 w-5 text-buyer-600 focus:ring-buyer-500 border-gray-300 rounded">
+        <label for="agreement" class="text-sm text-gray-700">
+          <span class="font-bold">Je déclare avoir lu et compris l'intégralité de cet accord de confidentialité.</span>
+          Je m'engage à respecter toutes les clauses de confidentialité énoncées ci-dessus et 
+          je comprends que toute violation pourra entraîner des sanctions légales.
+        </label>
+      </div>
+
+      <!-- Signature Field -->
+      <div>
+        <label for="signature" class="block text-sm font-medium text-gray-700 mb-2">
+          Signature (tapez votre nom complet) <span class="text-red-500">*</span>
+        </label>
+        <input type="text" id="signature" name="signature" required 
+               placeholder="Prénom Nom"
+               value="<%= current_user.full_name %>"
+               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-buyer-500 focus:border-buyer-500 font-serif text-lg">
+        <p class="mt-2 text-sm text-gray-500">
+          En tapant votre nom, vous apposez votre signature électronique sur cet accord.
+        </p>
+      </div>
+
+      <!-- IP Notice -->
+      <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <div class="flex gap-3">
+          <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-sm text-blue-800">
+            <strong>Note de sécurité :</strong> Votre adresse IP (<code class="bg-blue-100 px-1 py-0.5 rounded"><%= request.remote_ip %></code>) 
+            et l'heure exacte de signature seront enregistrées avec cet accord conformément aux 
+            exigences légales relatives aux signatures électroniques.
+          </p>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex items-center gap-4">
+        <%= link_to "Annuler", buyer_root_path, class: "px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium" %>
+        
+        <%= f.submit "Signer l'accord de confidentialité", 
+            class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-bold text-lg shadow-lg hover:shadow-xl" %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Legal Notice -->
+  <div class="text-center text-sm text-gray-500">
+    <p>
+      En signant cet accord, vous acceptez que votre signature électronique ait la même 
+      valeur juridique qu'une signature manuscrite conformément au règlement eIDAS 
+      (910/2014) et au Code Civil français.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,103 @@
+<% content_for :title, "#{@admin_message.subject} - Notifications - IDEAL" %>
+
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="container mx-auto px-4">
+    <!-- Back Button -->
+    <div class="mb-6">
+      <%= link_to notifications_path, class: "inline-flex items-center text-gray-600 hover:text-gray-900" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Retour aux notifications
+      <% end %>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <!-- Message Card -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <!-- Header -->
+        <div class="border-b border-gray-200 p-6 bg-gray-50">
+          <div class="flex items-start justify-between gap-4 mb-4">
+            <h1 class="text-2xl font-bold text-gray-900"><%= @admin_message.subject %></h1>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <%= @admin_message.broadcast? ? 'bg-blue-100 text-blue-700' : @admin_message.survey? || @admin_message.questionnaire? ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-700' %>">
+              <%= @admin_message.message_type.humanize %>
+            </span>
+          </div>
+          
+          <div class="flex items-center gap-4 text-sm text-gray-600">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              <span>De: Administration</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              <span><%= @message_recipient.created_at.strftime('%d/%m/%Y à %H:%M') %></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Message Content -->
+        <div class="p-8">
+          <div class="prose prose-blue max-w-none">
+            <%= simple_format(@admin_message.body, class: "text-gray-700 leading-relaxed") %>
+          </div>
+
+          <!-- Survey Section (if applicable) -->
+          <% if @admin_message.survey? || @admin_message.questionnaire? %>
+            <% if @admin_message.survey.present? %>
+              <div class="mt-8 p-6 bg-purple-50 rounded-lg border border-purple-200">
+                <h2 class="text-lg font-bold text-gray-900 mb-4">
+                  <%= @admin_message.survey.title %>
+                </h2>
+                <% if @admin_message.survey.description.present? %>
+                 <p class="text-gray-700 mb-4"><%= @admin_message.survey.description %></p>
+                <% end %>
+                
+                <!-- Survey Form (Placeholder - to be implemented) -->
+                <div class="bg-white p-4 rounded-lg">
+                  <p class="text-sm text-gray-600 italic">
+                    Formulaire de réponse au sondage à venir...
+                  </p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- Footer with Delivery Info -->
+        <div class="border-t border-gray-200 px-8 py-4 bg-gray-50">
+          <div class="flex items-center justify-between text-sm">
+            <div class="flex items-center gap-4 text-gray-600">
+              <% if @admin_message.show_in_dashboard %>
+                <span class="inline-flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                  </svg>
+                  Dashboard
+                </span>
+              <% end %>
+              <% if @message_recipient.email_sent? %>
+                <span class="inline-flex items-center gap-1">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                  Email envoyé
+                </span>
+              <% end %>
+            </div>
+            
+            <% if @message_recipient.read? %>
+              <span class="text-gray-500">
+                Lu le <%= @message_recipient.read_at.strftime('%d/%m/%Y à %H:%M') %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

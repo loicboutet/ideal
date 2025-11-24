@@ -1,0 +1,456 @@
+<% content_for :title, "Améliorer le forfait - Idéal Reprise" %>
+<% content_for :page_title, "Changer votre forfait" %>
+
+<div class="max-w-7xl mx-auto space-y-8">
+  <%= link_to buyer_subscription_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour à mon abonnement
+  <% end %>
+
+  <div class="text-center mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Choisissez votre forfait</h2>
+    <p class="text-gray-600">Trouvez le forfait qui correspond à vos besoins d'acquisition d'entreprise</p>
+  </div>
+
+  <!-- Pricing Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <!-- Free Plan -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200">
+      <div class="mb-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Gratuit</h3>
+        <div class="text-4xl font-bold text-gray-900 mb-1">0€<span class="text-lg text-gray-600 font-normal">/mois</span></div>
+        <p class="text-sm text-gray-600">Pour découvrir</p>
+      </div>
+      
+      <ul class="space-y-3 mb-6 min-h-[280px]">
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span class="text-sm text-gray-500">Accès limité</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span class="text-sm text-gray-500">0 réservation</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span class="text-sm text-gray-500">Pas de CRM</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <span class="text-sm text-gray-500">0 crédit/mois</span>
+        </li>
+      </ul>
+      
+      <% if @current_plan_type.nil? || @current_plan_type == 'buyer_free' %>
+        <button class="w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium bg-gray-100" disabled>
+          Forfait actuel
+        </button>
+      <% else %>
+        <button class="w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition" disabled>
+          Rétrogradation non disponible
+        </button>
+      <% end %>
+    </div>
+
+    <!-- Starter Plan -->
+    <div class="bg-white rounded-xl shadow-md p-6 border-2 border-gray-300">
+      <div class="mb-6">
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Starter</h3>
+        <div class="text-4xl font-bold text-gray-900 mb-1">89€<span class="text-lg text-gray-600 font-normal">/mois</span></div>
+        <p class="text-sm text-gray-600">Pour commencer</p>
+      </div>
+      
+      <ul class="space-y-3 mb-6 min-h-[280px]">
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">Accès complet aux annonces</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">3 réservations simultanées</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">Minuteur de 10 jours</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">CRM Pipeline</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">Enrichissement des annonces</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700"><strong>5 crédits/mois</strong></span>
+        </li>
+      </ul>
+      
+      <% if @current_plan_type == 'buyer_starter' %>
+        <button class="w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium bg-gray-100" disabled>
+          Forfait actuel
+        </button>
+      <% else %>
+        <%= button_to buyer_subscription_path, method: :patch, params: { plan_type: 'buyer_starter' }, class: "w-full px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition", data: { turbo_confirm: "Passer au forfait Starter ?" } do %>
+          Choisir Starter
+        <% end %>
+      <% end %>
+    </div>
+
+    <!-- Premium Plan (Recommended) -->
+    <div class="bg-gradient-to-br from-buyer-500 to-purple-600 rounded-xl shadow-xl p-6 text-white relative overflow-hidden border-2 border-buyer-600">
+      <div class="absolute top-4 right-4">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-400 text-gray-900">
+          ⭐ Recommandé
+        </span>
+      </div>
+      
+      <div class="mb-6 mt-8">
+        <h3 class="text-xl font-bold mb-2">Premium</h3>
+        <div class="text-4xl font-bold mb-1">249€<span class="text-lg font-normal opacity-90">/mois</span></div>
+        <p class="text-sm opacity-90">Pour réussir</p>
+      </div>
+      
+      <ul class="space-y-3 mb-6 min-h-[280px]">
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm"><strong>Tout Starter inclus</strong></span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Réservations illimitées</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Minuteur de 2 mois</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm"><strong>15 crédits/mois</strong></span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Badge acheteur vérifié</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Annuaire partenaires gratuit</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm">Support prioritaire 24/7</span>
+        </li>
+      </ul>
+      
+      <% if @current_plan_type == 'buyer_premium' %>
+        <button class="w-full px-6 py-3 bg-white/20 text-white rounded-lg font-medium" disabled>
+          Forfait actuel
+        </button>
+      <% else %>
+        <%= button_to buyer_subscription_path, method: :patch, params: { plan_type: 'buyer_premium' }, class: "w-full px-6 py-3 bg-white text-buyer-600 rounded-lg font-medium hover:bg-buyer-50 transition shadow-lg", data: { turbo_confirm: "Passer au forfait Premium ?" } do %>
+          Choisir Premium
+        <% end %>
+      <% end %>
+    </div>
+
+    <!-- Club Plan -->
+    <div class="bg-white rounded-xl shadow-md p-6 border-2 border-purple-300">
+      <div class="mb-6">
+        <div class="inline-block px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-900 mb-3">
+          💎 Exclusif
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Club</h3>
+        <div class="text-4xl font-bold text-gray-900 mb-1">1200€<span class="text-lg text-gray-600 font-normal">/an</span></div>
+        <p class="text-sm text-gray-600">Pour les experts</p>
+      </div>
+      
+      <ul class="space-y-3 mb-6 min-h-[280px]">
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700"><strong>Tout Premium inclus</strong></span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700"><strong>30 crédits/mois</strong></span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">1h/mois de coaching inclus</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">20% de réduction sur les crédits</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">Événements VIP</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <svg class="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="text-sm text-gray-700">Réseau exclusif</span>
+        </li>
+      </ul>
+      
+      <% if @current_plan_type == 'buyer_club' %>
+        <button class="w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium bg-gray-100" disabled>
+          Forfait actuel
+        </button>
+      <% else %>
+        <%= button_to buyer_subscription_path, method: :patch, params: { plan_type: 'buyer_club' }, class: "w-full px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition", data: { turbo_confirm: "Passer au forfait Club ?" } do %>
+          Choisir Club
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- What credits do -->
+  <div class="bg-blue-50 rounded-xl p-6 mb-8">
+    <div class="flex items-start gap-3">
+      <div class="flex-shrink-0">
+        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-2">À quoi servent les crédits ?</h3>
+        <p class="text-sm text-gray-700 mb-3">Les crédits vous donnent accès aux services premium :</p>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600">•</span>
+            <span><strong>Enrichissement annonce</strong> - 2 crédits : Demander des informations financières détaillées</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600">•</span>
+            <span><strong>Contact partenaire</strong> - 1 crédit : Obtenir les coordonnées d'un expert (avocat, comptable, etc.)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-blue-600">•</span>
+            <span><strong>Rapport d'évaluation</strong> - 5 crédits : Analyse approfondie d'une opportunité</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credit Packs -->
+  <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-200">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-2">Besoin de plus de crédits ?</h2>
+      <p class="text-gray-600">Achetez des packs de crédits à tout moment</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="border-2 border-gray-200 rounded-xl p-6 hover:border-buyer-500 transition text-center">
+        <div class="text-xl font-bold text-gray-900 mb-2">Pack Starter</div>
+        <div class="text-3xl font-bold text-buyer-600 mb-1">10 crédits</div>
+        <div class="text-2xl font-bold text-gray-900 mb-4">50€</div>
+        <p class="text-sm text-gray-600 mb-4">5€ par crédit</p>
+        <button class="w-full px-4 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium">
+          Acheter
+        </button>
+      </div>
+
+      <div class="border-2 border-buyer-500 rounded-xl p-6 relative text-center bg-buyer-50">
+        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+          <span class="px-3 py-1 bg-buyer-600 text-white text-xs font-medium rounded-full">⭐ Populaire</span>
+        </div>
+        <div class="text-xl font-bold text-gray-900 mb-2">Pack Pro</div>
+        <div class="text-3xl font-bold text-buyer-600 mb-1">25 crédits</div>
+        <div class="text-2xl font-bold text-gray-900 mb-4">100€</div>
+        <p class="text-sm text-gray-600 mb-4">4€ par crédit <span class="text-green-600 font-medium">(-20%)</span></p>
+        <button class="w-full px-4 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium">
+          Acheter
+        </button>
+      </div>
+
+      <div class="border-2 border-gray-200 rounded-xl p-6 hover:border-buyer-500 transition text-center">
+        <div class="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded mb-2">
+          Meilleur rapport
+        </div>
+        <div class="text-xl font-bold text-gray-900 mb-2">Pack Expert</div>
+        <div class="text-3xl font-bold text-buyer-600 mb-1">50 crédits</div>
+        <div class="text-2xl font-bold text-gray-900 mb-4">180€</div>
+        <p class="text-sm text-gray-600 mb-4">3,60€ par crédit <span class="text-green-600 font-medium">(-28%)</span></p>
+        <button class="w-full px-4 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium">
+          Acheter
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-6 text-center text-sm text-gray-600">
+      <p>💎 <strong>Membres Club :</strong> Bénéficiez de 20% de réduction supplémentaire sur tous les packs !</p>
+    </div>
+  </div>
+
+  <!-- Comparison Table -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="p-6 border-b border-gray-200">
+      <h2 class="text-xl font-bold text-gray-900 text-center">Comparaison détaillée des forfaits</h2>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b border-gray-200 bg-gray-50">
+            <th class="p-4 text-left text-sm font-semibold text-gray-900">Fonctionnalités</th>
+            <th class="p-4 text-center text-sm font-semibold text-gray-700">Gratuit</th>
+            <th class="p-4 text-center text-sm font-semibold text-gray-700">Starter</th>
+            <th class="p-4 text-center text-sm font-semibold text-buyer-700 bg-buyer-50">Premium</th>
+            <th class="p-4 text-center text-sm font-semibold text-purple-700 bg-purple-50">Club</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Accès aux annonces</td>
+            <td class="p-4 text-center text-sm text-gray-500">Limité</td>
+            <td class="p-4 text-center text-sm">✓ Complet</td>
+            <td class="p-4 text-center text-sm bg-buyer-50">✓ Complet</td>
+            <td class="p-4 text-center text-sm bg-purple-50">✓ Complet</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Réservations simultanées</td>
+            <td class="p-4 text-center text-sm text-gray-500">0</td>
+            <td class="p-4 text-center text-sm">3</td>
+            <td class="p-4 text-center text-sm bg-buyer-50 font-medium">Illimité</td>
+            <td class="p-4 text-center text-sm bg-purple-50 font-medium">Illimité</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Durée du minuteur</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm">10 jours</td>
+            <td class="p-4 text-center text-sm bg-buyer-50">2 mois</td>
+            <td class="p-4 text-center text-sm bg-purple-50">2 mois</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">CRM Pipeline</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm">✓</td>
+            <td class="p-4 text-center text-sm bg-buyer-50">✓</td>
+            <td class="p-4 text-center text-sm bg-purple-50">✓</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Enrichissement des annonces</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm">✓</td>
+            <td class="p-4 text-center text-sm bg-buyer-50">✓</td>
+            <td class="p-4 text-center text-sm bg-purple-50">✓</td>
+          </tr>
+          <tr class="bg-yellow-50">
+            <td class="p-4 text-sm text-gray-900 font-medium">Crédits inclus/mois</td>
+            <td class="p-4 text-center text-sm text-gray-500">0</td>
+            <td class="p-4 text-center text-sm font-medium">5</td>
+            <td class="p-4 text-center text-sm bg-buyer-50 font-bold text-buyer-700">15</td>
+            <td class="p-4 text-center text-sm bg-purple-50 font-bold text-purple-700">30</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Badge acheteur vérifié</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm bg-buyer-50">✓</td>
+            <td class="p-4 text-center text-sm bg-purple-50">✓</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Annuaire des partenaires</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm">Payant</td>
+            <td class="p-4 text-center text-sm bg-buyer-50 font-medium">Gratuit</td>
+            <td class="p-4 text-center text-sm bg-purple-50 font-medium">Gratuit</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Support prioritaire</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm bg-buyer-50">✓</td>
+            <td class="p-4 text-center text-sm bg-purple-50">✓</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Coaching inclus</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm bg-buyer-50 text-gray-500">-</td>
+            <td class="p-4 text-center text-sm bg-purple-50 font-medium">1h/mois</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-sm text-gray-700">Réduction sur les crédits</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm text-gray-500">-</td>
+            <td class="p-4 text-center text-sm bg-buyer-50 text-gray-500">-</td>
+            <td class="p-4 text-center text-sm bg-purple-50 font-medium">-20%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="bg-gray-50 rounded-xl p-8">
+    <h2 class="text-xl font-bold text-gray-900 mb-6 text-center">Questions fréquentes</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="font-bold text-gray-900 mb-2">Puis-je changer de forfait à tout moment ?</h3>
+        <p class="text-sm text-gray-600">Oui, vous pouvez passer à un forfait supérieur ou inférieur à tout moment. Les changements prennent effet immédiatement.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-2">Qu'advient-il de mes crédits si je change de forfait ?</h3>
+        <p class="text-sm text-gray-600">Vos crédits achetés restent valables. Les crédits mensuels inclus sont renouvelés selon votre nouveau forfait.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-2">Les crédits expirent-ils ?</h3>
+        <p class="text-sm text-gray-600">Les crédits mensuels inclus expirent à la fin du mois. Les crédits achetés en packs n'expirent jamais.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-gray-900 mb-2">Puis-je annuler mon abonnement ?</h3>
+        <p class="text-sm text-gray-600">Oui, sans engagement. Vous conservez l'accès jusqu'à la fin de la période payée.</p>
+      </div>
+    </div>
+  </div>
+</div>

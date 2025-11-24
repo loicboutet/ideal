@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .listing-container {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .listing-title {
+      font-weight: bold;
+      color: #2563eb;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+    .listing-details {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-left: 4px solid #2563eb;
+      margin: 15px 0;
+    }
+    .detail-item {
+      margin: 8px 0;
+      color: #555;
+    }
+    .detail-label {
+      font-weight: bold;
+      color: #333;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #2563eb;
+      color: #ffffff !important;
+      text-decoration: none;
+      border-radius: 6px;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .button:hover {
+      background-color: #1d4ed8;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+      font-size: 12px;
+      color: #666;
+    }
+    .match-info {
+      background-color: #ecfdf5;
+      border: 1px solid #10b981;
+      border-radius: 6px;
+      padding: 12px;
+      margin: 15px 0;
+      color: #065f46;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2 style="margin: 0; color: #1f2937;">🎯 Nouvelle opportunité correspondant à vos critères</h2>
+  </div>
+
+  <div class="match-info">
+    <strong>Cette annonce correspond à votre profil d'investissement !</strong>
+  </div>
+
+  <div class="listing-container">
+    <div class="listing-title">
+      <%= @listing.title %>
+    </div>
+
+    <div class="listing-details">
+      <div class="detail-item">
+        <span class="detail-label">Secteur :</span>
+        <%= @listing.industry_sector&.humanize %>
+      </div>
+      
+      <% if @listing.location_department.present? %>
+        <div class="detail-item">
+          <span class="detail-label">Localisation :</span>
+          <%= @listing.location_department %>
+        </div>
+      <% end %>
+      
+      <% if @listing.annual_revenue.present? %>
+        <div class="detail-item">
+          <span class="detail-label">Chiffre d'affaires :</span>
+          <%= number_to_currency(@listing.annual_revenue, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+        </div>
+      <% end %>
+      
+      <% if @listing.asking_price.present? %>
+        <div class="detail-item">
+          <span class="detail-label">Prix demandé :</span>
+          <%= number_to_currency(@listing.asking_price, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+        </div>
+      <% end %>
+    </div>
+
+    <a href="<%= @listing_url %>" class="button">
+      Voir l'annonce complète
+    </a>
+  </div>
+
+  <div class="footer">
+    <p>
+      Vous recevez cet email car cette opportunité correspond à vos critères de recherche sur Idéal Reprise.
+    </p>
+    <p>
+      Connectez-vous pour consulter tous les détails et réserver cette opportunité.
+    </p>
+  </div>
+</body>
+</html>

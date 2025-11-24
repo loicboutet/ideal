@@ -1,0 +1,175 @@
+<% content_for :title, "Tableau de bord Partenaire - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Welcome Banner with Scrolling Messages -->
+  <div class="bg-gradient-to-r from-partner-500 to-partner-600 rounded-xl shadow-sm p-6 text-white">
+    <div class="flex items-center justify-between mb-3">
+      <div>
+        <h2 class="text-2xl font-bold mb-2">Bonjour <%= current_user.full_name.split(' ').first %> 👋</h2>
+        <p class="text-partner-100">Bienvenue sur votre espace partenaire</p>
+      </div>
+      <div class="hidden md:block">
+        <%= link_to preview_partner_profile_path, class: "px-6 py-3 bg-white text-partner-600 rounded-full font-medium hover:bg-partner-50 transition shadow-lg" do %>
+          Voir ma fiche publique
+        <% end %>
+      </div>
+    </div>
+    <!-- Auto-Rotating Messages Carousel -->
+    <div class="bg-white/10 rounded-lg py-2 px-3" data-controller="carousel">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <div class="flex-1 relative overflow-hidden" style="min-height: 1.5rem;">
+          <!-- Slide 1 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0">
+            <p class="text-sm">
+              📢 Nouveauté : Optimisez votre fiche pour apparaître en tête des résultats
+            </p>
+          </div>
+          <!-- Slide 2 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
+            <p class="text-sm">
+              💡 Astuce : Les profils complets reçoivent 5x plus de demandes de contact
+            </p>
+          </div>
+          <!-- Slide 3 -->
+          <div data-carousel-target="slide" class="transition-opacity duration-300 ease-in-out absolute inset-0 hidden opacity-0">
+            <p class="text-sm">
+              🎯 Conseil : Répondez rapidement aux demandes pour améliorer votre taux de conversion
+            </p>
+          </div>
+        </div>
+        <!-- Carousel Dots -->
+        <div class="flex items-center gap-1.5 ml-2">
+          <button type="button" data-carousel-dot data-index="0" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white transition-all"></button>
+          <button type="button" data-carousel-dot data-index="1" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
+          <button type="button" data-carousel-dot data-index="2" data-action="click->carousel#goToSlide" class="w-1.5 h-1.5 rounded-full bg-white/50 transition-all"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Profile Views -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-blue-100 rounded-lg">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Vues du profil</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900">0</div>
+      <p class="text-sm text-gray-500 mt-2">Vues ce mois-ci</p>
+    </div>
+
+    <!-- Contacts Received -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-green-100 rounded-lg">
+          <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Contacts</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900">0</div>
+      <p class="text-sm text-gray-500 mt-2">Demandes de contact</p>
+    </div>
+
+    <!-- Directory Ranking -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-yellow-100 rounded-lg">
+          <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Classement</span>
+      </div>
+      <div class="text-3xl font-bold text-gray-900">-</div>
+      <p class="text-sm text-gray-500 mt-2">Dans l'annuaire</p>
+    </div>
+
+    <!-- Subscription Status -->
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex items-center justify-between mb-4">
+        <div class="p-3 bg-purple-100 rounded-lg">
+          <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <span class="text-sm font-medium text-gray-500">Abonnement</span>
+      </div>
+      <div class="text-lg font-bold text-gray-900">Actif</div>
+      <p class="text-sm text-gray-500 mt-2">Annuel</p>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Actions rapides</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <%= link_to partner_profile_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
+        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Gérer mon profil</div>
+          <div class="text-sm text-gray-500">Mettre à jour les informations</div>
+        </div>
+      <% end %>
+
+      <%= link_to preview_partner_profile_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
+        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Aperçu du profil</div>
+          <div class="text-sm text-gray-500">Voir comme les utilisateurs</div>
+        </div>
+      <% end %>
+
+      <%= link_to partner_analytics_path, class: "flex items-center gap-3 p-4 border border-gray-200 rounded-lg hover:border-[#4A90E2] hover:bg-blue-50 transition" do %>
+        <svg class="w-8 h-8 text-[#4A90E2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        <div>
+          <div class="font-medium text-gray-900">Voir les statistiques</div>
+          <div class="text-sm text-gray-500">Analytique détaillée</div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Profile Completeness -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">Complétude du profil</h2>
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <span class="text-gray-700">Votre profil est complet</span>
+        <span class="text-[#4A90E2] font-semibold">100%</span>
+      </div>
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-[#4A90E2] h-2 rounded-full" style="width: 100%"></div>
+      </div>
+      <p class="text-sm text-gray-500">Un profil complet augmente votre visibilité dans l'annuaire</p>
+    </div>
+  </div>
+
+  <!-- Recent Contacts -->
+  <div class="bg-white rounded-lg shadow p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-lg font-semibold text-gray-900">Contacts récents</h2>
+      <%= link_to "Voir tout", partner_contacts_path, class: "text-[#4A90E2] hover:text-blue-700 text-sm font-medium" %>
+    </div>
+    <div class="space-y-4">
+      <p class="text-gray-500 text-center py-8">Aucun contact récent</p>
+    </div>
+  </div>
+</div>

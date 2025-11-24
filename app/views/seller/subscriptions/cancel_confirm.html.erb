@@ -1,0 +1,66 @@
+<% content_for :title, "Annuler l'Abonnement - Idéal Reprise" %>
+<% content_for :page_title, "Annuler l'Abonnement" %>
+
+<div class="max-w-2xl mx-auto">
+  <div class="bg-white rounded-xl shadow-lg p-8">
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-red-100 rounded-full mb-4">
+        <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      </div>
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">Annuler l'Abonnement Premium ?</h2>
+      <p class="text-gray-600">Nous sommes désolés de vous voir partir</p>
+    </div>
+
+    <% if @subscription %>
+      <div class="mb-6">
+        <h3 class="font-semibold text-gray-900 mb-3">Ce que vous allez perdre :</h3>
+        <ul class="space-y-2">
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="text-gray-700">Annonces illimitées (retour à 3 annonces maximum)</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="text-gray-700">5 mises en avant mensuelles d'annonces pour les acheteurs</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="text-gray-700">Accès à l'annuaire des partenaires</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span class="text-gray-700">Analyses et informations premium</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-6">
+        <p class="text-sm text-blue-900">Votre abonnement restera actif jusqu'au <%= @subscription.current_period_end&.strftime('%d %B %Y') %></p>
+      </div>
+
+      <div class="space-y-3">
+        <%= button_to seller_subscription_path, method: :delete, class: "w-full px-6 py-3 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition", data: { confirm: "Êtes-vous sûr de vouloir annuler ?" } do %>
+          Oui, Annuler Mon Abonnement
+        <% end %>
+
+        <%= link_to seller_subscription_path, class: "block w-full text-center px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition" do %>
+          Non, Conserver Mon Abonnement
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6 text-center">
+    <p class="text-gray-600">Besoin d'aide ? <%= link_to "Contacter le support", "#", class: "text-seller-600 hover:text-seller-700 font-medium" %></p>
+  </div>
+</div>

@@ -1,0 +1,202 @@
+<% content_for :title, "Modifier ma fiche - Partenaire - Idéal Reprise" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <% if flash[:notice] %>
+    <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-start gap-3">
+      <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <p class="font-medium"><%= flash[:notice] %></p>
+      </div>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg flex items-start gap-3">
+      <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      <div>
+        <p class="font-medium"><%= flash[:alert] %></p>
+        <% if defined?(@errors) && @errors.any? %>
+          <ul class="mt-2 text-sm list-disc list-inside">
+            <% @errors.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <%= link_to partner_profile_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900" do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Retour
+  <% end %>
+
+  <div>
+    <h1 class="text-2xl font-bold text-gray-900">Modifier ma fiche annuaire</h1>
+  </div>
+
+  <%= form_with model: @profile, url: partner_profile_path, method: :patch, local: true, data: { turbo: false }, class: "space-y-6" do |f| %>
+    
+    <!-- Informations générales -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Informations générales</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= label_tag "user[company_name]", "Nom du cabinet *", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= text_field_tag "user[company_name]", @profile.user.company_name,
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :partner_type, "Type de partenaire *", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.select :partner_type,
+            options_for_select([
+              ['Avocat d\'affaires', 'lawyer'],
+              ['Comptable', 'accountant'],
+              ['Consultant', 'consultant'],
+              ['Banquier M&A', 'banker'],
+              ['Broker', 'broker'],
+              ['Autre', 'other']
+            ], @profile.partner_type),
+            { include_blank: 'Sélectionnez un type' },
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :description, "Description *", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.text_area :description,
+            rows: 4,
+            placeholder: "Présentez votre cabinet, votre expérience, vos domaines d'expertise...",
+            class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :services_offered, "Services proposés", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.text_area :services_offered,
+            rows: 3,
+            placeholder: "Listez les services que vous proposez aux repreneurs...",
+            class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone d'intervention -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Zone d'intervention</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :coverage_area, "Secteur couvert *", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <div class="space-y-2">
+            <% [
+              ['Ville spécifique', 'city'],
+              ['Département(s)', 'department'],
+              ['Région(s)', 'region'],
+              ['France entière', 'nationwide'],
+              ['International', 'international']
+            ].each do |label, value| %>
+              <label class="flex items-center gap-2">
+                <%= f.radio_button :coverage_area, value, class: "text-purple-600" %>
+                <span class="text-sm"><%= label %></span>
+              </label>
+            <% end %>
+          </div>
+          <%= f.text_field :coverage_details,
+            placeholder: "Précisez (ex: Île-de-France, Lyon, etc.)",
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 mt-2"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :intervention_stages, "Stades d'intervention *", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <p class="text-xs text-gray-500 mb-2">Sélectionnez les étapes où vous intervenez</p>
+          <div class="grid grid-cols-2 gap-2">
+            <% [
+              ['Échange d\'infos', 'Info Exchange'],
+              ['Analyse', 'Analysis'],
+              ['Alignement projets', 'Project Alignment'],
+              ['Négociation', 'Negotiation'],
+              ['LOI', 'LOI'],
+              ['Audits', 'Audits'],
+              ['Financement', 'Financing'],
+              ['Deal signé', 'Deal Signed']
+            ].each do |label, value| %>
+              <label class="flex items-center gap-2 p-2 bg-gray-50 rounded">
+                <%= check_box_tag "partner_profile[intervention_stages][]", value,
+                  @profile.intervention_stages&.include?(value),
+                  class: "rounded text-purple-600"
+                %>
+                <span class="text-sm"><%= label %></span>
+              </label>
+            <% end %>
+          </div>
+          <%= hidden_field_tag "partner_profile[intervention_stages][]", "" %>
+        </div>
+
+        <div>
+          <%= f.label :industry_specializations, "Secteurs d'activité visés (si spécialisation)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.select :industry_specializations,
+            options_for_select([
+              'Industrie',
+              'Construction (BTP)',
+              'Commerce & Distribution',
+              'Transport & Logistique',
+              'Hôtellerie / Restauration',
+              'Services',
+              'Agri-food & Agriculture',
+              'Santé',
+              'Digital',
+              'Immobilier',
+              'Autre'
+            ], @profile.industry_specializations),
+            {},
+            { multiple: true, size: 5, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500" }
+          %>
+          <p class="text-xs text-gray-500 mt-1">Laissez vide si vous intervenez dans tous les secteurs</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Contact</h3>
+      
+      <div class="space-y-4">
+        <div>
+          <%= f.label :website, "Site web", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.url_field :website,
+            placeholder: "https://www.votre-site.fr",
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          %>
+        </div>
+
+        <div>
+          <%= f.label :calendar_link, "Lien Google Agenda (prise de RDV)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.url_field :calendar_link,
+            placeholder: "https://calendar.google.com/calendar/appointments/...",
+            class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
+          %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex gap-3">
+      <%= link_to partner_profile_path, class: "px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" do %>
+        Annuler
+      <% end %>
+      <%= f.submit "Enregistrer les modifications", class: "flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700" %>
+    </div>
+  <% end %>
+</div>

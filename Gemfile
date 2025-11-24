@@ -51,11 +51,17 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  
+  # Load environment variables from .env file
+  gem "dotenv-rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  
+  # Preview email in the browser instead of sending
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :test do
@@ -65,3 +71,19 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+gem "kaminari"
+
+# Payment processing
+gem "stripe", "~> 12.0"
+
+# Analytics and charting
+gem "groupdate"
+
+# Export functionality
+gem "caxlsx"
+gem "caxlsx_rails"
+gem "prawn"
+gem "prawn-table"
+
+# Import functionality (Excel/CSV reading)
+gem "roo", "~> 2.10"

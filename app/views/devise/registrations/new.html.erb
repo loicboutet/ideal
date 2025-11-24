@@ -1,29 +1,157 @@
-<h2>Sign up</h2>
+<% content_for :title, "Inscription - Idéal Reprise" %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-lg w-full">
+    <!-- Logo and Header -->
+    <div class="text-center mb-8">
+      <%= link_to root_path do %>
+        <%= image_tag "IDAL.jpg", class: "mx-auto h-16 w-auto mb-6", alt: "Idéal Reprise" %>
+      <% end %>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Créer un compte</h1>
+      <p class="text-gray-600">Rejoignez la plateforme Idéal Reprise</p>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <!-- Registration Form Card -->
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-5", data: { controller: "role-selector" } }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <!-- Role Selection Dropdown -->
+        <div>
+          <%= f.label :role, "Je m'inscris en tant que", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.select :role,
+              options_for_select([
+                ['Vendeur - Cédant d\'entreprise', 'seller'],
+                ['Acheteur - Repreneur d\'entreprise', 'buyer'],
+                ['Partenaire - Prestataire de services', 'partner']
+              ], 'buyer'),
+              {},
+              {
+                class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition",
+                data: { role_selector_target: "roleSelect", action: "change->role-selector#toggleFields" }
+              }
+          %>
+        </div>
+
+        <!-- Name Fields -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= f.label :first_name, "Prénom", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", placeholder: "Jean", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" %>
+          </div>
+          
+          <div>
+            <%= f.label :last_name, "Nom", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.text_field :last_name, autocomplete: "family-name", placeholder: "Dupont", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" %>
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div>
+          <%= f.label :email, "Adresse email", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.email_field :email, autocomplete: "email", placeholder: "vous@example.com", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" %>
+        </div>
+
+        <!-- Phone Field -->
+        <div>
+          <%= f.label :phone, "Téléphone (optionnel)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.telephone_field :phone, autocomplete: "tel", placeholder: "+33 6 12 34 56 78", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" %>
+        </div>
+
+        <!-- Buyer-Specific Fields -->
+        <div data-role-selector-target="buyerFields" class="hidden">
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <h3 class="text-sm font-semibold text-blue-900 mb-3">Informations Acheteur</h3>
+            
+            <%= f.label :buyer_type, "Type d'acheteur", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.select :buyer_type, 
+                options_for_select([
+                  ['Particulier', 'individual'],
+                  ['Holding', 'holding'],
+                  ['Fonds d\'investissement', 'fund'],
+                  ['Investisseur', 'investor']
+                ]),
+                { include_blank: 'Sélectionner...' },
+                { class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition bg-white" }
+            %>
+          </div>
+        </div>
+
+        <!-- Partner-Specific Fields -->
+        <div data-role-selector-target="partnerFields" class="hidden">
+          <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+            <h3 class="text-sm font-semibold text-purple-900 mb-3">Informations Partenaire</h3>
+            
+            <div class="mb-4">
+              <%= f.label :company_name, "Nom de l'entreprise", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= f.text_field :company_name, autocomplete: "organization", placeholder: "Cabinet Dupont & Associés", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white" %>
+            </div>
+            
+            <div class="mb-4">
+              <%= f.label :partner_type, "Type de partenaire", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= f.select :partner_type,
+                  options_for_select([
+                    ['Avocat', 'lawyer'],
+                    ['Expert-comptable', 'accountant'],
+                    ['Consultant', 'consultant'],
+                    ['Banque', 'banker'],
+                    ['Courtier', 'broker']
+                  ]),
+                  { include_blank: 'Sélectionner...' },
+                  { class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition bg-white" }
+              %>
+            </div>
+            
+            <!-- Partner validation notice -->
+            <div class="bg-purple-100 border border-purple-300 rounded p-3">
+              <div class="flex">
+                <svg class="w-5 h-5 text-purple-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                </svg>
+                <p class="text-xs text-purple-900">
+                  <strong>Note :</strong> Votre inscription sera soumise à validation par notre équipe (48-72h).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <%= f.label :password, "Mot de passe", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <% if @minimum_password_length %>
+            <p class="text-xs text-gray-500 mb-2">(<%= @minimum_password_length %> caractères minimum)</p>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "new-password", placeholder: "••••••••", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" %>
+        </div>
+
+        <!-- Password Confirmation Field -->
+        <div>
+          <%= f.label :password_confirmation, "Confirmer le mot de passe", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "••••••••", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" %>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="pt-2">
+          <%= f.submit "Créer mon compte", class: "w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Sign In Link -->
+    <p class="mt-8 text-center text-sm text-gray-600">
+      Vous avez déjà un compte ?
+      <%= link_to "Se connecter", new_session_path(resource_name), class: "font-medium text-blue-600 hover:text-blue-700 transition" %>
+    </p>
+
+    <!-- Help Link -->
+    <div class="mt-6 text-center">
+      <%= link_to mockups_contact_path, class: "text-sm text-gray-500 hover:text-gray-700 transition inline-flex items-center gap-2" do %>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Besoin d'aide ?
+      <% end %>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

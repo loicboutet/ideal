@@ -1,0 +1,282 @@
+<% content_for :title, "Analytique - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Analytique - Insights</h1>
+      <p class="text-gray-600 mt-1">Analyses détaillées pour le développement</p>
+    </div>
+    
+    <!-- Enhanced Export Dropdown -->
+    <div class="relative" x-data="{ open: false, format: 'xlsx', scope: 'current' }">
+      <button @click="open = !open" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+        </svg>
+        Exporter les données
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+      
+      <div x-show="open" @click.away="open = false" x-transition class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10" style="display: none;">
+        <div class="px-4 py-2 border-b border-gray-200">
+          <p class="text-xs font-medium text-gray-700 uppercase">Format d'export</p>
+        </div>
+        <button @click="format = 'xlsx'" :class="format === 'xlsx' ? 'bg-gray-50' : ''" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition">
+          <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          <div class="text-left">
+            <p class="text-sm font-medium text-gray-900">Excel (.xlsx)</p>
+            <p class="text-xs text-gray-500">Avec graphiques et formatage</p>
+          </div>
+          <svg x-show="format === 'xlsx'" class="w-5 h-5 text-green-600 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </button>
+        <button @click="format = 'csv'" :class="format === 'csv' ? 'bg-gray-50' : ''" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          <div class="text-left">
+            <p class="text-sm font-medium text-gray-900">CSV (.csv)</p>
+            <p class="text-xs text-gray-500">Données brutes</p>
+          </div>
+          <svg x-show="format === 'csv'" class="w-5 h-5 text-blue-600 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </button>
+        <button @click="format = 'pdf'" :class="format === 'pdf' ? 'bg-gray-50' : ''" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition">
+          <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          <div class="text-left">
+            <p class="text-sm font-medium text-gray-900">PDF (.pdf)</p>
+            <p class="text-xs text-gray-500">Rapport complet avec graphiques</p>
+          </div>
+          <svg x-show="format === 'pdf'" class="w-5 h-5 text-red-600 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </button>
+        
+        <div class="border-t border-gray-200 mt-2 pt-2">
+          <div class="px-4 py-2">
+            <p class="text-xs font-medium text-gray-700 uppercase mb-2">Portée de l'export</p>
+            <div class="space-y-1">
+              <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" x-model="scope" value="current" class="text-admin-600 focus:ring-admin-500">
+                Vue actuelle
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" x-model="scope" value="filtered" class="text-admin-600 focus:ring-admin-500">
+                Données filtrées
+              </label>
+              <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" x-model="scope" value="all" class="text-admin-600 focus:ring-admin-500">
+                Toutes les données
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-200 mt-2 pt-2 px-4 py-2">
+          <a :href="`/admin/analytics.${format}?period=<%= @period %>&scope=${scope}`" 
+             data-turbo="false"
+             class="block w-full px-4 py-2 bg-admin-600 text-white rounded-lg hover:bg-admin-700 transition text-sm font-medium text-center">
+            Confirmer l'export
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Period Selector -->
+  <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <%= form_with url: admin_analytics_path, method: :get, local: true do %>
+        <select name="period" onchange="this.form.submit()" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500">
+          <option value="30_days" <%= 'selected' if @period == '30_days' %>>30 derniers jours</option>
+          <option value="7_days" <%= 'selected' if @period == '7_days' %>>7 derniers jours</option>
+          <option value="3_months" <%= 'selected' if @period == '3_months' %>>3 mois</option>
+          <option value="6_months" <%= 'selected' if @period == '6_months' %>>6 mois</option>
+          <option value="1_year" <%= 'selected' if @period == '1_year' %>>1 an</option>
+        </select>
+      <% end %>
+      <div class="col-span-3 flex items-center text-sm text-gray-600">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        Période: <%= @start_date.strftime('%d/%m/%Y') %> - <%= @end_date.strftime('%d/%m/%Y') %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Temps moyen par statut CRM -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Temps moyen par statut CRM</h2>
+    <p class="text-sm text-gray-600 mb-4">Avec marquage du temps maximum permis</p>
+    
+    <div class="space-y-3">
+      <% @crm_time_stats.each do |stat| %>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium text-gray-700"><%= stat[:name] %></span>
+            <div class="text-sm text-gray-900">
+              Moyenne: <strong><%= stat[:avg] %> <%= stat[:unit] %></strong>
+              <% if stat[:max] %>
+                / Max: <strong class="text-red-600"><%= stat[:max] %>j</strong>
+              <% end %>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <% if stat[:max] %>
+                <% width_percent = [stat[:avg] / stat[:max] * 100, 100].min %>
+                <% bar_color = stat[:avg] > stat[:max] * 0.8 ? 'red' : 'green' %>
+                <div class="bg-<%= bar_color %>-500 h-3 rounded-full" style="width: <%= width_percent %>%"></div>
+                <div class="absolute top-0 h-3 w-0.5 bg-red-600" style="left: 100%"></div>
+              <% else %>
+                <div class="bg-admin-500 h-3 rounded-full" style="width: 60%"></div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Detailed Analysis Tabs -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+    <div class="p-6 border-b border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900">Analyses détaillées par dimension</h2>
+      <p class="text-sm text-gray-600 mt-1">Avec suivi de l'évolution</p>
+    </div>
+    
+    <!-- Sector Analysis -->
+    <div class="p-6">
+      <h3 class="text-md font-semibold text-gray-900 mb-4">Par Secteur d'activité</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Secteur</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Annonces</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Réservations</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Transactions</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Taux conversion</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Évolution</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @sector_data.each do |row| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= row[:sector] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:listings]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:reservations]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:transactions]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= row[:conversion] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-right <%= row[:evolution].to_s.starts_with?('+') ? 'text-green-600' : 'text-red-600' %>">
+                  <strong><%= row[:evolution] %></strong>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Revenue Range Analysis -->
+    <div class="p-6 border-t border-gray-200">
+      <h3 class="text-md font-semibold text-gray-900 mb-4">Par Chiffre d'affaires</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tranche CA</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Annonces</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Réservations</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Transactions</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Évolution</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @revenue_data.each do |row| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= row[:range] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:listings]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:reservations]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:transactions]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-right <%= row[:evolution].to_s.starts_with?('+') ? 'text-green-600' : 'text-red-600' %>">
+                  <strong><%= row[:evolution] %></strong>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Geography Analysis -->
+    <div class="p-6 border-t border-gray-200">
+      <h3 class="text-md font-semibold text-gray-900 mb-4">Par Géographie (Top 10 départements)</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Département</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Annonces</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Réservations</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Transactions</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Évolution</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @geography_data.each do |row| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= row[:department] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:listings]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:reservations]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:transactions]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-right <%= row[:evolution].to_s.starts_with?('+') ? 'text-green-600' : 'text-red-600' %>">
+                  <strong><%= row[:evolution] %></strong>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Employee Count Analysis -->
+    <div class="p-6 border-t border-gray-200">
+      <h3 class="text-md font-semibold text-gray-900 mb-4">Par Effectif</h3>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tranche effectif</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Annonces</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Réservations</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Transactions</th>
+              <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Évolution</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @employee_data.each do |row| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= row[:range] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:listings]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:reservations]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right"><%= number_with_delimiter(row[:transactions]) %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-right <%= row[:evolution].to_s.starts_with?('+') ? 'text-green-600' : 'text-red-600' %>">
+                  <strong><%= row[:evolution] %></strong>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

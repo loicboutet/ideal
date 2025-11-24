@@ -1,16 +1,49 @@
-<h2>Forgot your password?</h2>
+<% content_for :title, "Mot de passe oublié - Idéal Reprise" %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<!-- Forgot Password Page -->
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full">
+    <!-- Logo and Header -->
+    <div class="text-center mb-8">
+      <%= link_to root_path do %>
+        <%= image_tag "IDAL.jpg", class: "mx-auto h-16 w-auto mb-6", alt: "Idéal Reprise" %>
+      <% end %>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Mot de passe oublié ?</h1>
+      <p class="text-gray-600">Entrez votre email pour réinitialiser votre mot de passe</p>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <!-- Forgot Password Form Card -->
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "space-y-6" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <!-- Email Field -->
+        <div>
+          <%= f.label :email, "Adresse email", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "vous@example.com", class: "appearance-none block w-full px-4 py-3 border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" %>
+        </div>
+
+        <!-- Submit Button -->
+        <div>
+          <%= f.submit "Envoyer les instructions", class: "w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Back to Login Link -->
+    <p class="mt-8 text-center text-sm text-gray-600">
+      Vous vous souvenez de votre mot de passe ?
+      <%= link_to "Retour à la connexion", new_session_path(resource_name), class: "font-medium text-blue-600 hover:text-blue-700 transition" %>
+    </p>
+
+    <!-- Help Link -->
+    <div class="mt-6 text-center">
+      <%= link_to mockups_contact_path, class: "text-sm text-gray-500 hover:text-gray-700 transition inline-flex items-center gap-2" do %>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Besoin d'aide ?
+      <% end %>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
