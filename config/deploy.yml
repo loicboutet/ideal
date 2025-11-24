@@ -21,6 +21,14 @@ proxy:
   ssl: true
   host: ideal.5000.dev
 
+# Configure health check with extended timeout for database migrations
+healthcheck:
+  path: /up
+  port: 80
+  interval: 5s
+  timeout: 5s
+  max_attempts: 20
+
 # Credentials for your image host.
 registry:
   # Specify the registry server, if you're not using Docker Hub
