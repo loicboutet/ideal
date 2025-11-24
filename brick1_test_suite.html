@@ -47,9 +47,6 @@
             font-weight: bold;
             color: #366092;
         }
-        .feature {
-            color: #333;
-        }
         .url {
             color: #0066cc;
             font-family: monospace;
@@ -66,17 +63,6 @@
             color: #666;
             line-height: 1.6;
         }
-        select {
-            padding: 6px 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        select.pending { background: #f8f9fa; }
-        select.done { background: #d4edda; color: #155724; }
-        select.failed { background: #f8d7da; color: #721c24; }
-        select.not-developed { background: #fff3cd; color: #856404; }
     </style>
 </head>
 <body>
@@ -91,7 +77,7 @@
                     <th style="width: 12%">URL</th>
                     <th style="width: 22%">Description</th>
                     <th style="width: 28%">How to Test</th>
-                    <th style="width: 15%">Status</th>
+                    <th style="width: 15%">Video URL</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,24 +87,24 @@
                     <td class="category">Admin - Create User Accounts</td>
                     <td class="url"><a href="http://localhost:3000/admin/users" target="_blank">/admin/users</a></td>
                     <td class="description">Create and manage accounts for sellers (with listings), buyers, and partners</td>
-                    <td class="description">1. Login as admin<br>2. Click "Utilisateurs" menu<br>3. Click "New User"<br>4. Fill in details for each role type<br>5. Verify account creation</td>
-                    <td>DONE</td>
+                    <td class="description">1. Login as admin<br>2. Click "Utilisateurs" menu<br>3. Click "Nouvel utilisateur"<br>4. Fill in details for each role type<br>5. Verify account creation</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td class="category">Admin - Validate Listings</td>
                     <td class="url"><a href="http://localhost:3000/admin/listings" target="_blank">/admin/listings</a></td>
                     <td class="description">Manually validate seller listings and attribute deals during validation</td>
-                    <td class="description">1. Login as admin<br>2. Click "Annonces" menu<br>3. Filter by "Pending"<br>4. Review listing data and documents<br>5. Click Approve or Reject<br>6. Verify status change</td>
-                    <td>DONE</td>
+                    <td class="description">1. Login as admin<br>2. Click "Annonces" menu<br>3. Filter by "En attente"<br>4. Review listing data and documents<br>5. Click "Approuver" or "Rejeter"<br>6. Verify status change<br>7. <strong>Email:</strong> Check seller receives approval/rejection email<br>8. <strong>Email:</strong> For approved listings, verify matching buyers receive "new deal available" email</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td class="category">Admin - Validate Partners</td>
                     <td class="url"><a href="http://localhost:3000/admin/partners" target="_blank">/admin/partners</a></td>
                     <td class="description">Validate partner profiles for directory</td>
-                    <td class="description">1. Login as admin<br>2. Click "Partenaires" menu<br>3. Filter pending profiles<br>4. Review information<br>5. Approve or reject<br>6. Verify partner appears in directory</td>
-                    <td>DONE</td>
+                    <td class="description">1. Login as admin<br>2. Click "Partenaires" menu<br>3. Filter pending profiles<br>4. Review information<br>5. Click "Approuver" or "Rejeter"<br>6. Verify partner appears in directory</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>4</td>
@@ -126,7 +112,7 @@
                     <td class="url"><a href="http://localhost:3000/admin/leads/import" target="_blank">/admin/leads/import</a></td>
                     <td class="description">Import 800+ existing contacts via Excel</td>
                     <td class="description">1. Login as admin<br>2. Click "Imports" menu<br>3. Download template<br>4. Fill template with test data<br>5. Upload file<br>6. Verify leads imported</td>
-                    <td>DONE</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>5</td>
@@ -134,7 +120,7 @@
                     <td class="url"><a href="http://localhost:3000/admin/deals" target="_blank">/admin/deals</a></td>
                     <td class="description">Assign specific deals to buyers</td>
                     <td class="description">1. Login as admin<br>2. Click "Affaires" menu<br>3. Select a listing<br>4. Choose target buyer<br>5. Confirm assignment<br>6. Verify buyer receives notification</td>
-                    <td>DONE</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>6</td>
@@ -142,7 +128,7 @@
                     <td class="url"><a href="http://localhost:3000/admin" target="_blank">/admin</a></td>
                     <td class="description">4 alert KPIs, charts for deals by status, growth metrics, user distribution</td>
                     <td class="description">1. Login as admin<br>2. Click "Tableau de bord" menu<br>3. Verify all 4 alert KPIs display<br>4. Check charts load correctly<br>5. Test clickable elements<br>6. Verify data accuracy</td>
-                    <td>DONE</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>7</td>
@@ -150,7 +136,7 @@
                     <td class="url"><a href="http://localhost:3000/admin/analytics" target="_blank">/admin/analytics</a></td>
                     <td class="description">Time per CRM status, listings/reservations by sector, revenue, geography</td>
                     <td class="description">1. Login as admin<br>2. Click "Analytique" menu<br>3. Review time metrics<br>4. Check sector breakdowns<br>5. Test period selection<br>6. Export data</td>
-                    <td>DONE</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>8</td>
@@ -158,14 +144,16 @@
                     <td class="url"><a href="http://localhost:3000/admin/settings" target="_blank">/admin/settings</a></td>
                     <td class="description">Update pricing texts, adjust pipeline timers (7, 33, 20 days)</td>
                     <td class="description">1. Login as admin<br>2. Click "Paramètres" menu<br>3. Update pricing text<br>4. Adjust timer durations<br>5. Save changes<br>6. Verify changes applied</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>9</td>
-                    <td class="category">Admin - Send Messages</td>
+                    <td class="category">Admin - Send Messages & Surveys</td>
                     <td class="url"><a href="http://localhost:3000/admin/messages" target="_blank">/admin/messages</a></td>
-                    <td class="description">Send messages/surveys to users</td>
-                    <td class="description">1. Login as admin<br>2. Click "Messages" menu<br>3. Select recipient type<br>4. Compose message<br>5. Send<br>6. Verify users receive notification</td>
-                    <td>DONE</td></tr>
+                    <td class="description">Send messages to dashboard or direct, satisfaction surveys, and development questionnaires</td>
+                    <td class="description">1. Login as admin<br>2. Click "Messages" menu<br>3. Select recipient type<br>4. Choose delivery: Dashboard notification or Direct email<br>5. Select message type: Message, Satisfaction Survey, or Development Questionnaire<br>6. Compose content<br>7. Send<br>8. Verify users receive notification<br>9. <strong>Email:</strong> Check users receive broadcast email with message content</td>
+                    <td></td>
+                </tr>
 
                 <!-- SELLER FEATURES -->
                 <tr><td colspan="6" style="background: #f8f9fa; font-weight: bold; padding: 8px;">SELLER FEATURES</td></tr>
@@ -174,43 +162,48 @@
                     <td class="category">Seller - Free Registration</td>
                     <td class="url"><a href="http://localhost:3000/users/sign_up" target="_blank">/users/sign_up</a></td>
                     <td class="description">Register as seller with basic information</td>
-                    <td class="description">1. Go to /users/sign_up<br>2. Select "Seller" role<br>3. Fill registration form<br>4. Submit<br>5. Verify email confirmation sent<br>6. Login with new account</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Go to /users/sign_up<br>2. Select "Cédant" role<br>3. Fill registration form<br>4. Submit<br>5. Verify email confirmation sent<br>6. Login with new account</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>11</td>
                     <td class="category">Seller - Create Business Listing</td>
                     <td class="url"><a href="http://localhost:3000/seller/listings/new" target="_blank">/seller/listings/new</a></td>
                     <td class="description">Create listing with public data (generic type, department, sector, revenue, employees) and confidential data (name, location, website)</td>
-                    <td class="description">1. Login as seller<br>2. Click "Créer une annonce" menu<br>3. Fill public data fields<br>4. Fill confidential data<br>5. Submit<br>6. Verify status is "Pending Validation"</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as seller<br>2. Click "Créer une annonce" menu<br>3. Fill public data fields<br>4. Fill confidential data<br>5. Submit<br>6. Verify status is "En attente de validation"<br>7. <strong>Email:</strong> After admin validation, check seller receives approval/rejection email</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>12</td>
                     <td class="category">Seller - Upload Documents</td>
                     <td class="url"><a href="http://localhost:3000/seller/listings/:id/documents" target="_blank">/seller/listings/:id/documents</a></td>
                     <td class="description">Upload documents in 11 categories (balance sheets, tax returns, etc.)</td>
-                    <td class="description">1. Login as seller<br>2. Click "Toutes mes annonces" menu<br>3. Select a listing<br>4. Click Documents tab<br>5. Upload files for each category<br>6. Verify file upload success, check completeness score</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as seller<br>2. Click "Toutes mes annonces" menu<br>3. Select a listing<br>4. Click "Documents" tab<br>5. Upload files for each category<br>6. Verify file upload success, check completeness score</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>13</td>
                     <td class="category">Seller - View Performance</td>
                     <td class="url"><a href="http://localhost:3000/seller/listings/:id" target="_blank">/seller/listings/:id</a></td>
                     <td class="description">Track views, interested buyers, CRM stages, favorites</td>
                     <td class="description">1. Login as seller<br>2. Click "Toutes mes annonces" menu<br>3. Select a listing<br>4. Verify metrics display (views, favorites)<br>5. Check buyer list<br>6. Review CRM stage info and performance graph</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>14</td>
                     <td class="category">Seller - Browse Buyer Directory</td>
                     <td class="url"><a href="http://localhost:3000/seller/buyers" target="_blank">/seller/buyers</a></td>
                     <td class="description">View buyer profiles with formation, experience, investment thesis</td>
                     <td class="description">1. Login as seller<br>2. Click "Annuaire repreneurs" menu<br>3. Browse buyer profiles<br>4. Test filters<br>5. Click buyer to view details<br>6. Verify data displays correctly</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>15</td>
                     <td class="category">Seller - Push Listing to Buyer</td>
                     <td class="url"><a href="http://localhost:3000/seller/listings/:id/push" target="_blank">/seller/listings/:id/push</a></td>
                     <td class="description">Push listing to specific buyer (1 credit)</td>
-                    <td class="description">1. Login as seller<br>2. Navigate to listing<br>3. Click "Push to Buyer"<br>4. Select target buyer<br>5. Confirm (costs 1 credit)<br>6. Verify buyer receives notification</td>
-                    <td>DONE</td>
+                    <td class="description">1. Login as seller<br>2. Navigate to listing<br>3. Click "Pousser vers le repreneur"<br>4. Select target buyer<br>5. Confirm (costs 1 credit)<br>6. Verify buyer receives notification</td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td>16</td>
@@ -218,310 +211,208 @@
                     <td class="url"><a href="http://localhost:3000/seller/credits" target="_blank">/seller/credits</a></td>
                     <td class="description">Purchase credit packs via Stripe</td>
                     <td class="description">1. Login as seller<br>2. Click "Crédits" menu<br>3. Select credit pack<br>4. Complete Stripe payment (use test card)<br>5. Verify credits added<br>6. Check transaction history</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+</tr>
                 <tr>
                     <td>17</td>
                     <td class="category">Seller - Premium Package</td>
                     <td class="url"><a href="http://localhost:3000/seller/subscriptions" target="_blank">/seller/subscriptions</a></td>
                     <td class="description">Subscribe to premium (unlimited listings, priority support, partner access)</td>
-                    <td class="description">1. Login as seller<br>2. Click "Abonnement Premium" menu<br>3. View premium benefits<br>4. Click Subscribe<br>5. Complete payment<br>6. Verify premium features active</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as seller<br>2. Click "Abonnement Premium" menu<br>3. View premium benefits<br>4. Click "S'abonner"<br>5. Complete payment<br>6. Verify premium features active</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>18</td>
                     <td class="category">Seller - Validate Enrichments</td>
                     <td class="url"><a href="http://localhost:3000/seller/listings/:id/enrichments" target="_blank">/seller/listings/:id/enrichments</a></td>
                     <td class="description">Approve/reject documents added by buyers</td>
-                    <td class="description">1. Login as seller<br>2. Click "Enrichissements à valider" menu<br>3. Review buyer-added documents<br>4. Approve or reject each<br>5. Verify buyer receives notification<br>6. Check credits awarded</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as seller<br>2. Click "Enrichissements à valider" menu<br>3. Review buyer-added documents<br>4. Click "Approuver" or "Rejeter" each<br>5. Verify buyer receives notification<br>6. Check credits awarded<br>7. <strong>Email:</strong> Check seller receives email when buyer adds documents needing validation</td>
+                    <td></td>
+                </tr>
                 <tr>
                     <td>19</td>
                     <td class="category">Seller - Messaging</td>
                     <td class="url"><a href="http://localhost:3000/conversations" target="_blank">/conversations</a></td>
                     <td class="description">Internal messaging with buyers (async, email notifications)</td>
-                    <td class="description">1. Login as seller<br>2. Click "Messages" menu<br>3. Open conversation with buyer<br>4. Send message<br>5. Verify real-time delivery<br>6. Check email notification sent</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
+                    <td class="description">1. Login as seller<br>2. Click "Messages" menu<br>3. Open conversation with buyer<br>4. Send message<br>5. Verify real-time delivery<br>6. Check email notification sent<br>7. <strong>Email:</strong> Verify recipient receives email with sender name and message preview</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td class="category">Seller - Edit Profile & Listing</td>
+                    <td class="url"><a href="http://localhost:3000/seller/listings/:id/edit" target="_blank">/seller/listings/:id/edit</a></td>
+                    <td class="description">Update listing information (public and confidential data)</td>
+                    <td class="description">1. Login as seller<br>2. Click "Toutes mes annonces" menu<br>3. Select a listing<br>4. Click "Modifier"<br>5. Modify public/confidential data<br>6. Save changes<br>7. Verify updates applied</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td class="category">Seller - Assistance Menu</td>
+                    <td class="url"><a href="http://localhost:3000/seller/assistance" target="_blank">/seller/assistance</a></td>
+                    <td class="description">Access support services (Get accompanied, Find partners, Tools)</td>
+                    <td class="description">1. Login as seller<br>2. Click "Services" or "Assistance" menu<br>3. View "Se faire accompagner" booking option<br>4. View "Trouver des partenaires" (free first 6 months)<br>5. Access tools section<br>6. Test partner directory access (5 credits or free)</td>
+                    <td></td>
                 </tr>
 
                 <!-- BUYER FEATURES -->
                 <tr><td colspan="6" style="background: #f8f9fa; font-weight: bold; padding: 8px;">BUYER FEATURES</td></tr>
                 <tr>
-                    <td>20</td>
+                    <td>22</td>
                     <td class="category">Buyer - Registration with Profile</td>
                     <td class="url"><a href="http://localhost:3000/users/sign_up" target="_blank">/users/sign_up</a></td>
                     <td class="description">Register with public/private profile (type, formation, thesis, target criteria)</td>
-                    <td class="description">1. Go to /users/sign_up<br>2. Select "Buyer" role<br>3. Fill registration and profile data<br>4. Submit<br>5. Verify completeness % calculated<br>6. Login with new account</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Go to /users/sign_up<br>2. Select "Repreneur" role<br>3. Fill registration and profile data<br>4. Submit<br>5. Verify completeness % calculated<br>6. Login with new account</td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>21</td>
+                    <td>23</td>
                     <td class="category">Buyer - Browse Listings</td>
                     <td class="url"><a href="http://localhost:3000/buyer/listings" target="_blank">/buyer/listings</a></td>
                     <td class="description">Browse with advanced filters (sector, revenue, location, deal type)</td>
-                    <td class="description">1. Login as buyer<br>2. Click "Parcourir" menu<br>3. Browse all listings<br>4. Test advanced filters<br>5. Sort by different criteria<br>6. Verify pagination works</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as buyer<br>2. Click "Parcourir" menu<br>3. Browse all listings<br>4. Test advanced filters<br>5. Sort by different criteria<br>6. Verify pagination works<br>7. <strong>Email:</strong> When new listing matches buyer profile criteria, check buyer receives "new deal available" email</td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>22</td>
+                    <td>24</td>
                     <td class="category">Buyer - Sign Platform NDA</td>
                     <td class="url"><a href="http://localhost:3000/buyer/nda" target="_blank">/buyer/nda</a></td>
                     <td class="description">Sign mandatory NDA before accessing confidential data</td>
                     <td class="description">1. Login as buyer<br>2. Click "Accord de confidentialité" menu OR click listing to view details<br>3. Review NDA terms<br>4. Sign electronically<br>5. Verify access to confidential data granted</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>23</td>
+                    <td>25</td>
                     <td class="category">Buyer - Subscribe to Plan</td>
                     <td class="url"><a href="http://localhost:3000/buyer/subscriptions" target="_blank">/buyer/subscriptions</a></td>
                     <td class="description">Choose plan: Free, €89, €199, €249/month, €1200/year</td>
                     <td class="description">1. Login as buyer<br>2. Click "Abonnement" menu<br>3. View plan options<br>4. Select plan<br>5. Complete Stripe checkout<br>6. Verify subscription active</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>24</td>
+                    <td>26</td>
                     <td class="category">Buyer - Buy Credits</td>
                     <td class="url"><a href="http://localhost:3000/buyer/credits" target="_blank">/buyer/credits</a></td>
                     <td class="description">Purchase credit packs</td>
                     <td class="description">1. Login as buyer<br>2. Click "Crédits" menu<br>3. Select pack size<br>4. Complete payment<br>5. Verify credits added<br>6. Check transaction history</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>25</td>
+                    <td>27</td>
                     <td class="category">Buyer - Favorite Listings</td>
                     <td class="url"><a href="http://localhost:3000/buyer/listings/:id" target="_blank">/buyer/listings/:id</a></td>
                     <td class="description">Add listings to favorites (CRM stage 1)</td>
-                    <td class="description">1. Login as buyer<br>2. Click "Parcourir" menu<br>3. Click star/favorite icon on listing<br>4. Click "Favoris" menu to view saved<br>5. Check seller can see this<br>6. Test unfavorite</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as buyer<br>2. Click "Parcourir" menu<br>3. Click star/favorite icon on listing<br>4. Click "Favoris" menu to view saved<br>5. Check seller can see this<br>6. Test unfavorite<br>7. <strong>Email:</strong> When favorited listing becomes available again, check buyer receives urgent notification email</td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>26</td>
+                    <td>28</td>
                     <td class="category">Buyer - Reserve Listing</td>
                     <td class="url"><a href="http://localhost:3000/buyer/listings/:id/reserve" target="_blank">/buyer/listings/:id/reserve</a></td>
                     <td class="description">Reserve with automatic timer (7 days To Contact)</td>
-                    <td class="description">1. Login as buyer<br>2. View listing details<br>3. Click Reserve<br>4. Sign NDA if required<br>5. Confirm reservation<br>6. Verify timer starts (7 days)</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as buyer<br>2. View listing details<br>3. Click "Réserver"<br>4. Sign NDA if required<br>5. Confirm reservation<br>6. Verify timer starts (7 days)<br>7. <strong>Email:</strong> Before expiry (24h or 1h), check buyer receives warning email with urgent red styling</td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>27</td>
+                    <td>29</td>
                     <td class="category">Buyer - CRM Pipeline (10 Stages)</td>
                     <td class="url"><a href="http://localhost:3000/buyer/deals" target="_blank">/buyer/deals</a></td>
                     <td class="description">Manage deals through 10-stage pipeline with drag & drop, timers, gauges</td>
                     <td class="description">1. Login as buyer<br>2. Click "Pipeline" menu<br>3. View 10-stage pipeline<br>4. Test drag & drop between stages<br>5. Check timer gauges display<br>6. Verify deal history tracking</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>28</td>
+                    <td>30</td>
                     <td class="category">Buyer - Enrich Listings</td>
                     <td class="url"><a href="http://localhost:3000/buyer/deals/:id/enrich" target="_blank">/buyer/deals/:id/enrich</a></td>
                     <td class="description">Add documents to listings (seller validates, earn credits)</td>
-                    <td class="description">1. Login as buyer<br>2. Click "Mes dossiers" menu<br>3. Select reserved deal<br>4. Click Enrich, upload documents<br>5. Submit for seller validation<br>6. Verify credits earned on approval</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as buyer<br>2. Click "Mes dossiers" menu<br>3. Select reserved deal<br>4. Click "Enrichir", upload documents<br>5. Submit for seller validation<br>6. Verify credits earned on approval</td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>29</td>
+                    <td>31</td>
                     <td class="category">Buyer - Release Listings</td>
                     <td class="url"><a href="http://localhost:3000/buyer/deals/:id/release" target="_blank">/buyer/deals/:id/release</a></td>
                     <td class="description">Release listing (+1 credit + 1 per document)</td>
-                    <td class="description">1. Login as buyer<br>2. Click "Mes dossiers" menu<br>3. Select reserved deal<br>4. Click Release, confirm<br>5. Verify credits awarded<br>6. Check listing returns to pool</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as buyer<br>2. Click "Mes dossiers" menu<br>3. Select reserved deal<br>4. Click "Libérer", confirm<br>5. Verify credits awarded<br>6. Check listing returns to pool</td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>30</td>
+                    <td>32</td>
                     <td class="category">Buyer - Partner Directory</td>
                     <td class="url"><a href="http://localhost:3000/buyer/partners" target="_blank">/buyer/partners</a></td>
                     <td class="description">Access partner directory (free for subscribers)</td>
                     <td class="description">1. Login as buyer (subscriber)<br>2. Click "Partenaires" menu (under Services)<br>3. Browse partner profiles<br>4. Filter by service type<br>5. Contact partners<br>6. Verify free access for subscribers</td>
-                    <td>DONE</td></tr>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>31</td>
+                    <td>33</td>
                     <td class="category">Buyer - Messaging</td>
                     <td class="url"><a href="http://localhost:3000/conversations" target="_blank">/conversations</a></td>
                     <td class="description">Message sellers after reservation</td>
-                    <td class="description">1. Login as buyer<br>2. Reserve listing<br>3. Click "Messages" menu<br>4. Open seller conversation<br>5. Send message<br>6. Verify real-time delivery</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Login as buyer<br>2. Reserve listing<br>3. Click "Messages" menu<br>4. Open seller conversation<br>5. Send message<br>6. Verify real-time delivery<br>7. <strong>Email:</strong> Verify recipient receives email with sender name and message preview</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>34</td>
+                    <td class="category">Buyer - Edit Profile</td>
+                    <td class="url"><a href="http://localhost:3000/buyer/profile/edit" target="_blank">/buyer/profile/edit</a></td>
+                    <td class="description">Update buyer public/private profile (formation, thesis, target criteria)</td>
+                    <td class="description">1. Login as buyer<br>2. Click "Mon profil" menu<br>3. Edit public data (formation, experience, thesis)<br>4. Edit private data (name, LinkedIn)<br>5. Update target criteria (sectors, locations, revenue range)<br>6. Save changes<br>7. Verify completeness % updates</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>35</td>
+                    <td class="category">Buyer - Services Menu</td>
+                    <td class="url"><a href="http://localhost:3000/buyer/services" target="_blank">/buyer/services</a></td>
+                    <td class="description">Access personalized sourcing, partner directory, and tools</td>
+                    <td class="description">1. Login as buyer<br>2. Click "Services" menu<br>3. View "Sourcing personnalisé" on-demand booking<br>4. Access partner directory (free for subscribers)<br>5. Access tools section<br>6. Test service booking flow</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>36</td>
+                    <td class="category">Buyer - View Released Deals</td>
+                    <td class="url"><a href="http://localhost:3000/buyer/deals/released" target="_blank">/buyer/deals/released</a></td>
+                    <td class="description">Track deals that have been released back to the pool</td>
+                    <td class="description">1. Login as buyer<br>2. Click "Pipeline" or "Mes dossiers" menu<br>3. Navigate to "Dossiers libérés" section<br>4. View list of released deals<br>5. Check release date and reason<br>6. Verify credit earned shown (+1 + documents)</td>
+                    <td></td>
+                </tr>
 
                 <!-- PARTNER FEATURES -->
                 <tr><td colspan="6" style="background: #f8f9fa; font-weight: bold; padding: 8px;">PARTNER FEATURES</td></tr>
                 <tr>
-                    <td>32</td>
+                    <td>37</td>
                     <td class="category">Partner - Registration</td>
                     <td class="url"><a href="http://localhost:3000/users/sign_up" target="_blank">/users/sign_up</a></td>
                     <td class="description">Register with profile (company, services, coverage, specialization)</td>
-                    <td class="description">1. Go to /users/sign_up<br>2. Select "Partner" role<br>3. Fill company details<br>4. Add services and coverage<br>5. Submit<br>6. Verify status "Pending Validation"</td>
-                    <td>DONE</td></tr>
+                    <td class="description">1. Go to /users/sign_up<br>2. Select "Partenaire" role<br>3. Fill company details<br>4. Add services and coverage<br>5. Submit<br>6. Verify status "En attente de validation"</td>
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>33</td>
+                    <td>38</td>
                     <td class="category">Partner - Profile Management</td>
                     <td class="url"><a href="http://localhost:3000/partner/profile" target="_blank">/partner/profile</a></td>
                     <td class="description">Edit profile, track views and contacts</td>
                     <td class="description">1. Login as partner<br>2. Click "Ma fiche annuaire" menu<br>3. Edit profile information<br>4. Save changes<br>5. Click "Statistiques" menu to view contact stats<br>6. Track profile views</td>
-                    <td>DOne</td> 
+                    <td></td>
+                </tr>
                 <tr>
-                    <td>34</td>
+                    <td>39</td>
                     <td class="category">Partner - Directory Subscription</td>
                     <td class="url"><a href="http://localhost:3000/partner/subscription" target="_blank">/partner/subscriptions</a></td>
                     <td class="description">Pay annual directory subscription</td>
                     <td class="description">1. Login as partner<br>2. Click "Mon abonnement" menu<br>3. View subscription options<br>4. Complete annual payment<br>5. Verify directory listing active<br>6. Check renewal date</td>
-                    <td>DONE</td>
+                    <td></td>
                 </tr>
 
-                <!-- CORE SYSTEM FEATURES -->
-                <tr><td colspan="6" style="background: #f8f9fa; font-weight: bold; padding: 8px;">CORE SYSTEM FEATURES</td></tr>
-                <tr>
-                    <td>35</td>
-                    <td class="category">Authentication & Authorization</td>
-                    <td class="url"><a href="http://localhost:3000/users/sign_in" target="_blank">/users/sign_in</a></td>
-                    <td class="description">Multi-profile system with role-based access (Admin, Seller, Buyer, Partner)</td>
-                    <td class="description">1. Test login for each role<br>2. Verify role-based access control<br>3. Check unauthorized redirects<br>4. Test password reset<br>5. Verify session management</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>36</td>
-                    <td class="category">Payment System (Stripe)</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Integrated Stripe for subscriptions and credit packs</td>
-                    <td class="description">1. Test subscription checkout<br>2. Test credit pack purchase<br>3. Use test card 4242...<br>4. Verify payment successful<br>5. Check transaction records<br>6. Test webhooks</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-                <tr>
-                    <td>37</td>
-                    <td class="category">Document System (11 Categories)</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Balance sheets, org chart, tax returns, lease, property, scorecard, other</td>
-                    <td class="description">1. Upload document for each category<br>2. Verify categorization works<br>3. Test N/A checkboxes<br>4. Check file preview<br>5. Verify completeness calculation<br>6. Test download</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-                <tr>
-                    <td>38</td>
-                    <td class="category">NDA System</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Electronic NDA signing with IP tracking and proof</td>
-                    <td class="description">1. Trigger NDA requirement<br>2. Review NDA terms<br>3. Sign electronically<br>4. Verify IP address logged<br>5. Check timestamp recorded<br>6. Verify signature stored</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-                <tr>
-                    <td>39</td>
-                    <td class="category">Notification System</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Email + in-app notifications for deals, validations, messages, timers</td>
-                    <td class="description">1. Trigger various notification types<br>2. Check in-app notification bell<br>3. Verify email sent<br>4. Test notification preferences<br>5. Check read/unread status<br>6. Verify real-time updates</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-
-                <!-- EMAIL NOTIFICATIONS -->
-                <tr><td colspan="6" style="background: #e3f2fd; font-weight: bold; padding: 8px;">EMAIL NOTIFICATIONS (Brick 1)</td></tr>
-                <tr>
-                    <td>39a</td>
-                    <td class="category">Email - New Deal Available</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Buyer receives email when new listing matches their profile criteria</td>
-                    <td class="description">1. Create buyer profile with criteria<br>2. Admin approves matching listing<br>3. Check buyer email inbox<br>4. Verify email received with listing details<br>5. Click link to view listing<br>6. Test email formatting (HTML + text)</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>39b</td>
-                    <td class="category">Email - Favorited Deal Available</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Buyer receives email when a favorited listing becomes available again</td>
-                    <td class="description">1. Buyer favorites a listing<br>2. Another buyer reserves it<br>3. That buyer releases it<br>4. Check buyer email inbox<br>5. Verify urgency in email<br>6. Click to reserve quickly</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>39c</td>
-                    <td class="category">Email - Reservation Expiring</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Buyer receives warning email when reservation timer is about to expire</td>
-                    <td class="description">1. Reserve a listing<br>2. Wait for expiry warning (24h or 1h before)<br>3. Check buyer email inbox<br>4. Verify time remaining shown<br>5. Verify red urgent styling<br>6. Click to manage reservation</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>39d</td>
-                    <td class="category">Email - Document Validation Request</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Seller receives email when buyer adds documents needing validation</td>
-                    <td class="description">1. Buyer adds enrichment document<br>2. Check seller email inbox<br>3. Verify document details shown<br>4. Verify buyer name included<br>5. Click to validate document<br>6. Test approval workflow</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>39e</td>
-                    <td class="category">Email - New Message Notification</td>
-                    <td class="url">N/A</td>
-                    <td class="description">User receives email when they get new internal message</td>
-                    <td class="description">1. User A sends message to User B<br>2. Check User B email inbox<br>3. Verify sender name shown<br>4. Verify message preview included<br>5. Click to view full conversation<br>6. Test across all roles</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>39f</td>
-                    <td class="category">Email - Listing Approved/Rejected</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Seller receives email when listing is validated by admin</td>
-                    <td class="description">1. Seller submits listing<br>2. Admin approves or rejects<br>3. Check seller email inbox<br>4. Verify validation status shown<br>5. For approval, check validated_at set<br>6. Test both approval and rejection emails</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>39g</td>
-                    <td class="category">Email - Admin Broadcast Messages</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Users receive admin broadcast messages and surveys</td>
-                    <td class="description">1. Admin creates broadcast message<br>2. Select target user group<br>3. Send message<br>4. Check users' email inboxes<br>5. Verify message content<br>6. Test survey invitations separately</td>
-                    <td>DONE</td>
-                </tr>
-                <tr>
-                    <td>40</td>
-                    <td class="category">Timer & Gauge System</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Stage-specific timers with visual gauges (7, 33, 20 days)</td>
-                    <td class="description">1. Reserve listing<br>2. Verify timer starts<br>3. Check visual gauge displays<br>4. Test time remaining calculation<br>5. Verify expiry alerts<br>6. Test timer extensions</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-                <tr>
-                    <td>41</td>
-                    <td class="category">Completeness Scoring</td>
-                    <td class="url">N/A</td>
-                    <td class="description">60% listing data + 40% documents with percentage display</td>
-                    <td class="description">1. Create listing with partial data<br>2. Check completeness %<br>3. Add more data<br>4. Upload documents<br>5. Verify % updates correctly<br>6. Test 60/40 weighting</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-                <tr>
-                    <td>42</td>
-                    <td class="category">Search & Filters</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Advanced filters by sector (11), revenue, location, deal type (3)</td>
-                    <td class="description">1. Go to listings page<br>2. Test each filter option<br>3. Combine multiple filters<br>4. Verify search results<br>5. Test filter reset<br>6. Check saved searches</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-                <tr>
-                    <td>43</td>
-                    <td class="category">Real-time Updates (Turbo Streams)</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Real-time messaging and notifications via Turbo Streams</td>
-                    <td class="description">1. Open conversation in 2 browsers<br>2. Send message from one<br>3. Verify instant update in other<br>4. Test notification updates<br>5. Check no page refresh needed<br>6. Verify WebSocket connection</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
-                <tr>
-                    <td>44</td>
-                    <td class="category">Responsive Design</td>
-                    <td class="url">N/A</td>
-                    <td class="description">Mobile-first responsive web app (no native apps)</td>
-                    <td class="description">1. Test on desktop browser<br>2. Test on mobile viewport<br>3. Check touch interactions<br>4. Verify layout adapts<br>5. Test on different screen sizes<br>6. Check mobile navigation</td>
-                    <td><select class="pending"><option>Pending</option><option>Done</option><option>Failed</option><option>Not Developed</option></select></td>
-                </tr>
             </tbody>
         </table>
 
         <p style="margin-top: 30px; text-align: center; color: #666;">
-            <strong>Total Features:</strong> 40+ | <strong>Created:</strong> November 23, 2025
+            <strong>Total Features:</strong> 39 | <strong>Created:</strong> November 23, 2025 | <strong>Updated:</strong> November 24, 2025
+        </p>
+        <p style="margin-top: 10px; text-align: center; color: #999; font-size: 0.9em;">
+            <em>Video URLs will be added in the "Video URL" column after testing each feature</em>
         </p>
     </div>
-
-    <script>
-        // Save status to localStorage
-        document.querySelectorAll('select').forEach(select => {
-            const row = select.closest('tr');
-            const featureName = row.querySelector('.category')?.textContent || '';
-            
-            // Load saved status
-            const saved = localStorage.getItem('status_' + featureName);
-            if (saved) {
-                select.value = saved;
-                select.className = saved.toLowerCase().replace(' ', '-');
-            }
-            
-            // Save on change
-            select.addEventListener('change', function() {
-                localStorage.setItem('status_' + featureName, this.value);
-                this.className = this.value.toLowerCase().replace(' ', '-');
-            });
-        });
-    </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Seller
-  class AssistanceController < SellerController
+  class AssistanceController < ApplicationController
     def support
       # Être accompagné - Support offer and booking
     end
