@@ -1,0 +1,216 @@
+{
+  "timestamp": "20251124_080553",
+  "started_at": "2025-11-24 08:05:53 UTC",
+  "tables_exported": 34,
+  "total_records": 13954,
+  "tables": {
+    "active_storage_attachments": {
+      "model": "ActiveStorageAttachment",
+      "records": 1,
+      "file": "active_storage_attachments.json",
+      "file_size": 164
+    },
+    "active_storage_blobs": {
+      "model": "ActiveStorageBlob",
+      "records": 1,
+      "file": "active_storage_blobs.json",
+      "file_size": 372
+    },
+    "active_storage_variant_records": {
+      "model": "ActiveStorageVariantRecord",
+      "records": 0,
+      "file": "active_storage_variant_records.json",
+      "file_size": 2
+    },
+    "activities": {
+      "model": "Activity",
+      "records": 18,
+      "file": "activities.json",
+      "file_size": 8216
+    },
+    "admin_messages": {
+      "model": "AdminMessage",
+      "records": 6,
+      "file": "admin_messages.json",
+      "file_size": 2440
+    },
+    "buyer_profiles": {
+      "model": "BuyerProfile",
+      "records": 36,
+      "file": "buyer_profiles.json",
+      "file_size": 50424
+    },
+    "conversation_participants": {
+      "model": "ConversationParticipant",
+      "records": 2,
+      "file": "conversation_participants.json",
+      "file_size": 407
+    },
+    "conversations": {
+      "model": "Conversation",
+      "records": 1,
+      "file": "conversations.json",
+      "file_size": 172
+    },
+    "credit_packs": {
+      "model": "CreditPack",
+      "records": 4,
+      "file": "credit_packs.json",
+      "file_size": 1057
+    },
+    "credit_transactions": {
+      "model": "CreditTransaction",
+      "records": 9,
+      "file": "credit_transactions.json",
+      "file_size": 2862
+    },
+    "deal_history_events": {
+      "model": "DealHistoryEvent",
+      "records": 5,
+      "file": "deal_history_events.json",
+      "file_size": 1155
+    },
+    "deals": {
+      "model": "Deal",
+      "records": 565,
+      "file": "deals.json",
+      "file_size": 276364
+    },
+    "enrichments": {
+      "model": "Enrichment",
+      "records": 6,
+      "file": "enrichments.json",
+      "file_size": 2536
+    },
+    "favorites": {
+      "model": "Favorite",
+      "records": 552,
+      "file": "favorites.json",
+      "file_size": 89594
+    },
+    "lead_imports": {
+      "model": "LeadImport",
+      "records": 3,
+      "file": "lead_imports.json",
+      "file_size": 1279
+    },
+    "listing_documents": {
+      "model": "ListingDocument",
+      "records": 1,
+      "file": "listing_documents.json",
+      "file_size": 532
+    },
+    "listing_pushes": {
+      "model": "ListingPush",
+      "records": 4,
+      "file": "listing_pushes.json",
+      "file_size": 930
+    },
+    "listing_views": {
+      "model": "ListingView",
+      "records": 12043,
+      "file": "listing_views.json",
+      "file_size": 2822974
+    },
+    "listings": {
+      "model": "Listing",
+      "records": 210,
+      "file": "listings.json",
+      "file_size": 298985
+    },
+    "message_recipients": {
+      "model": "MessageRecipient",
+      "records": 200,
+      "file": "message_recipients.json",
+      "file_size": 52534
+    },
+    "messages": {
+      "model": "Message",
+      "records": 2,
+      "file": "messages.json",
+      "file_size": 476
+    },
+    "nda_signatures": {
+      "model": "NdaSignature",
+      "records": 3,
+      "file": "nda_signatures.json",
+      "file_size": 996
+    },
+    "notifications": {
+      "model": "Notification",
+      "records": 17,
+      "file": "notifications.json",
+      "file_size": 6790
+    },
+    "partner_contacts": {
+      "model": "PartnerContact",
+      "records": 76,
+      "file": "partner_contacts.json",
+      "file_size": 13901
+    },
+    "partner_profiles": {
+      "model": "PartnerProfile",
+      "records": 6,
+      "file": "partner_profiles.json",
+      "file_size": 4726
+    },
+    "payment_transactions": {
+      "model": "PaymentTransaction",
+      "records": 56,
+      "file": "payment_transactions.json",
+      "file_size": 25313
+    },
+    "platform_settings": {
+      "model": "PlatformSetting",
+      "records": 19,
+      "file": "platform_settings.json",
+      "file_size": 5926
+    },
+    "questionnaire_responses": {
+      "model": "QuestionnaireResponse",
+      "records": 0,
+      "file": "questionnaire_responses.json",
+      "file_size": 2
+    },
+    "questionnaires": {
+      "model": "Questionnaire",
+      "records": 0,
+      "file": "questionnaires.json",
+      "file_size": 2
+    },
+    "seller_profiles": {
+      "model": "SellerProfile",
+      "records": 7,
+      "file": "seller_profiles.json",
+      "file_size": 3754
+    },
+    "subscriptions": {
+      "model": "Subscription",
+      "records": 9,
+      "file": "subscriptions.json",
+      "file_size": 4387
+    },
+    "survey_responses": {
+      "model": "SurveyResponse",
+      "records": 35,
+      "file": "survey_responses.json",
+      "file_size": 10691
+    },
+    "surveys": {
+      "model": "Survey",
+      "records": 3,
+      "file": "surveys.json",
+      "file_size": 1816
+    },
+    "users": {
+      "model": "User",
+      "records": 54,
+      "file": "users.json",
+      "file_size": 36749
+    }
+  },
+  "completed_at": "2025-11-24 08:05:55 UTC",
+  "duration_seconds": 1.54,
+  "database": "storage/ideal_development.sqlite3",
+  "rails_env": "development"
+}

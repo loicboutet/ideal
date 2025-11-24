@@ -16,6 +16,21 @@
   <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <style>
+    /* Custom Scrollbar Styling */
+    #sidebar nav::-webkit-scrollbar {
+      width: 6px;
+    }
+    #sidebar nav::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+    #sidebar nav::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 3px;
+    }
+    #sidebar nav::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+    
     /* Tom Select Tailwind custom styling */
     .ts-wrapper {
       width: 100%;

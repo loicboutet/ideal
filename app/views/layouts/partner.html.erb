@@ -12,6 +12,22 @@
   <link rel="apple-touch-icon" href="/icon.png">
   <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <style>
+    /* Custom Scrollbar Styling */
+    #sidebar nav::-webkit-scrollbar {
+      width: 6px;
+    }
+    #sidebar nav::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    #sidebar nav::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+    #sidebar nav::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+  </style>
   <%= javascript_importmap_tags %>
 </head>
 

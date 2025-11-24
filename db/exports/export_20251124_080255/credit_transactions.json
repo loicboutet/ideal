@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "seller_profile_id": 1,
+    "amount": 25,
+    "transaction_type": 5,
+    "source_type": "CreditPack",
+    "source_id": 2,
+    "description": "Achat 25 Crédits - €19.90",
+    "balance_after": 25,
+    "created_at": "2025-11-21 12:17:00 UTC",
+    "updated_at": "2025-11-21 12:17:00 UTC"
+  },
+  {
+    "id": 2,
+    "seller_profile_id": 1,
+    "amount": -1,
+    "transaction_type": 2,
+    "source_type": "ListingPush",
+    "source_id": 1,
+    "description": "Annonce poussée à Marie Martin",
+    "balance_after": 24,
+    "created_at": "2025-11-23 11:54:54 UTC",
+    "updated_at": "2025-11-23 11:54:54 UTC"
+  },
+  {
+    "id": 3,
+    "seller_profile_id": 1,
+    "amount": -1,
+    "transaction_type": 2,
+    "source_type": "ListingPush",
+    "source_id": 1,
+    "description": "Annonce poussée à Marie Martin",
+    "balance_after": 23,
+    "created_at": "2025-11-23 11:54:54 UTC",
+    "updated_at": "2025-11-23 11:54:54 UTC"
+  },
+  {
+    "id": 4,
+    "seller_profile_id": 1,
+    "amount": -1,
+    "transaction_type": 2,
+    "source_type": "ListingPush",
+    "source_id": 2,
+    "description": "Annonce poussée à Marie Martin",
+    "balance_after": 22,
+    "created_at": "2025-11-23 11:55:06 UTC",
+    "updated_at": "2025-11-23 11:55:06 UTC"
+  },
+  {
+    "id": 5,
+    "seller_profile_id": 1,
+    "amount": -1,
+    "transaction_type": 2,
+    "source_type": "ListingPush",
+    "source_id": 2,
+    "description": "Annonce poussée à Marie Martin",
+    "balance_after": 21,
+    "created_at": "2025-11-23 11:55:06 UTC",
+    "updated_at": "2025-11-23 11:55:06 UTC"
+  },
+  {
+    "id": 6,
+    "seller_profile_id": 1,
+    "amount": -1,
+    "transaction_type": 2,
+    "source_type": "ListingPush",
+    "source_id": 3,
+    "description": "Annonce poussée à Isabelle Moreau",
+    "balance_after": 20,
+    "created_at": "2025-11-23 11:55:38 UTC",
+    "updated_at": "2025-11-23 11:55:38 UTC"
+  },
+  {
+    "id": 7,
+    "seller_profile_id": 1,
+    "amount": -1,
+    "transaction_type": 2,
+    "source_type": "ListingPush",
+    "source_id": 3,
+    "description": "Annonce poussée à Isabelle Moreau",
+    "balance_after": 19,
+    "created_at": "2025-11-23 11:55:38 UTC",
+    "updated_at": "2025-11-23 11:55:38 UTC"
+  },
+  {
+    "id": 8,
+    "seller_profile_id": 1,
+    "amount": -1,
+    "transaction_type": 2,
+    "source_type": "ListingPush",
+    "source_id": 4,
+    "description": "Annonce poussée à Pierre Bernard",
+    "balance_after": 18,
+    "created_at": "2025-11-23 12:11:40 UTC",
+    "updated_at": "2025-11-23 12:11:40 UTC"
+  },
+  {
+    "id": 9,
+    "seller_profile_id": 1,
+    "amount": 25,
+    "transaction_type": 5,
+    "source_type": "CreditPack",
+    "source_id": 2,
+    "description": "Achat 25 Crédits - €19.90",
+    "balance_after": 43,
+    "created_at": "2025-11-23 17:11:57 UTC",
+    "updated_at": "2025-11-23 17:11:57 UTC"
+  }
+]

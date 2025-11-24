@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "user_id": 10,
+    "listing_id": null,
+    "signature_type": 0,
+    "signed_at": "2025-11-20 12:46:06 UTC",
+    "ip_address": "::1",
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "accepted_terms": true,
+    "created_at": "2025-11-20 12:46:06 UTC",
+    "updated_at": "2025-11-20 12:46:06 UTC"
+  },
+  {
+    "id": 2,
+    "user_id": 10,
+    "listing_id": 41,
+    "signature_type": 1,
+    "signed_at": "2025-11-20 13:09:34 UTC",
+    "ip_address": "::1",
+    "user_agent": null,
+    "accepted_terms": true,
+    "created_at": "2025-11-20 13:09:34 UTC",
+    "updated_at": "2025-11-20 13:09:34 UTC"
+  },
+  {
+    "id": 3,
+    "user_id": 10,
+    "listing_id": 3,
+    "signature_type": 1,
+    "signed_at": "2025-11-20 14:28:21 UTC",
+    "ip_address": "::1",
+    "user_agent": null,
+    "accepted_terms": true,
+    "created_at": "2025-11-20 14:28:21 UTC",
+    "updated_at": "2025-11-20 14:28:21 UTC"
+  }
+]

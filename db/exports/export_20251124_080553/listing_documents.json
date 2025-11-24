@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "listing_id": 5,
+    "uploaded_by_id": 4,
+    "document_category": 9,
+    "title": "Velit omnis nemo no",
+    "description": "Itaque quis nostrum ",
+    "file_name": "anomalies-analysis-week-19-anomaly-monthly.pdf",
+    "file_path": "v5iinwrgmnpfvfvwr9jey0j0rd3p",
+    "file_size": 21995,
+    "content_type": "application/pdf",
+    "not_applicable": true,
+    "nda_required": true,
+    "validated_by_seller": true,
+    "created_at": "2025-11-23 11:07:21 UTC",
+    "updated_at": "2025-11-23 11:07:21 UTC"
+  }
+]

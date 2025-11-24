@@ -1,0 +1,192 @@
+[
+  {
+    "id": 1,
+    "setting_key": "buyer_plan_starter_monthly",
+    "setting_value": "890",
+    "setting_type": 4,
+    "description": "Prix mensuel abonnement Starter pour repreneurs (€)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 2,
+    "setting_key": "buyer_plan_standard_monthly",
+    "setting_value": "1990",
+    "setting_type": 4,
+    "description": "Prix mensuel abonnement Standard pour repreneurs (€)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 3,
+    "setting_key": "buyer_plan_premium_monthly",
+    "setting_value": "2490",
+    "setting_type": 4,
+    "description": "Prix mensuel abonnement Premium pour repreneurs (€)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 4,
+    "setting_key": "buyer_plan_club_annual",
+    "setting_value": "12000",
+    "setting_type": 4,
+    "description": "Prix annuel abonnement Club pour repreneurs (€)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 5,
+    "setting_key": "credits_pack_small_price",
+    "setting_value": "500",
+    "setting_type": 4,
+    "description": "Prix pack Small - 10 crédits (€)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 6,
+    "setting_key": "credits_pack_small_credits",
+    "setting_value": "100",
+    "setting_type": 1,
+    "description": "Nombre de crédits pack Small",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 7,
+    "setting_key": "credits_pack_medium_price",
+    "setting_value": "1000",
+    "setting_type": 4,
+    "description": "Prix pack Medium - 25 crédits (€)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 8,
+    "setting_key": "credits_pack_medium_credits",
+    "setting_value": "250",
+    "setting_type": 1,
+    "description": "Nombre de crédits pack Medium",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 9,
+    "setting_key": "credits_pack_large_price",
+    "setting_value": "1800",
+    "setting_type": 4,
+    "description": "Prix pack Large - 50 crédits (€)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 10,
+    "setting_key": "credits_pack_large_credits",
+    "setting_value": "499",
+    "setting_type": 1,
+    "description": "Nombre de crédits pack Large",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-23 09:43:55 UTC"
+  },
+  {
+    "id": 11,
+    "setting_key": "timer_to_contact",
+    "setting_value": "30",
+    "setting_type": 1,
+    "description": "Durée timer \"À contacter\" (jours, min 7, max 60)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 12,
+    "setting_key": "timer_info_analysis_alignment",
+    "setting_value": "59",
+    "setting_type": 1,
+    "description": "Durée timer \"Échange infos + Analyse + Alignement\" total (jours, min 7, max 60)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 13,
+    "setting_key": "timer_negotiation",
+    "setting_value": "19",
+    "setting_type": 1,
+    "description": "Durée timer \"Négociation\" (jours, min 7, max 60)",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 14,
+    "setting_key": "text_welcome_message",
+    "setting_value": "Bienvenue sur Idéal Reprise ! Nous sommes ravis de vous accompagner dans votre projet. 0",
+    "setting_type": 0,
+    "description": "Message de bienvenue pour nouveaux utilisateurs",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 15,
+    "setting_key": "text_validation_message",
+    "setting_value": "Votre annonce a été validée et est maintenant visible par les repreneurs. vvv",
+    "setting_type": 0,
+    "description": "Message lors de la validation d'une annonce",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:26:37 UTC"
+  },
+  {
+    "id": 16,
+    "setting_key": "text_offer_starter",
+    "setting_value": "Accès de base aux annonces",
+    "setting_type": 0,
+    "description": "Description offre Starter",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 17,
+    "setting_key": "text_offer_standard",
+    "setting_value": "Accès complet + réservations illimitées",
+    "setting_type": 0,
+    "description": "Description offre Standard",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 18,
+    "setting_key": "text_offer_premium",
+    "setting_value": "Tous les avantages + badge vérifié",
+    "setting_type": 0,
+    "description": "Description offre Premium",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:22:48 UTC"
+  },
+  {
+    "id": 19,
+    "setting_key": "text_offer_club",
+    "setting_value": "Accès VIP 000 + coaching personnalisé x",
+    "setting_type": 0,
+    "description": "Description offre Club",
+    "updated_by_id": 1,
+    "created_at": "2025-11-19 11:10:41 UTC",
+    "updated_at": "2025-11-19 11:30:25 UTC"
+  }
+]
