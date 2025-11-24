@@ -23,5 +23,11 @@ module Ideal
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Configure Postmark for email delivery
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = {
+      api_token: Rails.application.credentials.postmark_api_token
+    }
   end
 end

@@ -73,6 +73,9 @@ end
 gem "devise", "~> 4.9"
 gem "kaminari"
 
+# Email delivery
+gem "postmark-rails"
+
 # Payment processing
 gem "stripe", "~> 12.0"
 
