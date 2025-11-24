@@ -7,7 +7,8 @@ image: loicboutet/ideal
 # Deploy to these servers.
 servers:
   web:
-    - 141.94.197.228
+    hosts:
+      - 141.94.197.228
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -24,10 +25,9 @@ proxy:
 # Configure health check with extended timeout for database migrations
 healthcheck:
   path: /up
-  port: 80
-  interval: 5s
-  timeout: 5s
+  port: 3000
   max_attempts: 20
+  interval: 10s
 
 # Credentials for your image host.
 registry:
