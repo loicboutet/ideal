@@ -92,6 +92,13 @@ module Admin
           link_url: "/buyer/deals/#{@deal.id}"
         )
         
+        # Send email notification
+        BuyerNotificationMailer.exclusive_deal_assigned(
+          new_buyer_profile.user,
+          @deal,
+          @deal.listing
+        ).deliver_later
+        
         redirect_to admin_deal_path(@deal), notice: "Affaire réassignée avec succès à #{new_buyer_profile.user.full_name}."
       else
         redirect_to assign_form_admin_deal_path(@deal), alert: "Erreur lors de l'assignation de l'affaire."

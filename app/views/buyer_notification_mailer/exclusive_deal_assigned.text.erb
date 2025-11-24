@@ -1,0 +1,53 @@
+🎯 AFFAIRE EXCLUSIVE ASSIGNÉE
+Par l'administrateur IDÉAL
+
+================================================================================
+
+Bonjour <%= @buyer.first_name || 'Repreneur' %>,
+
+L'équipe IDÉAL Reprise vous a assigné une AFFAIRE EXCLUSIVE qui correspond 
+parfaitement à vos critères de recherche.
+
+⚡ ACTION REQUISE :
+Cette opportunité vous est réservée. Vous disposez de 7 JOURS pour prendre 
+contact avec le cédant.
+
+================================================================================
+
+DÉTAILS DE L'AFFAIRE
+
+<%= @listing.title %>
+
+Secteur d'activité : <%= @listing.industry_sector_display %>
+<% if @listing.annual_revenue.present? %>Chiffre d'affaires : <%= number_to_currency(@listing.annual_revenue, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+<% end %><% if @listing.asking_price.present? %>Prix demandé : <%= number_to_currency(@listing.asking_price, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+<% end %>Localisation : <%= @listing.department %>
+<% if @listing.employee_count.present? %>Effectif : <%= @listing.employee_count %> employés
+<% end %>
+================================================================================
+
+POURQUOI CETTE OPPORTUNITÉ ?
+
+Notre équipe a identifié cette affaire comme particulièrement adaptée à votre 
+profil et à vos objectifs d'acquisition. Nous vous recommandons de la consulter 
+rapidement.
+
+PROCHAINES ÉTAPES :
+
+1. Consultez les informations détaillées de l'affaire
+2. Prenez contact avec le cédant via la plateforme
+3. Planifiez un premier échange pour en savoir plus
+
+Notre équipe reste à votre disposition pour vous accompagner dans cette démarche.
+
+➡️  VOIR L'AFFAIRE : <%= @deal_url %>
+
+Bonne acquisition,
+L'équipe IDÉAL Reprise
+
+================================================================================
+
+Vous recevez cet email car une affaire exclusive vous a été assignée sur 
+IDÉAL Reprise.
+
+Accéder à mon tableau de bord : <%= buyer_root_url %>
