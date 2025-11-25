@@ -172,28 +172,61 @@ module Payment
       
       # Activate subscription from Stripe webhook
       def activate_subscription(user:, stripe_subscription_id:, stripe_customer_id:, stripe_subscription:)
+        Rails.logger.info "=" * 80
+        Rails.logger.info "SubscriptionService.activate_subscription called"
+        Rails.logger.info "User: ID=#{user.id}, Email=#{user.email}, Role=#{user.role}"
+        Rails.logger.info "Stripe subscription ID: #{stripe_subscription_id}"
+        Rails.logger.info "Stripe customer ID: #{stripe_customer_id}"
+        
         # Extract plan type from Stripe price ID
         price_id = stripe_subscription.items.data.first.price.id
-        plan_type = determine_plan_type_from_price_id(price_id)
+        Rails.logger.info "Price ID from Stripe: #{price_id}"
         
-        return { success: false, error: 'Could not determine plan type' } unless plan_type
+        plan_type = determine_plan_type_from_price_id(price_id)
+        Rails.logger.info "Determined plan type: #{plan_type.inspect}"
+        
+        unless plan_type
+          Rails.logger.error "❌ Could not determine plan type from price ID: #{price_id}"
+          return { success: false, error: 'Could not determine plan type' }
+        end
         
         # Get plan configuration to extract amount
         role = user.role.to_sym
         plan_key = plan_type_to_key(plan_type)
+        Rails.logger.info "Role: #{role}, Plan key: #{plan_key}"
+        
         plan_config = SubscriptionPlans.plan_details(role, plan_key)
+        Rails.logger.info "Plan config: #{plan_config.inspect}"
         
         # Update user with Stripe customer ID
-        user.update(stripe_customer_id: stripe_customer_id) unless user.stripe_customer_id
+        if user.stripe_customer_id
+          Rails.logger.info "User already has stripe_customer_id: #{user.stripe_customer_id}"
+        else
+          Rails.logger.info "Updating user with stripe_customer_id: #{stripe_customer_id}"
+          user.update(stripe_customer_id: stripe_customer_id)
+        end
         
         # Get user's profile
         profile = get_profile_for_user(user)
+        Rails.logger.info "Profile: #{profile.class.name} ID=#{profile&.id}"
         
         # Create or update subscription
         subscription = user.subscriptions.find_or_initialize_by(stripe_subscription_id: stripe_subscription_id)
+        is_new = subscription.new_record?
+        Rails.logger.info "Subscription: #{is_new ? 'NEW RECORD' : "EXISTING ID=#{subscription.id}"}"
         
         # Map Stripe status to our enum values (Stripe uses 'canceled', we use 'cancelled')
         mapped_status = map_stripe_status_to_enum(stripe_subscription.status)
+        Rails.logger.info "Status mapping: #{stripe_subscription.status} -> #{mapped_status}"
+        
+        Rails.logger.info "Assigning attributes:"
+        Rails.logger.info "  - plan_type: #{plan_type}"
+        Rails.logger.info "  - status: #{mapped_status}"
+        Rails.logger.info "  - amount: #{plan_config[:price_cents]}"
+        Rails.logger.info "  - profile: #{profile.class.name}"
+        Rails.logger.info "  - period_start: #{Time.at(stripe_subscription.current_period_start)}"
+        Rails.logger.info "  - period_end: #{Time.at(stripe_subscription.current_period_end)}"
+        Rails.logger.info "  - cancel_at_period_end: #{stripe_subscription.cancel_at_period_end || false}"
         
         subscription.assign_attributes(
           plan_type: plan_type,
@@ -205,11 +238,18 @@ module Payment
           cancel_at_period_end: stripe_subscription.cancel_at_period_end || false
         )
         
+        Rails.logger.info "Attempting to save subscription..."
         if subscription.save
-          Rails.logger.info "Subscription activated: #{subscription.id} for user #{user.id} with status #{mapped_status}"
+          Rails.logger.info "✓ Subscription saved successfully!"
+          Rails.logger.info "  - Database ID: #{subscription.id}"
+          Rails.logger.info "  - Plan type: #{subscription.plan_type}"
+          Rails.logger.info "  - Status: #{subscription.status}"
+          Rails.logger.info "  - User ID: #{user.id}"
           { success: true, subscription: subscription }
         else
-          Rails.logger.error "Failed to activate subscription: #{subscription.errors.full_messages.join(', ')}"
+          Rails.logger.error "❌ Failed to save subscription!"
+          Rails.logger.error "Validation errors: #{subscription.errors.full_messages.join(', ')}"
+          Rails.logger.error "Error details: #{subscription.errors.to_hash.inspect}"
           { success: false, error: subscription.errors.full_messages.join(', ') }
         end
       end

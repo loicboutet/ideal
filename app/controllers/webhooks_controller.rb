@@ -50,33 +50,53 @@ class WebhooksController < ApplicationController
   private
 
   def handle_checkout_session_completed(session)
+    Rails.logger.info "=" * 80
     Rails.logger.info "Processing checkout.session.completed for session: #{session['id']}"
+    Rails.logger.info "Session data: customer=#{session['customer']}, subscription=#{session['subscription']}"
+    Rails.logger.info "Session metadata: #{session['metadata'].inspect}"
+    Rails.logger.info "Client reference ID: #{session['client_reference_id']}"
     
     # Get user from client_reference_id (user_id stored during checkout)
     user = User.find_by(id: session['client_reference_id'])
     
     unless user
-      Rails.logger.error "User not found for session: #{session['id']}"
+      Rails.logger.error "❌ User not found for client_reference_id: #{session['client_reference_id']}"
+      Rails.logger.error "Session: #{session['id']}"
       return
     end
+    
+    Rails.logger.info "✓ Found user: ID=#{user.id}, Email=#{user.email}, Role=#{user.role}"
 
     # Get subscription details from Stripe
     stripe_subscription_id = session['subscription']
     
+    Rails.logger.info "Stripe subscription ID from session: #{stripe_subscription_id}"
+    
     # Only log if this is a subscription-related checkout
     if stripe_subscription_id
+      Rails.logger.info "→ This is a subscription checkout"
+      
       # Subscription payment
+      Rails.logger.info "Retrieving subscription from Stripe: #{stripe_subscription_id}"
       stripe_subscription = Stripe::Subscription.retrieve(stripe_subscription_id)
       
+      Rails.logger.info "Stripe subscription retrieved: status=#{stripe_subscription.status}, items=#{stripe_subscription.items.data.first.price.id}"
+      
       # Activate subscription in database
-      Payment::SubscriptionService.activate_subscription(
+      Rails.logger.info "Calling SubscriptionService.activate_subscription..."
+      result = Payment::SubscriptionService.activate_subscription(
         user: user,
         stripe_subscription_id: stripe_subscription_id,
         stripe_customer_id: session['customer'],
         stripe_subscription: stripe_subscription
       )
       
-      Rails.logger.info "Subscription activated for user #{user.id}"
+      if result[:success]
+        Rails.logger.info "✓ Subscription activated successfully for user #{user.id}"
+        Rails.logger.info "Subscription ID: #{result[:subscription].id}, Plan: #{result[:subscription].plan_type}, Status: #{result[:subscription].status}"
+      else
+        Rails.logger.error "❌ Failed to activate subscription: #{result[:error]}"
+      end
     else
       # One-time payment (credit pack purchase)
       metadata = session['metadata']
