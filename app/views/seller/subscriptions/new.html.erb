@@ -83,7 +83,7 @@
       <%= form_with url: seller_subscription_path, method: :post, 
                     data: { 
                       controller: "stripe-subscription",
-                      stripe_subscription_publishable_key_value: ENV['STRIPE_PUBLISHABLE_KEY'],
+                      stripe_subscription_publishable_key_value: Rails.configuration.stripe[:publishable_key],
                       stripe_subscription_price_id_value: @premium_plan[:stripe_price_id],
                       stripe_subscription_return_url_value: seller_subscription_url,
                       action: "submit->stripe-subscription#submit"
