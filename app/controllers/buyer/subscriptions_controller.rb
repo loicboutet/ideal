@@ -1,11 +1,36 @@
 class Buyer::SubscriptionsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_buyer_role
-  before_action :set_subscription, only: [:show, :edit, :update, :destroy, :reactivate]
+  before_action :set_subscription, only: [:edit, :update, :destroy, :reactivate]
   
   # GET /buyer/subscription
   def show
-    @subscription = Payment::SubscriptionService.current_subscription(current_user)
+    # Check if returning from Stripe checkout
+    if params[:session_id].present?
+      # Wait briefly for webhooks to process (they usually complete within 2-3 seconds)
+      # Try to find the subscription with a few retries
+      max_retries = 5
+      retry_count = 0
+      
+      while retry_count < max_retries
+        @subscription = Payment::SubscriptionService.current_subscription(current_user)
+        break if @subscription
+        
+        sleep(1) # Wait 1 second between retries
+        retry_count += 1
+      end
+      
+      if @subscription
+        flash.now[:notice] = "Votre abonnement a été activé avec succès!"
+      else
+        # Subscription still not found after retries - webhooks might be delayed
+        flash.now[:alert] = "Votre paiement a été reçu. Votre abonnement sera activé dans quelques instants. Veuillez rafraîchir la page dans 30 secondes."
+        Rails.logger.warn "Subscription not found for user #{current_user.id} after checkout session #{params[:session_id]}"
+      end
+    else
+      @subscription = Payment::SubscriptionService.current_subscription(current_user)
+    end
+    
     @summary = Payment::SubscriptionService.subscription_summary(current_user)
     @all_plans = SubscriptionPlans.all_buyer_plans
   end
