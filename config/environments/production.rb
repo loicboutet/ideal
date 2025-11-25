@@ -35,7 +35,14 @@ Rails.application.configure do
 
   # Log to STDOUT with the current request id as a default log tag.
   config.log_tags = [ :request_id ]
-  config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
+  
+  # Log to both STDOUT (for Docker) and file (for web interface)
+  stdout_logger = ActiveSupport::Logger.new(STDOUT)
+  file_logger = ActiveSupport::Logger.new(Rails.root.join('log', 'production.log'))
+  
+  # Combine both loggers using broadcast
+  config.logger = ActiveSupport::BroadcastLogger.new(stdout_logger, file_logger)
+  config.logger = ActiveSupport::TaggedLogging.new(config.logger)
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
