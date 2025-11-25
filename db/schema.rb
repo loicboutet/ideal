@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_25_060544) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_25_150500) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -518,24 +518,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_25_060544) do
     t.index ["user_id"], name: "index_seller_profiles_on_user_id", unique: true
   end
 
-  create_table "subscription_webhook_logs", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "event_id", null: false
-    t.string "event_type", null: false
-    t.string "subscription_id"
-    t.text "payload"
-    t.string "status", default: "pending", null: false
-    t.text "error_message"
-    t.datetime "processed_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["created_at"], name: "index_subscription_webhook_logs_on_created_at"
-    t.index ["event_id"], name: "index_subscription_webhook_logs_on_event_id", unique: true
-    t.index ["event_type"], name: "index_subscription_webhook_logs_on_event_type"
-    t.index ["status"], name: "index_subscription_webhook_logs_on_status"
-    t.index ["user_id"], name: "index_subscription_webhook_logs_on_user_id"
-  end
-
   create_table "subscriptions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "profile_type", null: false
@@ -658,7 +640,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_25_060544) do
   add_foreign_key "questionnaire_responses", "users"
   add_foreign_key "questionnaires", "users", column: "created_by_id"
   add_foreign_key "seller_profiles", "users"
-  add_foreign_key "subscription_webhook_logs", "users"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "survey_responses", "surveys"
   add_foreign_key "survey_responses", "users"

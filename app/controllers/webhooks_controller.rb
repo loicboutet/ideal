@@ -49,90 +49,6 @@ class WebhooksController < ApplicationController
 
   private
 
-  # Log subscription webhook events with before/after state
-  def log_subscription_webhook(event_type, event_id, user, subscription_id, payload, status: 'pending', error_message: nil, before_state: nil, after_state: nil)
-    return nil unless user
-    
-    enhanced_payload = {
-      stripe_event: payload,
-      debug_info: {
-        before_processing: before_state,
-        after_processing: after_state,
-        processed_at: Time.current.iso8601,
-        user_id: user.id,
-        user_email: user.email
-      }
-    }
-    
-    log = SubscriptionWebhookLog.create!(
-      user: user,
-      event_id: event_id,
-      event_type: event_type,
-      subscription_id: subscription_id,
-      payload: enhanced_payload.to_json,
-      status: status,
-      error_message: error_message,
-      processed_at: Time.current
-    )
-    log
-  rescue => e
-    Rails.logger.error "Failed to log webhook: #{e.message}"
-    nil
-  end
-
-  # Update log with after state and mark as success
-  def update_log_success(log, after_state = nil)
-    return unless log
-    
-    if after_state
-      current_payload = JSON.parse(log.payload) rescue {}
-      current_payload['debug_info'] ||= {}
-      current_payload['debug_info']['after_processing'] = after_state
-      current_payload['debug_info']['completed_at'] = Time.current.iso8601
-      log.payload = current_payload.to_json
-    end
-    
-    log.status = 'success'
-    log.save
-  rescue => e
-    Rails.logger.error "Failed to update log status: #{e.message}"
-  end
-
-  # Update log status to failed with error
-  def update_log_failed(log, error_message)
-    log&.update(status: 'failed', error_message: error_message)
-  rescue => e
-    Rails.logger.error "Failed to update log status: #{e.message}"
-  end
-
-  # Capture current subscription state for debugging
-  def capture_subscription_state(user, stripe_subscription_id)
-    {
-      database_subscriptions: user.subscriptions.map { |sub|
-        {
-          id: sub.id,
-          stripe_subscription_id: sub.stripe_subscription_id,
-          plan_type: sub.plan_type,
-          status: sub.status,
-          period_start: sub.period_start,
-          period_end: sub.period_end,
-          cancel_at_period_end: sub.cancel_at_period_end,
-          created_at: sub.created_at,
-          updated_at: sub.updated_at
-        }
-      },
-      user_info: {
-        id: user.id,
-        email: user.email,
-        role: user.role,
-        stripe_customer_id: user.stripe_customer_id
-      },
-      looking_for_subscription_id: stripe_subscription_id
-    }
-  rescue => e
-    { error: e.message, backtrace: e.backtrace.first(5) }
-  end
-
   def handle_checkout_session_completed(session)
     Rails.logger.info "Processing checkout.session.completed for session: #{session['id']}"
     
@@ -149,15 +65,6 @@ class WebhooksController < ApplicationController
     
     # Only log if this is a subscription-related checkout
     if stripe_subscription_id
-      # Log webhook event
-      log_subscription_webhook(
-        'checkout.session.completed',
-        session['id'],
-        user,
-        stripe_subscription_id,
-        session
-      )
-      
       # Subscription payment
       stripe_subscription = Stripe::Subscription.retrieve(stripe_subscription_id)
       
@@ -217,19 +124,6 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: subscription['customer'])
     return unless user
 
-    # Capture state BEFORE processing
-    before_state = capture_subscription_state(user, subscription['id'])
-
-    # Log webhook event with before state
-    webhook_log = log_subscription_webhook(
-      'customer.subscription.created',
-      subscription['id'],
-      user,
-      subscription['id'],
-      subscription,
-      before_state: before_state
-    )
-
     # Check if subscription already exists
     existing_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
     
@@ -266,10 +160,6 @@ class WebhooksController < ApplicationController
         stripe_subscription: subscription
       )
     end
-    
-    # Capture state AFTER processing and update log
-    after_state = capture_subscription_state(user, subscription['id'])
-    update_log_success(webhook_log, after_state)
   rescue => e
     Rails.logger.error "Error processing subscription.created: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
@@ -285,14 +175,6 @@ class WebhooksController < ApplicationController
       return
     end
 
-    # Log webhook event
-    log_subscription_webhook(
-      'customer.subscription.updated',
-      subscription['id'],
-      user,
-      subscription['id'],
-      subscription
-    )
 
     # Find or create subscription
     user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
@@ -344,14 +226,6 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: subscription['customer'])
     return unless user
 
-    # Log webhook event
-    log_subscription_webhook(
-      'customer.subscription.deleted',
-      subscription['id'],
-      user,
-      subscription['id'],
-      subscription
-    )
 
     user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
     return unless user_subscription
@@ -374,14 +248,6 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: invoice['customer'])
     return unless user
 
-    # Log webhook event
-    log_subscription_webhook(
-      'invoice.payment_succeeded',
-      invoice['id'],
-      user,
-      invoice['subscription'],
-      invoice
-    )
 
     # Record successful payment
     PaymentTransaction.create!(
