@@ -28,6 +28,10 @@ class Deal < ApplicationRecord
   after_update :track_status_change, if: :saved_change_to_status?
   
   # Instance methods
+  def enrichments
+    listing.enrichments.where(buyer_profile_id: buyer_profile_id)
+  end
+  
   def reserve!
     update!(reserved: true, reserved_at: Time.current, reserved_until: calculate_reserved_until)
   end
