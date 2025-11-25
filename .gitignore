@@ -37,3 +37,9 @@
 !/app/assets/builds/.keep
 
 #/config/master.key
+
+/config/credentials/development.key
+
+/config/credentials/production.key
+
+/config/credentials/staging.key
