@@ -123,13 +123,42 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: subscription['customer'])
     return unless user
 
-    # Create or update subscription using the service
-    Payment::SubscriptionService.activate_subscription(
-      user: user,
-      stripe_subscription_id: subscription['id'],
-      stripe_customer_id: subscription['customer'],
-      stripe_subscription: subscription
-    )
+    # Check if subscription already exists
+    existing_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
+    
+    if existing_subscription
+      Rails.logger.info "Subscription #{subscription['id']} already exists with status: #{existing_subscription.status}"
+      
+      # Map the new status from Stripe
+      new_mapped_status = map_stripe_status_to_enum(subscription['status'])
+      
+      # Check if we should update the status (prevent downgrades)
+      if should_update_status?(existing_subscription.status, new_mapped_status)
+        Rails.logger.info "Updating subscription status from #{existing_subscription.status} to #{new_mapped_status}"
+        Payment::SubscriptionService.activate_subscription(
+          user: user,
+          stripe_subscription_id: subscription['id'],
+          stripe_customer_id: subscription['customer'],
+          stripe_subscription: subscription
+        )
+      else
+        Rails.logger.info "Skipping status update - would downgrade from #{existing_subscription.status} to #{new_mapped_status}"
+        # Still update period dates and other fields, just not status
+        existing_subscription.update(
+          period_start: Time.at(subscription['current_period_start']),
+          period_end: Time.at(subscription['current_period_end']),
+          cancel_at_period_end: subscription['cancel_at_period_end'] || false
+        )
+      end
+    else
+      # New subscription, create it
+      Payment::SubscriptionService.activate_subscription(
+        user: user,
+        stripe_subscription_id: subscription['id'],
+        stripe_customer_id: subscription['customer'],
+        stripe_subscription: subscription
+      )
+    end
   rescue => e
     Rails.logger.error "Error processing subscription.created: #{e.message}"
     Rails.logger.error e.backtrace.join("\n")
@@ -375,5 +404,26 @@ class WebhooksController < ApplicationController
     else
       stripe_status
     end
+  end
+  
+  # Determine status hierarchy to prevent downgrades
+  # Higher values = better status
+  def status_hierarchy
+    {
+      'pending' => 0,
+      'failed' => 1,
+      'expired' => 2,
+      'cancelled' => 3,
+      'active' => 4
+    }
+  end
+  
+  # Check if we should update the status (only allow upgrades or lateral moves)
+  def should_update_status?(current_status, new_status)
+    current_rank = status_hierarchy[current_status.to_s] || 0
+    new_rank = status_hierarchy[new_status.to_s] || 0
+    
+    # Allow update if new status is equal or better
+    new_rank >= current_rank
   end
 end
