@@ -109,6 +109,17 @@ class Buyer::SubscriptionsController < ApplicationController
       Rails.logger.info "Local update result: #{result.inspect}"
       
       if result[:success]
+        # Log the subscription update
+        log_subscription_change(
+          'subscription.updated_via_ui',
+          @subscription,
+          { 
+            old_plan: @subscription.plan_type,
+            new_plan: new_plan_type,
+            action: 'plan_change'
+          }
+        )
+        
         redirect_to buyer_subscription_path, notice: 'Your subscription has been updated successfully!'
       else
         Rails.logger.error "Failed to update local subscription: #{result[:error]}"
@@ -190,6 +201,28 @@ class Buyer::SubscriptionsController < ApplicationController
   end
   
   private
+
+  def log_subscription_change(event_type, subscription, metadata = {})
+    SubscriptionWebhookLog.create!(
+      user: current_user,
+      event_id: "ui_#{Time.current.to_i}_#{SecureRandom.hex(4)}",
+      event_type: event_type,
+      subscription_id: subscription.stripe_subscription_id,
+      payload: {
+        subscription: {
+          id: subscription.stripe_subscription_id,
+          plan_type: subscription.plan_type,
+          status: subscription.status
+        },
+        metadata: metadata,
+        timestamp: Time.current.iso8601
+      }.to_json,
+      status: 'success',
+      processed_at: Time.current
+    )
+  rescue => e
+    Rails.logger.error "Failed to log subscription change: #{e.message}"
+  end
   
   def set_subscription
     @subscription = Payment::SubscriptionService.current_subscription(current_user)

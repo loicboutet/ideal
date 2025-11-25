@@ -66,6 +66,9 @@ Rails.application.routes.draw do
     get 'dashboard/zero_views', to: 'dashboard#zero_views', as: :dashboard_zero_views
     get 'dashboard/expired_timers', to: 'dashboard#expired_timers', as: :dashboard_expired_timers
     
+    # Subscription Webhook Logs
+    resources :subscription_webhook_logs, only: [:index, :show, :destroy], path: 'logs'
+    
     # User Management
     resources :users do
       member do
