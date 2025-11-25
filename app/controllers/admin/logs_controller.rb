@@ -11,7 +11,7 @@ class Admin::LogsController < ApplicationController
       @log_lines = read_last_n_lines(@log_file_path, 1000)
     else
       @log_lines = []
-      flash.now[:alert] = "Log file not found: #{@log_file_path}"
+      flash.now[:alert] = "Log file not found. Please restart the Rails server to initialize file logging. (#{@log_file_path})"
     end
   end
 
