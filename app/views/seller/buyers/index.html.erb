@@ -26,7 +26,7 @@
 
   <!-- Filters -->
   <div class="bg-white rounded-lg p-4 border border-gray-200">
-    <%= form_with url: seller_buyers_path, method: :get, local: true, class: "grid grid-cols-1 sm:grid-cols-4 gap-4" do |f| %>
+    <%= form_with url: seller_buyers_path, method: :get, local: true, class: "grid grid-cols-1 sm:grid-cols-5 gap-4" do |f| %>
       <%= f.select :sector, 
         options_for_select([
           ['Tous les secteurs', 'all'],
@@ -60,7 +60,10 @@
         {},
         class: "px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-seller-500" %>
       
-      <%= f.submit "Filtrer", class: "px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" %>
+      <div class="flex gap-2">
+        <%= f.submit "Filtrer", class: "flex-1 px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" %>
+        <%= link_to "Effacer", seller_buyers_path(listing_id: params[:listing_id]), class: "flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center" %>
+      </div>
     <% end %>
   </div>
 

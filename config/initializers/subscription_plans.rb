@@ -29,7 +29,7 @@ SUBSCRIPTION_PLANS = {
       price_cents: 8900, # €89.00
       price_display: '€89',
       interval: 'month',
-      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_starter_price_id),
+      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_starter_price_id) || ENV['STRIPE_BUYER_STARTER_PRICE_ID'],
       features: [
         'Everything in Free',
         'Reserve up to 3 listings',
@@ -51,7 +51,7 @@ SUBSCRIPTION_PLANS = {
       price_cents: 19900, # €199.00
       price_display: '€199',
       interval: 'month',
-      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_standard_price_id),
+      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_standard_price_id) || ENV['STRIPE_BUYER_STANDARD_PRICE_ID'],
       features: [
         'Everything in Starter',
         'Reserve up to 10 listings',
@@ -75,7 +75,7 @@ SUBSCRIPTION_PLANS = {
       price_cents: 24900, # €249.00
       price_display: '€249',
       interval: 'month',
-      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_premium_price_id),
+      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_premium_price_id) || ENV['STRIPE_BUYER_PREMIUM_PRICE_ID'],
       features: [
         'Everything in Standard',
         'Unlimited reservations',
@@ -99,7 +99,7 @@ SUBSCRIPTION_PLANS = {
       price_cents: 120000, # €1,200.00 per year
       price_display: '€1,200',
       interval: 'year',
-      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_club_price_id),
+      stripe_price_id: Rails.application.credentials.dig(:stripe, :buyer_club_price_id) || ENV['STRIPE_BUYER_CLUB_PRICE_ID'],
       features: [
         'Everything in Premium',
         '1-hour coaching session included',
@@ -145,7 +145,7 @@ SUBSCRIPTION_PLANS = {
       price_cents: 29900, # €299.00 - Set actual price
       price_display: '€299',
       interval: 'month',
-      stripe_price_id: Rails.application.credentials.dig(:stripe, :seller_premium_price_id),
+      stripe_price_id: Rails.application.credentials.dig(:stripe, :seller_premium_price_id) || ENV['STRIPE_SELLER_PREMIUM_PRICE_ID'],
       features: [
         'Unlimited listings',
         'Push to 5 buyers per month',
@@ -186,7 +186,7 @@ SUBSCRIPTION_PLANS = {
       price_cents: 49900, # €499.00 per year - Set actual price
       price_display: '€499',
       interval: 'year',
-      stripe_price_id: Rails.application.credentials.dig(:stripe, :partner_annual_price_id),
+      stripe_price_id: Rails.application.credentials.dig(:stripe, :partner_annual_price_id) || ENV['STRIPE_PARTNER_ANNUAL_PRICE_ID'],
       features: [
         'Visible in partner directory',
         'Featured profile',
