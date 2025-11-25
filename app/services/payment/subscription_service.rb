@@ -331,13 +331,14 @@ module Payment
       
       def determine_plan_type_from_price_id(price_id)
         # Map Stripe Price IDs to plan types
+        # Read from Rails credentials instead of ENV
         price_mapping = {
-          ENV['STRIPE_BUYER_STARTER_PRICE_ID'] => 'buyer_starter',
-          ENV['STRIPE_BUYER_STANDARD_PRICE_ID'] => 'buyer_standard',
-          ENV['STRIPE_BUYER_PREMIUM_PRICE_ID'] => 'buyer_premium',
-          ENV['STRIPE_BUYER_CLUB_PRICE_ID'] => 'buyer_club',
-          ENV['STRIPE_SELLER_PREMIUM_PRICE_ID'] => 'seller_premium',
-          ENV['STRIPE_PARTNER_ANNUAL_PRICE_ID'] => 'partner_directory'
+          Rails.application.credentials.dig(:stripe, :buyer_starter_price_id) => 'buyer_starter',
+          Rails.application.credentials.dig(:stripe, :buyer_standard_price_id) => 'buyer_standard',
+          Rails.application.credentials.dig(:stripe, :buyer_premium_price_id) => 'buyer_premium',
+          Rails.application.credentials.dig(:stripe, :buyer_club_price_id) => 'buyer_club',
+          Rails.application.credentials.dig(:stripe, :seller_premium_price_id) => 'seller_premium',
+          Rails.application.credentials.dig(:stripe, :partner_annual_price_id) => 'partner_directory'
         }
         
         price_mapping[price_id]
