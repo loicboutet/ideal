@@ -9,8 +9,14 @@ module Admin
     before_action :set_user, only: [:show, :edit, :update, :destroy, :activate, :suspend, :suspend_confirm]
 
     def index
+      # Check for stealth mode
+      @stealth_mode = params[:stealth] == '1'
+      
       @users = User.includes(:seller_profile, :buyer_profile, :partner_profile)
                    .order(created_at: :desc)
+      
+      # Include subscriptions in stealth mode
+      @users = @users.includes(:subscriptions) if @stealth_mode
 
       # Apply filters
       @users = @users.where(role: params[:role]) if params[:role].present? && params[:role] != 'all'
