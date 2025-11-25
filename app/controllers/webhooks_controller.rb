@@ -63,6 +63,7 @@ class WebhooksController < ApplicationController
     # Get subscription details from Stripe
     stripe_subscription_id = session['subscription']
     
+    # Only log if this is a subscription-related checkout
     if stripe_subscription_id
       # Subscription payment
       stripe_subscription = Stripe::Subscription.retrieve(stripe_subscription_id)
@@ -174,6 +175,7 @@ class WebhooksController < ApplicationController
       return
     end
 
+
     # Find or create subscription
     user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
     
@@ -224,6 +226,7 @@ class WebhooksController < ApplicationController
     user = User.find_by(stripe_customer_id: subscription['customer'])
     return unless user
 
+
     user_subscription = user.subscriptions.find_by(stripe_subscription_id: subscription['id'])
     return unless user_subscription
 
@@ -244,6 +247,7 @@ class WebhooksController < ApplicationController
     
     user = User.find_by(stripe_customer_id: invoice['customer'])
     return unless user
+
 
     # Record successful payment
     PaymentTransaction.create!(

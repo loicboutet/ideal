@@ -66,6 +66,9 @@ Rails.application.routes.draw do
     get 'dashboard/zero_views', to: 'dashboard#zero_views', as: :dashboard_zero_views
     get 'dashboard/expired_timers', to: 'dashboard#expired_timers', as: :dashboard_expired_timers
     
+    # Application Logs
+    resources :logs, only: [:index]
+    
     # User Management
     resources :users do
       member do
