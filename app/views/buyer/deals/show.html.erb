@@ -70,6 +70,13 @@
         Voir l'annonce
       <% end %>
       
+      <%= link_to new_buyer_listing_enrichment_path(@listing), class: "inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition" do %>
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Enrichir
+      <% end %>
+      
       <%= link_to release_buyer_deal_path(@deal), 
         method: :delete,
         data: { 
@@ -153,7 +160,7 @@
   <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-lg font-bold text-gray-900">Documents</h2>
-      <%= link_to "#", class: "text-sm text-buyer-600 hover:text-buyer-700 font-medium" do %>
+      <%= link_to new_buyer_listing_enrichment_path(@listing), class: "text-sm text-buyer-600 hover:text-buyer-700 font-medium" do %>
         Ajouter un document →
       <% end %>
     </div>
