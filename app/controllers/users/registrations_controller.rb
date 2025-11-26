@@ -3,8 +3,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /inscription/en-attente
   def pending_approval
+    # Redirect if not logged in or not a pending partner
     unless current_user&.partner? && current_user&.pending?
-      redirect_to root_path and return
+      redirect_to root_path, notice: "Accès non autorisé."
+      return
     end
   end
 
