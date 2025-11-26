@@ -119,7 +119,12 @@
       <div class="text-6xl mb-4">🔍</div>
       <h3 class="text-xl font-bold text-gray-900 mb-2">Aucune annonce trouvée</h3>
       <p class="text-gray-600 mb-6">Essayez de modifier vos critères de recherche</p>
-      <%= link_to "Réinitialiser les filtres", buyer_listings_path, class: "inline-block px-6 py-3 bg-buyer-600 text-white rounded-full hover:bg-buyer-700 transition font-medium" %>
+      <%= link_to buyer_listings_path, class: "inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-full hover:bg-gray-50 transition font-medium" do %>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+        Effacer les filtres
+      <% end %>
     </div>
   <% end %>
 </div>

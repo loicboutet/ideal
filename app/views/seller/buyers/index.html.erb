@@ -62,7 +62,12 @@
       
       <div class="flex gap-2">
         <%= f.submit "Filtrer", class: "flex-1 px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" %>
-        <%= link_to "Effacer", seller_buyers_path(listing_id: params[:listing_id]), class: "flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-center" %>
+        <%= link_to seller_buyers_path(listing_id: params[:listing_id]), class: "flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Effacer les filtres
+        <% end %>
       </div>
     <% end %>
   </div>

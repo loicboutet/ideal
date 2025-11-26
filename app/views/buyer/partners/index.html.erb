@@ -104,7 +104,15 @@
 
       <!-- Filter Actions -->
       <div class="flex gap-3">
-        <%= link_to 'Réinitialiser les filtres', buyer_partners_path, class: "text-sm text-gray-600 hover:text-gray-900" %>
+        <%= button_tag type: 'submit', class: "px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" do %>
+          Filtrer
+        <% end %>
+        <%= link_to buyer_partners_path, class: "inline-flex items-center gap-2 px-6 py-2 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition font-medium" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Effacer les filtres
+        <% end %>
       </div>
     <% end %>
   </div>
