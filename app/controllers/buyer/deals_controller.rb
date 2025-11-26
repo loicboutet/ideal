@@ -8,6 +8,13 @@ class Buyer::DealsController < ApplicationController
     @deals = @buyer_profile.deals.active.includes(:listing).order(stage_entered_at: :desc)
   end
 
+  def released
+    @released_deals = @buyer_profile.deals
+      .where.not(released_at: nil)
+      .includes(:listing)
+      .order(released_at: :desc)
+  end
+
   def show
     @listing = @deal.listing
     @deal_history = @deal.deal_history_events.order(created_at: :desc)
