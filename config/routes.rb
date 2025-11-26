@@ -259,6 +259,10 @@ Rails.application.routes.draw do
       resources :documents, except: [:index] # Enrichment documents
       resources :notes, except: [:index]     # Deal notes & history
       
+      collection do
+        get :released  # View released deals
+      end
+      
       member do
         patch :move_stage    # Move to next/previous CRM stage
         post :extend_timer   # Request timer extension (if allowed)
