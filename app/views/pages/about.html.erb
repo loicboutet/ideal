@@ -266,9 +266,20 @@
       Rejoignez notre communauté d'entrepreneurs et bénéficiez de notre expertise
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg">
-        Créer mon compte
-      </button>
+      <% if user_signed_in? %>
+        <% case current_user.role %>
+        <% when 'admin' %>
+          <%= link_to "Mon tableau de bord", admin_root_path, class: "bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg inline-block" %>
+        <% when 'seller' %>
+          <%= link_to "Mon tableau de bord", seller_root_path, class: "bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg inline-block" %>
+        <% when 'buyer' %>
+          <%= link_to "Mon tableau de bord", buyer_root_path, class: "bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg inline-block" %>
+        <% when 'partner' %>
+          <%= link_to "Mon tableau de bord", partner_root_path, class: "bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg inline-block" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Créer mon compte", new_user_registration_path, class: "bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg inline-block" %>
+      <% end %>
       <%= link_to contact_path, class: "bg-gray-100 text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-200 transition-colors text-lg" do %>
         Nous contacter
       <% end %>

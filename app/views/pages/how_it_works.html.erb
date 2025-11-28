@@ -21,9 +21,17 @@
       <button class="px-6 py-3 font-semibold text-blue-600 border-b-2 border-blue-600">
         Je cède mon entreprise
       </button>
-      <button class="px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors">
-        Je reprends une entreprise
-      </button>
+      <% if user_signed_in? %>
+        <% if current_user.buyer? %>
+          <%= link_to "Je reprends une entreprise", buyer_listings_path, class: "px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors" %>
+        <% elsif current_user.seller? %>
+          <%= link_to "Je reprends une entreprise", seller_listings_path, class: "px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors" %>
+        <% else %>
+          <%= link_to "Je reprends une entreprise", new_user_registration_path, class: "px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors" %>
+        <% end %>
+      <% else %>
+        <%= link_to "Je reprends une entreprise", new_user_registration_path, class: "px-6 py-3 font-semibold text-gray-600 hover:text-blue-600 transition-colors" %>
+      <% end %>
     </div>
   </div>
 </section>
