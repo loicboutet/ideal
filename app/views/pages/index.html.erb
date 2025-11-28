@@ -1,0 +1,448 @@
+<% content_for :title, "Idéal Reprise - Transmission d'entreprise simplifiée" %>
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-seller-600 to-seller-800 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+          Transmettez votre entreprise en toute confiance
+        </h1>
+        <p class="text-xl lg:text-2xl mb-8 text-seller-100">
+          La plateforme qui facilite la rencontre entre cédants et repreneurs. 
+          Sécurisée, transparente et accompagnée.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <%= link_to new_user_registration_path(role: 'seller'), class: "bg-white text-seller-600 px-8 py-4 rounded-lg font-semibold hover:bg-seller-50 transition-colors text-lg shadow-lg text-center" do %>
+            Je cède mon entreprise
+          <% end %>
+          <%= link_to new_user_registration_path(role: 'buyer'), class: "bg-seller-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-seller-600 transition-colors text-lg border-2 border-white text-center" do %>
+            Je reprends une entreprise
+          <% end %>
+        </div>
+        <div class="mt-8 flex items-center gap-6 text-sm">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>100% sécurisé</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Gratuit pour commencer</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <span>Accompagnement expert</span>
+          </div>
+        </div>
+      </div>
+      <div class="hidden lg:block">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="bg-white/20 p-3 rounded-lg">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg mb-1">Recherche ciblée</h3>
+                <p class="text-seller-100">Trouvez le repreneur ou l'entreprise idéale</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="bg-white/20 p-3 rounded-lg">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg mb-1">Transactions sécurisées</h3>
+                <p class="text-seller-100">Processus confidentiel et protégé</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="bg-white/20 p-3 rounded-lg">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg mb-1">Accompagnement</h3>
+                <p class="text-seller-100">Des experts à vos côtés</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-12 bg-white border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <div class="text-4xl font-bold text-seller-600 mb-2">500+</div>
+        <div class="text-gray-600">Entreprises en vente</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold text-seller-600 mb-2">1,200+</div>
+        <div class="text-gray-600">Repreneurs actifs</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold text-seller-600 mb-2">95%</div>
+        <div class="text-gray-600">Taux de satisfaction</div>
+      </div>
+      <div>
+        <div class="text-4xl font-bold text-seller-600 mb-2">150+</div>
+        <div class="text-gray-600">Transmissions réussies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Comment ça marche ?
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Un processus simple et transparent pour faciliter la transmission d'entreprise
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Step 1 -->
+      <div class="relative">
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow h-full">
+          <div class="bg-seller-100 text-seller-600 w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-6">
+            1
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Inscription gratuite</h3>
+          <p class="text-gray-600 mb-6">
+            Créez votre profil en quelques minutes. Indiquez si vous êtes cédant ou repreneur.
+          </p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Sans engagement</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Totalement gratuit</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Sécurisé et confidentiel</span>
+            </li>
+          </ul>
+        </div>
+        <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+          <svg class="w-8 h-8 text-seller-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="relative">
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow h-full">
+          <div class="bg-seller-100 text-seller-600 w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-6">
+            2
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Recherche et matching</h3>
+          <p class="text-gray-600 mb-6">
+            Parcourez les annonces ou utilisez nos filtres avancés pour trouver la perle rare.
+          </p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Filtres personnalisés</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Alertes personnalisées</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Suggestions intelligentes</span>
+            </li>
+          </ul>
+        </div>
+        <div class="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-10">
+          <svg class="w-8 h-8 text-seller-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div>
+        <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow h-full">
+          <div class="bg-seller-100 text-seller-600 w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mb-6">
+            3
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Transaction sécurisée</h3>
+          <p class="text-gray-600 mb-6">
+            Échangez en toute confidentialité et finalisez la transmission avec nos partenaires.
+          </p>
+          <ul class="space-y-2 text-gray-600">
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>NDA électronique</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Paiements sécurisés</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <svg class="w-5 h-5 text-seller-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>Accompagnement expert</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-12">
+      <%= link_to how_it_works_path, class: "inline-block bg-seller-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-seller-700 transition-colors" do %>
+        En savoir plus sur le processus
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Pourquoi choisir Idéal Reprise ?
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Une plateforme complète pour accompagner votre projet de transmission
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Feature 1 -->
+      <div class="text-center">
+        <div class="bg-seller-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Sécurité maximale</h3>
+        <p class="text-gray-600">
+          Confidentialité des données, NDA électronique et processus de validation rigoureux.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="text-center">
+        <div class="bg-seller-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Accompagnement expert</h3>
+        <p class="text-gray-600">
+          Des experts en transmission d'entreprise vous accompagnent tout au long du processus.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="text-center">
+        <div class="bg-seller-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Rapide et efficace</h3>
+        <p class="text-gray-600">
+          Des outils performants pour accélérer la recherche et la mise en relation.
+        </p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="text-center">
+        <div class="bg-seller-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Réseau qualifié</h3>
+        <p class="text-gray-600">
+          Accédez à un réseau de cédants et repreneurs vérifiés et motivés.
+        </p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="text-center">
+        <div class="bg-seller-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Suivi personnalisé</h3>
+        <p class="text-gray-600">
+          Tableaux de bord intuitifs pour suivre l'avancement de votre projet.
+        </p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="text-center">
+        <div class="bg-seller-100 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-seller-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Tarifs transparents</h3>
+        <p class="text-gray-600">
+          Pas de frais cachés. Vous ne payez qu'en cas de succès de la transmission.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Ils nous font confiance
+      </h2>
+      <p class="text-xl text-gray-600">
+        Découvrez les témoignages de ceux qui ont réussi leur transmission
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Testimonial 1 -->
+      <div class="bg-white rounded-2xl p-8 shadow-lg">
+        <div class="flex items-center mb-4">
+          <div class="flex text-yellow-400">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "Grâce à Idéal Reprise, j'ai pu céder mon restaurant en toute sérénité. 
+          L'accompagnement est exceptionnel et le processus très sécurisé."
+        </p>
+        <div class="flex items-center">
+          <div class="w-12 h-12 bg-seller-100 rounded-full flex items-center justify-center text-seller-600 font-bold">
+            MR
+          </div>
+          <div class="ml-4">
+            <div class="font-semibold text-gray-900">Marie Rousseau</div>
+            <div class="text-sm text-gray-600">Cédante - Restaurant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="bg-white rounded-2xl p-8 shadow-lg">
+        <div class="flex items-center mb-4">
+          <div class="flex text-yellow-400">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "Une plateforme innovante qui m'a permis de trouver l'entreprise de mes rêves. 
+          Les filtres sont très précis et le contact avec le cédant facile."
+        </p>
+        <div class="flex items-center">
+          <div class="w-12 h-12 bg-seller-100 rounded-full flex items-center justify-center text-seller-600 font-bold">
+            PD
+          </div>
+          <div class="ml-4">
+            <div class="font-semibold text-gray-900">Pierre Dubois</div>
+            <div class="text-sm text-gray-600">Repreneur - Commerce</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="bg-white rounded-2xl p-8 shadow-lg">
+        <div class="flex items-center mb-4">
+          <div class="flex text-yellow-400">
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+          </div>
+        </div>
+        <p class="text-gray-600 mb-6">
+          "Service professionnel de bout en bout. Les conseillers sont réactifs 
+          et ont su nous guider dans toutes les étapes de la reprise."
+        </p>
+        <div class="flex items-center">
+          <div class="w-12 h-12 bg-seller-100 rounded-full flex items-center justify-center text-seller-600 font-bold">
+            SL
+          </div>
+          <div class="ml-4">
+            <div class="font-semibold text-gray-900">Sophie Lefèvre</div>
+            <div class="text-sm text-gray-600">Repreneuse - Service</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-seller-600">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl lg:text-5xl font-bold text-white mb-6">
+      Prêt à démarrer votre projet ?
+    </h2>
+    <p class="text-xl text-seller-100 mb-8">
+      Rejoignez dès maintenant les centaines d'entrepreneurs qui utilisent Idéal Reprise
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <%= link_to new_user_registration_path, class: "bg-white text-seller-600 px-8 py-4 rounded-lg font-semibold hover:bg-seller-50 transition-colors text-lg shadow-lg text-center" do %>
+        Créer mon compte gratuitement
+      <% end %>
+      <%= link_to contact_path, class: "bg-seller-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-seller-800 transition-colors text-lg border-2 border-white" do %>
+        Nous contacter
+      <% end %>
+    </div>
+  </div>
+</section>
