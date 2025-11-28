@@ -1,6 +1,8 @@
-class Seller::SettingsController < Seller::BaseController
+class Seller::SettingsController < ApplicationController
+  layout 'seller'
+  
   before_action :authenticate_user!
-  before_action :ensure_seller!
+  before_action :authorize_seller!
 
   def show
     @user = current_user
@@ -17,6 +19,12 @@ class Seller::SettingsController < Seller::BaseController
   end
 
   private
+
+  def authorize_seller!
+    unless current_user&.seller_profile
+      redirect_to root_path, alert: 'Accès refusé. Privilèges de cédant requis.'
+    end
+  end
 
   def settings_params
     params.require(:user).permit(

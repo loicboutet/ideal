@@ -225,5 +225,20 @@ end
 3. `app/views/layouts/partner.html.erb` (previously - linked Paramètres menu)
 4. `db/schema.rb` (auto-generated from migration)
 
+## Bug Fix - November 28, 2025 (3:24 PM)
+
+**Issue Found:** Controllers were inheriting from non-existent base controllers (`Buyer::BaseController`, `Seller::BaseController`, `Partner::BaseController`)
+
+**Fix Applied:** Updated all three settings controllers to inherit from `ApplicationController` and use proper authorization methods matching the project's existing controller patterns:
+
+- `Buyer::SettingsController` - Now inherits from `ApplicationController` with `authorize_buyer!` method
+- `Seller::SettingsController` - Now inherits from `ApplicationController` with `authorize_seller!` method  
+- `Partner::SettingsController` - Now inherits from `ApplicationController` with `require_partner!` method
+
+Each controller now includes:
+- Proper layout specification (e.g., `layout 'buyer'`)
+- Authentication with `before_action :authenticate_user!`
+- Role-specific authorization matching existing controller patterns
+
 ## Status
-✅ **COMPLETE** - All settings pages are functional and ready for use.
+✅ **COMPLETE & FUNCTIONAL** - All settings pages are now working correctly.

@@ -1,6 +1,8 @@
-class Partner::SettingsController < Partner::BaseController
+class Partner::SettingsController < ApplicationController
+  layout 'partner'
+  
   before_action :authenticate_user!
-  before_action :ensure_partner!
+  before_action :require_partner!
 
   def show
     @user = current_user
@@ -17,6 +19,12 @@ class Partner::SettingsController < Partner::BaseController
   end
 
   private
+
+  def require_partner!
+    unless current_user.partner?
+      redirect_to root_path, alert: 'Accès non autorisé.'
+    end
+  end
 
   def settings_params
     params.require(:user).permit(

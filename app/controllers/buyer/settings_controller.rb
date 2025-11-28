@@ -1,6 +1,8 @@
-class Buyer::SettingsController < Buyer::BaseController
+class Buyer::SettingsController < ApplicationController
+  layout 'buyer'
+  
   before_action :authenticate_user!
-  before_action :ensure_buyer!
+  before_action :authorize_buyer!
 
   def show
     @user = current_user
@@ -17,6 +19,12 @@ class Buyer::SettingsController < Buyer::BaseController
   end
 
   private
+
+  def authorize_buyer!
+    unless current_user&.buyer? && current_user&.active?
+      redirect_to root_path, alert: 'Access denied. Buyer privileges required.'
+    end
+  end
 
   def settings_params
     params.require(:user).permit(
