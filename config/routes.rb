@@ -26,10 +26,12 @@ Rails.application.routes.draw do
   # =========================================================================
   
   # Landing & Marketing Pages
+  get 'public', to: 'pages#index', as: :public_home
   get 'about', to: 'pages#about'
-  get 'how-it-works', to: 'pages#how_it_works'
+  get 'how-it-works', to: 'pages#how_it_works', as: :how_it_works
   get 'pricing', to: 'pages#pricing'
   get 'contact', to: 'pages#contact'
+  post 'contact', to: 'pages#submit_contact'
   
   # Public Listing Browse (Freemium - Limited Access)
   resources :listings, only: [:index, :show] do
@@ -46,8 +48,8 @@ Rails.application.routes.draw do
   end
   
   # Legal & Support Pages
-  get 'terms', to: 'legal#terms'
-  get 'privacy', to: 'legal#privacy'
+  get 'terms', to: 'pages#terms'
+  get 'privacy', to: 'pages#privacy'
   get 'support', to: 'pages#support'
   
   # =========================================================================
@@ -608,7 +610,7 @@ Rails.application.routes.draw do
   # =========================================================================
   
   # Root
-  root "mockups#overview"
+  root "pages#index"
   
   # Custom error pages
   get '404', to: 'errors#not_found'

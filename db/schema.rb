@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_25_150500) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_28_090945) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -589,6 +589,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_25_150500) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "stripe_customer_id"
+    t.boolean "notify_new_listings", default: true
+    t.boolean "notify_messages", default: true
+    t.boolean "notify_timer_alerts", default: true
+    t.boolean "notify_new_contacts", default: true
+    t.boolean "notify_seller_messages", default: true
+    t.boolean "receive_signed_ndas", default: true
+    t.boolean "notify_contact_requests", default: true
+    t.boolean "notify_subscription_renewal", default: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"

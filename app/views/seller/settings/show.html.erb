@@ -1,0 +1,37 @@
+<% content_for :title, "Paramètres - Cédant - Idéal Reprise" %>
+<% content_for :page_title, "Paramètres" %>
+
+<div class="max-w-4xl mx-auto space-y-6">
+  <h2 class="text-2xl font-bold text-gray-900">Paramètres du compte</h2>
+
+  <%= form_with(model: @user, url: seller_settings_path, method: :patch, local: true, class: "space-y-6") do |f| %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Notifications</h3>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+          <%= f.check_box :notify_new_contacts, class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5" %>
+          <div>
+            <div class="text-sm font-medium text-gray-900">Nouveaux contacts</div>
+            <div class="text-xs text-gray-600">Recevoir un email quand un repreneur manifeste son intérêt</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+          <%= f.check_box :notify_seller_messages, class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5" %>
+          <div>
+            <div class="text-sm font-medium text-gray-900">Messages</div>
+            <div class="text-xs text-gray-600">Notifications pour les nouveaux messages</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100">
+          <%= f.check_box :receive_signed_ndas, class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5" %>
+          <div>
+            <div class="text-sm font-medium text-gray-900">Recevoir accord de confidentialité signé par repreneur</div>
+            <div class="text-xs text-gray-600">Vous recevez une copie du NDA signé par email (recommandé)</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <%= f.submit "Mettre à jour le profil", class: "px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium cursor-pointer" %>
+  <% end %>
+</div>

@@ -25,7 +25,21 @@ class Message < ApplicationRecord
                             .map(&:user)
     
     recipients.each do |recipient|
-      MessageMailer.new_message_notification(self, recipient).deliver_later
+      # Check if recipient wants to receive message notifications based on their role
+      should_notify = case recipient.role
+                      when 'buyer'
+                        recipient.notify_messages?
+                      when 'seller'
+                        recipient.notify_seller_messages?
+                      when 'partner'
+                        # Partners don't have a specific message notification preference
+                        # so we always notify them
+                        true
+                      else
+                        false
+                      end
+      
+      MessageMailer.new_message_notification(self, recipient).deliver_later if should_notify
     end
   end
   

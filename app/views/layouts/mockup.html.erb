@@ -20,18 +20,18 @@
         <div class="flex justify-between h-16">
           <!-- Logo -->
           <div class="flex items-center">
-            <%= link_to mockups_path, class: "flex items-center" do %>
+            <%= link_to root_path, class: "flex items-center" do %>
               <%= image_tag "IDAL.jpg", class: "h-10 w-auto", alt: "Idéal Reprise" %>
             <% end %>
           </div>
 
           <!-- Desktop Navigation -->
           <div class="hidden md:flex md:items-center md:space-x-8">
-            <%= link_to "Accueil", mockups_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "Comment ça marche", mockups_how_it_works_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "Tarifs", mockups_pricing_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "À propos", mockups_about_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
-            <%= link_to "Contact", mockups_contact_path, class: "text-gray-700 hover:text-[#4A90E2] px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Accueil", root_path, class: "#{current_page?(root_path) ? 'text-[#4A90E2] border-b-2 border-[#4A90E2]' : 'text-gray-700 hover:text-[#4A90E2]'} px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Comment ça marche", how_it_works_path, class: "#{current_page?(how_it_works_path) ? 'text-[#4A90E2] border-b-2 border-[#4A90E2]' : 'text-gray-700 hover:text-[#4A90E2]'} px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Tarifs", pricing_path, class: "#{current_page?(pricing_path) ? 'text-[#4A90E2] border-b-2 border-[#4A90E2]' : 'text-gray-700 hover:text-[#4A90E2]'} px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "À propos", about_path, class: "#{current_page?(about_path) ? 'text-[#4A90E2] border-b-2 border-[#4A90E2]' : 'text-gray-700 hover:text-[#4A90E2]'} px-3 py-2 text-sm font-medium transition" %>
+            <%= link_to "Contact", contact_path, class: "#{current_page?(contact_path) ? 'text-[#4A90E2] border-b-2 border-[#4A90E2]' : 'text-gray-700 hover:text-[#4A90E2]'} px-3 py-2 text-sm font-medium transition" %>
           </div>
 
           <!-- Desktop CTA Buttons -->
@@ -41,7 +41,7 @@
               <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-gray-700 hover:text-[#4A90E2] px-4 py-2 text-sm font-medium transition" %>
             <% else %>
               <%= link_to "Se connecter", new_user_session_path, class: "text-gray-700 hover:text-[#4A90E2] px-4 py-2 text-sm font-medium transition" %>
-              <%= link_to "S'inscrire", mockups_register_path, class: "bg-[#4A90E2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#3A7BC8] transition" %>
+              <%= link_to "S'inscrire", new_user_registration_path, class: "bg-[#4A90E2] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#3A7BC8] transition" %>
             <% end %>
           </div>
 
@@ -75,7 +75,7 @@
           <div class="flex flex-col h-full">
             <!-- Mobile menu header -->
             <div class="flex items-center justify-between px-4 py-4 border-b">
-              <%= link_to mockups_path, class: "flex items-center" do %>
+              <%= link_to root_path, class: "flex items-center" do %>
                 <%= image_tag "IDAL.jpg", class: "h-10 w-auto", alt: "Idéal Reprise" %>
               <% end %>
               <button type="button" 
@@ -89,11 +89,11 @@
 
             <!-- Mobile menu links -->
             <div class="flex-1 overflow-y-auto px-4 py-6 space-y-4">
-              <%= link_to "Accueil", mockups_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
-              <%= link_to "Comment ça marche", mockups_how_it_works_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
-              <%= link_to "Tarifs", mockups_pricing_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
-              <%= link_to "À propos", mockups_about_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
-              <%= link_to "Contact", mockups_contact_path, data: { action: "click->mobile-menu#close" }, class: "block text-gray-700 hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "Accueil", root_path, data: { action: "click->mobile-menu#close" }, class: "#{current_page?(root_path) ? 'text-[#4A90E2] font-semibold' : 'text-gray-700'} block hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "Comment ça marche", how_it_works_path, data: { action: "click->mobile-menu#close" }, class: "#{current_page?(how_it_works_path) ? 'text-[#4A90E2] font-semibold' : 'text-gray-700'} block hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "Tarifs", pricing_path, data: { action: "click->mobile-menu#close" }, class: "#{current_page?(pricing_path) ? 'text-[#4A90E2] font-semibold' : 'text-gray-700'} block hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "À propos", about_path, data: { action: "click->mobile-menu#close" }, class: "#{current_page?(about_path) ? 'text-[#4A90E2] font-semibold' : 'text-gray-700'} block hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
+              <%= link_to "Contact", contact_path, data: { action: "click->mobile-menu#close" }, class: "#{current_page?(contact_path) ? 'text-[#4A90E2] font-semibold' : 'text-gray-700'} block hover:text-[#4A90E2] text-base font-medium py-2 transition" %>
             </div>
 
             <!-- Mobile menu CTA buttons -->
@@ -103,7 +103,7 @@
                 <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete, action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-[#4A90E2] px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>
               <% else %>
                 <%= link_to "Se connecter", new_user_session_path, data: { action: "click->mobile-menu#close" }, class: "block w-full text-center text-gray-700 hover:text-[#4A90E2] px-4 py-3 text-base font-medium border border-gray-300 rounded-lg transition" %>
-                <%= link_to "S'inscrire", mockups_register_path, data: { action: "click->mobile-menu#close" }, class: "block w-full text-center bg-[#4A90E2] text-white px-4 py-3 rounded-lg text-base font-medium hover:bg-[#3A7BC8] transition" %>
+                <%= link_to "S'inscrire", new_user_registration_path, data: { action: "click->mobile-menu#close" }, class: "block w-full text-center bg-[#4A90E2] text-white px-4 py-3 rounded-lg text-base font-medium hover:bg-[#3A7BC8] transition" %>
               <% end %>
             </div>
           </div>
@@ -164,10 +164,10 @@
           <div>
             <h3 class="font-semibold text-lg mb-4">Liens rapides</h3>
             <ul class="space-y-2">
-              <li><%= link_to "Accueil", mockups_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
-              <li><%= link_to "Comment ça marche", mockups_how_it_works_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
-              <li><%= link_to "Tarifs", mockups_pricing_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
-              <li><%= link_to "À propos", mockups_about_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "Accueil", root_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "Comment ça marche", how_it_works_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "Tarifs", pricing_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "À propos", about_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
             </ul>
           </div>
 
@@ -175,10 +175,10 @@
           <div>
             <h3 class="font-semibold text-lg mb-4">Légal</h3>
             <ul class="space-y-2">
-              <li><%= link_to "Mentions légales", mockups_about_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
-              <li><%= link_to "CGU", mockups_terms_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
-              <li><%= link_to "Politique de confidentialité", mockups_privacy_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
-              <li><%= link_to "Contact", mockups_contact_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "Mentions légales", about_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "CGU", terms_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "Politique de confidentialité", privacy_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
+              <li><%= link_to "Contact", contact_path, class: "text-gray-400 hover:text-white transition-colors" %></li>
             </ul>
           </div>
         </div>
