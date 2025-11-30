@@ -1,15 +1,22 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Credit packs for testing
 
-one:
-  name: MyString
-  credits_amount: 1
-  price_cents: 1
-  description: MyText
-  active: false
+starter_pack:
+  name: "Pack Starter"
+  credits_amount: 5
+  price_cents: 2500
+  description: "5 crédits pour démarrer"
+  active: true
 
-two:
-  name: MyString
-  credits_amount: 1
-  price_cents: 1
-  description: MyText
-  active: false
+standard_pack:
+  name: "Pack Standard"
+  credits_amount: 10
+  price_cents: 4500
+  description: "10 crédits avec réduction"
+  active: true
+
+premium_pack:
+  name: "Pack Premium"
+  credits_amount: 25
+  price_cents: 10000
+  description: "25 crédits, meilleur rapport qualité-prix"
+  active: true

@@ -114,8 +114,15 @@ module Payment
     
     # Award credits for deal release
     # @param deal [Deal] The released deal
-    # @return [Boolean] true if successful
+    # @return [Boolean] true if successful, false if no credits awarded (e.g., only favorited)
     def self.award_deal_release_credits(deal)
+      # Only award credits if the deal was actually reserved (moved beyond "favorited" stage)
+      # Deals that were only favorited should not receive credits when released
+      unless deal_was_reserved?(deal)
+        Rails.logger.info "No credits awarded for deal #{deal.id}: deal was only favorited, never reserved"
+        return false
+      end
+      
       buyer_user = deal.buyer_profile.user
       seller_user = deal.listing.seller_profile.user
       
@@ -232,6 +239,30 @@ module Payment
     rescue => e
       Rails.logger.error "Failed to process credit purchase: #{e.message}"
       false
+    end
+    
+    # Check if a deal was actually reserved (moved beyond favorited stage)
+    # @param deal [Deal] The deal to check
+    # @return [Boolean] true if the deal was reserved at some point
+    def self.deal_was_reserved?(deal)
+      # A deal is considered "reserved" if:
+      # 1. It has the reserved flag set to true, OR
+      # 2. Its current status is beyond "favorited" (meaning it progressed in the pipeline), OR
+      # 3. It has history events showing it moved beyond favorited
+      
+      return true if deal.reserved?
+      
+      # Check if current status is beyond favorited
+      # The enum values are: favorited: 0, to_contact: 1, etc.
+      # Anything > 0 means it was worked on (but also check it's not just released/abandoned)
+      current_status_value = Deal.statuses[deal.status]
+      return true if current_status_value > 0 && current_status_value < Deal.statuses[:released]
+      
+      # Check history for any status beyond favorited
+      deal.deal_history_events
+          .where(event_type: :status_change)
+          .where.not(to_status: [:favorited, :released, :abandoned])
+          .exists?
     end
     
     private

@@ -1,0 +1,430 @@
+<% content_for :title, "#{@listing.title} - #{@listing.location_city.presence || @listing.location_department.presence || 'France'} - Idéal Reprise" %>
+
+<%
+  # Sector labels
+  sector_labels = {
+    'commerce' => 'Commerce',
+    'hospitality' => 'Hôtellerie/Restauration',
+    'services' => 'Services',
+    'industry' => 'Industrie',
+    'digital' => 'Digital',
+    'construction' => 'BTP',
+    'healthcare' => 'Santé',
+    'transport_logistics' => 'Transport',
+    'agrifood' => 'Agroalimentaire',
+    'real_estate' => 'Immobilier',
+    'other' => 'Autre'
+  }
+  
+  sector_colors = {
+    'commerce' => 'from-blue-500 to-blue-600 text-blue-600',
+    'hospitality' => 'from-green-500 to-green-600 text-green-600',
+    'services' => 'from-purple-500 to-purple-600 text-purple-600',
+    'industry' => 'from-orange-500 to-orange-600 text-orange-600',
+    'digital' => 'from-indigo-500 to-indigo-600 text-indigo-600',
+    'construction' => 'from-amber-500 to-amber-600 text-amber-600',
+    'healthcare' => 'from-red-500 to-red-600 text-red-600',
+    'transport_logistics' => 'from-cyan-500 to-cyan-600 text-cyan-600',
+    'agrifood' => 'from-lime-500 to-lime-600 text-lime-600',
+    'real_estate' => 'from-teal-500 to-teal-600 text-teal-600',
+    'other' => 'from-gray-500 to-gray-600 text-gray-600'
+  }
+  
+  colors = sector_colors[@listing.industry_sector] || sector_colors['other']
+  gradient = colors.split(' ')[0..1].join(' ')
+  text_color = colors.split(' ').last
+  sector_label = sector_labels[@listing.industry_sector] || 'Autre'
+  
+  # Format helpers
+  def format_price(price)
+    return 'N/C' unless price
+    if price >= 1_000_000
+      "#{(price / 1_000_000.0).round(1)}M €"
+    elsif price >= 1_000
+      "#{(price / 1_000.0).round(0)}k €"
+    else
+      "#{price} €"
+    end
+  end
+  
+  # Time since publication
+  published_time = @listing.published_at || @listing.created_at
+  days_ago = ((Time.current - published_time) / 1.day).to_i
+  time_label = if days_ago == 0
+    "Publié aujourd'hui"
+  elsif days_ago == 1
+    "Publié hier"
+  elsif days_ago < 7
+    "Publié il y a #{days_ago} jours"
+  elsif days_ago < 30
+    "Publié il y a #{(days_ago / 7).to_i} semaine#{'s' if days_ago >= 14}"
+  else
+    "Publié il y a #{(days_ago / 30).to_i} mois"
+  end
+%>
+
+<!-- Listing Show Page with Paywall -->
+<div class="min-h-screen bg-gray-50">
+  <!-- Back Navigation -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <%= link_to listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Retour aux annonces</span>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <!-- Left Column - Main Content -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Header Card -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+          <!-- Image Header -->
+          <div class="relative h-64 sm:h-80 bg-gradient-to-br <%= gradient %>">
+            <div class="absolute top-6 left-6">
+              <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-white <%= text_color %>">
+                <%= sector_label %>
+              </span>
+            </div>
+            <div class="absolute top-6 right-6 flex gap-2">
+              <button type="button" class="p-2 bg-white/90 hover:bg-white rounded-full transition">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </button>
+              <button type="button" class="p-2 bg-white/90 hover:bg-white rounded-full transition">
+                <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Title Section -->
+          <div class="p-6 sm:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div>
+                <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+                  <%= @listing.title %>
+                </h1>
+                <div class="flex flex-wrap items-center gap-4 text-gray-600">
+                  <span class="inline-flex items-center gap-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <%= @listing.location_city.presence || @listing.location_department.presence || 'France' %><% if @listing.location_department.present? %> (<%= @listing.location_department %>)<% end %>
+                  </span>
+                  <span class="inline-flex items-center gap-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <%= time_label %>
+                  </span>
+                  <span class="inline-flex items-center gap-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    <%= @listing.views_count || 0 %> vues
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-6 border-y border-gray-200">
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Prix demandé</div>
+                <div class="text-2xl font-bold text-gray-900"><%= format_price(@listing.asking_price) %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">CA annuel</div>
+                <div class="text-2xl font-bold text-gray-900"><%= format_price(@listing.annual_revenue) %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Création</div>
+                <div class="text-2xl font-bold text-gray-900"><%= @listing.founded_year || 'N/C' %></div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-1">Employés</div>
+                <div class="text-2xl font-bold text-gray-900"><%= @listing.employee_count || 'N/C' %></div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mt-6">
+              <h2 class="text-xl font-bold text-gray-900 mb-4">Description</h2>
+              <div class="prose prose-gray max-w-none text-gray-600">
+                <% if @listing.description_public.present? %>
+                  <%= simple_format(@listing.description_public) %>
+                <% else %>
+                  <p class="mb-4">
+                    Opportunité de reprise dans le secteur <%= sector_label.downcase %>. 
+                    Cette entreprise représente une acquisition clé en main avec un potentiel de développement important.
+                  </p>
+                  <p>
+                    Créez un compte pour accéder à la description complète et aux informations détaillées de cette annonce.
+                  </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Points Forts -->
+        <div class="bg-white rounded-xl shadow-sm p-6 sm:p-8">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Points forts</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex gap-3">
+              <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Secteur porteur</div>
+                <div class="text-sm text-gray-600">Marché en croissance</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Équipe en place</div>
+                <div class="text-sm text-gray-600">Personnel formé et stable</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Accompagnement</div>
+                <div class="text-sm text-gray-600">Transmission facilitée</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Historique solide</div>
+                <div class="text-sm text-gray-600">Résultats financiers prouvés</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYWALL SECTION - Blurred Content -->
+        <div class="relative">
+          <!-- Blurred Financial Info -->
+          <div class="bg-white rounded-xl shadow-sm p-6 sm:p-8 filter blur-sm pointer-events-none select-none">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Informations financières détaillées</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <div class="text-sm text-gray-500 mb-2">Chiffre d'affaires N-1</div>
+                <div class="text-xl font-bold text-gray-900">XXX XXX €</div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-2">Résultat net</div>
+                <div class="text-xl font-bold text-gray-900">XXX XXX €</div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-2">EBE</div>
+                <div class="text-xl font-bold text-gray-900">XXX XXX €</div>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500 mb-2">Marge brute</div>
+                <div class="text-xl font-bold text-gray-900">XX%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paywall Overlay -->
+          <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-transparent via-white/80 to-white">
+            <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-4 text-center border-2 border-blue-100">
+              <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-3">Contenu Premium</h3>
+              <p class="text-gray-600 mb-6">
+                Créez un compte pour accéder aux informations financières complètes, aux documents et aux coordonnées du vendeur.
+              </p>
+              <div class="space-y-3">
+                <%= link_to new_user_registration_path, class: "block w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition" do %>
+                  Créer un compte gratuitement
+                <% end %>
+                <%= link_to new_user_session_path, class: "block w-full px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition" do %>
+                  J'ai déjà un compte
+                <% end %>
+              </div>
+              <p class="mt-4 text-xs text-gray-500">
+                Sans engagement • Inscription en 2 minutes
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blurred Documents Section -->
+        <div class="relative">
+          <div class="bg-white rounded-xl shadow-sm p-6 sm:p-8 filter blur-sm pointer-events-none select-none">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Documents disponibles</h2>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <div class="flex-1">
+                  <div class="font-medium text-gray-900">Bilans financiers (3 ans)</div>
+                  <div class="text-sm text-gray-500">PDF • 2.4 MB</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3 p-4 border border-gray-200 rounded-lg">
+                <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <div class="flex-1">
+                  <div class="font-medium text-gray-900">Compte de résultat</div>
+                  <div class="text-sm text-gray-500">PDF • 1.2 MB</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
+        </div>
+      </div>
+
+      <!-- Right Column - Sidebar -->
+      <div class="lg:col-span-1 mt-6 lg:mt-0">
+        <div class="sticky top-4 space-y-6">
+          <!-- Contact Card - Locked -->
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Contacter le vendeur</h3>
+            <div class="relative">
+              <div class="filter blur-sm mb-4">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                  <div>
+                    <div class="font-semibold text-gray-900">Vendeur Vérifié</div>
+                    <div class="text-sm text-gray-500">Propriétaire</div>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute top-0 left-0 right-0 flex items-center justify-center">
+                <div class="bg-gray-900 rounded-lg px-4 py-2 flex items-center gap-2">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  <span class="text-sm font-medium text-white">Verrouillé</span>
+                </div>
+              </div>
+              <button disabled class="w-full bg-gray-200 text-gray-400 py-3 px-4 rounded-lg font-medium cursor-not-allowed mt-4">
+                Envoyer un message
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Info Card -->
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Informations rapides</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+                <div>
+                  <div class="text-sm text-gray-500">Type</div>
+                  <div class="font-medium text-gray-900"><%= sector_label %></div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <div>
+                  <div class="text-sm text-gray-500">Disponibilité</div>
+                  <div class="font-medium text-gray-900"><%= @listing.transfer_horizon.presence || 'À définir' %></div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                <div>
+                  <div class="text-sm text-gray-500">Statut juridique</div>
+                  <div class="font-medium text-gray-900"><%= @listing.legal_form.presence || 'N/C' %></div>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-gray-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <div>
+                  <div class="text-sm text-gray-500">Employés</div>
+                  <div class="font-medium text-gray-900"><%= @listing.employee_count.present? ? "#{@listing.employee_count} salarié#{'s' if @listing.employee_count > 1}" : 'N/C' %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Similar Listings -->
+          <% if @similar_listings.any? %>
+            <div class="bg-white rounded-xl shadow-sm p-6">
+              <h3 class="text-lg font-bold text-gray-900 mb-4">Annonces similaires</h3>
+              <div class="space-y-4">
+                <% @similar_listings.each do |similar| %>
+                  <%= link_to listing_path(similar), class: "block group" do %>
+                    <div class="flex gap-3">
+                      <% similar_gradient = (sector_colors[similar.industry_sector] || sector_colors['other']).split(' ')[0..1].join(' ') %>
+                      <div class="w-20 h-20 bg-gradient-to-br <%= similar_gradient %> rounded-lg flex-shrink-0"></div>
+                      <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-gray-900 group-hover:text-blue-600 transition truncate">
+                          <%= similar.title %>
+                        </h4>
+                        <p class="text-sm text-gray-500 mb-1"><%= similar.location_city.presence || similar.location_department.presence || 'France' %></p>
+                        <p class="text-sm font-bold text-gray-900"><%= format_price(similar.asking_price) %></p>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Help Card -->
+          <div class="bg-blue-50 rounded-xl p-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-blue-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <h4 class="font-semibold text-gray-900 mb-2">Besoin d'aide ?</h4>
+                <p class="text-sm text-gray-600 mb-3">
+                  Notre équipe est là pour vous accompagner dans votre projet de reprise.
+                </p>
+                <%= link_to contact_path, class: "text-sm text-blue-600 hover:text-blue-700 font-medium" do %>
+                  Contactez-nous →
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

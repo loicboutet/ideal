@@ -1,0 +1,114 @@
+# Listings for testing
+
+# Active listing with views
+listing_one:
+  seller_profile: seller_profile
+  title: "Boulangerie-Pâtisserie Traditionnelle"
+  description_public: "Belle boulangerie en centre-ville, clientèle fidèle"
+  description_confidential: "Chiffre en croissance de 10% par an"
+  industry_sector: commerce
+  location_department: "75"
+  location_city: "Paris"
+  location_region: "Île-de-France"
+  annual_revenue: 450000
+  employee_count: 3
+  net_profit: 80000
+  asking_price: 250000
+  transfer_horizon: "6-12 mois"
+  validation_status: approved
+  status: published
+  views_count: 45
+  completeness_score: 85
+  published_at: <%= 30.days.ago.to_fs(:db) %>
+  deal_type: direct
+
+# Listing with zero views
+listing_zero_views:
+  seller_profile: seller_profile
+  title: "Restaurant Gastronomique"
+  description_public: "Restaurant étoilé, emplacement exceptionnel"
+  industry_sector: hospitality
+  location_department: "69"
+  location_city: "Lyon"
+  annual_revenue: 800000
+  employee_count: 8
+  net_profit: 120000
+  asking_price: 500000
+  validation_status: approved
+  status: published
+  views_count: 0
+  completeness_score: 70
+  published_at: <%= 15.days.ago.to_fs(:db) %>
+  deal_type: direct
+
+# Another zero views listing
+listing_zero_views_two:
+  seller_profile: seller_profile_two
+  title: "Agence Web Design"
+  description_public: "Agence web avec portefeuille clients récurrents"
+  industry_sector: digital
+  location_department: "33"
+  location_city: "Bordeaux"
+  annual_revenue: 350000
+  employee_count: 4
+  net_profit: 70000
+  asking_price: 200000
+  validation_status: approved
+  status: published
+  views_count: 0
+  completeness_score: 65
+  published_at: <%= 7.days.ago.to_fs(:db) %>
+  deal_type: ideal_mandate
+
+# Pending validation listing
+listing_pending:
+  seller_profile: seller_profile
+  title: "Cabinet Comptable"
+  description_public: "Cabinet avec clientèle PME établie"
+  industry_sector: services
+  location_department: "92"
+  location_city: "Neuilly"
+  annual_revenue: 600000
+  employee_count: 5
+  asking_price: 400000
+  validation_status: pending
+  status: draft
+  views_count: 0
+  completeness_score: 50
+  submitted_at: <%= 3.days.ago.to_fs(:db) %>
+
+# Second pending listing
+listing_pending_two:
+  seller_profile: seller_profile_two
+  title: "Garage Automobile"
+  description_public: "Garage avec station-service"
+  industry_sector: services
+  location_department: "31"
+  location_city: "Toulouse"
+  annual_revenue: 500000
+  employee_count: 4
+  asking_price: 300000
+  validation_status: pending
+  status: draft
+  views_count: 0
+  completeness_score: 45
+  submitted_at: <%= 5.days.ago.to_fs(:db) %>
+
+# Listing owned by seller_two
+listing_two:
+  seller_profile: seller_profile_two
+  title: "E-commerce Mode Femme"
+  description_public: "Site e-commerce avec forte communauté"
+  industry_sector: commerce
+  location_department: "75"
+  location_city: "Paris"
+  annual_revenue: 1200000
+  employee_count: 6
+  net_profit: 200000
+  asking_price: 800000
+  validation_status: approved
+  status: published
+  views_count: 120
+  completeness_score: 90
+  published_at: <%= 45.days.ago.to_fs(:db) %>
+  deal_type: partner_mandate

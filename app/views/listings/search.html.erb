@@ -1,0 +1,312 @@
+<% content_for :title, "Recherche avancée - Idéal Reprise" %>
+
+<!-- Advanced Search Page -->
+<div class="min-h-screen bg-gray-50">
+  <!-- Header Section -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex items-center justify-between mb-6">
+        <%= link_to listings_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>Retour aux annonces</span>
+        <% end %>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 mb-2">Recherche avancée</h1>
+      <p class="text-gray-600">Trouvez l'entreprise idéale selon vos critères</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <!-- Search Form -->
+      <div class="lg:col-span-1 mb-8 lg:mb-0">
+        <%= form_with url: search_listings_path, method: :get, local: true, class: "bg-white rounded-xl shadow-sm p-6 sticky top-4" do |f| %>
+          <h2 class="text-lg font-semibold text-gray-900 mb-6">Critères de recherche</h2>
+
+          <!-- Keywords -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Mots-clés
+            </label>
+            <%= f.text_field :q, 
+                value: params[:q],
+                placeholder: "Ex: boulangerie, e-commerce...", 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Price Range -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Fourchette de prix
+            </label>
+            <div class="grid grid-cols-2 gap-3">
+              <%= f.number_field :min_price, 
+                  value: params[:min_price],
+                  placeholder: "Min (€)", 
+                  class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+              <%= f.number_field :max_price, 
+                  value: params[:max_price],
+                  placeholder: "Max (€)", 
+                  class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+            </div>
+          </div>
+
+          <!-- Sector -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Secteur d'activité
+            </label>
+            <%= f.select :sector, 
+                options_for_select([
+                  ["Tous les secteurs", ""],
+                  ["Commerce & Distribution", "commerce"],
+                  ["Restauration & Hôtellerie", "hospitality"],
+                  ["Services", "services"],
+                  ["Industrie", "industry"],
+                  ["Artisanat", "construction"],
+                  ["BTP (Construction)", "construction"],
+                  ["Santé", "healthcare"],
+                  ["Digital", "digital"],
+                  ["Transport & Logistique", "transport_logistics"],
+                  ["Hôtellerie", "hospitality"],
+                  ["Agroalimentaire & Agriculture", "agrifood"],
+                  ["Immobilier", "real_estate"]
+                ], params[:sector]),
+                {},
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Location -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Localisation
+            </label>
+            <%= f.text_field :location, 
+                value: params[:location],
+                placeholder: "Ville, département, région...", 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-3" %>
+            <div class="flex items-center gap-2">
+              <%= f.check_box :include_nearby, { checked: params[:include_nearby] == '1' }, '1', '0' %>
+              <label for="include_nearby" class="text-sm text-gray-700">
+                Inclure les environs (50 km)
+              </label>
+            </div>
+          </div>
+
+          <!-- Revenue -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Chiffre d'affaires annuel
+            </label>
+            <div class="grid grid-cols-2 gap-3">
+              <%= f.number_field :min_revenue, 
+                  value: params[:min_revenue],
+                  placeholder: "Min (€)", 
+                  class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+              <%= f.number_field :max_revenue, 
+                  value: params[:max_revenue],
+                  placeholder: "Max (€)", 
+                  class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+            </div>
+          </div>
+
+          <!-- Company Age -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Ancienneté de l'entreprise
+            </label>
+            <%= f.select :company_age, 
+                options_for_select([
+                  ["Toutes", ""],
+                  ["Moins de 2 ans", "less_than_2"],
+                  ["2 à 5 ans", "2_to_5"],
+                  ["5 à 10 ans", "5_to_10"],
+                  ["10 à 20 ans", "10_to_20"],
+                  ["Plus de 20 ans", "more_than_20"]
+                ], params[:company_age]),
+                {},
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Number of Employees -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Nombre d'employés
+            </label>
+            <%= f.select :employees, 
+                options_for_select([
+                  ["Tous", ""],
+                  ["0 (auto-entrepreneur)", "0"],
+                  ["1 à 5", "1_5"],
+                  ["6 à 10", "6_10"],
+                  ["11 à 20", "11_20"],
+                  ["21 à 50", "21_50"],
+                  ["Plus de 50", "more_than_50"]
+                ], params[:employees]),
+                {},
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Legal Form -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Forme juridique
+            </label>
+            <div class="space-y-2">
+              <% ['SARL', 'SAS', 'SASU', 'EURL', 'SA'].each do |form| %>
+                <label class="flex items-center gap-2 text-sm text-gray-700 hover:bg-gray-50 p-2 rounded cursor-pointer">
+                  <%= check_box_tag 'legal_forms[]', form, 
+                      params[:legal_forms]&.include?(form),
+                      class: "rounded border-gray-300 text-blue-600 focus:ring-blue-500" %>
+                  <span><%= form %></span>
+                </label>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Transfer Type -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-2">
+              Type de cession
+            </label>
+            <%= f.select :transfer_type, 
+                options_for_select([
+                  ["Tous", ""],
+                  ["Cession de fonds", "asset_sale"],
+                  ["Cession de parts partielles", "partial_shares"],
+                  ["Cession de parts totales", "total_shares"],
+                  ["Actifs seuls", "assets"]
+                ], params[:transfer_type]),
+                {},
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex gap-3 pt-4 border-t border-gray-200">
+            <%= link_to "Réinitialiser", search_listings_path, class: "flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium text-center" %>
+            <%= f.submit "Rechercher", class: "flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium cursor-pointer" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Results Section -->
+      <div class="lg:col-span-2">
+        <!-- Results Header -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 mb-1">Résultats de recherche</h2>
+              <p class="text-gray-600"><span class="font-semibold"><%= @total_count %></span> annonces correspondent à vos critères</p>
+            </div>
+            <%= form_with url: search_listings_path, method: :get, local: true do |f| %>
+              <!-- Preserve existing filters -->
+              <% request.query_parameters.except('sort', 'page').each do |key, value| %>
+                <% if value.is_a?(Array) %>
+                  <% value.each do |v| %>
+                    <%= hidden_field_tag "#{key}[]", v %>
+                  <% end %>
+                <% else %>
+                  <%= hidden_field_tag key, value %>
+                <% end %>
+              <% end %>
+              <%= f.select :sort, 
+                  options_for_select([
+                    ["Pertinence", ""],
+                    ["Plus récentes", "newest"],
+                    ["Prix croissant", "price_asc"],
+                    ["Prix décroissant", "price_desc"],
+                    ["CA croissant", "revenue_asc"],
+                    ["CA décroissant", "revenue_desc"]
+                  ], params[:sort]),
+                  {},
+                  class: "px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white",
+                  onchange: "this.form.submit()" %>
+            <% end %>
+          </div>
+
+          <!-- Active Filters -->
+          <% if @active_filters.any? %>
+            <div class="mt-4 pt-4 border-t border-gray-200">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-sm text-gray-600">Filtres actifs:</span>
+                <% @active_filters.each do |filter| %>
+                  <span class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
+                    <%= filter[:label] %>
+                    <%= link_to search_listings_path(request.query_parameters.except(filter[:key])), class: "hover:bg-blue-200 rounded-full p-0.5" do %>
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    <% end %>
+                  </span>
+                <% end %>
+                <%= link_to "Tout effacer", search_listings_path, class: "text-sm text-gray-600 hover:text-gray-900 underline" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <% if @listings.any? %>
+          <!-- Results List -->
+          <div class="space-y-6">
+            <% @listings.each do |listing| %>
+              <%= render partial: 'listings/listing_row', locals: { listing: listing } %>
+            <% end %>
+          </div>
+
+          <!-- Pagination -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-8">
+            <p class="text-sm text-gray-600">
+              Affichage de <span class="font-semibold"><%= ((@page - 1) * @per_page) + 1 %></span> à <span class="font-semibold"><%= [(@page * @per_page), @total_count].min %></span> sur <span class="font-semibold"><%= @total_count %></span> résultats
+            </p>
+            <nav class="flex items-center gap-2">
+              <% if @page > 1 %>
+                <%= link_to "Précédent", search_listings_path(request.query_parameters.merge(page: @page - 1)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+              <% else %>
+                <span class="px-3 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">Précédent</span>
+              <% end %>
+              
+              <% (1..[@total_pages, 5].min).each do |page_num| %>
+                <% if page_num == @page %>
+                  <span class="px-3 py-2 bg-blue-600 text-white rounded-lg font-medium"><%= page_num %></span>
+                <% else %>
+                  <%= link_to page_num, search_listings_path(request.query_parameters.merge(page: page_num)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+                <% end %>
+              <% end %>
+              
+              <% if @total_pages > 5 %>
+                <span class="px-2 text-gray-500">...</span>
+                <%= link_to @total_pages, search_listings_path(request.query_parameters.merge(page: @total_pages)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+              <% end %>
+              
+              <% if @page < @total_pages %>
+                <%= link_to "Suivant", search_listings_path(request.query_parameters.merge(page: @page + 1)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+              <% else %>
+                <span class="px-3 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">Suivant</span>
+              <% end %>
+            </nav>
+          </div>
+        <% else %>
+          <!-- No Results Message -->
+          <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Aucun résultat trouvé</h3>
+            <p class="text-gray-600 mb-6">
+              Essayez d'élargir vos critères de recherche ou parcourez toutes les annonces disponibles.
+            </p>
+            <%= link_to listings_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition" do %>
+              Voir toutes les annonces
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

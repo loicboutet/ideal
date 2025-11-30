@@ -1,0 +1,59 @@
+# Buyer profiles for testing
+
+buyer_profile:
+  user: buyer
+  subscription_plan: standard
+  subscription_status: active
+  subscription_expires_at: <%= 30.days.from_now.to_fs(:db) %>
+  credits: 25
+  verified_buyer: true
+  profile_status: published
+  completeness_score: 75
+  buyer_type: individual
+  formation: "École de Commerce, MBA"
+  experience: "15 ans de management"
+  skills: "Finance, Gestion, Stratégie"
+  investment_thesis: "PME industrielles avec potentiel de croissance"
+  target_sectors: '["industry", "commerce"]'
+  target_locations: '["75", "92", "93"]'
+  target_revenue_min: 500000
+  target_revenue_max: 5000000
+  target_employees_min: 5
+  target_employees_max: 50
+  target_financial_health: in_bonis
+  target_horizon: "6-12 mois"
+  investment_capacity: 500000
+
+buyer_profile_two:
+  user: buyer_two
+  subscription_plan: premium
+  subscription_status: active
+  subscription_expires_at: <%= 60.days.from_now.to_fs(:db) %>
+  credits: 50
+  verified_buyer: true
+  profile_status: published
+  completeness_score: 90
+  buyer_type: holding
+  target_sectors: '["services", "digital"]'
+  target_locations: '["69", "31"]'
+  target_revenue_min: 1000000
+  target_revenue_max: 10000000
+
+buyer_profile_three:
+  user: buyer_three
+  subscription_plan: free
+  subscription_status: inactive
+  credits: 5
+  verified_buyer: false
+  profile_status: draft
+  completeness_score: 30
+  buyer_type: individual
+
+inactive_buyer_profile:
+  user: inactive_buyer
+  subscription_plan: free
+  subscription_status: inactive
+  credits: 0
+  verified_buyer: false
+  profile_status: draft
+  completeness_score: 10

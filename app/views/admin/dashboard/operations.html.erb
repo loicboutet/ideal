@@ -1,0 +1,202 @@
+<% content_for :title, "Centre opérationnel - Administration - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Centre opérationnel</h1>
+      <p class="text-gray-600 mt-1">À contrôler tous les jours</p>
+    </div>
+    <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-admin-500 bg-white">
+      <option>30 derniers jours</option>
+      <option>7 derniers jours</option>
+      <option>Ce mois-ci</option>
+      <option>Mois dernier</option>
+    </select>
+  </div>
+
+  <!-- Alert KPIs -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <%= link_to admin_dashboard_zero_views_path, class: "bg-white rounded-xl shadow-sm p-6 border-2 #{@zero_views_count > 0 ? 'border-red-200 hover:border-red-400' : 'border-gray-200 hover:border-gray-400'} transition" do %>
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+        </div>
+        <% if @zero_views_count > 0 %>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Alerte</span>
+        <% end %>
+      </div>
+      <div class="text-3xl font-bold <%= @zero_views_count > 0 ? 'text-red-600' : 'text-gray-900' %> mb-1"><%= @zero_views_count %></div>
+      <div class="text-sm text-gray-600">Annonces à 0 vue</div>
+      <div class="text-xs text-gray-500 mt-2">Cliquer pour détails →</div>
+    <% end %>
+
+    <%= link_to admin_listings_path(status: 'pending'), class: "bg-white rounded-xl shadow-sm p-6 border-2 #{@pending_validations_count > 0 ? 'border-orange-200 hover:border-orange-400' : 'border-gray-200 hover:border-gray-400'} transition" do %>
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <% if @pending_validations_count > 0 %>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">En attente</span>
+        <% end %>
+      </div>
+      <div class="text-3xl font-bold <%= @pending_validations_count > 0 ? 'text-orange-600' : 'text-gray-900' %> mb-1"><%= @pending_validations_count %></div>
+      <div class="text-sm text-gray-600">Validations en attente</div>
+      <div class="text-xs text-gray-500 mt-2">Cliquer pour détails →</div>
+    <% end %>
+
+    <div class="bg-white rounded-xl shadow-sm p-6 border-2 border-gray-200">
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <% if @pending_reports_count > 0 %>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">À traiter</span>
+        <% end %>
+      </div>
+      <div class="text-3xl font-bold <%= @pending_reports_count > 0 ? 'text-yellow-600' : 'text-gray-900' %> mb-1"><%= @pending_reports_count %></div>
+      <div class="text-sm text-gray-600">Signalements en attente</div>
+      <div class="text-xs text-gray-500 mt-2">Aucun signalement</div>
+    </div>
+
+    <%= link_to admin_dashboard_expired_timers_path, class: "bg-white rounded-xl shadow-sm p-6 border-2 #{@expired_timers_count > 0 ? 'border-admin-200 hover:border-admin-400' : 'border-gray-200 hover:border-gray-400'} transition" do %>
+      <div class="flex items-center justify-between mb-4">
+        <div class="w-12 h-12 bg-admin-100 rounded-lg flex items-center justify-center">
+          <svg class="w-6 h-6 text-admin-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <% if @expired_timers_count > 0 %>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-admin-100 text-admin-800">Expiré</span>
+        <% end %>
+      </div>
+      <div class="text-3xl font-bold <%= @expired_timers_count > 0 ? 'text-admin-600' : 'text-gray-900' %> mb-1"><%= @expired_timers_count %></div>
+      <div class="text-sm text-gray-600">Deals à timer échu</div>
+      <div class="text-xs text-gray-500 mt-2">Cliquer pour détails →</div>
+    <% end %>
+  </div>
+
+  <!-- Deals par statut CRM -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-lg font-bold text-gray-900">Deals par statut CRM</h2>
+    </div>
+    
+    <div class="h-64 flex items-end justify-around gap-2 px-4">
+      <% [
+        {key: 'favoris', label: 'Favoris', color: 'blue'},
+        {key: 'a_contacter', label: 'Contact', color: 'blue'},
+        {key: 'echange_infos', label: 'Échange', color: 'blue'},
+        {key: 'analyse', label: 'Analyse', color: 'blue'},
+        {key: 'alignement_projets', label: 'Alignement', color: 'blue'},
+        {key: 'negociation', label: 'Négo', color: 'green'},
+        {key: 'loi', label: 'LOI', color: 'green'},
+        {key: 'audits', label: 'Audits', color: 'green'},
+        {key: 'financement', label: 'Finance', color: 'green'},
+        {key: 'signe', label: 'Signé', color: 'green'}
+      ].each do |stage| %>
+        <% count = @deals_by_status[stage[:key]] || 0 %>
+        <% max_count = (@deals_by_status.values.max || 1) %>
+        <% height_pct = max_count > 0 ? (count.to_f / max_count * 100).round : 5 %>
+        <div class="flex flex-col items-center" style="width: 8%;">
+          <div class="w-full bg-<%= stage[:color] %>-400 hover:bg-<%= stage[:color] %>-500 rounded-t transition-colors cursor-pointer" style="height: <%= [height_pct * 2, 10].max %>px;"></div>
+          <div class="text-center mt-2">
+            <div class="text-xs text-gray-600 mb-1"><%= stage[:label] %></div>
+            <div class="text-sm font-bold text-gray-900"><%= count %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Ratio & Stats -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Ratio Annonces / Repreneurs payants</h2>
+      <div class="flex items-center justify-center py-8">
+        <div class="text-center">
+          <div class="text-5xl font-bold text-admin-600 mb-2"><%= @listings_per_buyer_ratio %></div>
+          <div class="text-sm text-gray-600">annonces disponibles par repreneur</div>
+          <div class="text-xs text-gray-500 mt-2"><%= @active_listings_count %> annonces / <%= @paying_buyers_count %> repreneurs payants</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-4">Métriques clés</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-2xl font-bold text-admin-600"><%= @active_listings_count %></div>
+          <div class="text-sm text-gray-600">Annonces actives</div>
+        </div>
+        <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-2xl font-bold text-green-600"><%= number_to_currency(@monthly_revenue, unit: '€', precision: 0) %></div>
+          <div class="text-sm text-gray-600">Revenus mensuels</div>
+        </div>
+        <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-2xl font-bold text-admin-600"><%= @total_users %></div>
+          <div class="text-sm text-gray-600">Utilisateurs totaux</div>
+        </div>
+        <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-2xl font-bold text-orange-600"><%= @active_reservations %></div>
+          <div class="text-sm text-gray-600">Réservations actives</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Distribution -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <h2 class="text-lg font-bold text-gray-900 mb-6">Distribution des utilisateurs</h2>
+    <div class="space-y-4">
+      <% @user_distribution.each do |dist| %>
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium text-gray-700"><%= dist[:label] %></span>
+            <span class="text-sm font-semibold text-gray-900"><%= dist[:count] %></span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-<%= dist[:color] %>-600 h-2 rounded-full" style="width: <%= dist[:percentage] %>%"></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Partner Usage -->
+  <% if @partner_stats.any? %>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h2 class="text-lg font-bold text-gray-900 mb-6">Utilisation partenaires</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Partenaire</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vues</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Contacts</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Taux conversion</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <% @partner_stats.each do |partner| %>
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900"><%= partner[:name] %></td>
+                <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 text-xs rounded-full bg-admin-100 text-admin-800"><%= partner[:type] %></span></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= partner[:views] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= partner[:contacts] %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><%= partner[:conversion] %>%</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

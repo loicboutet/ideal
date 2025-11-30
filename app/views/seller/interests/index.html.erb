@@ -1,0 +1,125 @@
+<% content_for :title, "Repreneurs intéressés - Cédant - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <div>
+    <h2 class="text-2xl font-bold text-gray-900">Repreneurs intéressés</h2>
+    <p class="text-gray-600 mt-1"><%= @stats[:total_interested] %> repreneur<%= @stats[:total_interested] > 1 ? 's ont' : ' a' %> mis vos annonces en favoris</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Total intéressés</div>
+      <div class="text-3xl font-bold text-gray-900"><%= @stats[:total_interested] %></div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">Cette semaine</div>
+      <div class="text-3xl font-bold text-seller-600"><%= @stats[:this_week] %></div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <div class="text-sm text-gray-600 mb-1">En négociation</div>
+      <div class="text-3xl font-bold text-green-600"><%= @stats[:active_negotiations] %></div>
+    </div>
+  </div>
+
+  <!-- Liste profils repreneurs -->
+  <% if @interests.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @interests.each do |interest| %>
+        <% buyer = interest[:buyer_profile] %>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold">
+                  <%= buyer.user&.full_name&.first&.upcase || 'R' %>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-900"><%= buyer.user&.full_name || 'Repreneur anonyme' %></h3>
+                  <p class="text-xs text-gray-500"><%= buyer.buyer_type&.humanize || 'Repreneur' %></p>
+                </div>
+              </div>
+              <% if buyer.subscription_plan == 'premium' %>
+                <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Premium</span>
+              <% end %>
+            </div>
+
+            <% completion = buyer.completeness_score || 50 %>
+            <div class="mb-4">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-600">Profil</span>
+                <span class="text-xs font-semibold text-gray-900"><%= completion %>%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1.5">
+                <div class="bg-green-600 h-1.5 rounded-full" style="width: <%= completion %>%"></div>
+              </div>
+            </div>
+
+            <div class="space-y-2 mb-4 text-sm">
+              <% if buyer.target_sectors.present? %>
+                <div class="flex items-start gap-2">
+                  <svg class="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                  <span class="text-gray-600"><%= buyer.target_sectors.first(2).join(', ') %></span>
+                </div>
+              <% end %>
+              <% if buyer.target_locations.present? %>
+                <div class="flex items-start gap-2">
+                  <svg class="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  </svg>
+                  <span class="text-gray-600"><%= buyer.target_locations.first(2).join(', ') %></span>
+                </div>
+              <% end %>
+              <% if buyer.target_revenue_min.present? || buyer.target_revenue_max.present? %>
+                <div class="flex items-start gap-2">
+                  <svg class="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  <span class="text-gray-600">
+                    <% if buyer.target_revenue_min && buyer.target_revenue_max %>
+                      <%= number_to_human(buyer.target_revenue_min, precision: 0, units: {thousand: 'k', million: 'M'}) %> - <%= number_to_human(buyer.target_revenue_max, precision: 0, units: {thousand: 'k', million: 'M'}) %> €
+                    <% elsif buyer.target_revenue_max %>
+                      Jusqu'à <%= number_to_human(buyer.target_revenue_max, precision: 0, units: {thousand: 'k', million: 'M'}) %> €
+                    <% else %>
+                      À partir de <%= number_to_human(buyer.target_revenue_min, precision: 0, units: {thousand: 'k', million: 'M'}) %> €
+                    <% end %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="text-xs text-gray-500 mb-3">
+              <% count = interest[:favorites_count] %>
+              <%= count %> annonce<%= count > 1 ? 's' : '' %> en favori • Dernière activité <%= time_ago_in_words(interest[:favorited_at]) %>
+            </div>
+
+            <div class="flex gap-2">
+              <%= link_to seller_interest_path(buyer), class: "flex-1 px-3 py-2 text-sm text-center border border-gray-300 rounded-lg hover:bg-gray-50 transition" do %>
+                Voir le profil
+              <% end %>
+              <%= link_to seller_buyer_path(buyer), class: "flex-1 px-3 py-2 text-sm text-center bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" do %>
+                Contacter
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-white rounded-xl shadow-sm p-12 text-center border border-gray-200">
+      <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucun repreneur intéressé</h3>
+      <p class="text-gray-600 mb-4">Publiez des annonces pour attirer des repreneurs qualifiés</p>
+      <%= link_to new_seller_listing_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Créer une annonce
+      <% end %>
+    </div>
+  <% end %>
+</div>

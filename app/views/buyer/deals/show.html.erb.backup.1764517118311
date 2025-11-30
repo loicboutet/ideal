@@ -1,0 +1,193 @@
+<% content_for :title, "Deal #{@listing.title} - Idéal Reprise" %>
+<% content_for :page_title, "Détails du dossier" %>
+
+<div class="space-y-6">
+  <!-- Back Navigation -->
+  <div>
+    <%= link_to buyer_pipeline_path, class: "inline-flex items-center text-sm text-buyer-600 hover:text-buyer-700" do %>
+      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Retour au pipeline
+    <% end %>
+  </div>
+
+  <!-- Deal Header -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div class="flex items-start justify-between mb-4">
+      <div class="flex-1">
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">
+          <%= @listing.title || 'Entreprise' %>
+        </h1>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-3 py-1 <%= deal_type_badge_class(@listing) %> rounded-full text-sm font-medium">
+            <%= deal_type_label(@listing) %>
+          </span>
+          <span class="px-3 py-1 bg-<%= stage_color(@deal.status) %>-100 text-<%= stage_color(@deal.status) %>-700 rounded-full text-sm font-medium">
+            <%= stage_icon(@deal.status) %> <%= stage_label(@deal.status) %>
+          </span>
+        </div>
+      </div>
+      
+      <div class="text-right">
+        <% if @deal.reserved_until %>
+          <div class="mb-2">
+            <%= render 'buyer/deals/timer_gauge', deal: @deal %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-3 gap-4 py-4 border-t border-gray-200">
+      <div>
+        <p class="text-sm text-gray-500">Chiffre d'affaires</p>
+        <p class="text-lg font-semibold text-gray-900">
+          <%= number_to_currency(@listing.annual_revenue, unit: '€', precision: 0) %>
+        </p>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500">Secteur</p>
+        <p class="text-lg font-semibold text-gray-900">
+          <%= @listing.industry_sector&.humanize || 'N/A' %>
+        </p>
+      </div>
+      <div>
+        <p class="text-sm text-gray-500">Département</p>
+        <p class="text-lg font-semibold text-gray-900">
+          <%= @listing.location_department || 'N/A' %>
+        </p>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex gap-3 pt-4 border-t border-gray-200">
+      <%= link_to @listing, class: "inline-flex items-center px-4 py-2 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition" do %>
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        Voir l'annonce
+      <% end %>
+      
+      <%= link_to new_buyer_listing_enrichment_path(@listing), class: "inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition" do %>
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Enrichir
+      <% end %>
+      
+      <%= link_to release_buyer_deal_path(@deal), 
+        method: :delete,
+        data: { 
+          turbo_method: :delete,
+          turbo_confirm: "Êtes-vous sûr de vouloir libérer ce deal ? Vous gagnerez #{@deal.calculate_release_credits} crédit(s)." 
+        },
+        class: "inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition" do %>
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+        </svg>
+        Libérer
+      <% end %>
+
+      <%= link_to edit_buyer_deal_path(@deal), class: "inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition" do %>
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+        Modifier mes notes
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Deal Timeline -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Historique du dossier</h2>
+    
+    <% if @deal_history.any? %>
+      <div class="space-y-4">
+        <% @deal_history.each do |event| %>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0">
+              <div class="w-8 h-8 bg-buyer-100 rounded-full flex items-center justify-center">
+                <svg class="w-4 h-4 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-900">
+                <%= format_deal_event(event) %>
+              </p>
+              <p class="text-xs text-gray-500 mt-1">
+                <%= l(event.created_at, format: :long) %>
+              </p>
+              <% if event.notes.present? %>
+                <p class="text-sm text-gray-600 mt-2 p-2 bg-gray-50 rounded">
+                  <%= event.notes %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 text-center py-8">
+        Aucun historique pour ce dossier
+      </p>
+    <% end %>
+  </div>
+
+  <!-- Deal Notes -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Mes notes</h2>
+    
+    <% if @deal.notes.present? %>
+      <div class="prose max-w-none">
+        <%= simple_format(@deal.notes) %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 text-center py-8">
+        Aucune note pour ce dossier
+      </p>
+    <% end %>
+    
+    <div class="mt-4">
+      <%= link_to "Modifier mes notes", edit_buyer_deal_path(@deal), class: "text-sm text-buyer-600 hover:text-buyer-700 font-medium" %>
+    </div>
+  </div>
+
+  <!-- Documents Section -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-lg font-bold text-gray-900">Documents</h2>
+      <%= link_to new_buyer_listing_enrichment_path(@listing), class: "text-sm text-buyer-600 hover:text-buyer-700 font-medium" do %>
+        Ajouter un document →
+      <% end %>
+    </div>
+    
+    <% if @listing.listing_documents.any? %>
+      <div class="space-y-2">
+        <% @listing.listing_documents.each do |doc| %>
+          <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <div>
+                <p class="text-sm font-medium text-gray-900"><%= doc.category&.humanize %></p>
+                <p class="text-xs text-gray-500"><%= doc.created_at.strftime('%d/%m/%Y') %></p>
+              </div>
+            </div>
+            <% if doc.file.attached? %>
+              <%= link_to "Télécharger", rails_blob_path(doc.file, disposition: "attachment"), class: "text-sm text-buyer-600 hover:text-buyer-700" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-gray-500 text-center py-8">
+        Aucun document disponible
+      </p>
+    <% end %>
+  </div>
+</div>

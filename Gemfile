@@ -68,6 +68,9 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  
+  # Provides assigns and assert_template helpers for controller tests
+  gem "rails-controller-testing"
 end
 
 gem "devise", "~> 4.9"

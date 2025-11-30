@@ -1,0 +1,190 @@
+<% content_for :title, "Détail Repreneur - Cédant - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Back Button -->
+  <div>
+    <%= link_to seller_interests_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition" do %>
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Retour aux repreneurs intéressés
+    <% end %>
+  </div>
+
+  <!-- Buyer Profile Header -->
+  <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+    <div class="flex items-start justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold">
+          <%= @buyer_profile.user&.full_name&.first&.upcase || 'R' %>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold text-gray-900"><%= @buyer_profile.user&.full_name || 'Repreneur' %></h1>
+          <p class="text-gray-600"><%= @buyer_profile.buyer_type&.humanize || 'Repreneur individuel' %></p>
+          <% if @buyer_profile.subscription_plan == 'premium' %>
+            <span class="inline-flex items-center px-2 py-1 mt-2 text-xs font-medium rounded-full bg-green-100 text-green-800">Premium</span>
+          <% end %>
+        </div>
+      </div>
+      <% if @can_contact %>
+        <%= link_to new_seller_conversation_path(recipient_id: @buyer_profile.id, recipient_type: 'BuyerProfile'), 
+            class: "inline-flex items-center gap-2 px-4 py-2 bg-seller-600 text-white rounded-lg hover:bg-seller-700 transition" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Contacter
+        <% end %>
+      <% else %>
+        <div class="text-right">
+          <span class="text-sm text-gray-500">5 crédits requis</span>
+          <%= link_to seller_credits_path, class: "block mt-2 text-sm text-seller-600 hover:text-seller-700" do %>
+            Acheter des crédits →
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Buyer Info -->
+    <div class="lg:col-span-1 space-y-6">
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Critères de recherche</h3>
+        <div class="space-y-4">
+          <% if @buyer_profile.target_sectors.present? %>
+            <div>
+              <div class="text-sm font-medium text-gray-700 mb-1">Secteurs recherchés</div>
+              <div class="flex flex-wrap gap-2">
+                <% @buyer_profile.target_sectors.each do |sector| %>
+                  <span class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"><%= sector %></span>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          
+          <% if @buyer_profile.target_locations.present? %>
+            <div>
+              <div class="text-sm font-medium text-gray-700 mb-1">Régions recherchées</div>
+              <div class="flex flex-wrap gap-2">
+                <% @buyer_profile.target_locations.each do |region| %>
+                  <span class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded-full"><%= region %></span>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          
+          <% if @buyer_profile.target_revenue_min.present? || @buyer_profile.target_revenue_max.present? %>
+            <div>
+              <div class="text-sm font-medium text-gray-700 mb-1">Budget</div>
+              <p class="text-gray-600">
+                <% if @buyer_profile.target_revenue_min && @buyer_profile.target_revenue_max %>
+                  <%= number_to_currency(@buyer_profile.target_revenue_min, unit: '€', precision: 0) %> - <%= number_to_currency(@buyer_profile.target_revenue_max, unit: '€', precision: 0) %>
+                <% elsif @buyer_profile.target_revenue_max %>
+                  Jusqu'à <%= number_to_currency(@buyer_profile.target_revenue_max, unit: '€', precision: 0) %>
+                <% else %>
+                  À partir de <%= number_to_currency(@buyer_profile.target_revenue_min, unit: '€', precision: 0) %>
+                <% end %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Profil</h3>
+        <% completion = @buyer_profile.completeness_score || 50 %>
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-sm text-gray-600">Complétude</span>
+            <span class="text-sm font-semibold text-gray-900"><%= completion %>%</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2">
+            <div class="bg-green-600 h-2 rounded-full" style="width: <%= completion %>%"></div>
+          </div>
+        </div>
+        
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between">
+            <span class="text-gray-600">Inscrit depuis</span>
+            <span class="text-gray-900"><%= @buyer_profile.created_at.strftime('%d/%m/%Y') %></span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">Dernière activité</span>
+            <span class="text-gray-900"><%= time_ago_in_words(@buyer_profile.updated_at) %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Favorites & Deals -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Favorites on my listings -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+        <div class="p-6 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Annonces en favoris (<%= @favorites.count %>)</h3>
+        </div>
+        <% if @favorites.any? %>
+          <div class="divide-y divide-gray-200">
+            <% @favorites.each do |favorite| %>
+              <div class="p-4 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h4 class="font-medium text-gray-900"><%= favorite.listing.title %></h4>
+                    <p class="text-sm text-gray-600"><%= favorite.listing.location_city || favorite.listing.location_department %></p>
+                    <p class="text-xs text-gray-500 mt-1">Ajouté le <%= favorite.created_at.strftime('%d/%m/%Y') %></p>
+                  </div>
+                  <%= link_to seller_listing_path(favorite.listing), class: "text-seller-600 hover:text-seller-700" do %>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="p-8 text-center text-gray-500">
+            Aucune annonce en favori
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Deals with this buyer -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200">
+        <div class="p-6 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Dossiers en cours (<%= @deals.count %>)</h3>
+        </div>
+        <% if @deals.any? %>
+          <div class="divide-y divide-gray-200">
+            <% @deals.each do |deal| %>
+              <div class="p-4 hover:bg-gray-50 transition">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h4 class="font-medium text-gray-900"><%= deal.listing.title %></h4>
+                    <div class="flex items-center gap-2 mt-1">
+                      <span class="px-2 py-1 text-xs rounded-full bg-seller-100 text-seller-800">
+                        <%= I18n.t("deal.statuses.#{deal.status}", default: deal.status.humanize) %>
+                      </span>
+                      <span class="text-xs text-gray-500">
+                        Mis à jour <%= time_ago_in_words(deal.updated_at) %>
+                      </span>
+                    </div>
+                  </div>
+                  <%= link_to seller_listing_path(deal.listing), class: "text-seller-600 hover:text-seller-700" do %>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="p-8 text-center text-gray-500">
+            Aucun dossier en cours avec ce repreneur
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

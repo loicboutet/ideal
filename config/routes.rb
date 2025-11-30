@@ -180,6 +180,9 @@ Rails.application.routes.draw do
     end
     
     resources :interests, only: [:index, :show] # Buyers who favorited my listings
+    # Push Listings to Buyers
+    resources :push_listings, only: [:index, :create]
+
     
     # Enrichment Validation
     resources :enrichments, only: [:index, :show] do

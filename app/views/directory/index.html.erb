@@ -1,0 +1,178 @@
+<% content_for :title, "Annuaire des Partenaires - Idéal Reprise" %>
+
+<div class="min-h-screen bg-gray-50">
+  <!-- Header Section -->
+  <div class="bg-gradient-to-r from-teal-600 to-cyan-700 text-white py-16">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Trouvez votre partenaire de confiance</h1>
+      <p class="text-xl text-teal-50 mb-8">Avocats, experts-comptables, notaires et consultants spécialisés en transmission d'entreprise</p>
+      
+      <!-- Search Bar -->
+      <div class="max-w-4xl mx-auto">
+        <%= form_with url: search_partners_path, method: :get, local: true, class: "flex gap-4" do |f| %>
+          <div class="flex-1 relative">
+            <%= f.text_field :q, 
+                placeholder: "Rechercher par nom, spécialité, ville...", 
+                class: "w-full px-6 py-4 rounded-full text-gray-900 text-lg focus:outline-none focus:ring-4 focus:ring-teal-300" %>
+            <svg class="w-6 h-6 text-gray-400 absolute right-6 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <%= f.submit "Rechercher", class: "bg-white text-teal-700 px-8 py-4 rounded-full font-semibold hover:bg-teal-50 transition-colors cursor-pointer" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Filters Sidebar -->
+      <aside class="lg:w-80 flex-shrink-0">
+        <%= form_with url: partners_path, method: :get, local: true, class: "bg-white rounded-lg shadow-sm p-6 sticky top-8" do |f| %>
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-900">Filtres</h2>
+            <%= link_to "Réinitialiser", partners_path, class: "text-sm text-teal-600 hover:text-teal-700" %>
+          </div>
+          
+          <!-- Category Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Type de partenaire</h3>
+            <%= f.select :type, 
+                options_for_select([
+                  ["Tous les types", ""],
+                  ["Avocats", "lawyer"],
+                  ["Experts-comptables", "accountant"],
+                  ["Consultants", "consultant"],
+                  ["Banquiers", "banker"],
+                  ["Courtiers", "broker"],
+                  ["Autres", "other"]
+                ], params[:type]),
+                {},
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" %>
+          </div>
+
+          <!-- Location Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Localisation</h3>
+            <%= f.text_field :location, 
+                value: params[:location],
+                placeholder: "Ville, département, région...",
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" %>
+          </div>
+
+          <!-- Coverage Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Zone d'intervention</h3>
+            <%= f.select :coverage, 
+                options_for_select([
+                  ["Toutes zones", ""],
+                  ["Ville uniquement", "city"],
+                  ["Département", "department"],
+                  ["Région", "region"],
+                  ["France entière", "nationwide"],
+                  ["International", "international"]
+                ], params[:coverage]),
+                {},
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500" %>
+          </div>
+
+          <!-- Premium Badge Filter -->
+          <div class="mb-6">
+            <h3 class="font-semibold text-gray-900 mb-3">Badge</h3>
+            <label class="flex items-center cursor-pointer">
+              <%= f.check_box :premium, { checked: params[:premium] == '1' }, '1', '0' %>
+              <span class="ml-3 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+                Premium uniquement
+              </span>
+            </label>
+          </div>
+
+          <%= f.submit "Appliquer les filtres", class: "w-full mt-6 px-4 py-2 bg-teal-600 text-white rounded-full font-medium hover:bg-teal-700 transition-colors cursor-pointer" %>
+        <% end %>
+      </aside>
+
+      <!-- Partners Grid -->
+      <main class="flex-1">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-gray-900">
+            <%= @total_count %> partenaires trouvés
+          </h2>
+          <%= form_with url: partners_path, method: :get, local: true, class: "flex items-center gap-3" do |f| %>
+            <!-- Preserve existing filters -->
+            <% %w[type location coverage premium q].each do |key| %>
+              <% if params[key].present? %>
+                <%= hidden_field_tag key, params[key] %>
+              <% end %>
+            <% end %>
+            <span class="text-sm text-gray-600">Trier par :</span>
+            <%= f.select :sort, 
+                options_for_select([
+                  ["Pertinence", ""],
+                  ["Note (décroissante)", "rating"],
+                  ["Nom (A-Z)", "name"],
+                  ["Récent", "recent"]
+                ], params[:sort]),
+                {},
+                class: "px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500",
+                onchange: "this.form.submit()" %>
+          <% end %>
+        </div>
+
+        <% if @partners.any? %>
+          <!-- Partners Grid -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <% @partners.each do |partner| %>
+              <%= render partial: 'directory/partner_card', locals: { partner: partner } %>
+            <% end %>
+          </div>
+
+          <!-- Pagination -->
+          <div class="mt-8 flex justify-center">
+            <nav class="flex items-center gap-2">
+              <% if @page > 1 %>
+                <%= link_to "Précédent", partners_path(request.query_parameters.merge(page: @page - 1)), class: "px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50" %>
+              <% else %>
+                <span class="px-4 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">Précédent</span>
+              <% end %>
+              
+              <% (1..[@total_pages, 5].min).each do |page_num| %>
+                <% if page_num == @page %>
+                  <span class="px-4 py-2 bg-teal-600 text-white rounded-lg font-medium"><%= page_num %></span>
+                <% else %>
+                  <%= link_to page_num, partners_path(request.query_parameters.merge(page: page_num)), class: "px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50" %>
+                <% end %>
+              <% end %>
+              
+              <% if @total_pages > 5 %>
+                <span class="px-2 text-gray-500">...</span>
+              <% end %>
+              
+              <% if @page < @total_pages %>
+                <%= link_to "Suivant", partners_path(request.query_parameters.merge(page: @page + 1)), class: "px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50" %>
+              <% else %>
+                <span class="px-4 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">Suivant</span>
+              <% end %>
+            </nav>
+          </div>
+        <% else %>
+          <!-- Empty State -->
+          <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Aucun partenaire trouvé</h3>
+            <p class="text-gray-600 mb-6">
+              Essayez d'élargir vos critères de recherche ou parcourez tous les partenaires disponibles.
+            </p>
+            <%= link_to partners_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white rounded-full font-semibold hover:bg-teal-700 transition" do %>
+              Voir tous les partenaires
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            <% end %>
+          </div>
+        <% end %>
+      </main>
+    </div>
+  </div>
+</div>

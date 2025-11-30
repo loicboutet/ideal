@@ -1,0 +1,100 @@
+# Deals for testing (CRM pipeline entries)
+
+# Active deal with valid timer
+deal_active:
+  buyer_profile: buyer_profile
+  listing: listing_one
+  status: info_exchange
+  reserved: true
+  reserved_at: <%= 10.days.ago.to_fs(:db) %>
+  reserved_until: <%= 20.days.from_now.to_fs(:db) %>
+  stage_entered_at: <%= 5.days.ago.to_fs(:db) %>
+  time_in_stage: 5
+  total_credits_earned: 0
+  loi_seller_validated: false
+
+# Deal expiring very soon (within 24 hours) - for testing @expiring_soon
+deal_expiring_soon:
+  buyer_profile: buyer_profile
+  listing: listing_two
+  status: negotiation
+  reserved: true
+  reserved_at: <%= 25.days.ago.to_fs(:db) %>
+  reserved_until: <%= 12.hours.from_now.to_fs(:db) %>
+  stage_entered_at: <%= 3.days.ago.to_fs(:db) %>
+  time_in_stage: 22
+  total_credits_earned: 1
+  loi_seller_validated: false
+
+# Expired timer deal - for testing @expired_timers_count
+deal_expired:
+  buyer_profile: buyer_profile_two
+  listing: listing_one
+  status: analysis
+  reserved: true
+  reserved_at: <%= 60.days.ago.to_fs(:db) %>
+  reserved_until: <%= 5.days.ago.to_fs(:db) %>
+  stage_entered_at: <%= 10.days.ago.to_fs(:db) %>
+  time_in_stage: 50
+  total_credits_earned: 2
+  loi_seller_validated: false
+
+# Another expired deal
+deal_expired_two:
+  buyer_profile: buyer_profile_three
+  listing: listing_zero_views
+  status: to_contact
+  reserved: true
+  reserved_at: <%= 30.days.ago.to_fs(:db) %>
+  reserved_until: <%= 2.days.ago.to_fs(:db) %>
+  stage_entered_at: <%= 25.days.ago.to_fs(:db) %>
+  time_in_stage: 28
+  total_credits_earned: 0
+
+# Deal in LOI stage
+deal_loi:
+  buyer_profile: buyer_profile_two
+  listing: listing_two
+  status: loi
+  reserved: true
+  reserved_at: <%= 40.days.ago.to_fs(:db) %>
+  reserved_until: <%= 30.days.from_now.to_fs(:db) %>
+  stage_entered_at: <%= 5.days.ago.to_fs(:db) %>
+  time_in_stage: 35
+  total_credits_earned: 3
+  loi_seller_validated: true
+
+# Favorited only deal (not reserved)
+deal_favorited:
+  buyer_profile: buyer_profile_three
+  listing: listing_two
+  status: favorited
+  reserved: false
+  total_credits_earned: 0
+  loi_seller_validated: false
+
+# Deal in negotiation
+deal_negotiation:
+  buyer_profile: buyer_profile
+  listing: listing_zero_views_two
+  status: negotiation
+  reserved: true
+  reserved_at: <%= 15.days.ago.to_fs(:db) %>
+  reserved_until: <%= 45.days.from_now.to_fs(:db) %>
+  stage_entered_at: <%= 2.days.ago.to_fs(:db) %>
+  time_in_stage: 13
+  total_credits_earned: 1
+  loi_seller_validated: false
+
+# Signed deal
+deal_signed:
+  buyer_profile: buyer_profile_two
+  listing: listing_zero_views_two
+  status: signed
+  reserved: true
+  reserved_at: <%= 90.days.ago.to_fs(:db) %>
+  reserved_until: <%= 1.day.from_now.to_fs(:db) %>
+  stage_entered_at: <%= 10.days.ago.to_fs(:db) %>
+  time_in_stage: 80
+  total_credits_earned: 5
+  loi_seller_validated: true

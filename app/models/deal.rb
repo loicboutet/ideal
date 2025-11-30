@@ -47,13 +47,36 @@ class Deal < ApplicationRecord
       )
       
       # Award credits using the centralized credit service
+      # Note: CreditService will check if deal was actually reserved before awarding
       Payment::CreditService.award_deal_release_credits(self)
     end
   end
   
   # Timer expiry is now handled by DealTimer concern
   
+  # Check if deal was actually reserved (moved beyond favorited stage)
+  # Used to determine if credits should be awarded on release
+  def was_reserved?
+    # A deal is considered "reserved" if:
+    # 1. It has the reserved flag set to true, OR
+    # 2. Its current status is beyond "favorited" (meaning it progressed in the pipeline)
+    return true if reserved?
+    
+    # Check if current status is beyond favorited but not in terminal states
+    current_status_value = Deal.statuses[status]
+    return true if current_status_value > 0 && current_status_value < Deal.statuses[:released]
+    
+    # Check history for any status beyond favorited
+    deal_history_events
+      .where(event_type: :status_change)
+      .where.not(to_status: [:favorited, :released, :abandoned])
+      .exists?
+  end
+  
   def calculate_release_credits
+    # No credits for deals that were only favorited, never reserved
+    return 0 unless was_reserved?
+    
     base_credit = 1
     # Count validated enrichments for this listing by this buyer
     doc_credits = listing.enrichments

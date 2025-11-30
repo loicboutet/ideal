@@ -1,0 +1,15 @@
+# Conversations for testing
+
+conversation_buyer_seller:
+  listing: listing_one
+  subject: "Questions sur la boulangerie"
+  created_at: <%= 10.days.ago.to_fs(:db) %>
+
+conversation_buyer_seller_two:
+  listing: listing_two
+  subject: "Intérêt pour le e-commerce"
+  created_at: <%= 5.days.ago.to_fs(:db) %>
+
+conversation_buyer_partner:
+  subject: "Demande de conseil juridique"
+  created_at: <%= 3.days.ago.to_fs(:db) %>

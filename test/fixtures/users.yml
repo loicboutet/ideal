@@ -1,8 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Password for all test users is 'password123'
 
 admin:
   email: admin@ideal-reprise.fr
-  encrypted_password: $2a$04$abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOP
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
   role: admin
   first_name: Admin
   last_name: Idéal
@@ -10,25 +11,59 @@ admin:
 
 seller:
   email: seller@example.fr
-  encrypted_password: $2a$04$abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOP
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
   role: seller
   first_name: Jean
   last_name: Vendeur
   status: active
 
+seller_two:
+  email: seller2@example.fr
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  role: seller
+  first_name: Pierre
+  last_name: Cédant
+  status: active
+
 buyer:
   email: buyer@example.fr
-  encrypted_password: $2a$04$abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOP
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
   role: buyer
   first_name: Marie
   last_name: Repreneure
   status: active
+  notify_messages: true
+
+buyer_two:
+  email: buyer2@example.fr
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  role: buyer
+  first_name: Sophie
+  last_name: Investisseur
+  status: active
+  notify_messages: true
+
+buyer_three:
+  email: buyer3@example.fr
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  role: buyer
+  first_name: Luc
+  last_name: Repreneur
+  status: active
 
 partner:
   email: sophie@conseil-legal.fr
-  encrypted_password: $2a$04$abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOP
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
   role: partner
   first_name: Sophie
   last_name: Conseil
   company_name: Sophie Conseil SARL
   status: active
+
+inactive_buyer:
+  email: inactive.buyer@example.fr
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password123') %>
+  role: buyer
+  first_name: Inactive
+  last_name: Buyer
+  status: suspended

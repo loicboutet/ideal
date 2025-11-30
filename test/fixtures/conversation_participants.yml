@@ -1,0 +1,34 @@
+# Conversation participants for testing
+
+# Conversation 1: buyer <-> seller
+participant_buyer_conv1:
+  conversation: conversation_buyer_seller
+  user: buyer
+  last_read_at: <%= 8.days.ago.to_fs(:db) %>
+
+participant_seller_conv1:
+  conversation: conversation_buyer_seller
+  user: seller
+  last_read_at: <%= 9.days.ago.to_fs(:db) %>
+
+# Conversation 2: buyer <-> seller_two
+participant_buyer_conv2:
+  conversation: conversation_buyer_seller_two
+  user: buyer
+  last_read_at: <%= 3.days.ago.to_fs(:db) %>
+
+participant_seller_two_conv2:
+  conversation: conversation_buyer_seller_two
+  user: seller_two
+  last_read_at: <%= 4.days.ago.to_fs(:db) %>
+
+# Conversation 3: buyer <-> partner
+participant_buyer_conv3:
+  conversation: conversation_buyer_partner
+  user: buyer
+  last_read_at: <%= 1.day.ago.to_fs(:db) %>
+
+participant_partner_conv3:
+  conversation: conversation_buyer_partner
+  user: partner
+  last_read_at: <%= 2.days.ago.to_fs(:db) %>

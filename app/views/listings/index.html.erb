@@ -1,0 +1,242 @@
+<% content_for :title, "Parcourir les annonces - Idéal Reprise" %>
+
+<!-- Listings Index Page -->
+<div class="min-h-screen bg-gray-50">
+  <!-- Header Section -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">Parcourir les annonces</h1>
+          <p class="text-gray-600">Découvrez les entreprises disponibles à la reprise</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <%= link_to search_listings_path, class: "inline-flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span>Recherche avancée</span>
+          <% end %>
+          <%= link_to new_user_registration_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <span class="hidden sm:inline">Accès Premium</span>
+            <span class="sm:hidden">Premium</span>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-blue-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-blue-900"><%= @stats[:total] %></div>
+          <div class="text-sm text-blue-700">Annonces actives</div>
+        </div>
+        <div class="bg-green-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-green-900"><%= @stats[:new_this_month] %></div>
+          <div class="text-sm text-green-700">Nouvelles ce mois</div>
+        </div>
+        <div class="bg-purple-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-purple-900">€<%= @stats[:avg_price] %></div>
+          <div class="text-sm text-purple-700">Prix moyen</div>
+        </div>
+        <div class="bg-orange-50 rounded-lg p-4">
+          <div class="text-2xl font-bold text-orange-900"><%= @stats[:sector_count] %></div>
+          <div class="text-sm text-orange-700">Secteurs</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="lg:grid lg:grid-cols-4 lg:gap-8">
+      <!-- Filters Sidebar -->
+      <aside class="lg:col-span-1 mb-8 lg:mb-0">
+        <%= form_with url: listings_path, method: :get, local: true, class: "bg-white rounded-xl shadow-sm p-6 sticky top-4" do |f| %>
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">Filtres</h2>
+            <%= link_to "Réinitialiser", listings_path, class: "text-sm text-blue-600 hover:text-blue-700" %>
+          </div>
+
+          <!-- Price Range -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Prix</label>
+            <%= f.select :max_price, 
+                options_for_select([
+                  ["Tous les prix", ""],
+                  ["0 - 100k €", 100000],
+                  ["0 - 500k €", 500000],
+                  ["0 - 1M €", 1000000],
+                  ["0 - 2M €", 2000000]
+                ], params[:max_price]),
+                {}, 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Sector -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Secteur</label>
+            <%= f.select :sector, 
+                options_for_select([
+                  ["Tous les secteurs", ""],
+                  ["Commerce & Distribution", "commerce"],
+                  ["Restauration & Hôtellerie", "hospitality"],
+                  ["Services", "services"],
+                  ["Industrie", "industry"],
+                  ["Digital", "digital"],
+                  ["BTP (Construction)", "construction"],
+                  ["Santé", "healthcare"],
+                  ["Transport & Logistique", "transport_logistics"],
+                  ["Agroalimentaire", "agrifood"],
+                  ["Immobilier", "real_estate"],
+                  ["Autre", "other"]
+                ], params[:sector]),
+                {}, 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Location -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Localisation</label>
+            <%= f.text_field :location, 
+                value: params[:location],
+                placeholder: "Ville, département, région...", 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Revenue -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-900 mb-3">Chiffre d'affaires</label>
+            <%= f.select :max_revenue, 
+                options_for_select([
+                  ["Tous", ""],
+                  ["0 - 200k €", 200000],
+                  ["0 - 500k €", 500000],
+                  ["0 - 1M €", 1000000],
+                  ["0 - 2M €", 2000000]
+                ], params[:max_revenue]),
+                {}, 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+          </div>
+
+          <!-- Apply Button -->
+          <%= f.submit "Appliquer les filtres", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition font-medium cursor-pointer" %>
+        <% end %>
+      </aside>
+
+      <!-- Listings Grid -->
+      <div class="lg:col-span-3">
+        <!-- Sort Bar -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+          <p class="text-gray-600"><span class="font-semibold text-gray-900"><%= @total_count %></span> annonces trouvées</p>
+          <%= form_with url: listings_path, method: :get, local: true, class: "flex items-center gap-2" do |f| %>
+            <!-- Preserve existing filters -->
+            <% %w[sector max_price location max_revenue q].each do |key| %>
+              <% if params[key].present? %>
+                <%= hidden_field_tag key, params[key] %>
+              <% end %>
+            <% end %>
+            <%= f.select :sort, 
+                options_for_select([
+                  ["Plus récentes", "newest"],
+                  ["Prix croissant", "price_asc"],
+                  ["Prix décroissant", "price_desc"],
+                  ["CA croissant", "revenue_asc"],
+                  ["CA décroissant", "revenue_desc"]
+                ], params[:sort] || "newest"),
+                {},
+                class: "px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white",
+                onchange: "this.form.submit()" %>
+          <% end %>
+        </div>
+
+        <% if @listings.any? %>
+          <!-- Listings Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <% @listings.each do |listing| %>
+              <%= render partial: 'listings/listing_card', locals: { listing: listing } %>
+            <% end %>
+          </div>
+
+          <!-- Pagination -->
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-t border-gray-200">
+            <p class="text-sm text-gray-600">
+              Affichage de <span class="font-semibold"><%= ((@page - 1) * @per_page) + 1 %></span> à <span class="font-semibold"><%= [(@page * @per_page), @total_count].min %></span> sur <span class="font-semibold"><%= @total_count %></span> résultats
+            </p>
+            <nav class="flex items-center gap-2">
+              <% if @page > 1 %>
+                <%= link_to "Précédent", listings_path(request.query_parameters.merge(page: @page - 1)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+              <% else %>
+                <span class="px-3 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">Précédent</span>
+              <% end %>
+              
+              <% (1..[@total_pages, 5].min).each do |page_num| %>
+                <% if page_num == @page %>
+                  <span class="px-3 py-2 bg-blue-600 text-white rounded-lg font-medium"><%= page_num %></span>
+                <% else %>
+                  <%= link_to page_num, listings_path(request.query_parameters.merge(page: page_num)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+                <% end %>
+              <% end %>
+              
+              <% if @total_pages > 5 %>
+                <span class="px-2 text-gray-500">...</span>
+                <%= link_to @total_pages, listings_path(request.query_parameters.merge(page: @total_pages)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+              <% end %>
+              
+              <% if @page < @total_pages %>
+                <%= link_to "Suivant", listings_path(request.query_parameters.merge(page: @page + 1)), class: "px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition" %>
+              <% else %>
+                <span class="px-3 py-2 border border-gray-300 rounded-lg text-gray-400 bg-gray-50 cursor-not-allowed">Suivant</span>
+              <% end %>
+            </nav>
+          </div>
+        <% else %>
+          <!-- No Results -->
+          <div class="bg-white rounded-xl shadow-sm p-12 text-center">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Aucune annonce trouvée</h3>
+            <p class="text-gray-600 mb-6">
+              Essayez d'élargir vos critères de recherche ou parcourez toutes les annonces disponibles.
+            </p>
+            <%= link_to listings_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition" do %>
+              Voir toutes les annonces
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            <% end %>
+          </div>
+        <% end %>
+
+        <!-- Premium CTA -->
+        <div class="mt-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl p-8 text-white text-center">
+          <div class="max-w-2xl mx-auto">
+            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Accédez à toutes les informations</h3>
+            <p class="text-blue-100 mb-6">
+              Créez un compte Premium pour voir les coordonnées complètes, les documents financiers et contacter directement les vendeurs.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <%= link_to new_user_registration_path, class: "inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition" do %>
+                Créer un compte
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              <% end %>
+              <%= link_to pricing_path, class: "inline-flex items-center gap-2 px-6 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition" do %>
+                Voir les tarifs
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

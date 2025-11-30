@@ -1,0 +1,117 @@
+<%# Partner card partial for directory listing %>
+<%
+  # Partner type labels and colors
+  type_labels = {
+    'lawyer' => 'Avocat',
+    'accountant' => 'Expert-comptable',
+    'consultant' => 'Consultant',
+    'banker' => 'Banquier',
+    'broker' => 'Courtier',
+    'other' => 'Partenaire'
+  }
+  
+  type_gradients = {
+    'lawyer' => 'from-yellow-400 to-orange-500',
+    'accountant' => 'from-blue-500 to-indigo-600',
+    'consultant' => 'from-purple-500 to-pink-600',
+    'banker' => 'from-green-500 to-teal-600',
+    'broker' => 'from-red-500 to-orange-600',
+    'other' => 'from-gray-500 to-gray-600'
+  }
+  
+  type_label = type_labels[partner.partner_type] || 'Partenaire'
+  gradient = type_gradients[partner.partner_type] || type_gradients['other']
+  
+  # Get initials for avatar
+  first_name = partner.user&.first_name || 'P'
+  last_name = partner.user&.last_name || 'A'
+  initials = "#{first_name[0]}#{last_name[0]}".upcase
+  
+  # Full name
+  full_name = [partner.user&.first_name, partner.user&.last_name].compact.join(' ')
+  full_name = partner.company_name if full_name.blank?
+  full_name = 'Partenaire' if full_name.blank?
+  
+  # Rating display (default to 4.5 if no rating)
+  rating = partner.respond_to?(:average_rating) && partner.average_rating.present? ? partner.average_rating : 4.5
+  full_stars = rating.to_i
+  half_star = (rating - full_stars) >= 0.5
+  
+  # Location
+  location = [partner.city, partner.department].compact.first || 'France'
+  
+  # Description
+  description = partner.description.presence || "Partenaire spécialisé en transmission d'entreprise."
+%>
+
+<div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+  <div class="p-6">
+    <div class="flex gap-4 mb-4">
+      <div class="w-20 h-20 rounded-lg bg-gradient-to-br <%= gradient %> flex items-center justify-center text-white text-2xl font-bold flex-shrink-0">
+        <%= initials %>
+      </div>
+      <div class="flex-1">
+        <div class="flex items-start justify-between mb-2">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900"><%= full_name %></h3>
+            <p class="text-gray-600"><%= type_label %></p>
+          </div>
+          <% if partner.respond_to?(:is_premium) && partner.is_premium %>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+              Premium
+            </span>
+          <% end %>
+        </div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="text-yellow-500 text-sm">
+            <% full_stars.times do %>★<% end %><% if half_star %>☆<% end %><% (5 - full_stars - (half_star ? 1 : 0)).times do %>☆<% end %>
+          </span>
+          <span class="text-sm text-gray-600"><%= rating.round(1) %>/5</span>
+        </div>
+        <div class="flex items-center gap-2 text-sm text-gray-600">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+          <span><%= location %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <p class="text-gray-700 text-sm line-clamp-2">
+        <%= truncate(description, length: 140) %>
+      </p>
+    </div>
+
+    <% if partner.respond_to?(:specializations) && partner.specializations.present? %>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <% partner.specializations.first(3).each do |spec| %>
+          <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full"><%= spec %></span>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Transmission</span>
+        <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Reprise</span>
+        <span class="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-medium rounded-full">Accompagnement</span>
+      </div>
+    <% end %>
+
+    <div class="pt-4 border-t border-gray-200">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm text-gray-600">À partir de</span>
+        <span class="text-lg font-bold text-teal-600">
+          <% if partner.respond_to?(:hourly_rate) && partner.hourly_rate.present? %>
+            <%= partner.hourly_rate %>€ HT
+          <% else %>
+            Sur devis
+          <% end %>
+        </span>
+      </div>
+      <%= link_to partners_path(partner), class: "block w-full bg-teal-600 text-white text-center py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors" do %>
+        Voir le profil
+      <% end %>
+    </div>
+  </div>
+</div>

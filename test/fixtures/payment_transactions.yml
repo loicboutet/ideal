@@ -1,21 +1,19 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Payment transactions for testing
 
-one:
-  user: one
-  amount: 9.99
-  currency: MyString
-  status: MyString
-  stripe_payment_intent_id: MyString
-  transaction_type: MyString
-  description: MyText
-  metadata: MyText
+payment_one:
+  user: buyer
+  amount: 199.00
+  currency: EUR
+  status: completed
+  stripe_payment_intent_id: pi_test_123456789
+  transaction_type: subscription
+  description: "Abonnement Standard mensuel"
 
-two:
-  user: two
-  amount: 9.99
-  currency: MyString
-  status: MyString
-  stripe_payment_intent_id: MyString
-  transaction_type: MyString
-  description: MyText
-  metadata: MyText
+payment_two:
+  user: seller
+  amount: 49.00
+  currency: EUR
+  status: completed
+  stripe_payment_intent_id: pi_test_987654321
+  transaction_type: credits
+  description: "Pack de 10 crédits"

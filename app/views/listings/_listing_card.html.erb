@@ -1,0 +1,131 @@
+<%# Listing card partial - used in index and search views %>
+<% 
+  # Determine gradient color based on sector
+  sector_colors = {
+    'commerce' => 'from-blue-500 to-blue-600',
+    'hospitality' => 'from-green-500 to-green-600',
+    'services' => 'from-purple-500 to-purple-600',
+    'industry' => 'from-orange-500 to-orange-600',
+    'digital' => 'from-indigo-500 to-indigo-600',
+    'construction' => 'from-amber-500 to-amber-600',
+    'healthcare' => 'from-red-500 to-red-600',
+    'transport_logistics' => 'from-cyan-500 to-cyan-600',
+    'agrifood' => 'from-lime-500 to-lime-600',
+    'real_estate' => 'from-teal-500 to-teal-600',
+    'other' => 'from-gray-500 to-gray-600'
+  }
+  
+  sector_text_colors = {
+    'commerce' => 'text-blue-600',
+    'hospitality' => 'text-green-600',
+    'services' => 'text-purple-600',
+    'industry' => 'text-orange-600',
+    'digital' => 'text-indigo-600',
+    'construction' => 'text-amber-600',
+    'healthcare' => 'text-red-600',
+    'transport_logistics' => 'text-cyan-600',
+    'agrifood' => 'text-lime-600',
+    'real_estate' => 'text-teal-600',
+    'other' => 'text-gray-600'
+  }
+  
+  sector_labels = {
+    'commerce' => 'Commerce',
+    'hospitality' => 'Hôtellerie/Restauration',
+    'services' => 'Services',
+    'industry' => 'Industrie',
+    'digital' => 'Digital',
+    'construction' => 'BTP',
+    'healthcare' => 'Santé',
+    'transport_logistics' => 'Transport',
+    'agrifood' => 'Agroalimentaire',
+    'real_estate' => 'Immobilier',
+    'other' => 'Autre'
+  }
+  
+  gradient = sector_colors[listing.industry_sector] || sector_colors['other']
+  text_color = sector_text_colors[listing.industry_sector] || sector_text_colors['other']
+  sector_label = sector_labels[listing.industry_sector] || 'Autre'
+  
+  # Format price
+  def format_price(price)
+    return 'N/C' unless price
+    if price >= 1_000_000
+      "#{(price / 1_000_000.0).round(1)}M €"
+    elsif price >= 1_000
+      "#{(price / 1_000.0).round(0)}k €"
+    else
+      "#{price} €"
+    end
+  end
+  
+  # Calculate time ago
+  published_time = listing.published_at || listing.created_at
+  days_ago = ((Time.current - published_time) / 1.day).to_i
+  time_label = if days_ago == 0
+    "Publié aujourd'hui"
+  elsif days_ago == 1
+    "Publié hier"
+  elsif days_ago < 7
+    "Publié il y a #{days_ago} jours"
+  elsif days_ago < 30
+    "Publié il y a #{(days_ago / 7).to_i} semaine#{'s' if days_ago >= 14}"
+  else
+    "Publié il y a #{(days_ago / 30).to_i} mois"
+  end
+%>
+
+<%= link_to listing_path(listing), class: "bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden group" do %>
+  <div class="relative h-48 bg-gradient-to-br <%= gradient %>">
+    <div class="absolute top-4 left-4">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white <%= text_color %>">
+        <%= sector_label %>
+      </span>
+    </div>
+    <div class="absolute top-4 right-4">
+      <button type="button" class="p-2 bg-white/90 rounded-full hover:bg-white transition" onclick="event.preventDefault(); event.stopPropagation();">
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+      </button>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4">
+      <span class="inline-flex items-center text-white text-sm">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <%= listing.location_city.presence || listing.location_department.presence || 'France' %><% if listing.location_department.present? %> (<%= listing.location_department %>)<% end %>
+      </span>
+    </div>
+  </div>
+  <div class="p-6">
+    <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition">
+      <%= listing.title %>
+    </h3>
+    <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+      <%= truncate(listing.description_public.presence || "Opportunité de reprise dans le secteur #{sector_label.downcase}.", length: 120) %>
+    </p>
+    <div class="grid grid-cols-2 gap-4 mb-4 pb-4 border-b border-gray-200">
+      <div>
+        <div class="text-xs text-gray-500 mb-1">Prix</div>
+        <div class="text-lg font-bold text-gray-900"><%= format_price(listing.asking_price) %></div>
+      </div>
+      <div>
+        <div class="text-xs text-gray-500 mb-1">CA annuel</div>
+        <div class="text-lg font-bold text-gray-900"><%= format_price(listing.annual_revenue) %></div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between">
+      <span class="inline-flex items-center text-sm text-gray-500">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <%= time_label %>
+      </span>
+      <span class="text-blue-600 font-medium group-hover:underline">
+        Voir plus →
+      </span>
+    </div>
+  </div>
+<% end %>

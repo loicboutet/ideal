@@ -1,0 +1,17 @@
+# Partner profiles for testing
+
+partner_profile:
+  user: partner
+  partner_type: lawyer
+  description: "Cabinet d'avocats spécialisé dans les fusions-acquisitions"
+  services_offered: "Due diligence juridique, négociation de contrats, structuration"
+  calendar_link: "https://calendly.com/sophie-conseil"
+  website: "https://sophie-conseil.fr"
+  coverage_area: region
+  coverage_details: "Île-de-France et Rhône-Alpes"
+  intervention_stages: '["negociation", "audits", "financement"]'
+  industry_specializations: '["services", "digital", "commerce"]'
+  validation_status: approved
+  directory_subscription_expires_at: <%= 365.days.from_now.to_fs(:db) %>
+  views_count: 150
+  contacts_count: 25

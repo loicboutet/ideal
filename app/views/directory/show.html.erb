@@ -1,0 +1,306 @@
+<% content_for :title, "#{@partner.company_name.presence || @partner.user&.full_name.presence || 'Partenaire'} - Annuaire Idéal Reprise" %>
+
+<%
+  # Partner type labels and colors
+  type_labels = {
+    'lawyer' => 'Avocat',
+    'accountant' => 'Expert-comptable',
+    'consultant' => 'Consultant',
+    'banker' => 'Banquier',
+    'broker' => 'Courtier',
+    'other' => 'Partenaire'
+  }
+  
+  type_gradients = {
+    'lawyer' => 'from-yellow-400 to-orange-500',
+    'accountant' => 'from-blue-500 to-indigo-600',
+    'consultant' => 'from-purple-500 to-pink-600',
+    'banker' => 'from-green-500 to-teal-600',
+    'broker' => 'from-red-500 to-orange-600',
+    'other' => 'from-gray-500 to-gray-600'
+  }
+  
+  type_label = type_labels[@partner.partner_type] || 'Partenaire'
+  gradient = type_gradients[@partner.partner_type] || type_gradients['other']
+  
+  # Get initials for avatar
+  first_name = @partner.user&.first_name || 'P'
+  last_name = @partner.user&.last_name || 'A'
+  initials = "#{first_name[0]}#{last_name[0]}".upcase
+  
+  # Full name
+  full_name = [(@partner.user&.first_name), (@partner.user&.last_name)].compact.join(' ')
+  full_name = @partner.company_name if full_name.blank?
+  full_name = 'Partenaire' if full_name.blank?
+  
+  # Rating
+  rating = @partner.respond_to?(:average_rating) && @partner.average_rating.present? ? @partner.average_rating : 4.5
+  full_stars = rating.to_i
+  
+  # Location
+  location = [@partner.city, @partner.department].compact.join(' ')
+  location = 'France' if location.blank?
+%>
+
+<div class="min-h-screen bg-gray-50">
+  <!-- Back Navigation -->
+  <div class="bg-white border-b border-gray-200">
+    <div class="container mx-auto px-4 py-4">
+      <%= link_to partners_path, class: "inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Retour à l'annuaire</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <!-- Main Content -->
+      <div class="lg:col-span-2 space-y-6">
+        <!-- Header Card -->
+        <div class="bg-white rounded-xl shadow-sm p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row gap-6 mb-6">
+            <div class="w-24 h-24 rounded-xl bg-gradient-to-br <%= gradient %> flex items-center justify-center text-white text-3xl font-bold flex-shrink-0">
+              <%= initials %>
+            </div>
+            <div class="flex-1">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <h1 class="text-3xl font-bold text-gray-900"><%= full_name %></h1>
+                  <p class="text-xl text-gray-600"><%= type_label %></p>
+                  <% if @partner.company_name.present? && @partner.company_name != full_name %>
+                    <p class="text-gray-500"><%= @partner.company_name %></p>
+                  <% end %>
+                </div>
+                <% if @partner.respond_to?(:is_premium) && @partner.is_premium %>
+                  <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
+                    ⭐ Premium
+                  </span>
+                <% end %>
+              </div>
+              
+              <div class="flex flex-wrap items-center gap-4 text-gray-600 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="text-yellow-500 text-lg">
+                    <% full_stars.times do %>★<% end %><% (5 - full_stars).times do %>☆<% end %>
+                  </span>
+                  <span class="text-gray-700 font-semibold"><%= rating.round(1) %>/5</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                  <span><%= location %></span>
+                </div>
+                <% if @partner.views_count.present? %>
+                  <div class="flex items-center gap-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                    <span><%= @partner.views_count %> vues</span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Description -->
+          <div class="prose prose-gray max-w-none">
+            <% if @partner.description.present? %>
+              <%= simple_format(@partner.description) %>
+            <% else %>
+              <p class="text-gray-600">
+                Partenaire spécialisé en accompagnement des transmissions d'entreprise. 
+                Contactez-le pour obtenir plus d'informations sur ses services et ses disponibilités.
+              </p>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Expertise Card -->
+        <div class="bg-white rounded-xl shadow-sm p-6 sm:p-8">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Domaines d'expertise</h2>
+          
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Transmission d'entreprise</div>
+                <div class="text-sm text-gray-600">Accompagnement complet</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Reprise d'entreprise</div>
+                <div class="text-sm text-gray-600">Audit et conseil</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Valorisation</div>
+                <div class="text-sm text-gray-600">Estimation et analyse</div>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-semibold text-gray-900">Négociation</div>
+                <div class="text-sm text-gray-600">Assistance aux transactions</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Section - Protected -->
+        <div class="bg-white rounded-xl shadow-sm p-6 sm:p-8">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Coordonnées</h2>
+          
+          <% if user_signed_in? %>
+            <div class="space-y-4">
+              <% if @partner.user&.email.present? %>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                  <span class="text-gray-700"><%= @partner.user.email %></span>
+                </div>
+              <% end %>
+              <% if @partner.phone.present? %>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                  </svg>
+                  <span class="text-gray-700"><%= @partner.phone %></span>
+                </div>
+              <% end %>
+              <% if @partner.website.present? %>
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                  </svg>
+                  <%= link_to @partner.website, @partner.website, target: '_blank', class: "text-teal-600 hover:text-teal-700" %>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="bg-gray-50 rounded-lg p-6 text-center">
+              <svg class="w-12 h-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2">Contenu réservé aux membres</h3>
+              <p class="text-gray-600 mb-4">Connectez-vous pour accéder aux coordonnées de ce partenaire.</p>
+              <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <%= link_to new_user_session_path, class: "px-6 py-3 bg-teal-600 text-white rounded-full font-semibold hover:bg-teal-700 transition" do %>
+                  Se connecter
+                <% end %>
+                <%= link_to new_user_registration_path, class: "px-6 py-3 border-2 border-teal-600 text-teal-600 rounded-full font-semibold hover:bg-teal-50 transition" do %>
+                  Créer un compte
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="lg:col-span-1 mt-6 lg:mt-0 space-y-6">
+        <!-- Contact CTA Card -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Contacter ce partenaire</h3>
+          <% if @partner.respond_to?(:hourly_rate) && @partner.hourly_rate.present? %>
+            <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
+              <span class="text-gray-600">Tarif horaire</span>
+              <span class="text-2xl font-bold text-teal-600"><%= @partner.hourly_rate %>€ HT</span>
+            </div>
+          <% end %>
+          
+          <% if @partner.calendar_link.present? %>
+            <%= link_to @partner.calendar_link, target: '_blank', class: "block w-full bg-teal-600 text-white text-center py-3 rounded-full font-semibold hover:bg-teal-700 transition mb-3" do %>
+              📅 Réserver un créneau
+            <% end %>
+          <% end %>
+          
+          <% if user_signed_in? %>
+            <button class="block w-full border-2 border-teal-600 text-teal-600 text-center py-3 rounded-full font-semibold hover:bg-teal-50 transition">
+              ✉️ Envoyer un message
+            </button>
+          <% else %>
+            <%= link_to new_user_session_path, class: "block w-full border-2 border-teal-600 text-teal-600 text-center py-3 rounded-full font-semibold hover:bg-teal-50 transition" do %>
+              Se connecter pour contacter
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- Info Card -->
+        <div class="bg-white rounded-xl shadow-sm p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Informations</h3>
+          <div class="space-y-4 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-600">Type</span>
+              <span class="font-medium text-gray-900"><%= type_label %></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Zone d'intervention</span>
+              <span class="font-medium text-gray-900">
+                <% coverage_labels = { 'city' => 'Ville', 'department' => 'Département', 'region' => 'Région', 'nationwide' => 'France', 'international' => 'International' } %>
+                <%= coverage_labels[@partner.coverage_area] || 'France' %>
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">Membre depuis</span>
+              <span class="font-medium text-gray-900"><%= @partner.created_at.strftime('%B %Y') %></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Partners -->
+        <% if @related_partners.any? %>
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Partenaires similaires</h3>
+            <div class="space-y-4">
+              <% @related_partners.each do |related| %>
+                <%= link_to partners_path(related), class: "block group" do %>
+                  <div class="flex gap-3">
+                    <% rel_gradient = type_gradients[related.partner_type] || type_gradients['other'] %>
+                    <% rel_initials = "#{related.user&.first_name&.[](0) || 'P'}#{related.user&.last_name&.[](0) || 'A'}".upcase %>
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-br <%= rel_gradient %> flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                      <%= rel_initials %>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h4 class="font-semibold text-gray-900 group-hover:text-teal-600 transition truncate">
+                        <%= [related.user&.first_name, related.user&.last_name].compact.join(' ').presence || related.company_name || 'Partenaire' %>
+                      </h4>
+                      <p class="text-sm text-gray-500"><%= type_labels[related.partner_type] || 'Partenaire' %></p>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

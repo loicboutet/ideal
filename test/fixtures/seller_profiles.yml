@@ -1,0 +1,25 @@
+# Seller profiles for testing
+
+seller_profile:
+  user: seller
+  is_broker: false
+  premium_access: false
+  credits: 10
+  free_contacts_used: 1
+  free_contacts_limit: 4
+
+seller_profile_two:
+  user: seller_two
+  is_broker: false
+  premium_access: true
+  credits: 50
+  free_contacts_used: 0
+  free_contacts_limit: 4
+
+seller_profile_premium:
+  user: admin
+  is_broker: true
+  premium_access: true
+  credits: 100
+  free_contacts_used: 0
+  free_contacts_limit: 10
