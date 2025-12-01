@@ -12,7 +12,7 @@ The design should be inspired by **[Bonjour Cactus](https://www.bonjourcactus.co
 ## Brand Assets
 
 ### Logo
-- Located in: `app/assets/images/IDAL.jpg`
+- Located in: `app/assets/images/ideal.png`
 - Use consistently across all pages
 - Maintain proper spacing around logo
 

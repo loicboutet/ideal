@@ -105,7 +105,7 @@ Welcome! This document provides an overview of all project documentation.
 ## 🎨 Design Assets
 
 ### Logo
-**Location:** `app/assets/images/IDAL.jpg`  
+**Location:** `app/assets/images/ideal.png`  
 **Description:** Platform logo for Idéal Reprise
 
 ### Design Mockups
@@ -154,7 +154,7 @@ ideal/
 │   │   └── mockups/                   # Mockup views
 │   └── assets/
 │       └── images/
-│           └── IDAL.jpg               # Logo
+│           └── ideal.png               # Logo
 │
 ├── config/
 │   ├── routes.rb                      # Rails routes
@@ -180,7 +180,7 @@ ideal/
 | Apply design guidelines | `doc/style_guide.md` |
 | Learn implementation details | `doc/IMPLEMENTATION_GUIDE.md` |
 | Find design references | `style_guide/` directory |
-| See the logo | `app/assets/images/IDAL.jpg` |
+| See the logo | `app/assets/images/ideal.png` |
 
 ---
 

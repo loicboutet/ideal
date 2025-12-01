@@ -50,7 +50,7 @@ All project documentation is located in the `/doc` directory:
 
 - **[`style_guide.md`](doc/style_guide.md)** - Design and UI guidelines
   - Visual reference: [Bonjour Cactus](https://www.bonjourcactus.com/)
-  - Brand assets location: `app/assets/images/IDAL.jpg`
+  - Brand assets location: `app/assets/images/ideal.png`
   - Design mockups: `style_guide/` directory
   - Tailwind CSS + Lucide Icons + Stimulus (minimal)
 
@@ -213,13 +213,13 @@ app/
 │       └── ... (shared views)
 └── assets/
     └── images/
-        └── IDAL.jpg                    # Logo
+        └── ideal.png                    # Logo
 ```
 
 ## 🎨 Design Reference
 
 - **Inspiration:** [Bonjour Cactus](https://www.bonjourcactus.com/)
-- **Logo:** `app/assets/images/IDAL.jpg`
+- **Logo:** `app/assets/images/ideal.png`
 - **Mockup Screenshots:** `style_guide/` directory
 - **Color Palette:** Professional, clean, modern (consistent per role)
 - **Typography:** Inter font family

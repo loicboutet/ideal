@@ -107,7 +107,7 @@ Located in `/doc`:
 - `QUICK_START.md` - Quick reference guide
 
 ### Design Assets
-- **Logo:** `app/assets/images/IDAL.jpg`
+- **Logo:** `app/assets/images/ideal.png`
 - **Design mockups:** `style_guide/` directory (4 screenshots)
 - **Reference site:** https://www.bonjourcactus.com/
 
