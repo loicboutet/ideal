@@ -67,7 +67,7 @@
   </div>
 
   <!-- Validation Alert -->
-  <% if @listing.validation_status == 'rejected' && @listing.validation_comment.present? %>
+  <% if @listing.validation_status == 'rejected' && @listing.rejection_reason.present? %>
     <div class="bg-red-50 border border-red-200 rounded-lg p-4">
       <div class="flex gap-3">
         <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +75,7 @@
         </svg>
         <div class="text-sm text-red-800">
           <p><strong>Raison du rejet :</strong></p>
-          <p class="mt-1"><%= @listing.validation_comment %></p>
+          <p class="mt-1"><%= @listing.rejection_reason %></p>
         </div>
       </div>
     </div>
