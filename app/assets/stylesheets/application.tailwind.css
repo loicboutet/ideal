@@ -26,15 +26,22 @@
     --ideal-bg-white: #FFFFFF;
     --ideal-bg-overlay: rgba(0, 0, 0, 0.5);
     
-    /* Bordures */
+    /* Bordures - Updated per specs */
     --ideal-border-light: #E0E0E0;
     --ideal-border-medium: #CCCCCC;
+    --ideal-card-border: #d0d0d0;
     
-    /* Ombres */
+    /* Ombres - Updated with correct transparency levels per specs */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+    /* Sidebar and top bar shadow: 60% transparency */
+    --shadow-sidebar: 4px 0 12px rgba(0, 0, 0, 0.6);
+    /* Top bar shadow: 20% transparency */
+    --shadow-topbar: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* White cards shadow: 60% transparency */
+    --shadow-card-white: 0 4px 12px rgba(0, 0, 0, 0.6);
     
     /* Espacements */
     --spacing-xs: 4px;
@@ -48,6 +55,67 @@
     --radius-md: 8px;
     --radius-lg: 12px;
     --radius-full: 9999px;
+
+    /* ============================================
+       BUTTON GRADIENTS (Per specs)
+       ============================================ */
+    /* Primary buttons (Voir Annonce, connexion): #5d99c7 → #7ccbd7 */
+    --gradient-primary-start: #5d99c7;
+    --gradient-primary-end: #7ccbd7;
+    /* Premium buttons: #ffde59 → #ff914d */
+    --gradient-premium-start: #ffde59;
+    --gradient-premium-end: #ff914d;
+    /* Partner buttons: #c5ffe3 → #19a460 */
+    --gradient-partner-start: #c5ffe3;
+    --gradient-partner-end: #19a460;
+
+    /* ============================================
+       REPRENEUR (BUYER) - Orange/Gold Theme
+       ============================================ */
+    --buyer-topbar-start: rgba(255, 158, 87, 0.1);
+    --buyer-topbar-end: #ffffff;
+    --buyer-border-start: #ffde59;
+    --buyer-border-end: #ff914d;
+    --buyer-sidebar-start: #ff9e57;
+    --buyer-sidebar-end: #ffffff;
+    --buyer-hover-start: rgba(255, 222, 89, 0.7);
+    --buyer-hover-end: rgba(255, 145, 77, 0.8);
+
+    /* ============================================
+       CEDANT (SELLER) - Blue Theme
+       ============================================ */
+    --seller-topbar-start: rgba(93, 177, 230, 0.1);
+    --seller-topbar-end: #ffffff;
+    --seller-border-start: #5d99c7;
+    --seller-border-end: #7ccbd7;
+    --seller-sidebar-start: #5db1e6;
+    --seller-sidebar-end: #ffffff;
+    --seller-hover-start: rgba(95, 137, 199, 0.7);
+    --seller-hover-end: rgba(124, 203, 215, 0.8);
+
+    /* ============================================
+       PARTENAIRE (PARTNER) - Green Theme
+       ============================================ */
+    --partner-topbar-start: rgba(152, 213, 180, 0.1);
+    --partner-topbar-end: #ffffff;
+    --partner-border-start: #29ad6d;
+    --partner-border-end: #5ccd96;
+    --partner-sidebar-start: #29ad6d;
+    --partner-sidebar-end: #ffffff;
+    --partner-hover-start: rgba(41, 173, 109, 0.7);
+    --partner-hover-end: rgba(41, 173, 109, 0.8);
+
+    /* ============================================
+       ADMIN - Dark/Gray Theme
+       ============================================ */
+    --admin-topbar-start: rgba(31, 41, 55, 0.1);
+    --admin-topbar-end: #ffffff;
+    --admin-border-start: #1f2937;
+    --admin-border-end: #4b5563;
+    --admin-sidebar-start: #374151;
+    --admin-sidebar-end: #ffffff;
+    --admin-hover-start: rgba(55, 65, 81, 0.7);
+    --admin-hover-end: rgba(75, 85, 99, 0.8);
   }
 
   body {
@@ -59,41 +127,23 @@
   }
 }
 
-/* IDEAL Design System - Typography Classes */
+/* IDEAL Design System - Component Classes */
 @layer components {
-  .heading-1 { 
-    @apply text-[32px] font-bold leading-tight;
-  }
-  
-  .heading-2 { 
-    @apply text-2xl font-bold leading-snug;
-  }
-  
-  .heading-3 { 
-    @apply text-xl font-semibold leading-normal;
-  }
-  
-  .heading-4 { 
-    @apply text-lg font-semibold leading-normal;
-  }
-  
-  .body-large { 
-    @apply text-base font-normal leading-relaxed;
-  }
-  
-  .body-regular { 
-    @apply text-sm font-normal leading-relaxed;
-  }
-  
-  .body-small { 
-    @apply text-xs font-normal leading-relaxed;
-  }
-  
-  .label { 
-    @apply text-sm font-medium leading-normal;
-  }
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  .heading-1 { @apply text-[32px] font-bold leading-tight; }
+  .heading-2 { @apply text-2xl font-bold leading-snug; }
+  .heading-3 { @apply text-xl font-semibold leading-normal; }
+  .heading-4 { @apply text-lg font-semibold leading-normal; }
+  .body-large { @apply text-base font-normal leading-relaxed; }
+  .body-regular { @apply text-sm font-normal leading-relaxed; }
+  .body-small { @apply text-xs font-normal leading-relaxed; }
+  .label { @apply text-sm font-medium leading-normal; }
 
-  /* Component Classes - Cards */
+  /* ============================================
+     CARDS - With hover zoom (bump) effect
+     ============================================ */
   .card {
     background: var(--ideal-bg-white);
     border-radius: var(--radius-lg);
@@ -101,7 +151,39 @@
     padding: var(--spacing-lg);
   }
 
-  /* Component Classes - Buttons */
+  /* Card Ideal - White cards with 2px border, shadow 60%, hover zoom */
+  .card-ideal {
+    background: var(--ideal-bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card-white);
+    padding: var(--spacing-lg);
+    border: 2px solid var(--ideal-card-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card-ideal:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Deal Cards - Same styling */
+  .deal-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card-white);
+    padding: var(--spacing-md);
+    border: 2px solid var(--ideal-card-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .deal-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ============================================
+     BUTTONS
+     ============================================ */
   .btn {
     @apply inline-flex items-center justify-center;
     padding: 10px 24px;
@@ -155,7 +237,72 @@
     box-shadow: var(--shadow-md);
   }
 
-  /* Component Classes - Badges */
+  /* Gradient Button - Primary (Voir Annonce, connexion) */
+  .btn-gradient-primary {
+    @apply inline-flex items-center justify-center;
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, var(--gradient-primary-start), var(--gradient-primary-end));
+    color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(93, 153, 199, 0.4);
+  }
+
+  .btn-gradient-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 16px rgba(93, 153, 199, 0.5);
+    filter: brightness(1.05);
+  }
+
+  /* Gradient Button - Premium (Gold/Orange) */
+  .btn-gradient-premium {
+    @apply inline-flex items-center justify-center;
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, var(--gradient-premium-start), var(--gradient-premium-end));
+    color: var(--ideal-text-dark);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(255, 145, 77, 0.4);
+  }
+
+  .btn-gradient-premium:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 16px rgba(255, 145, 77, 0.5);
+    filter: brightness(1.05);
+  }
+
+  /* Gradient Button - Partner (Green) */
+  .btn-gradient-partner {
+    @apply inline-flex items-center justify-center;
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background: linear-gradient(135deg, var(--gradient-partner-start), var(--gradient-partner-end));
+    color: var(--ideal-text-dark);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(25, 164, 96, 0.4);
+  }
+
+  .btn-gradient-partner:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 16px rgba(25, 164, 96, 0.5);
+    filter: brightness(1.05);
+  }
+
+  /* ============================================
+     BADGES
+     ============================================ */
   .badge {
     @apply inline-block;
     padding: 4px 12px;
@@ -164,41 +311,14 @@
     font-weight: 500;
   }
   
-  .badge-ideal {
-    background-color: var(--ideal-accent);
-    color: var(--ideal-text-dark);
-  }
-  
-  .badge-reserved {
-    background-color: #FFE5E5;
-    color: var(--ideal-danger);
-  }
+  .badge-ideal { background-color: var(--ideal-accent); color: var(--ideal-text-dark); }
+  .badge-reserved { background-color: #FFE5E5; color: var(--ideal-danger); }
+  .badge-success { background-color: rgba(127, 191, 95, 0.1); color: var(--ideal-success); }
+  .badge-info { background-color: rgba(74, 144, 226, 0.1); color: var(--ideal-primary); }
 
-  .badge-success {
-    background-color: rgba(127, 191, 95, 0.1);
-    color: var(--ideal-success);
-  }
-
-  .badge-info {
-    background-color: rgba(74, 144, 226, 0.1);
-    color: var(--ideal-primary);
-  }
-
-  /* Component Classes - Deal Cards */
-  .deal-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    padding: var(--spacing-md);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  .deal-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  /* Component Classes - Search Bar */
+  /* ============================================
+     SEARCH & FORMS
+     ============================================ */
   .search-bar {
     border: 2px solid var(--ideal-border-medium);
     border-radius: var(--radius-full);
@@ -212,7 +332,9 @@
     box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
   }
 
-  /* Component Classes - Tabs */
+  /* ============================================
+     TABS
+     ============================================ */
   .tab-button {
     padding: 10px 20px;
     border-radius: var(--radius-full);
@@ -224,34 +346,12 @@
     cursor: pointer;
   }
 
-  .tab-button:hover {
-    background-color: #C0C0C0;
-  }
-  
-  .tab-button.active {
-    background-color: var(--ideal-text-dark);
-    color: white;
-  }
+  .tab-button:hover { background-color: #C0C0C0; }
+  .tab-button.active { background-color: var(--ideal-text-dark); color: white; }
 
-  /* Component Classes - Sidebar */
-  .sidebar-item {
-    @apply flex items-center;
-    padding: 12px 16px;
-    border-radius: var(--radius-md);
-    transition: background-color 0.2s ease;
-    cursor: pointer;
-  }
-  
-  .sidebar-item:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  .sidebar-item.active {
-    background-color: rgba(74, 144, 226, 0.1);
-    color: var(--ideal-primary);
-  }
-
-  /* Component Classes - Progress Bar */
+  /* ============================================
+     PROGRESS BAR
+     ============================================ */
   .progress-bar {
     height: 8px;
     background-color: var(--ideal-secondary);
@@ -265,7 +365,9 @@
     transition: width 0.3s ease;
   }
 
-  /* Component Classes - Modal */
+  /* ============================================
+     MODAL
+     ============================================ */
   .modal-overlay {
     background-color: var(--ideal-bg-overlay);
     backdrop-filter: blur(4px);
@@ -280,12 +382,178 @@
     overflow-y: auto;
   }
 
-  /* Component Classes - Icons */
-  .rating-stars {
-    color: var(--ideal-warning);
+  /* ============================================
+     ICONS & RATINGS
+     ============================================ */
+  .rating-stars { color: var(--ideal-warning); }
+  .favorite-icon { color: var(--ideal-danger); }
+
+  /* ============================================
+     SIDEBAR BASE STYLES
+     ============================================ */
+  .sidebar-item {
+    @apply flex items-center;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .sidebar-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .sidebar-item.active {
+    background-color: rgba(74, 144, 226, 0.1);
+    color: var(--ideal-primary);
   }
 
-  .favorite-icon {
-    color: var(--ideal-danger);
+  /* ============================================
+     LAYOUT: BUYER (REPRENEUR) - Orange/Gold Theme
+     ============================================ */
+  .layout-buyer .header-top-bar {
+    background: linear-gradient(180deg, var(--buyer-topbar-start), var(--buyer-topbar-end)) !important;
+    box-shadow: var(--shadow-topbar);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--buyer-border-start), var(--buyer-border-end)) 1;
+  }
+
+  .layout-buyer .sidebar-main {
+    background: white;
+    box-shadow: var(--shadow-sidebar);
+    border-right: 10px solid;
+    border-image: linear-gradient(180deg, var(--buyer-sidebar-start) 0%, var(--buyer-sidebar-end) 100%) 1;
+  }
+
+  .layout-buyer .menu-link:hover {
+    background: linear-gradient(90deg, var(--buyer-hover-start), var(--buyer-hover-end)) !important;
+    border-radius: 8px;
+  }
+
+  .layout-buyer .menu-link.active {
+    background: linear-gradient(90deg, var(--buyer-hover-start), var(--buyer-hover-end)) !important;
+    border-left: 3px solid var(--buyer-border-end);
+    border-radius: 8px;
+  }
+
+  /* ============================================
+     LAYOUT: SELLER (CEDANT) - Blue Theme
+     ============================================ */
+  .layout-seller .header-top-bar {
+    background: linear-gradient(180deg, var(--seller-topbar-start), var(--seller-topbar-end)) !important;
+    box-shadow: var(--shadow-topbar);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--seller-border-start), var(--seller-border-end)) 1;
+  }
+
+  .layout-seller .sidebar-main {
+    background: white;
+    box-shadow: var(--shadow-sidebar);
+    border-right: 10px solid;
+    border-image: linear-gradient(180deg, var(--seller-sidebar-start) 0%, var(--seller-sidebar-end) 100%) 1;
+  }
+
+  .layout-seller .menu-link:hover {
+    background: linear-gradient(90deg, var(--seller-hover-start), var(--seller-hover-end)) !important;
+    border-radius: 8px;
+  }
+
+  .layout-seller .menu-link.active {
+    background: linear-gradient(90deg, var(--seller-hover-start), var(--seller-hover-end)) !important;
+    border-left: 3px solid var(--seller-border-end);
+    border-radius: 8px;
+  }
+
+  /* ============================================
+     LAYOUT: PARTNER (PARTENAIRE) - Green Theme
+     ============================================ */
+  .layout-partner .header-top-bar {
+    background: linear-gradient(180deg, var(--partner-topbar-start), var(--partner-topbar-end)) !important;
+    box-shadow: var(--shadow-topbar);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--partner-border-start), var(--partner-border-end)) 1;
+  }
+
+  .layout-partner .sidebar-main {
+    background: white;
+    box-shadow: var(--shadow-sidebar);
+    border-right: 10px solid;
+    border-image: linear-gradient(180deg, var(--partner-sidebar-start) 0%, var(--partner-sidebar-end) 100%) 1;
+  }
+
+  .layout-partner .menu-link:hover {
+    background: linear-gradient(90deg, var(--partner-hover-start), var(--partner-hover-end)) !important;
+    border-radius: 8px;
+  }
+
+  .layout-partner .menu-link.active {
+    background: linear-gradient(90deg, var(--partner-hover-start), var(--partner-hover-end)) !important;
+    border-left: 3px solid var(--partner-border-end);
+    border-radius: 8px;
+  }
+
+  /* ============================================
+     LAYOUT: ADMIN - Dark/Gray Theme
+     ============================================ */
+  .layout-admin .header-top-bar {
+    background: linear-gradient(180deg, var(--admin-topbar-start), var(--admin-topbar-end)) !important;
+    box-shadow: var(--shadow-topbar);
+    border-bottom: 2px solid;
+    border-image: linear-gradient(90deg, var(--admin-border-start), var(--admin-border-end)) 1;
+  }
+
+  .layout-admin .sidebar-main {
+    box-shadow: var(--shadow-sidebar);
+    border-right: 10px solid;
+    border-image: linear-gradient(180deg, var(--admin-sidebar-start) 0%, var(--admin-sidebar-end) 100%) 1;
+  }
+
+  .layout-admin .menu-link:hover {
+    background: linear-gradient(90deg, var(--admin-hover-start), var(--admin-hover-end)) !important;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .layout-admin .menu-link.active {
+    background: linear-gradient(90deg, var(--admin-hover-start), var(--admin-hover-end)) !important;
+    border-left: 3px solid var(--admin-border-end);
+    border-radius: 8px;
+    color: white;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+@layer utilities {
+  /* Card hover zoom effect utility */
+  .hover-zoom {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .hover-zoom:hover {
+    transform: scale(1.02);
+  }
+
+  /* Gradient text utilities */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, var(--gradient-primary-start), var(--gradient-primary-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-premium {
+    background: linear-gradient(135deg, var(--gradient-premium-start), var(--gradient-premium-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-partner {
+    background: linear-gradient(135deg, var(--gradient-partner-start), var(--gradient-partner-end));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
