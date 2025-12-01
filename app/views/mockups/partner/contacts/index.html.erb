@@ -1,0 +1,448 @@
+<% content_for :title, "Mes contacts - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900">Mes contacts</h1>
+      <p class="mt-1 text-sm text-gray-600">
+        Personnes qui vous ont contacté via l'annuaire partenaires
+      </p>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
+        <i data-lucide="users" class="w-4 h-4 mr-1.5"></i>
+        12 contacts ce mois
+      </span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white border border-gray-200 rounded-xl p-4">
+    <div class="flex flex-col sm:flex-row gap-4">
+      <div class="flex-1">
+        <div class="relative">
+          <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+          <input type="text" 
+                 placeholder="Rechercher un contact..." 
+                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+        </div>
+      </div>
+      
+      <div class="flex gap-3">
+        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+          <option value="">Tous les types</option>
+          <option value="seller">Cédants</option>
+          <option value="buyer">Repreneurs</option>
+        </select>
+        
+        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+          <option value="">Toutes les périodes</option>
+          <option value="today">Aujourd'hui</option>
+          <option value="week">Cette semaine</option>
+          <option value="month">Ce mois</option>
+          <option value="quarter">Ce trimestre</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div class="bg-white border border-gray-200 rounded-xl p-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-blue-100 rounded-lg">
+          <i data-lucide="users" class="w-5 h-5 text-blue-600"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-900">47</p>
+          <p class="text-sm text-gray-600">Total contacts</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white border border-gray-200 rounded-xl p-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-emerald-100 rounded-lg">
+          <i data-lucide="building-2" class="w-5 h-5 text-emerald-600"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-900">28</p>
+          <p class="text-sm text-gray-600">Cédants</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white border border-gray-200 rounded-xl p-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <i data-lucide="briefcase" class="w-5 h-5 text-purple-600"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-900">19</p>
+          <p class="text-sm text-gray-600">Repreneurs</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white border border-gray-200 rounded-xl p-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-amber-100 rounded-lg">
+          <i data-lucide="clock" class="w-5 h-5 text-amber-600"></i>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-900">5</p>
+          <p class="text-sm text-gray-600">Non lus</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contacts List -->
+  <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+          <tr>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Contact
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Type
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Sujet
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Date
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Statut
+            </th>
+            <th scope="col" class="relative px-6 py-3">
+              <span class="sr-only">Actions</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <!-- Contact 1 - Non lu -->
+          <tr class="bg-teal-50/30 hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                    <span class="text-blue-700 font-medium text-sm">ML</span>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <div class="flex items-center gap-2">
+                    <div class="text-sm font-medium text-gray-900">Marc Leblanc</div>
+                    <span class="w-2 h-2 bg-teal-500 rounded-full"></span>
+                  </div>
+                  <div class="text-sm text-gray-500">marc.leblanc@example.com</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                <i data-lucide="building-2" class="w-3 h-3 mr-1"></i>
+                Cédant
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900 font-medium">Accompagnement cession</div>
+              <div class="text-sm text-gray-500 truncate max-w-xs">Bonjour, je souhaite être accompagné pour la cession de mon entreprise...</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Aujourd'hui</div>
+              <div class="text-sm text-gray-500">10:32</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                Non lu
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <a href="<%= mockups_partner_contact_path(1) %>" class="text-teal-600 hover:text-teal-900">
+                Voir <i data-lucide="arrow-right" class="w-4 h-4 inline"></i>
+              </a>
+            </td>
+          </tr>
+
+          <!-- Contact 2 - Non lu -->
+          <tr class="bg-teal-50/30 hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
+                    <span class="text-purple-700 font-medium text-sm">SD</span>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <div class="flex items-center gap-2">
+                    <div class="text-sm font-medium text-gray-900">Sophie Durand</div>
+                    <span class="w-2 h-2 bg-teal-500 rounded-full"></span>
+                  </div>
+                  <div class="text-sm text-gray-500">sophie.durand@example.com</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                <i data-lucide="briefcase" class="w-3 h-3 mr-1"></i>
+                Repreneur
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900 font-medium">Audit financier</div>
+              <div class="text-sm text-gray-500 truncate max-w-xs">Je recherche un expert-comptable pour m'accompagner dans l'audit...</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Aujourd'hui</div>
+              <div class="text-sm text-gray-500">09:15</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                Non lu
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <a href="<%= mockups_partner_contact_path(2) %>" class="text-teal-600 hover:text-teal-900">
+                Voir <i data-lucide="arrow-right" class="w-4 h-4 inline"></i>
+              </a>
+            </td>
+          </tr>
+
+          <!-- Contact 3 - Lu -->
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <div class="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                    <span class="text-emerald-700 font-medium text-sm">JM</span>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">Jacques Martin</div>
+                  <div class="text-sm text-gray-500">j.martin@entreprise.fr</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                <i data-lucide="building-2" class="w-3 h-3 mr-1"></i>
+                Cédant
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900 font-medium">Valorisation entreprise</div>
+              <div class="text-sm text-gray-500 truncate max-w-xs">Suite à notre échange téléphonique, je vous confirme mon intérêt...</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">Hier</div>
+              <div class="text-sm text-gray-500">16:45</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                Répondu
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <a href="<%= mockups_partner_contact_path(3) %>" class="text-teal-600 hover:text-teal-900">
+                Voir <i data-lucide="arrow-right" class="w-4 h-4 inline"></i>
+              </a>
+            </td>
+          </tr>
+
+          <!-- Contact 4 -->
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <div class="h-10 w-10 rounded-full bg-orange-100 flex items-center justify-center">
+                    <span class="text-orange-700 font-medium text-sm">LP</span>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">Laurent Petit</div>
+                  <div class="text-sm text-gray-500">laurent.petit@gmail.com</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                <i data-lucide="briefcase" class="w-3 h-3 mr-1"></i>
+                Repreneur
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900 font-medium">Conseil juridique</div>
+              <div class="text-sm text-gray-500 truncate max-w-xs">Je suis en négociation pour une reprise et j'aurais besoin...</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">22 jan. 2025</div>
+              <div class="text-sm text-gray-500">14:20</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                Répondu
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <a href="<%= mockups_partner_contact_path(4) %>" class="text-teal-600 hover:text-teal-900">
+                Voir <i data-lucide="arrow-right" class="w-4 h-4 inline"></i>
+              </a>
+            </td>
+          </tr>
+
+          <!-- Contact 5 -->
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <div class="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center">
+                    <span class="text-teal-700 font-medium text-sm">CB</span>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">Catherine Bertrand</div>
+                  <div class="text-sm text-gray-500">c.bertrand@societe.com</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                <i data-lucide="building-2" class="w-3 h-3 mr-1"></i>
+                Cédant
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900 font-medium">Audit social</div>
+              <div class="text-sm text-gray-500 truncate max-w-xs">Dans le cadre de la cession de mon entreprise, je recherche...</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">20 jan. 2025</div>
+              <div class="text-sm text-gray-500">11:08</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                En attente
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <a href="<%= mockups_partner_contact_path(5) %>" class="text-teal-600 hover:text-teal-900">
+                Voir <i data-lucide="arrow-right" class="w-4 h-4 inline"></i>
+              </a>
+            </td>
+          </tr>
+
+          <!-- Contact 6 -->
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10">
+                  <div class="h-10 w-10 rounded-full bg-rose-100 flex items-center justify-center">
+                    <span class="text-rose-700 font-medium text-sm">AR</span>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <div class="text-sm font-medium text-gray-900">Alain Rousseau</div>
+                  <div class="text-sm text-gray-500">alain.r@outlook.fr</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                <i data-lucide="briefcase" class="w-3 h-3 mr-1"></i>
+                Repreneur
+              </span>
+            </td>
+            <td class="px-6 py-4">
+              <div class="text-sm text-gray-900 font-medium">Recherche financement</div>
+              <div class="text-sm text-gray-500 truncate max-w-xs">Je suis à la recherche d'un courtier pour m'aider à obtenir...</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-gray-900">18 jan. 2025</div>
+              <div class="text-sm text-gray-500">09:30</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                Répondu
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <a href="<%= mockups_partner_contact_path(6) %>" class="text-teal-600 hover:text-teal-900">
+                Voir <i data-lucide="arrow-right" class="w-4 h-4 inline"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+          Précédent
+        </a>
+        <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+          Suivant
+        </a>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Affichage de <span class="font-medium">1</span> à <span class="font-medium">6</span> sur <span class="font-medium">47</span> contacts
+          </p>
+        </div>
+        <div>
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+              <span class="sr-only">Précédent</span>
+              <i data-lucide="chevron-left" class="h-5 w-5"></i>
+            </a>
+            <a href="#" aria-current="page" class="z-10 bg-teal-50 border-teal-500 text-teal-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">1</a>
+            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">2</a>
+            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">3</a>
+            <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
+            <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">8</a>
+            <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+              <span class="sr-only">Suivant</span>
+              <i data-lucide="chevron-right" class="h-5 w-5"></i>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Card -->
+  <div class="bg-gradient-to-r from-teal-50 to-emerald-50 border border-teal-200 rounded-xl p-6">
+    <div class="flex items-start gap-4">
+      <div class="flex-shrink-0">
+        <div class="p-3 bg-teal-100 rounded-xl">
+          <i data-lucide="lightbulb" class="w-6 h-6 text-teal-600"></i>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900">Optimisez votre visibilité</h3>
+        <p class="mt-1 text-sm text-gray-600">
+          Un profil complet et bien renseigné attire plus de contacts qualifiés. 
+          Pensez à mettre à jour vos spécialités et zones d'intervention régulièrement.
+        </p>
+        <div class="mt-4 flex gap-3">
+          <a href="<%= edit_mockups_partner_profile_path %>" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors">
+            <i data-lucide="edit" class="w-4 h-4 mr-2"></i>
+            Modifier mon profil
+          </a>
+          <a href="<%= mockups_partner_analytics_path %>" class="inline-flex items-center px-4 py-2 bg-white text-teal-700 text-sm font-medium rounded-lg border border-teal-300 hover:bg-teal-50 transition-colors">
+            <i data-lucide="bar-chart-2" class="w-4 h-4 mr-2"></i>
+            Voir mes statistiques
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,272 @@
+<% content_for :title, "Détail du contact - Idéal Reprise" %>
+
+<div class="space-y-6">
+  <!-- Breadcrumb & Back -->
+  <div class="flex items-center gap-2 text-sm text-gray-600">
+    <a href="<%= mockups_partner_contacts_path %>" class="flex items-center gap-1 hover:text-teal-600 transition-colors">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      Retour aux contacts
+    </a>
+  </div>
+
+  <!-- Contact Header -->
+  <div class="bg-white border border-gray-200 rounded-xl p-6">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+      <div class="flex items-start gap-4">
+        <div class="flex-shrink-0">
+          <div class="h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center">
+            <span class="text-blue-700 font-bold text-xl">ML</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-3">
+            <h1 class="text-2xl font-bold text-gray-900">Marc Leblanc</h1>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+              <i data-lucide="building-2" class="w-3 h-3 mr-1"></i>
+              Cédant
+            </span>
+          </div>
+          <p class="mt-1 text-gray-600">marc.leblanc@example.com</p>
+          <p class="text-gray-500">+33 6 12 34 56 78</p>
+          <div class="mt-2 flex items-center gap-2 text-sm text-gray-500">
+            <i data-lucide="calendar" class="w-4 h-4"></i>
+            <span>Contact reçu le 24 janvier 2025 à 10:32</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+          <i data-lucide="clock" class="w-4 h-4 mr-1.5"></i>
+          Non lu
+        </span>
+        <button type="button" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors">
+          <i data-lucide="check" class="w-4 h-4 mr-2"></i>
+          Marquer comme traité
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Content -->
+    <div class="lg:col-span-2 space-y-6">
+      <!-- Message -->
+      <div class="bg-white border border-gray-200 rounded-xl">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900">Message</h2>
+        </div>
+        <div class="p-6">
+          <div class="mb-4">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+              <i data-lucide="tag" class="w-4 h-4 mr-1.5"></i>
+              Accompagnement cession
+            </span>
+          </div>
+          <div class="prose prose-sm max-w-none text-gray-700">
+            <p>Bonjour,</p>
+            <p>
+              Je suis dirigeant d'une entreprise de menuiserie située en Gironde depuis 25 ans. 
+              Avec l'approche de ma retraite, je commence à réfléchir sérieusement à la cession de mon activité.
+            </p>
+            <p>
+              J'ai découvert votre profil sur la plateforme Idéal Reprise et votre expertise en accompagnement 
+              de cession d'entreprises dans le secteur du BTP m'a particulièrement intéressé.
+            </p>
+            <p>
+              Mon entreprise réalise un chiffre d'affaires d'environ 2,5 millions d'euros avec une équipe 
+              de 18 salariés. J'aimerais être accompagné sur les aspects suivants :
+            </p>
+            <ul>
+              <li>Valorisation de l'entreprise</li>
+              <li>Préparation à la cession</li>
+              <li>Recherche de repreneurs potentiels</li>
+              <li>Accompagnement dans les négociations</li>
+            </ul>
+            <p>
+              Seriez-vous disponible pour un premier échange téléphonique afin de discuter 
+              de ma situation et de vos modalités d'intervention ?
+            </p>
+            <p>
+              Dans l'attente de votre retour, je vous prie d'agréer mes salutations distinguées.
+            </p>
+            <p>Marc Leblanc</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Response Form -->
+      <div class="bg-white border border-gray-200 rounded-xl">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900">Répondre</h2>
+        </div>
+        <div class="p-6">
+          <form class="space-y-4">
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">Sujet</label>
+              <input type="text" 
+                     id="subject" 
+                     value="Re: Accompagnement cession" 
+                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              <textarea id="message" 
+                        rows="8" 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                        placeholder="Rédigez votre réponse..."></textarea>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4">
+              <div class="flex items-center gap-4">
+                <button type="button" class="inline-flex items-center px-4 py-2 text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
+                  <i data-lucide="paperclip" class="w-4 h-4 mr-2"></i>
+                  Joindre un fichier
+                </button>
+                <button type="button" class="inline-flex items-center px-4 py-2 text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
+                  <i data-lucide="file-text" class="w-4 h-4 mr-2"></i>
+                  Modèle de réponse
+                </button>
+              </div>
+              
+              <button type="submit" class="inline-flex items-center px-6 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors">
+                <i data-lucide="send" class="w-4 h-4 mr-2"></i>
+                Envoyer la réponse
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="space-y-6">
+      <!-- Contact Info -->
+      <div class="bg-white border border-gray-200 rounded-xl">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Informations contact</h3>
+        </div>
+        <div class="p-6 space-y-4">
+          <div>
+            <p class="text-sm text-gray-500">Email</p>
+            <a href="mailto:marc.leblanc@example.com" class="text-teal-600 hover:text-teal-700">
+              marc.leblanc@example.com
+            </a>
+          </div>
+          
+          <div>
+            <p class="text-sm text-gray-500">Téléphone</p>
+            <a href="tel:+33612345678" class="text-teal-600 hover:text-teal-700">
+              +33 6 12 34 56 78
+            </a>
+          </div>
+          
+          <div>
+            <p class="text-sm text-gray-500">Entreprise</p>
+            <p class="text-gray-900">Menuiserie Leblanc SARL</p>
+          </div>
+          
+          <div>
+            <p class="text-sm text-gray-500">Localisation</p>
+            <p class="text-gray-900">Gironde (33)</p>
+          </div>
+          
+          <div>
+            <p class="text-sm text-gray-500">Secteur d'activité</p>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+              BTP / Construction
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-white border border-gray-200 rounded-xl">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Actions rapides</h3>
+        </div>
+        <div class="p-4 space-y-2">
+          <a href="tel:+33612345678" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="p-2 bg-green-100 rounded-lg">
+              <i data-lucide="phone" class="w-5 h-5 text-green-600"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-900">Appeler</span>
+          </a>
+          
+          <a href="mailto:marc.leblanc@example.com" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="p-2 bg-blue-100 rounded-lg">
+              <i data-lucide="mail" class="w-5 h-5 text-blue-600"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-900">Envoyer un email</span>
+          </a>
+          
+          <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="p-2 bg-purple-100 rounded-lg">
+              <i data-lucide="calendar" class="w-5 h-5 text-purple-600"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-900">Planifier un RDV</span>
+          </a>
+          
+          <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors">
+            <div class="p-2 bg-amber-100 rounded-lg">
+              <i data-lucide="bookmark" class="w-5 h-5 text-amber-600"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-900">Ajouter une note</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Status -->
+      <div class="bg-white border border-gray-200 rounded-xl">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h3 class="text-lg font-semibold text-gray-900">Statut du contact</h3>
+        </div>
+        <div class="p-6">
+          <div class="space-y-3">
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="status" class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300">
+              <span class="text-sm text-gray-700">Non lu</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="status" class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300">
+              <span class="text-sm text-gray-700">En attente</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="status" class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300" checked>
+              <span class="text-sm text-gray-700">Répondu</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="status" class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300">
+              <span class="text-sm text-gray-700">Converti (client)</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="radio" name="status" class="h-4 w-4 text-teal-600 focus:ring-teal-500 border-gray-300">
+              <span class="text-sm text-gray-700">Archivé</span>
+            </label>
+          </div>
+          
+          <button type="button" class="mt-4 w-full px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors">
+            Mettre à jour le statut
+          </button>
+        </div>
+      </div>
+
+      <!-- Notes -->
+      <div class="bg-white border border-gray-200 rounded-xl">
+        <div class="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+          <h3 class="text-lg font-semibold text-gray-900">Notes</h3>
+          <button type="button" class="text-teal-600 hover:text-teal-700 text-sm font-medium">
+            + Ajouter
+          </button>
+        </div>
+        <div class="p-6">
+          <div class="text-center py-4">
+            <i data-lucide="file-text" class="w-8 h-8 text-gray-300 mx-auto mb-2"></i>
+            <p class="text-sm text-gray-500">Aucune note pour le moment</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

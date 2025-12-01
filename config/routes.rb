@@ -575,6 +575,11 @@ Rails.application.routes.draw do
   # Mockups routes - Partner Settings
   get "mockups/partner/settings", to: "mockups/partner/settings#show", as: :mockups_partner_settings
 
+  # Mockups routes - Partner Contacts & Analytics
+  get "mockups/partner/contacts", to: "mockups/partner/contacts#index", as: :mockups_partner_contacts
+  get "mockups/partner/contacts/:id", to: "mockups/partner/contacts#show", as: :mockups_partner_contact
+  get "mockups/partner/analytics", to: "mockups/partner/analytics#index", as: :mockups_partner_analytics
+
   # Mockups routes - Partner Directory (Public Browse)
   get "mockups/directory", to: "mockups/directory#index", as: :mockups_directory
   get "mockups/directory/search", to: "mockups/directory#search", as: :search_mockups_directory

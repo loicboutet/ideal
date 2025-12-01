@@ -39,7 +39,7 @@
                     <%= partner.user.company_name || partner.user.full_name || partner.user.email %>
                   </h3>
                   <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                    <%= partner.partner_type.humanize %>
+                    <%= partner.partner_type&.humanize || 'Non défini' %>
                   </span>
                 </div>
               </div>
