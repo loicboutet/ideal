@@ -7,6 +7,8 @@
   has_listing_nda = current_user.nda_signatures.exists?(signature_type: :listing_specific, listing_id: @listing.id)
   can_view_confidential = has_platform_nda && has_listing_nda
   can_reserve = @listing.can_be_reserved_by?(@buyer_profile)
+  reservation_cost = @reservation_cost || 10
+  has_enough_credits = @buyer_profile.credits >= reservation_cost
 %>
 
 <div class="max-w-5xl mx-auto space-y-6">
@@ -233,8 +235,14 @@
           🔓 Libérer la réservation
         <% end %>
       <% elsif can_reserve %>
-        <%= button_to reserve_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium" do %>
-          🔒 Réserver cette annonce
+        <% if has_enough_credits %>
+          <%= button_to reserve_buyer_listing_path(@listing), method: :post, class: "flex-1 px-6 py-3 bg-buyer-600 text-white rounded-lg hover:bg-buyer-700 transition font-medium", data: { confirm: "Confirmer la réservation ? #{reservation_cost} crédits seront déduits de votre compte." } do %>
+            🔒 Réserver cette annonce (<%= reservation_cost %> crédits)
+          <% end %>
+        <% else %>
+          <%= link_to buyer_credits_path, class: "flex-1 px-6 py-3 bg-gray-300 text-gray-600 rounded-lg hover:bg-gray-400 transition font-medium text-center" do %>
+            🔒 Crédits insuffisants (<%= @buyer_profile.credits %>/<%= reservation_cost %>)
+          <% end %>
         <% end %>
       <% else %>
         <button disabled class="flex-1 px-6 py-3 bg-gray-300 text-gray-500 rounded-lg cursor-not-allowed font-medium">
@@ -243,11 +251,26 @@
       <% end %>
     </div>
     
+    <!-- Credit Balance Info -->
+    <% unless @active_deal&.reserved? %>
+      <div class="mt-4 p-3 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-buyer-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-sm text-gray-700">
+            Votre solde : <strong class="<%= has_enough_credits ? 'text-green-600' : 'text-red-600' %>"><%= @buyer_profile.credits %> crédits</strong>
+          </span>
+        </div>
+        <%= link_to "Acheter des crédits →", buyer_credits_path, class: "text-sm text-buyer-600 hover:text-buyer-700 font-medium" %>
+      </div>
+    <% end %>
+    
     <!-- NDA Information -->
     <% unless can_view_confidential %>
       <div class="mt-4 p-4 bg-buyer-50 border border-buyer-200 rounded-lg space-y-4">
         <p class="text-sm text-buyer-800">
-          <strong>Note:</strong> Après signature du NDA et réservation, vous accéderez aux informations confidentielles (nom exact, adresse, contacts, documents).
+          <strong>Note:</strong> Après signature du NDA et réservation (<%= reservation_cost %> crédits), vous accéderez aux informations confidentielles (nom exact, adresse, contacts, documents).
         </p>
         
         <% unless has_platform_nda %>

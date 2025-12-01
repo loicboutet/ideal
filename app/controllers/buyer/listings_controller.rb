@@ -4,6 +4,8 @@ module Buyer
   class ListingsController < ApplicationController
     layout 'buyer'
     
+    RESERVATION_CREDIT_COST = 10
+    
     before_action :authenticate_user!
     before_action :ensure_buyer!
     before_action :set_buyer_profile
@@ -49,6 +51,9 @@ module Buyer
       
       # Check if listing is exclusively attributed to this buyer
       @is_exclusive = @listing.attributed_buyer_id == @buyer_profile.id
+      
+      # Reservation cost for display
+      @reservation_cost = RESERVATION_CREDIT_COST
     end
 
     def exclusive
@@ -134,6 +139,12 @@ module Buyer
         return
       end
 
+      # Check if buyer has sufficient credits
+      unless Payment::CreditService.has_sufficient_credits?(current_user, RESERVATION_CREDIT_COST)
+        redirect_to buyer_credits_path, alert: "Crédits insuffisants. Vous avez besoin de #{RESERVATION_CREDIT_COST} crédits pour réserver cette annonce. Votre solde actuel : #{@buyer_profile.credits} crédits."
+        return
+      end
+
       # Find or create deal
       @deal = @buyer_profile.deals.find_or_initialize_by(listing_id: @listing.id, released_at: nil)
       
@@ -142,22 +153,35 @@ module Buyer
         @deal.stage_entered_at = Time.current
       end
 
-      # Reserve the deal
-      @deal.reserve!
+      ActiveRecord::Base.transaction do
+        # Deduct credits for reservation
+        Payment::CreditService.deduct_credits(
+          current_user,
+          RESERVATION_CREDIT_COST,
+          :deal_reservation,
+          source: @deal,
+          description: "Réservation de l'annonce '#{@listing.title}'"
+        )
+        
+        # Reserve the deal
+        @deal.reserve!
 
-      # Update listing status to reserved
-      @listing.update(status: :reserved)
+        # Update listing status to reserved
+        @listing.update(status: :reserved)
+      end
 
       # Create notification
       Notification.create!(
         user: current_user,
         notification_type: :deal_reserved,
         title: "Annonce réservée avec succès",
-        message: "L'annonce '#{@listing.title}' a été réservée. Vous avez #{@deal.days_remaining} jours pour progresser.",
+        message: "L'annonce '#{@listing.title}' a été réservée pour #{RESERVATION_CREDIT_COST} crédits. Vous avez #{@deal.days_remaining} jours pour progresser.",
         link_url: buyer_deal_path(@deal)
       )
 
-      redirect_to buyer_listing_path(@listing), notice: "✅ Annonce réservée avec succès ! Vous avez #{@deal.days_remaining} jours pour cette étape."
+      redirect_to buyer_listing_path(@listing), notice: "✅ Annonce réservée avec succès (#{RESERVATION_CREDIT_COST} crédits déduits) ! Vous avez #{@deal.days_remaining} jours pour cette étape."
+    rescue Payment::CreditService::InsufficientCreditsError => e
+      redirect_to buyer_credits_path, alert: "Crédits insuffisants : #{e.message}"
     end
 
     def release
